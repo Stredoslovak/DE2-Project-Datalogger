@@ -17,6 +17,7 @@
 #include "gpio.h"
 #include <util/delay.h>
 #include <si4703.h>
+#include <rtc.h>
 
 //-- Definitions -------------------------------------------
 #define RTC_ADDRESS 0x68  // I2C slave address of RTC DS1307
@@ -49,6 +50,8 @@ volatile uint8_t rds_ready_flag = 0;
 uint8_t BLER[4] = {0};
 volatile uint8_t interupt_reached = 0;
 volatile uint8_t rds_poll = 0;
+
+
 static void setup_ext_int(void)
 {
     // PD2 = INT0
@@ -85,7 +88,7 @@ static void rds_check_group_and_dump(uint16_t A, uint16_t B, uint16_t C, uint16_
         uint8_t minute = (uint8_t)((D >> 6) & 0x3F);
         int8_t offset_half = (int8_t)(D & 0x3F);
         /* convert 5-bit signed (two's complement) to signed integer */
-        if (offset_half & 0x10) offset_half = offset_half - 32;
+        if (offset_half & 0x10) offset_half = offset_half - 32; //obstaranie znamienka pri offsete
 
         /* compute local minutes and day adjustment */
         int utc_minutes = hour * 60 + minute;
@@ -122,12 +125,14 @@ static void rds_check_group_and_dump(uint16_t A, uint16_t B, uint16_t C, uint16_
             year = 100 * (n - 49) + i + l;
         }
 
-        sprintf(line,
-            "CT 4A: MJD=%u -> %04d-%02d-%02d UTC %02u:%02u offset=%+d*0.5h local %02d:%02d\r\n",
-            mjd, year, month, day, hour, minute, offset_half,
+        snprintf(line, sizeof(line),
+            "CT 4A: MJD=%lu -> %04d-%02d-%02d UTC %02u:%02u offset=%+d*0.5h local %02d:%02d\r\n",
+            (unsigned long)mjd, (unsigned)year, (unsigned)month, (unsigned)day,
+            (unsigned)hour, (unsigned)minute,
+            (int)offset_half,
             local_minutes / 60, local_minutes % 60);
         uart_puts(line);
-        sprintf(line, "MJD=0x%08X (Hour=0x%04X | Minute=0x%04x | Offset=0x%04X)\r\n", mjd,hour, minute, offset_half);
+        sprintf(line, "MJD=0x%08X (Hour=0x%04X | Minute=0x%04x | Offset=0x%04X)\r\n", (int)mjd,hour, minute, offset_half);
         uart_puts(line);
         sprintf(line, "MJD=%u (Hour=%d | Minute=%d | Offset=%d)\r\n", (int)mjd,hour, minute, offset_half);
         uart_puts(line);
