@@ -138,5 +138,14 @@ void twi_readfrom_mem_into(uint8_t addr, uint8_t memaddr, volatile uint8_t *buf,
 uint8_t twi_writeto_mem(uint8_t addr, uint8_t memaddr, uint8_t data);
 
 /** @} */
+/**
+ * @brief  Write 16bit into peripheral
+ * @param  addr Slave address
+ * @param  memaddr Memory address
+ * @param  dataUpperHalf Data to be written
+ * @param  dataLowerHalf Data to be written
+ * @return none
+ */
+uint8_t twi_writeto_mem_16b(uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf,uint8_t dataLowerHalf);
 
 #endif

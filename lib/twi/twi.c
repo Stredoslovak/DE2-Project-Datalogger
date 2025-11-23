@@ -177,3 +177,28 @@ uint8_t twi_writeto_mem(uint8_t addr, uint8_t memaddr, uint8_t data)
     twi_stop();
     return 1; /* failure (NACK or other error) */
 }
+
+uint8_t twi_writeto_mem_16b(uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf,uint8_t dataLowerHalf)
+{
+    twi_start();
+    /* Send SLA+W and check ACK */
+    if (twi_write((addr<<1) | TWI_WRITE) == 0) //vyzva na komunikaciu
+    {
+        /* Send memory address */
+        if (twi_write(memaddr) == 0)    //zapis adresy pociatocnej
+        {
+            /* Send data byte */
+            if (twi_write(dataUpperHalf) == 0) //zapis upperHalf bytu
+            {
+                if (twi_write(dataLowerHalf) == 0) //zapis lowerHalf bytu
+                {
+                    twi_stop();
+                    return 0; /* success (ACKs received) */
+                }
+            
+            }
+        }
+    }
+    twi_stop();
+    return 1; /* failure (NACK or other error) */
+}
