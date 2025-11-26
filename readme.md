@@ -56,13 +56,15 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 Funkcne RDS cez SI4703.h lib
 Funkcne BMS280 - Teplota Vlhost Tlak
 
-###
-TODO:
+### TO DO list:
 SD card read write
 SGP41 gas sensor support
+- [x] SGP41 gas sensor support
+- [ ] SD card read write
+- [ ] Intergracia celku
+- [ ] Poster
 
-Intergracia celku
-Poster
+
 
 ### 5️⃣ Spracovanie a zápis dát  
 - Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
