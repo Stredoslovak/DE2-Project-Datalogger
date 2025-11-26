@@ -52,6 +52,18 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 ### 4️⃣ Periodické meranie dát  
 - **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
 
+### Stav projektu
+Funkcne RDS cez SI4703.h lib
+Funkcne BMS280 - Teplota Vlhost Tlak
+
+###
+TODO:
+SD card read write
+SGP41 gas sensor support
+
+Intergracia celku
+Poster
+
 ### 5️⃣ Spracovanie a zápis dát  
 - Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
 
