@@ -52,7 +52,7 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 ### 4️⃣ Periodické meranie dát  
 - **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
 
-### Stav projektu
+## Stav projektu
 Funkcne RDS cez SI4703.h lib
 Funkcne BMS280 - Teplota Vlhost Tlak
 
