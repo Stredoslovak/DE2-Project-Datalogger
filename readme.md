@@ -72,7 +72,19 @@ datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas
 
 ---
 
+-Logic Level Shifter
+
+Logic Level Shifter je modul pro bezpečnou komunikaci mezi součástkami s různým napětím. Protože Arduino Uno pracuje s 5V logiku, zatímco některé senzory vyžadují 3,3 V, tento převodník slouží jako most. Zajišťuje, aby 5V signál z Arduina nezničil citlivější 3,3V součástky.
+
 <img width="645" height="338" alt="image" src="https://github.com/user-attachments/assets/686055a1-fd39-4cec-8fec-7dcfb30c42e3" />
+
+---
+
+-SD karta
+
+V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všechny hodnoty naměřené senzory se v pravidelných intervalech ukládají do textového souboru  přímo na kartu. 
+
+<img width="600" height="480" alt="image" src="https://github.com/user-attachments/assets/172bfc9b-6083-4c04-88ee-1f411062a510" />
 
 -
 ## 🛠️ Funkčný zámer kódu
