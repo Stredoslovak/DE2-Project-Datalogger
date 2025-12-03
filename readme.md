@@ -1,3 +1,5 @@
+ **Vysoké učení technické v Brně, Fakulta elektrotechniky a komunikačních technologií, Ústav radioelektroniky, 2025/2026**
+
 # 📘 README – Datalogger pre meranie kvality okolia
 
 ## 🎯 Zámer projektu
