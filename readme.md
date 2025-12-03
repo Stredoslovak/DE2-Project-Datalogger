@@ -1,4 +1,4 @@
-[DE2_Project_subory.txt](https://github.com/user-attachments/files/23917001/DE2_Project_subory.txt)[DE2_Project_subory.txt](https://github.com/user-attachments/files/23916997/DE2_Project_subory.txt) **Vysoké učení technické v Brně, Fakulta elektrotechniky a komunikačních technologií, Ústav radioelektroniky, 2025/2026**
+**Vysoké učení technické v Brně, Fakulta elektrotechniky a komunikačních technologií, Ústav radioelektroniky, 2025/2026**
 
 # 📘 README – Datalogger pre meranie kvality okolia
 
