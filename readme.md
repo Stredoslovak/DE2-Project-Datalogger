@@ -41,6 +41,10 @@ datasheet- https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
 
 -ZS-042 (DS3231)
 
+Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citlivosti tlakového senzoru dokáže s dobrou přesností vypočítat i aktuální nadmořskou výšku. Má nízkou spotřebu a snadnou komunikaci s I2C
+
+
+
 Tento modul zajišťuje přesné časování celého systému. Komunikuje přes sběrnici I2C a umožňuje přidávat k naměřeným datům přesná časová razítka (datum a čas). Díky záložní baterii se čas nevynuluje ani při výpadku proudu nebo restartu Arduina.
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/989f3ca6-8efb-4fee-b2f6-5c820e1465d5" />
@@ -48,6 +52,17 @@ Tento modul zajišťuje přesné časování celého systému. Komunikuje přes 
 
 datasheet- https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf
 
+---
+
+
+-BME280
+
+Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citlivosti tlakového senzoru dokáže s dobrou přesností vypočítat i aktuální nadmořskou výšku. Má nízkou spotřebu a snadnou komunikaci s I2C
+
+<img width="990" height="990" alt="image" src="https://github.com/user-attachments/assets/f7b9bc40-25b1-4549-8f40-c33fb1505c3b" />
+
+
+datasheet- https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf
 ## 🛠️ Funkčný zámer kódu
 
 ### 1️⃣ Inicializácia RDS modulu  
