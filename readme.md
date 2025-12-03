@@ -108,7 +108,7 @@ zdroj- https://www.pololu.com/product/2587
 
 ---
 
-## zapojení
+## Zapojení na nepájivém poli 
 
 <img width="800" height="600" alt="obrazek zapojení" src="https://github.com/user-attachments/assets/7be98dc0-b6b8-4e7b-96d2-a09c3544b182" />
 
