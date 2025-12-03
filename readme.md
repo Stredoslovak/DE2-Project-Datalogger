@@ -128,13 +128,16 @@ Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různý
 -📂Soubory📂
 
 DE2-SD-CARD-TESTING/
+│
 ├── .gitignore
 ├── platformio.ini                      # Konfigurace PlatformIO
+│
 ├── include/                            # Hlavičkové soubory
 │   ├── README
 │   └── timer.h                         # Časovače, systémová timebase
 │
 ├── lib/                                # Knihovny
+│   │
 │   ├── FAT32/                          # Knihovna pro práci s FAT32
 │   │   ├── FAT32.c
 │   │   └── FAT32.h
@@ -184,6 +187,7 @@ DE2-SD-CARD-TESTING/
 │
 └── test/                               # Testovací soubory
     └── README
+
 
 
 -
