@@ -100,7 +100,9 @@ zdroj- https://www.pololu.com/product/2587
 
 <img width="827" height="1169" alt="image" src="https://github.com/user-attachments/assets/b7e347f7-3954-4b94-adfd-789a140fb57d" />
 
- 
+---
+
+
 -
 ## 🛠️ Funkčný zámer kódu
 
