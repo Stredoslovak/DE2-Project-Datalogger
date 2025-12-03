@@ -119,6 +119,11 @@ Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různý
 
 ---
 
+-Grafy naměřených hodnot jednotlivých veličin
+
+<img width="1400" height="900" alt="untitled" src="https://github.com/user-attachments/assets/4f0b95c8-6e6a-44d6-b418-a4f44e7a331c" />
+
+---
 -
 ## 🛠️ Funkčný zámer kódu
 
