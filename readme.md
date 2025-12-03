@@ -1,4 +1,4 @@
- **Vysoké učení technické v Brně, Fakulta elektrotechniky a komunikačních technologií, Ústav radioelektroniky, 2025/2026**
+[DE2_Project_subory.txt](https://github.com/user-attachments/files/23917001/DE2_Project_subory.txt)[DE2_Project_subory.txt](https://github.com/user-attachments/files/23916997/DE2_Project_subory.txt) **Vysoké učení technické v Brně, Fakulta elektrotechniky a komunikačních technologií, Ústav radioelektroniky, 2025/2026**
 
 # 📘 README – Datalogger pre meranie kvality okolia
 
@@ -127,7 +127,7 @@ Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různý
 
 -📂Soubory📂
 
-DE2-SD-CARD-TESTING/......................Kořenový adresář projektu
+[Uploading DE2-SD-CARD-TESTING/......................Kořenový adresář projektu
 ├── .gitignore
 ├── platformio.ini.........................Konfigurace PlatformIO
 ├── include/...............................Hlavičkové soubory
@@ -184,6 +184,9 @@ DE2-SD-CARD-TESTING/......................Kořenový adresář projektu
 │
 └── test/..................................Testovací soubory
     └── README
+DE2_Project_subory.txt…]()
+
+
 -
 ## 🛠️ Funkčný zámer kódu
 
