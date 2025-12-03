@@ -87,6 +87,7 @@ V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všec
 <img width="600" height="480" alt="image" src="https://github.com/user-attachments/assets/172bfc9b-6083-4c04-88ee-1f411062a510" />
 
 zdroj- https://www.pololu.com/product/2587
+
 -
 ## 🛠️ Funkčný zámer kódu
 
