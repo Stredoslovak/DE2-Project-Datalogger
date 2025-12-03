@@ -177,7 +177,7 @@ DE2-SD-CARD-TESTING/
 └── test/                               # Testovací soubory
     └── README
 </pre>
-
+---
 -
 ## 🛠️ Funkčný zámer kódu
 
@@ -202,11 +202,6 @@ DE2-SD-CARD-TESTING/
 
 ### 4️⃣ Periodické meranie dát  
 - **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
-
-## Stav projektu
-Funkcne RDS cez SI4703.h lib
-Funkcne BMS280 - Teplota Vlhost Tlak
-
 
 ### 5️⃣ Spracovanie a zápis dát  
 - Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
