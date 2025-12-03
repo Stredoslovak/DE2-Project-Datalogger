@@ -124,6 +124,66 @@ Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různý
 <img width="1400" height="900" alt="untitled" src="https://github.com/user-attachments/assets/4f0b95c8-6e6a-44d6-b418-a4f44e7a331c" />
 
 ---
+
+-📂Soubory📂
+
+DE2-SD-CARD-TESTING/......................Kořenový adresář projektu
+├── .gitignore
+├── platformio.ini.........................Konfigurace PlatformIO
+├── include/...............................Hlavičkové soubory
+│   ├── README
+│   └── timer.h............................Časovače, systémová timebase
+│
+├── lib/...................................Knihovny
+│   ├── FAT32/.............................Knihovna pro práci s FAT32
+│   │   ├── FAT32.c
+│   │   └── FAT32.h
+│   │
+│   ├── SPI/...............................SPI rutiny pro AVR
+│   │   ├── SPI_routines.c
+│   │   └── SPI_routines.h
+│   │
+│   ├── bme280/............................Driver senzoru BME280
+│   │   ├── bme280.c
+│   │   ├── bme280.h
+│   │   └── bme280_defs.h
+│   │
+│   ├── gas_index_algorithm/...............Algoritmus indexu kvality vzduchu
+│   │   ├── GasIndexAlgorithm.c
+│   │   └── GasIndexAlgorithm.h
+│   │
+│   ├── sgp41/.............................Driver senzoru SGP41
+│   │   ├── SGP41.c
+│   │   ├── SGP41.h
+│   │   ├── sensirion_arch_config.h
+│   │   ├── sensirion_common.c
+│   │   ├── sensirion_common.h
+│   │   ├── sensirion_shdlc.c
+│   │   ├── sensirion_shdlc.h
+│   │   ├── sensirion_uart.c
+│   │   ├── sensirion_uart.h
+│   │   ├── SensirionI2CSgp41.c
+│   │   └── SensirionI2CSgp41.h
+│   │
+│   ├── twi/...............................I2C/TWI driver pro AVR
+│   │   ├── twi.c
+│   │   └── twi.h
+│   │
+│   ├── uart/..............................UART driver
+│   │   ├── uart.c
+│   │   ├── uart.h
+│   │   └── uart_compat.h
+│   │
+│   └── README
+│
+├── src/...................................Zdrojové soubory aplikace
+│   ├── bme.c
+│   ├── main.c.............................Hlavní program
+│   ├── sgp41.c
+│   └── lab2-gpio.code-workspace
+│
+└── test/..................................Testovací soubory
+    └── README
 -
 ## 🛠️ Funkčný zámer kódu
 
