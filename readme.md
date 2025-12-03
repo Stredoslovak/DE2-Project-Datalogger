@@ -38,7 +38,6 @@ datasheet- https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
 
 ---
 
-
 -ZS-042 (DS3231)
 
 Tento modul zajišťuje přesné časování celého systému. Komunikuje přes sběrnici I2C a umožňuje přidávat k naměřeným datům přesná časová razítka (datum a čas). Díky záložní baterii se čas nevynuluje ani při výpadku proudu nebo restartu Arduina.
@@ -51,7 +50,6 @@ datasheet- https://www.analog.com/media/en/technical-documentation/data-sheets/d
 
 ---
 
-
 -BME280
 
 Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citlivosti tlakového senzoru dokáže s dobrou přesností vypočítat i aktuální nadmořskou výšku. Má nízkou spotřebu a snadnou komunikaci s I2C
@@ -60,6 +58,20 @@ Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citli
 
 
 datasheet- https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf
+
+---
+
+-SGP41
+
+SGP41 je pokročilý senzor kvality vzduchu. Je navržen speciálně pro detekci dvou hlavních typů znečištění v interiérech: těkavých organických látek (VOC) a oxidů dusíku (NOx).
+
+<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/3434e50e-890d-4abc-9461-612b514b67aa" />
+
+
+datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas_Sensors_Datasheet_SGP41.pdf
+
+---
+
 ## 🛠️ Funkčný zámer kódu
 
 ### 1️⃣ Inicializácia RDS modulu  
