@@ -106,6 +106,11 @@ zdroj- https://www.pololu.com/product/2587
 
 ---
 
+-Kde můžeme tyto zařízení využít
+
+Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různých místnostech díky SPG41 můžeme řídit automatické spuštění čističky vzduchu nebo ventilace na základě hodnot VOC/NOx které model poskytuje. Dále je možná detekce úniku chemikálii nebo plynu. Monitoring vlhkosti nebo teploty pomocí BME280 může být použit jak v domácnostech, tak ve školách nebo továrnách pro poskytnutí co nejlepšího pracovního prostředí a skladových podmínek pro citlivé výrobky. Dalším využitím je detekce změn nadmořské výšky.
+
+---
 
 -
 ## 🛠️ Funkčný zámer kódu
