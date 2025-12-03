@@ -93,6 +93,7 @@ zdroj- https://www.pololu.com/product/2587
 -Schéma zapojení
 
 <img width="958" height="762" alt="SCHEMA snad konec" src="https://github.com/user-attachments/assets/b16237f4-0a3c-4c17-926f-e1eb805e7947" />
+
  
 -Vývojový diagram
 
