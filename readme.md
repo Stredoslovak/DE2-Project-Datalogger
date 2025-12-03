@@ -36,6 +36,7 @@ Arduino UNO slouží jako řídicí jednotka celého projektu. Tento mikrokontro
 <img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/dffe9fd4-97cb-4da4-9068-b9b7f81f4ee3" />
 datasheet- https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
 
+
 -ZS-042 (DS3231)
 
 Tento modul zajišťuje přesné časování celého systému. Komunikuje přes sběrnici I2C a umožňuje přidávat k naměřeným datům přesná časová razítka (datum a čas). Díky záložní baterii se čas nevynuluje ani při výpadku proudu nebo restartu Arduina.
