@@ -72,6 +72,9 @@ datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas
 
 ---
 
+<img width="645" height="338" alt="image" src="https://github.com/user-attachments/assets/686055a1-fd39-4cec-8fec-7dcfb30c42e3" />
+
+-
 ## 🛠️ Funkčný zámer kódu
 
 ### 1️⃣ Inicializácia RDS modulu  
