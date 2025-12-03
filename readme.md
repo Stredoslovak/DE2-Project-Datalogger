@@ -2,6 +2,8 @@
 
 # 📘 README – Datalogger pre meranie kvality okolia
 
+Kvalita vzduchu, teplota či vlhkost mají vliv na naše zdraví, náladu a produktivitu s rostoucími klimatickými změnami není od věci zaznamenávat přesné údaje o našem okolí v reálném čase. Náš projekt umožňuje automatické sledování environmentálních parametrů a jejich ukládání, což nám dává informace o kvalitě našeho vnitřního a vnějšího prostředí díky kterým jsme informováni o určitých podmínkách na které se můžeme připravit nebo je řešit.
+
 ## 🎯 Zámer projektu
 Cieľom projektu je vytvoriť **datalogger**, ktorý bude zbierať údaje o prostredí z rôznych senzorov. Zaznamenávať sa budú tieto veličiny:
 
@@ -132,15 +134,6 @@ zdroj- https://www.pololu.com/product/2587
 ## Stav projektu
 Funkcne RDS cez SI4703.h lib
 Funkcne BMS280 - Teplota Vlhost Tlak
-
-### TO DO list:
-SD card read write
-SGP41 gas sensor support
-- [x] SGP41 gas sensor support
-- [ ] SD card read write
-- [ ] Intergracia celku
-- [ ] Poster
-
 
 
 ### 5️⃣ Spracovanie a zápis dát  
