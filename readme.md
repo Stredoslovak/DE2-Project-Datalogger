@@ -121,12 +121,6 @@ zdroj- https://www.pololu.com/product/2587
 
 ---
 
--Kde můžeme tyto zařízení využít
-
-Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různých místnostech díky SPG41 můžeme řídit automatické spuštění čističky vzduchu nebo ventilace na základě hodnot VOC/NOx které model poskytuje. Dále je možná detekce úniku chemikálii nebo plynu. Monitoring vlhkosti nebo teploty pomocí BME280 může být použit jak v domácnostech, tak ve školách nebo továrnách pro poskytnutí co nejlepšího pracovního prostředí a skladových podmínek pro citlivé výrobky. Dalším využitím je detekce změn nadmořské výšky.
-
----
-
 -Grafy naměřených hodnot jednotlivých veličin
 
 <img width="1400" height="900" alt="untitled" src="https://github.com/user-attachments/assets/4f0b95c8-6e6a-44d6-b418-a4f44e7a331c" />
@@ -185,6 +179,12 @@ DE2-SD-CARD-TESTING/
 └── test/                               # Testovací soubory
     └── README
 </pre>
+---
+
+-Kde můžeme tyto zařízení využít
+
+Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různých místnostech díky SPG41 můžeme řídit automatické spuštění čističky vzduchu nebo ventilace na základě hodnot VOC/NOx které model poskytuje. Dále je možná detekce úniku chemikálii nebo plynu. Monitoring vlhkosti nebo teploty pomocí BME280 může být použit jak v domácnostech, tak ve školách nebo továrnách pro poskytnutí co nejlepšího pracovního prostředí a skladových podmínek pro citlivé výrobky. Dalším využitím je detekce změn nadmořské výšky.
+
 ---
 -
 ## 🛠️ Funkčný zámer kódu
