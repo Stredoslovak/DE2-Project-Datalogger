@@ -24,11 +24,11 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 | ZS-042 (DS3231) | RTC modul – presný čas |
 | BME280 | Meranie teploty, tlaku, vlhkosti a nadmorskej výšky |
 | SGP41 | Meranie kvality ovzdušia (VOx, NOx) |
-| HW-332 (SI4703) | RDS rádio modul pre získanie času |
 | Logic Level Shifter | Prevádza úrovne 5V ↔ 3.3V (kompatibilita SI4703) |
 | Pololu sdc02 | SD karta – ukladanie dát |
 
 ---
+<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/dffe9fd4-97cb-4da4-9068-b9b7f81f4ee3" />
 
 ## 🛠️ Funkčný zámer kódu
 
