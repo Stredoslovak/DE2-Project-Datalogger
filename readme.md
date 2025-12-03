@@ -126,7 +126,35 @@ zdroj- https://www.pololu.com/product/2587
 <img width="1400" height="900" alt="untitled" src="https://github.com/user-attachments/assets/4f0b95c8-6e6a-44d6-b418-a4f44e7a331c" />
 
 ---
+-
+## 🛠️ Funkčný zámer kódu
 
+### 1️⃣ Inicializácia RDS modulu  
+- Prepnutie modulu **SI4703** do režimu **2-wire I2C komunikácie**
+
+### 2️⃣ Kontrola prítomnosti zariadení na I2C zbernici  
+- Vyhľadanie adries pripojených modulov (RTC, senzory, rádio)
+
+### 2.1 Zistenie prítomnosti SD karty  
+- Overenie inicializácie SD karty
+
+### 2.2 Kontrola súboru pre zápis  
+- Ak karta existuje, detekuje sa prítomnosť súboru (napr. `datalog.txt`)  
+- Ak súbor neexistuje, vytvorí sa nový s hlavičkami dát
+
+### 3️⃣ Kontrola času v RTC vs RDS  
+- Porovnanie aktuálneho času z RTC a času získaného cez RDS
+
+### 3.1 Aktualizácia RTC  
+- Ak je čas z RDS presnejší, zapíše sa do RTC modulu DS3231
+
+### 4️⃣ Periodické meranie dát  
+- **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
+
+### 5️⃣ Spracovanie a zápis dát  
+- Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
+
+---
 -📂Soubory📂
 
 <pre>
@@ -186,32 +214,3 @@ DE2-SD-CARD-TESTING/
 Chytré kanceláře nebo domácnosti můžeme sledovat kvalitu vzduchu v různých místnostech díky SPG41 můžeme řídit automatické spuštění čističky vzduchu nebo ventilace na základě hodnot VOC/NOx které model poskytuje. Dále je možná detekce úniku chemikálii nebo plynu. Monitoring vlhkosti nebo teploty pomocí BME280 může být použit jak v domácnostech, tak ve školách nebo továrnách pro poskytnutí co nejlepšího pracovního prostředí a skladových podmínek pro citlivé výrobky. Dalším využitím je detekce změn nadmořské výšky.
 
 ---
--
-## 🛠️ Funkčný zámer kódu
-
-### 1️⃣ Inicializácia RDS modulu  
-- Prepnutie modulu **SI4703** do režimu **2-wire I2C komunikácie**
-
-### 2️⃣ Kontrola prítomnosti zariadení na I2C zbernici  
-- Vyhľadanie adries pripojených modulov (RTC, senzory, rádio)
-
-### 2.1 Zistenie prítomnosti SD karty  
-- Overenie inicializácie SD karty
-
-### 2.2 Kontrola súboru pre zápis  
-- Ak karta existuje, detekuje sa prítomnosť súboru (napr. `datalog.txt`)  
-- Ak súbor neexistuje, vytvorí sa nový s hlavičkami dát
-
-### 3️⃣ Kontrola času v RTC vs RDS  
-- Porovnanie aktuálneho času z RTC a času získaného cez RDS
-
-### 3.1 Aktualizácia RTC  
-- Ak je čas z RDS presnejší, zapíše sa do RTC modulu DS3231
-
-### 4️⃣ Periodické meranie dát  
-- **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
-
-### 5️⃣ Spracovanie a zápis dát  
-- Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
-
-
