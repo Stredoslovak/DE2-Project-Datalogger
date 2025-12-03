@@ -54,7 +54,7 @@ datasheet- https://www.analog.com/media/en/technical-documentation/data-sheets/d
 
 Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citlivosti tlakového senzoru dokáže s dobrou přesností vypočítat i aktuální nadmořskou výšku. Má nízkou spotřebu a snadnou komunikaci s I2C
 
-<img width="990" height="990" alt="image" src="https://github.com/user-attachments/assets/f7b9bc40-25b1-4549-8f40-c33fb1505c3b" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/f7b9bc40-25b1-4549-8f40-c33fb1505c3b" />
 
 
 datasheet- https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf
@@ -65,7 +65,7 @@ datasheet- https://www.bosch-sensortec.com/media/boschsensortec/downloads/datash
 
 SGP41 je pokročilý senzor kvality vzduchu. Je navržen speciálně pro detekci dvou hlavních typů znečištění v interiérech: těkavých organických látek (VOC) a oxidů dusíku (NOx).
 
-<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/3434e50e-890d-4abc-9461-612b514b67aa" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/3434e50e-890d-4abc-9461-612b514b67aa" />
 
 
 datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas_Sensors_Datasheet_SGP41.pdf
@@ -76,7 +76,7 @@ datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas
 
 Logic Level Shifter je modul pro bezpečnou komunikaci mezi součástkami s různým napětím. Protože Arduino Uno pracuje s 5V logiku, zatímco některé senzory vyžadují 3,3 V, tento převodník slouží jako most. Zajišťuje, aby 5V signál z Arduina nezničil citlivější 3,3V součástky.
 
-<img width="645" height="338" alt="image" src="https://github.com/user-attachments/assets/686055a1-fd39-4cec-8fec-7dcfb30c42e3" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/686055a1-fd39-4cec-8fec-7dcfb30c42e3" />
 
 ---
 
@@ -84,7 +84,7 @@ Logic Level Shifter je modul pro bezpečnou komunikaci mezi součástkami s růz
 
 V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všechny hodnoty naměřené senzory se v pravidelných intervalech ukládají do textového souboru  přímo na kartu. 
 
-<img width="600" height="480" alt="image" src="https://github.com/user-attachments/assets/172bfc9b-6083-4c04-88ee-1f411062a510" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/172bfc9b-6083-4c04-88ee-1f411062a510" />
 
 zdroj- https://www.pololu.com/product/2587
 
@@ -92,13 +92,13 @@ zdroj- https://www.pololu.com/product/2587
 
 -Schéma zapojení
 
-<img width="958" height="762" alt="SCHEMA snad konec" src="https://github.com/user-attachments/assets/b16237f4-0a3c-4c17-926f-e1eb805e7947" />
+<img width="800" height="600" alt="SCHEMA snad konec" src="https://github.com/user-attachments/assets/b16237f4-0a3c-4c17-926f-e1eb805e7947" />
 
 ---
  
 -Vývojový diagram
 
-<img width="827" height="1169" alt="image" src="https://github.com/user-attachments/assets/b7e347f7-3954-4b94-adfd-789a140fb57d" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/b7e347f7-3954-4b94-adfd-789a140fb57d" />
 
 ---
 
