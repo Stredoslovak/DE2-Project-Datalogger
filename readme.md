@@ -105,7 +105,13 @@ zdroj- https://www.pololu.com/product/2587
 <img width="800" height="600" alt="SCHEMA snad konec" src="https://github.com/user-attachments/assets/b16237f4-0a3c-4c17-926f-e1eb805e7947" />
 
 ---
- 
+
+-zapojení
+
+<img width="800" height="600" alt="obrazek zapojení" src="https://github.com/user-attachments/assets/7be98dc0-b6b8-4e7b-96d2-a09c3544b182" />
+
+---
+
 -Vývojový diagram
 
 <img width="403" height="850" alt="image" src="https://github.com/user-attachments/assets/21adc598-9861-4a7a-bf14-a9e40a67a432" />
