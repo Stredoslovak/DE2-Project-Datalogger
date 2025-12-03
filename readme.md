@@ -33,7 +33,7 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 
 Arduino UNO slouží jako řídicí jednotka celého projektu. Tento mikrokontroler (ATmega328P) zajišťuje komunikaci se všemi senzory přes sběrnici I2C a stará se o ukládání naměřených dat na SD kartu.
 
-<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/dffe9fd4-97cb-4da4-9068-b9b7f81f4ee3" />
+<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/dffe9fd4-97cb-4da4-9068-b9b7f81f4ee3" />
 datasheet- https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
 
 ---
