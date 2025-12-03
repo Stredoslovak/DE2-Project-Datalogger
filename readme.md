@@ -88,6 +88,7 @@ V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všec
 
 zdroj- https://www.pololu.com/product/2587
 
+---
 -
 ## 🛠️ Funkčný zámer kódu
 
