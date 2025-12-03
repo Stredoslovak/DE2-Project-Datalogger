@@ -98,7 +98,8 @@ zdroj- https://www.pololu.com/product/2587
  
 -Vývojový diagram
 
-<img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/b7e347f7-3954-4b94-adfd-789a140fb57d" />
+<img width="403" height="850" alt="image" src="https://github.com/user-attachments/assets/21adc598-9861-4a7a-bf14-a9e40a67a432" />
+
 
 ---
 
