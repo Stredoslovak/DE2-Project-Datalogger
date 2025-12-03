@@ -2,9 +2,10 @@
 
 # 📘 README – Datalogger pre meranie kvality okolia
 
+## 🎯 Zámer projektu
+
 Kvalita vzduchu, teplota či vlhkost mají vliv na naše zdraví, náladu a produktivitu s rostoucími klimatickými změnami není od věci zaznamenávat přesné údaje o našem okolí v reálném čase. Náš projekt umožňuje automatické sledování environmentálních parametrů a jejich ukládání, což nám dává informace o kvalitě našeho vnitřního a vnějšího prostředí díky kterým jsme informováni o určitých podmínkách na které se můžeme připravit nebo je řešit.
 
-## 🎯 Zámer projektu
 Cieľom projektu je vytvoriť **datalogger**, ktorý bude zbierať údaje o prostredí z rôznych senzorov. Zaznamenávať sa budú tieto veličiny:
 
 - Kvalita ovzdušia: **VOX, NOX**
