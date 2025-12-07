@@ -123,7 +123,7 @@ zdroj- https://www.pololu.com/product/2587
 
 ## Grafy naměřených hodnot jednotlivých veličin
 
-<img width="1400" height="900" alt="untitled" src=""https://github.com/user-attachments/assets/d2400d82-3797-499e-9ac3-349aa76976ec" />
+<img width="1400" height="900" alt="untitled" src="https://github.com/user-attachments/assets/d2400d82-3797-499e-9ac3-349aa76976ec" />
 
 ---
 -
