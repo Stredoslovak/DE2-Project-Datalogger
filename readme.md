@@ -133,7 +133,7 @@ zdroj- https://www.pololu.com/product/2587
 
 
 ### 2️⃣ Kontrola prítomnosti zariadení na I2C zbernici  
-- Vyhľadanie adries pripojených modulov (RTC, senzory, rádio)
+- Vyhľadanie adries pripojených modulov (RTC, senzory)
 
 ### 2.1 Zistenie prítomnosti SD karty  
 - Overenie inicializácie SD karty
@@ -142,16 +142,10 @@ zdroj- https://www.pololu.com/product/2587
 - Ak karta existuje, detekuje sa prítomnosť súboru (napr. `datalog.txt`)  
 - Ak súbor neexistuje, vytvorí sa nový s hlavičkami dát
 
-### 3️⃣ Kontrola času v RTC vs RDS  
-- Porovnanie aktuálneho času z RTC a času získaného cez RDS
-
-### 3.1 Aktualizácia RTC  
-- Ak je čas z RDS presnejší, zapíše sa do RTC modulu DS3231
-
-### 4️⃣ Periodické meranie dát  
+### 3️⃣ Periodické meranie dát  
 - **Každých 5 sekúnd** sa načítajú údaje zo všetkých senzorov
 
-### 5️⃣ Spracovanie a zápis dát  
+### 4️⃣ Spracovanie a zápis dát  
 - Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
 
 ---
