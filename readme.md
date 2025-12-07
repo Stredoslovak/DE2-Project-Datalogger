@@ -34,7 +34,7 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 | ZS-042 (DS3231) | RTC modul – presný čas |
 | BME280 | Meranie teploty, tlaku, vlhkosti a nadmorskej výšky |
 | SGP41 | Meranie kvality ovzdušia (VOx, NOx) |
-| Logic Level Shifter | Prevádza úrovne 5V ↔ 3.3V (kompatibilita SI4703) |
+| Logic Level Shifter | Prevádza úrovne 5V ↔ 3.3V |
 | Pololu sdc02 | SD karta – ukladanie dát |
 
 ---
@@ -130,7 +130,7 @@ zdroj- https://www.pololu.com/product/2587
 ## 🛠️ Funkčný zámer kódu
 
 ### 1️⃣ Inicializácia RDS modulu  
-- Prepnutie modulu **SI4703** do režimu **2-wire I2C komunikácie**
+
 
 ### 2️⃣ Kontrola prítomnosti zariadení na I2C zbernici  
 - Vyhľadanie adries pripojených modulov (RTC, senzory, rádio)
