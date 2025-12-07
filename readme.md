@@ -22,7 +22,7 @@ Cieľom projektu je vytvoriť **datalogger**, ktorý bude zbierať údaje o pros
 - **Nadmorská výška**
 - **Časová pečiatka (timestamp)**
 
-Všetky získané dáta budú pravidelne zapisované do **textového súboru na SD kartu**. Časová pečiatka bude zabezpečená z **RTC modulu DS3231**, ktorý bude **synchronizovaný pomocou rádiového RDS signálu**.
+Všetky získané dáta budú pravidelne zapisované do **textového súboru na SD kartu**. Časová pečiatka bude zabezpečená z **RTC modulu DS3231**
 
 ---
 
