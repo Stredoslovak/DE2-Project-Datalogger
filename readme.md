@@ -149,7 +149,7 @@ zdroj- https://www.pololu.com/product/2587
 - Ak je čas z RDS presnejší, zapíše sa do RTC modulu DS3231
 
 ### 4️⃣ Periodické meranie dát  
-- **Každých 10 sekúnd** sa načítajú údaje zo všetkých senzorov
+- **Každých 5 sekúnd** sa načítajú údaje zo všetkých senzorov
 
 ### 5️⃣ Spracovanie a zápis dát  
 - Dáta sa spracujú, doplnia o timestamp a uložia do súboru na SD karte vo formáte:
