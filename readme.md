@@ -42,18 +42,18 @@ Všetky získané dáta budú pravidelne zapisované do **textového súboru na 
 
 ---
 ## Popis jednotlivých komponentů
--Arduino UNO
+### Arduino UNO
 
 Arduino UNO slouží jako řídicí jednotka celého projektu. Tento mikrokontroler (ATmega328P) zajišťuje komunikaci se všemi senzory přes sběrnici I2C a stará se o ukládání naměřených dat na SD kartu.
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/dffe9fd4-97cb-4da4-9068-b9b7f81f4ee3" />
 
 
-datasheet- https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
+**datasheet**: https://docs.arduino.cc/resources/datasheets/A000066-datasheet.pdf
 
 ---
 
--ZS-042 (DS3231)
+### ZS-042 (DS3231)
 
 Tento modul zajišťuje přesné časování celého systému. Komunikuje přes sběrnici I2C a umožňuje přidávat k naměřeným datům přesná časová razítka (datum a čas). Díky záložní baterii se čas nevynuluje ani při výpadku proudu nebo restartu Arduina.
 
@@ -61,33 +61,33 @@ Tento modul zajišťuje přesné časování celého systému. Komunikuje přes 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/989f3ca6-8efb-4fee-b2f6-5c820e1465d5" />
 
 
-datasheet- https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf
+**datasheet**: https://www.analog.com/media/en/technical-documentation/data-sheets/ds3231.pdf
 
 ---
 
--BME280
+### BME280
 
 Tento senzor slouží k měření teploty, vlhkosti a tlaku. Díky vysoké citlivosti tlakového senzoru dokáže s dobrou přesností vypočítat i aktuální nadmořskou výšku. Má nízkou spotřebu a snadnou komunikaci s I2C
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/f7b9bc40-25b1-4549-8f40-c33fb1505c3b" />
 
 
-datasheet- https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf
+**datasheet**: https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf
 
 ---
 
--SGP41
+### SGP41
 
 SGP41 je pokročilý senzor kvality vzduchu. Je navržen speciálně pro detekci dvou hlavních typů znečištění v interiérech: těkavých organických látek (VOC) a oxidů dusíku (NOx).
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/3434e50e-890d-4abc-9461-612b514b67aa" />
 
 
-datasheet- https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas_Sensors_Datasheet_SGP41.pdf
+**datasheet**: https://sensirion.com/media/documents/5FE8673C/61E96F50/Sensirion_Gas_Sensors_Datasheet_SGP41.pdf
 
 ---
 
--Logic Level Shifter
+### Logic Level Shifter
 
 Logic Level Shifter je modul pro bezpečnou komunikaci mezi součástkami s různým napětím. Protože Arduino Uno pracuje s 5V logiku, zatímco některé senzory vyžadují 3,3 V, tento převodník slouží jako most. Zajišťuje, aby 5V signál z Arduina nezničil citlivější 3,3V součástky.
 
@@ -95,13 +95,13 @@ Logic Level Shifter je modul pro bezpečnou komunikaci mezi součástkami s růz
 
 ---
 
--SD karta
+### SD karta
 
 V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všechny hodnoty naměřené senzory se v pravidelných intervalech ukládají do textového souboru  přímo na kartu. 
 
 <img width="800" height="600" alt="image" src="https://github.com/user-attachments/assets/172bfc9b-6083-4c04-88ee-1f411062a510" />
 
-zdroj- https://www.pololu.com/product/2587
+**zdroj**: https://www.pololu.com/product/2587
 
 ---
 
