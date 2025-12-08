@@ -23,7 +23,7 @@ Cieľom projektu je vytvoriť **datalogger**, ktorý bude zbierať údaje o pros
 - **Časová pečiatka (timestamp)**
 
 Všetky získané dáta budú pravidelne zapisované do **textového súboru na SD kartu**. Časová pečiatka bude zabezpečená z **RTC modulu DS3231**
-
+https://github.com/user-attachments/assets/6c9e4a1d-1f91-4246-b8f2-ae7182b49fb9
 ---
 
 ## 🧩 Hardvérové moduly pre prototyp
