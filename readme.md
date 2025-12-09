@@ -157,53 +157,65 @@ V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všec
 ## 📂Soubory📂
 
 <pre>
-DE2-SD-CARD-TESTING/
+DE2-SD-CARD-TESTING/......................Kořenový adresář projektu
 ├── .gitignore
-├── platformio.ini                      # Konfigurace PlatformIO
-├── include/                            # Hlavičkové soubory
+├── platformio.ini.........................Konfigurace PlatformIO
+├── include/...............................Hlavičkové soubory
 │   ├── README
-│   └── timer.h                         # Časovače, systémová timebase
+│   └── timer.h............................Časovače, systémová timebase
 │
-├── lib/                                # Knihovny
-│   ├── FAT32/                          # Knihovna pro práci s FAT32
-│   │   ├── FAT32.c
-│   │   └── FAT32.h
-│   ├── SPI/                            # SPI rutiny pro AVR
-│   │   ├── SPI_routines.c
-│   │   └── SPI_routines.h
-│   ├── bme280/                         # Driver senzoru BME280
+├── lib/...................................Knihovny
+│   ├── bme280/............................Ovladač senzoru BME280
 │   │   ├── bme280.c
 │   │   ├── bme280.h
 │   │   └── bme280_defs.h
-│   ├── gas_index_algorithm/            # Algoritmus indexu kvality vzduchu
-│   │   ├── GasIndexAlgorithm.c
-│   │   └── GasIndexAlgorithm.h
-│   ├── sgp41/                          # Driver senzoru SGP41
-│   │   ├── SGP41.c
-│   │   ├── SGP41.h
-│   │   ├── sensirion_arch_config.h
-│   │   ├── sensirion_common.c
-│   │   ├── sensirion_common.h
-│   │   ├── sensirion_shdlc.c
-│   │   ├── sensirion_shdlc.h
-│   │   ├── sensirion_uart.c
-│   │   ├── sensirion_uart.h
+│   │
+│   ├── FAT32/.............................Knihovna pro práci s FAT32
+│   │   ├── FAT32.c
+│   │   └── FAT32.h
+│   │
+│   ├── gas_index_algorithm/...............Algoritmus indexu kvality vzduchu
+│   │   ├── sensirion_gas_index_algorithm.c
+│   │   └── sensirion_gas_index_algorithm.h
+│   │
+│   ├── gpio/..............................Jednoduchá knihovna pro práci s GPIO piny
+│   │   ├── gpio.c
+│   │   └── gpio.h
+│   │
+│   ├── rtc/...............................Knihovna pro práci s reálným časem
+│   │   ├── rtc.c
+│   │   └── rtc.h
+│   │
+│   ├── sd/................................Knihovna pro práci s SD kartou
+│   │   ├── SD_routines.c
+│   │   └── sd_routines.h
+│   │
+│   ├── sgp41/.............................Ovladač senzoru SGP41 (Sensirion)
 │   │   ├── SensirionI2CSgp41.c
 │   │   └── SensirionI2CSgp41.h
-│   ├── twi/                            # I2C/TWI driver pro AVR
+│   │
+│   ├── SPI/...............................SPI rutiny pro AVR
+│   │   ├── SPI_routines.c
+│   │   └── SPI_routines.h
+│   │
+│   ├── twi/...............................I2C/TWI driver pro AVR
 │   │   ├── twi.c
 │   │   └── twi.h
-│   ├── uart/                           # UART driver
+│   │
+│   ├── uart/..............................UART ovladač
 │   │   ├── uart.c
 │   │   ├── uart.h
 │   │   └── uart_compat.h
+│   │
 │   └── README
-├── src/                                # Zdrojové soubory aplikace
-│   ├── bme.c
-│   ├── main.c                          # Hlavní program
-│   ├── sgp41.c
+│
+├── src/...................................Zdrojové soubory aplikace
+│   ├── bme.c..............................Implementace práce se senzorem BME280
+│   ├── main.c.............................Hlavní program
+│   ├── sgp41.c............................Implementace práce se senzorem SGP41
 │   └── lab2-gpio.code-workspace
-└── test/                               # Testovací soubory
+│
+└── test/..................................Testování
     └── README
 </pre>
 ---
