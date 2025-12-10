@@ -118,7 +118,7 @@ V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všec
 ---
 
 ## Vývojový diagram
-
+<p align="center">
 <img width="403" height="850" alt="image" src="https://github.com/user-attachments/assets/21adc598-9861-4a7a-bf14-a9e40a67a432" />
 
 
