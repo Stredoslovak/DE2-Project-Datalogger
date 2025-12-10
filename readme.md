@@ -131,7 +131,6 @@ V našem zařízení funguje tento modul jako datalogger (zapisovač dat). Všec
 
 
 ---
--
 ## 🛠️ Funkčný zámer kódu
 
 ### 1️⃣ Inicializácia RDS modulu  
