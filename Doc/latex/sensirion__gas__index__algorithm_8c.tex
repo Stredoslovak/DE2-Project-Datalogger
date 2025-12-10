@@ -1,0 +1,217 @@
+\doxysection{lib/gas\+\_\+index\+\_\+algorithm/sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.c File Reference}
+\label{sensirion__gas__index__algorithm_8c}\index{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.c@{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.c}}
+{\ttfamily \#include "{}sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ FIX16\+\_\+\+MAXIMUM}~0x7\+FFFFFFF
+\item 
+\#define \textbf{ FIX16\+\_\+\+MINIMUM}~0x80000000
+\item 
+\#define \textbf{ FIX16\+\_\+\+OVERFLOW}~0x80000000
+\item 
+\#define \textbf{ FIX16\+\_\+\+ONE}~0x00010000
+\item 
+\#define \textbf{ NUM\+\_\+\+EXP\+\_\+\+VALUES}~4
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+init} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t algorithm\+\_\+type)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+reset} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+get\+\_\+states} (const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t $\ast$state0, int32\+\_\+t $\ast$state1)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+set\+\_\+states} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t state0, int32\+\_\+t state1)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t index\+\_\+offset, int32\+\_\+t learning\+\_\+time\+\_\+offset\+\_\+hours, int32\+\_\+t learning\+\_\+time\+\_\+gain\+\_\+hours, int32\+\_\+t gating\+\_\+max\+\_\+duration\+\_\+minutes, int32\+\_\+t std\+\_\+initial, int32\+\_\+t gain\+\_\+factor)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+get\+\_\+tuning\+\_\+parameters} (const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t $\ast$index\+\_\+offset, int32\+\_\+t $\ast$learning\+\_\+time\+\_\+offset\+\_\+hours, int32\+\_\+t $\ast$learning\+\_\+time\+\_\+gain\+\_\+hours, int32\+\_\+t $\ast$gating\+\_\+max\+\_\+duration\+\_\+minutes, int32\+\_\+t $\ast$std\+\_\+initial, int32\+\_\+t $\ast$gain\+\_\+factor)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+process} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t sraw, int32\+\_\+t $\ast$gas\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!FIX16\_MAXIMUM@{FIX16\_MAXIMUM}}
+\index{FIX16\_MAXIMUM@{FIX16\_MAXIMUM}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{FIX16\_MAXIMUM}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a7b5377b7cc069909195b433ae2bcb21d} 
+\#define FIX16\+\_\+\+MAXIMUM~0x7\+FFFFFFF}
+
+$<$ the maximum value of \doxyref{fix16\+\_\+t}{p.}{sensirion__gas__index__algorithm_8h_aca43c6dc0c416d1e27c18614b7ebcb73} the minimum value of \doxyref{fix16\+\_\+t}{p.}{sensirion__gas__index__algorithm_8h_aca43c6dc0c416d1e27c18614b7ebcb73} 
+
+Definition at line \textbf{ 35} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!FIX16\_MINIMUM@{FIX16\_MINIMUM}}
+\index{FIX16\_MINIMUM@{FIX16\_MINIMUM}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{FIX16\_MINIMUM}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a6d1676bd25358e7a4e75b9d6f8013b3c} 
+\#define FIX16\+\_\+\+MINIMUM~0x80000000}
+
+the value used to indicate overflows when FIXMATH\+\_\+\+NO\+\_\+\+OVERFLOW is not specified 
+
+Definition at line \textbf{ 37} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!FIX16\_ONE@{FIX16\_ONE}}
+\index{FIX16\_ONE@{FIX16\_ONE}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{FIX16\_ONE}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_ab8732af29723661b66f6570881cebc6c} 
+\#define FIX16\+\_\+\+ONE~0x00010000}
+
+
+
+Definition at line \textbf{ 42} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!FIX16\_OVERFLOW@{FIX16\_OVERFLOW}}
+\index{FIX16\_OVERFLOW@{FIX16\_OVERFLOW}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{FIX16\_OVERFLOW}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a16786289f1d253557e4185def80ccb2d} 
+\#define FIX16\+\_\+\+OVERFLOW~0x80000000}
+
+\doxyref{fix16\+\_\+t}{p.}{sensirion__gas__index__algorithm_8h_aca43c6dc0c416d1e27c18614b7ebcb73} value of 1 
+
+Definition at line \textbf{ 40} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!NUM\_EXP\_VALUES@{NUM\_EXP\_VALUES}}
+\index{NUM\_EXP\_VALUES@{NUM\_EXP\_VALUES}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{NUM\_EXP\_VALUES}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_aa40b8892ed7d01b1fa6cc4d957be808d} 
+\#define NUM\+\_\+\+EXP\+\_\+\+VALUES~4}
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_get\_states@{GasIndexAlgorithm\_get\_states}}
+\index{GasIndexAlgorithm\_get\_states@{GasIndexAlgorithm\_get\_states}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_get\_states()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a1e163ca69501abb38c9176c1e933c9b1} 
+void Gas\+Index\+Algorithm\+\_\+get\+\_\+states (\begin{DoxyParamCaption}\item[{const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t $\ast$}]{state0}{, }\item[{int32\+\_\+t $\ast$}]{state1}{}\end{DoxyParamCaption})}
+
+Get current algorithm states. Retrieved values can be used in \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+states()}{p.}{sensirion__gas__index__algorithm_8h_a66ca339428d66175e53c6c0cb34a1ed0} to resume operation after a short interruption, skipping initial learning phase. NOTE\+: This feature can only be used for VOC algorithm type and after at least 3 hours of continuous operation. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em state0} & State0 to be stored \\
+\hline
+{\em state1} & State1 to be stored \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 380} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_get\_tuning\_parameters@{GasIndexAlgorithm\_get\_tuning\_parameters}}
+\index{GasIndexAlgorithm\_get\_tuning\_parameters@{GasIndexAlgorithm\_get\_tuning\_parameters}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_get\_tuning\_parameters()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a409f98c042ef6e200fb8c735e521664c} 
+void Gas\+Index\+Algorithm\+\_\+get\+\_\+tuning\+\_\+parameters (\begin{DoxyParamCaption}\item[{const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t $\ast$}]{index\+\_\+offset}{, }\item[{int32\+\_\+t $\ast$}]{learning\+\_\+time\+\_\+offset\+\_\+hours}{, }\item[{int32\+\_\+t $\ast$}]{learning\+\_\+time\+\_\+gain\+\_\+hours}{, }\item[{int32\+\_\+t $\ast$}]{gating\+\_\+max\+\_\+duration\+\_\+minutes}{, }\item[{int32\+\_\+t $\ast$}]{std\+\_\+initial}{, }\item[{int32\+\_\+t $\ast$}]{gain\+\_\+factor}{}\end{DoxyParamCaption})}
+
+Get current parameters to customize the gas index algorithm. Refer to \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters()}{p.}{sensirion__gas__index__algorithm_8h_a4bef9d1a53546711018b907cea278dac} for description of the parameters. 
+
+Definition at line \textbf{ 416} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_init@{GasIndexAlgorithm\_init}}
+\index{GasIndexAlgorithm\_init@{GasIndexAlgorithm\_init}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_init()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a39e8ff626b9de149244ea53418b97f47} 
+void Gas\+Index\+Algorithm\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{algorithm\+\_\+type}{}\end{DoxyParamCaption})}
+
+Initialize the gas index algorithm parameters for the specified algorithm type and reset its internal states. Call this once at the beginning. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em algorithm\+\_\+type} & 0 (Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+VOC) for VOC or 1 (Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+NOX) for NOx \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 321} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_process@{GasIndexAlgorithm\_process}}
+\index{GasIndexAlgorithm\_process@{GasIndexAlgorithm\_process}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_process()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a4be92e48685ba183966d2612ce33528c} 
+void Gas\+Index\+Algorithm\+\_\+process (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{sraw}{, }\item[{int32\+\_\+t $\ast$}]{gas\+\_\+index}{}\end{DoxyParamCaption})}
+
+Calculate the gas index value from the raw sensor value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em sraw} & Raw value from the SGP4x sensor \\
+\hline
+{\em gas\+\_\+index} & Calculated gas index value from the raw sensor value. Zero during initial blackout period and 1..500 afterwards \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 433} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_reset@{GasIndexAlgorithm\_reset}}
+\index{GasIndexAlgorithm\_reset@{GasIndexAlgorithm\_reset}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_reset()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a384a6c2521ab3ffea737ca6aca9ba95a} 
+void Gas\+Index\+Algorithm\+\_\+reset (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{}\end{DoxyParamCaption})}
+
+Reset the internal states of the gas index algorithm. Previously set tuning parameters are preserved. Call this when resuming operation after a measurement interruption. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 353} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_set\_states@{GasIndexAlgorithm\_set\_states}}
+\index{GasIndexAlgorithm\_set\_states@{GasIndexAlgorithm\_set\_states}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_set\_states()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a66ca339428d66175e53c6c0cb34a1ed0} 
+void Gas\+Index\+Algorithm\+\_\+set\+\_\+states (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{state0}{, }\item[{int32\+\_\+t}]{state1}{}\end{DoxyParamCaption})}
+
+Set previously retrieved algorithm states to resume operation after a short interruption, skipping initial learning phase. This feature should not be used after interruptions of more than 10 minutes. Call this once after \doxyref{Gas\+Index\+Algorithm\+\_\+init()}{p.}{sensirion__gas__index__algorithm_8h_a39e8ff626b9de149244ea53418b97f47} or \doxyref{Gas\+Index\+Algorithm\+\_\+reset()}{p.}{sensirion__gas__index__algorithm_8h_a384a6c2521ab3ffea737ca6aca9ba95a} and the optional \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters()}{p.}{sensirion__gas__index__algorithm_8h_a4bef9d1a53546711018b907cea278dac}, if desired. Otherwise, the algorithm will start with initial learning phase. NOTE\+: This feature can only be used for VOC algorithm type. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em state0} & State0 to be restored \\
+\hline
+{\em state1} & State1 to be restored \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 388} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}!GasIndexAlgorithm\_set\_tuning\_parameters@{GasIndexAlgorithm\_set\_tuning\_parameters}}
+\index{GasIndexAlgorithm\_set\_tuning\_parameters@{GasIndexAlgorithm\_set\_tuning\_parameters}!sensirion\_gas\_index\_algorithm.c@{sensirion\_gas\_index\_algorithm.c}}
+\doxysubsubsection{GasIndexAlgorithm\_set\_tuning\_parameters()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8c_a4bef9d1a53546711018b907cea278dac} 
+void Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{index\+\_\+offset}{, }\item[{int32\+\_\+t}]{learning\+\_\+time\+\_\+offset\+\_\+hours}{, }\item[{int32\+\_\+t}]{learning\+\_\+time\+\_\+gain\+\_\+hours}{, }\item[{int32\+\_\+t}]{gating\+\_\+max\+\_\+duration\+\_\+minutes}{, }\item[{int32\+\_\+t}]{std\+\_\+initial}{, }\item[{int32\+\_\+t}]{gain\+\_\+factor}{}\end{DoxyParamCaption})}
+
+Set parameters to customize the gas index algorithm. Call this once after \doxyref{Gas\+Index\+Algorithm\+\_\+init()}{p.}{sensirion__gas__index__algorithm_8h_a39e8ff626b9de149244ea53418b97f47} and before optional \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+states()}{p.}{sensirion__gas__index__algorithm_8h_a66ca339428d66175e53c6c0cb34a1ed0}, if desired. Otherwise, the default values will be used.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em index\+\_\+offset} & Gas index representing typical (average) conditions. Range 1..250, default 100 for VOC and 1 for NOx \\
+\hline
+{\em learning\+\_\+time\+\_\+offset\+\_\+hours} & Time constant of long-\/term estimator for offset. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] \\
+\hline
+{\em learning\+\_\+time\+\_\+gain\+\_\+hours} & Time constant of long-\/term estimator for gain. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] NOTE\+: This value is not relevant for NOx algorithm type \\
+\hline
+{\em gating\+\_\+max\+\_\+duration\+\_\+minutes} & Maximum duration of gating (freeze of estimator during high gas index signal). 0 (no gating) or range 1..3000 [minutes], default 180 [minutes] for VOC and 720 [minutes] for NOx \\
+\hline
+{\em std\+\_\+initial} & Initial estimate for standard deviation. Lower value boosts events during initial learning period, but may result in larger device-\/to-\/device variations. Range 10..5000, default 50 NOTE\+: This value is not relevant for NOx algorithm type \\
+\hline
+{\em gain\+\_\+factor} & Factor used to scale applied gain value when calculating gas index. Range 1..1000, default 230 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 400} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+

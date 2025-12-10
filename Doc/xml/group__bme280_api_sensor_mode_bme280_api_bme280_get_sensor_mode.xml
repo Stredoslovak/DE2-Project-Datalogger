@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_mode_bme280_api_bme280_get_sensor_mode" kind="page">
+    <compoundname>bme280_api_bme280_get_sensor_mode</compoundname>
+    <title>bme280_get_sensor_mode</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">int8_t<sp/><ref refid="bme280_8c_1aab44df556ac18f4e7800d8869a5d483f" kindref="member">bme280_get_sensor_mode</ref>(uint8_t<sp/>*sensor_mode,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+</programlisting></para>
+<para>This API gets the power mode of the sensor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">sensor_mode</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Pointer variable to store the power mode. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Structure instance of <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<verbatim>*    sensor_mode       |      Macros
+* ---------------------|-------------------------
+*     0                | BME280_POWERMODE_SLEEP
+*     1                | BME280_POWERMODE_FORCED
+*     3                | BME280_POWERMODE_NORMAL
+*</verbatim></para>
+<para><simplesect kind="return"><para>Result of API execution status</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

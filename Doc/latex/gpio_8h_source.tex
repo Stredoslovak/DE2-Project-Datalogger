@@ -1,0 +1,46 @@
+\doxysection{gpio.\+h}
+\label{gpio_8h_source}\index{lib/gpio/gpio.h@{lib/gpio/gpio.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ GPIO\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#\ define\ GPIO\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ GPIO\ library\ for\ AVR-\/GCC.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ (c)\ 2019-\/2024\ Tomas\ Fryza,\ MIT\ license}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ Developed\ using\ PlatformIO\ and\ AVR\ 8-\/bit\ Toolchain\ 3.6.2.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ Tested\ on\ Arduino\ Uno\ board\ and\ ATmega328P,\ 16\ MHz.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ -\/-\/\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ -\/-\/\ Function\ prototypes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ gpio\_mode\_output(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{void}\ gpio\_mode\_input\_pullup(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{void}\ gpio\_write\_low(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{void}\ gpio\_write\_high(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00073\ uint8\_t\ gpio\_read(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{void}\ gpio\_mode\_input\_nopull(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ gpio\_toggle(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

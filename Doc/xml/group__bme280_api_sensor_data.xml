@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_data" kind="group">
+    <compoundname>bme280ApiSensorData</compoundname>
+    <title>Sensor Data</title>
+    <innerpage refid="group__bme280_api_sensor_data_bme280_api_bme280_get_sensor_data">bme280_get_sensor_data</innerpage>
+    <innerpage refid="group__bme280_api_sensor_data_bme280_api_bme280_compensate_data">bme280_compensate_data</innerpage>
+    <briefdescription>
+<para>Data processing of sensor. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

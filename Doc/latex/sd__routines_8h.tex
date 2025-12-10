@@ -1,0 +1,435 @@
+\doxysection{lib/sd/sd\+\_\+routines.h File Reference}
+\label{sd__routines_8h}\index{lib/sd/sd\_routines.h@{lib/sd/sd\_routines.h}}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ FAT\+\_\+\+TESTING\+\_\+\+ONLY}
+\item 
+\#define \textbf{ SD\+\_\+\+CS\+\_\+\+ASSERT}~PORTD \&= $\sim$0x10
+\item 
+\#define \textbf{ SD\+\_\+\+CS\+\_\+\+DEASSERT}~PORTD $\vert$= 0x10
+\item 
+\#define \textbf{ GO\+\_\+\+IDLE\+\_\+\+STATE}~0
+\item 
+\#define \textbf{ SEND\+\_\+\+OP\+\_\+\+COND}~1
+\item 
+\#define \textbf{ SEND\+\_\+\+IF\+\_\+\+COND}~8
+\item 
+\#define \textbf{ SEND\+\_\+\+CSD}~9
+\item 
+\#define \textbf{ STOP\+\_\+\+TRANSMISSION}~12
+\item 
+\#define \textbf{ SEND\+\_\+\+STATUS}~13
+\item 
+\#define \textbf{ SET\+\_\+\+BLOCK\+\_\+\+LEN}~16
+\item 
+\#define \textbf{ READ\+\_\+\+SINGLE\+\_\+\+BLOCK}~17
+\item 
+\#define \textbf{ READ\+\_\+\+MULTIPLE\+\_\+\+BLOCKS}~18
+\item 
+\#define \textbf{ WRITE\+\_\+\+SINGLE\+\_\+\+BLOCK}~24
+\item 
+\#define \textbf{ WRITE\+\_\+\+MULTIPLE\+\_\+\+BLOCKS}~25
+\item 
+\#define \textbf{ ERASE\+\_\+\+BLOCK\+\_\+\+START\+\_\+\+ADDR}~32
+\item 
+\#define \textbf{ ERASE\+\_\+\+BLOCK\+\_\+\+END\+\_\+\+ADDR}~33
+\item 
+\#define \textbf{ ERASE\+\_\+\+SELECTED\+\_\+\+BLOCKS}~38
+\item 
+\#define \textbf{ SD\+\_\+\+SEND\+\_\+\+OP\+\_\+\+COND}~41
+\item 
+\#define \textbf{ APP\+\_\+\+CMD}~55
+\item 
+\#define \textbf{ READ\+\_\+\+OCR}~58
+\item 
+\#define \textbf{ CRC\+\_\+\+ON\+\_\+\+OFF}~59
+\item 
+\#define \textbf{ ON}~1
+\item 
+\#define \textbf{ OFF}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ SD\+\_\+init} (void)
+\item 
+unsigned char \textbf{ SD\+\_\+send\+Command} (unsigned char cmd, unsigned long arg)
+\item 
+unsigned char \textbf{ SD\+\_\+read\+Single\+Block} (unsigned long \textbf{ start\+Block})
+\item 
+unsigned char \textbf{ SD\+\_\+write\+Single\+Block} (unsigned long \textbf{ start\+Block})
+\item 
+unsigned char \textbf{ SD\+\_\+read\+Multiple\+Block} (unsigned long \textbf{ start\+Block}, unsigned long \textbf{ total\+Blocks})
+\item 
+unsigned char \textbf{ SD\+\_\+write\+Multiple\+Block} (unsigned long \textbf{ start\+Block}, unsigned long \textbf{ total\+Blocks})
+\item 
+unsigned char \textbf{ SD\+\_\+erase} (unsigned long \textbf{ start\+Block}, unsigned long \textbf{ total\+Blocks})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile unsigned long \textbf{ start\+Block}
+\item 
+volatile unsigned long \textbf{ total\+Blocks}
+\item 
+volatile unsigned char \textbf{ SDHC\+\_\+flag}
+\item 
+volatile unsigned char \textbf{ card\+Type}
+\item 
+volatile unsigned char \textbf{ buffer} [512]
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{sd\_routines.h@{sd\_routines.h}!APP\_CMD@{APP\_CMD}}
+\index{APP\_CMD@{APP\_CMD}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{APP\_CMD}
+{\footnotesize\ttfamily \label{sd__routines_8h_acdb057504ceebb40cb4a5df3197a8fb5} 
+\#define APP\+\_\+\+CMD~55}
+
+
+
+Definition at line \textbf{ 48} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!CRC\_ON\_OFF@{CRC\_ON\_OFF}}
+\index{CRC\_ON\_OFF@{CRC\_ON\_OFF}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{CRC\_ON\_OFF}
+{\footnotesize\ttfamily \label{sd__routines_8h_a5104895f45f0891d5bedef91b7dd4a92} 
+\#define CRC\+\_\+\+ON\+\_\+\+OFF~59}
+
+
+
+Definition at line \textbf{ 50} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!ERASE\_BLOCK\_END\_ADDR@{ERASE\_BLOCK\_END\_ADDR}}
+\index{ERASE\_BLOCK\_END\_ADDR@{ERASE\_BLOCK\_END\_ADDR}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{ERASE\_BLOCK\_END\_ADDR}
+{\footnotesize\ttfamily \label{sd__routines_8h_ade170f78d275c9bfd354e726e12435e2} 
+\#define ERASE\+\_\+\+BLOCK\+\_\+\+END\+\_\+\+ADDR~33}
+
+
+
+Definition at line \textbf{ 45} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!ERASE\_BLOCK\_START\_ADDR@{ERASE\_BLOCK\_START\_ADDR}}
+\index{ERASE\_BLOCK\_START\_ADDR@{ERASE\_BLOCK\_START\_ADDR}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{ERASE\_BLOCK\_START\_ADDR}
+{\footnotesize\ttfamily \label{sd__routines_8h_a0fe84e05b768d0f4b0f98a7f48a19f7f} 
+\#define ERASE\+\_\+\+BLOCK\+\_\+\+START\+\_\+\+ADDR~32}
+
+
+
+Definition at line \textbf{ 44} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!ERASE\_SELECTED\_BLOCKS@{ERASE\_SELECTED\_BLOCKS}}
+\index{ERASE\_SELECTED\_BLOCKS@{ERASE\_SELECTED\_BLOCKS}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{ERASE\_SELECTED\_BLOCKS}
+{\footnotesize\ttfamily \label{sd__routines_8h_ae9177be3107326be877417b3b02e3a83} 
+\#define ERASE\+\_\+\+SELECTED\+\_\+\+BLOCKS~38}
+
+
+
+Definition at line \textbf{ 46} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!FAT\_TESTING\_ONLY@{FAT\_TESTING\_ONLY}}
+\index{FAT\_TESTING\_ONLY@{FAT\_TESTING\_ONLY}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{FAT\_TESTING\_ONLY}
+{\footnotesize\ttfamily \label{sd__routines_8h_a4c9caedf210e9e4e61475e4e86293123} 
+\#define FAT\+\_\+\+TESTING\+\_\+\+ONLY}
+
+
+
+Definition at line \textbf{ 20} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!GO\_IDLE\_STATE@{GO\_IDLE\_STATE}}
+\index{GO\_IDLE\_STATE@{GO\_IDLE\_STATE}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{GO\_IDLE\_STATE}
+{\footnotesize\ttfamily \label{sd__routines_8h_a939c1c73db7a96767f5d06dfe7591b01} 
+\#define GO\+\_\+\+IDLE\+\_\+\+STATE~0}
+
+
+
+Definition at line \textbf{ 33} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!OFF@{OFF}}
+\index{OFF@{OFF}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{OFF}
+{\footnotesize\ttfamily \label{sd__routines_8h_a29e413f6725b2ba32d165ffaa35b01e5} 
+\#define OFF~0}
+
+
+
+Definition at line \textbf{ 54} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!ON@{ON}}
+\index{ON@{ON}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{ON}
+{\footnotesize\ttfamily \label{sd__routines_8h_ad76d1750a6cdeebd506bfcd6752554d2} 
+\#define ON~1}
+
+
+
+Definition at line \textbf{ 53} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!READ\_MULTIPLE\_BLOCKS@{READ\_MULTIPLE\_BLOCKS}}
+\index{READ\_MULTIPLE\_BLOCKS@{READ\_MULTIPLE\_BLOCKS}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{READ\_MULTIPLE\_BLOCKS}
+{\footnotesize\ttfamily \label{sd__routines_8h_ac1b68c53e7902f7197cd9f52b163bda1} 
+\#define READ\+\_\+\+MULTIPLE\+\_\+\+BLOCKS~18}
+
+
+
+Definition at line \textbf{ 41} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!READ\_OCR@{READ\_OCR}}
+\index{READ\_OCR@{READ\_OCR}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{READ\_OCR}
+{\footnotesize\ttfamily \label{sd__routines_8h_a9903337fbf33e03e1a9182fbca009313} 
+\#define READ\+\_\+\+OCR~58}
+
+
+
+Definition at line \textbf{ 49} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!READ\_SINGLE\_BLOCK@{READ\_SINGLE\_BLOCK}}
+\index{READ\_SINGLE\_BLOCK@{READ\_SINGLE\_BLOCK}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{READ\_SINGLE\_BLOCK}
+{\footnotesize\ttfamily \label{sd__routines_8h_a078b4c06f187324dd4e14cf59a6c87c2} 
+\#define READ\+\_\+\+SINGLE\+\_\+\+BLOCK~17}
+
+
+
+Definition at line \textbf{ 40} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_CS\_ASSERT@{SD\_CS\_ASSERT}}
+\index{SD\_CS\_ASSERT@{SD\_CS\_ASSERT}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_CS\_ASSERT}
+{\footnotesize\ttfamily \label{sd__routines_8h_ab42aba8ac59f4a88718f351bf6e30874} 
+\#define SD\+\_\+\+CS\+\_\+\+ASSERT~PORTD \&= $\sim$0x10}
+
+
+
+Definition at line \textbf{ 30} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_CS\_DEASSERT@{SD\_CS\_DEASSERT}}
+\index{SD\_CS\_DEASSERT@{SD\_CS\_DEASSERT}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_CS\_DEASSERT}
+{\footnotesize\ttfamily \label{sd__routines_8h_ac13a5b7ed7d2ee96da07f2b2ae9249fe} 
+\#define SD\+\_\+\+CS\+\_\+\+DEASSERT~PORTD $\vert$= 0x10}
+
+
+
+Definition at line \textbf{ 31} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_SEND\_OP\_COND@{SD\_SEND\_OP\_COND}}
+\index{SD\_SEND\_OP\_COND@{SD\_SEND\_OP\_COND}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_SEND\_OP\_COND}
+{\footnotesize\ttfamily \label{sd__routines_8h_a38e73c548131f1fd3f8acdad82fd44fb} 
+\#define SD\+\_\+\+SEND\+\_\+\+OP\+\_\+\+COND~41}
+
+
+
+Definition at line \textbf{ 47} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SEND\_CSD@{SEND\_CSD}}
+\index{SEND\_CSD@{SEND\_CSD}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SEND\_CSD}
+{\footnotesize\ttfamily \label{sd__routines_8h_a85a884eec438d450dc1c05e8d9d29044} 
+\#define SEND\+\_\+\+CSD~9}
+
+
+
+Definition at line \textbf{ 36} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SEND\_IF\_COND@{SEND\_IF\_COND}}
+\index{SEND\_IF\_COND@{SEND\_IF\_COND}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SEND\_IF\_COND}
+{\footnotesize\ttfamily \label{sd__routines_8h_a01bcf82717d75d8ccf0a8664d431738d} 
+\#define SEND\+\_\+\+IF\+\_\+\+COND~8}
+
+
+
+Definition at line \textbf{ 35} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SEND\_OP\_COND@{SEND\_OP\_COND}}
+\index{SEND\_OP\_COND@{SEND\_OP\_COND}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SEND\_OP\_COND}
+{\footnotesize\ttfamily \label{sd__routines_8h_a2397afdad46162ab52c4008d8f5dab23} 
+\#define SEND\+\_\+\+OP\+\_\+\+COND~1}
+
+
+
+Definition at line \textbf{ 34} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SEND\_STATUS@{SEND\_STATUS}}
+\index{SEND\_STATUS@{SEND\_STATUS}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SEND\_STATUS}
+{\footnotesize\ttfamily \label{sd__routines_8h_a7f98c79059221d788e2219865d770648} 
+\#define SEND\+\_\+\+STATUS~13}
+
+
+
+Definition at line \textbf{ 38} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SET\_BLOCK\_LEN@{SET\_BLOCK\_LEN}}
+\index{SET\_BLOCK\_LEN@{SET\_BLOCK\_LEN}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SET\_BLOCK\_LEN}
+{\footnotesize\ttfamily \label{sd__routines_8h_a2f0756e65bb52b5d7e7934ce1d5ec0da} 
+\#define SET\+\_\+\+BLOCK\+\_\+\+LEN~16}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!STOP\_TRANSMISSION@{STOP\_TRANSMISSION}}
+\index{STOP\_TRANSMISSION@{STOP\_TRANSMISSION}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{STOP\_TRANSMISSION}
+{\footnotesize\ttfamily \label{sd__routines_8h_a0f220568605a0eaa9a5cbb3d3cc82408} 
+\#define STOP\+\_\+\+TRANSMISSION~12}
+
+
+
+Definition at line \textbf{ 37} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!WRITE\_MULTIPLE\_BLOCKS@{WRITE\_MULTIPLE\_BLOCKS}}
+\index{WRITE\_MULTIPLE\_BLOCKS@{WRITE\_MULTIPLE\_BLOCKS}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{WRITE\_MULTIPLE\_BLOCKS}
+{\footnotesize\ttfamily \label{sd__routines_8h_a8cf5245e676d5405878f2af647491553} 
+\#define WRITE\+\_\+\+MULTIPLE\+\_\+\+BLOCKS~25}
+
+
+
+Definition at line \textbf{ 43} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!WRITE\_SINGLE\_BLOCK@{WRITE\_SINGLE\_BLOCK}}
+\index{WRITE\_SINGLE\_BLOCK@{WRITE\_SINGLE\_BLOCK}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{WRITE\_SINGLE\_BLOCK}
+{\footnotesize\ttfamily \label{sd__routines_8h_ae24d09e65670aa853aa83889b55a92a0} 
+\#define WRITE\+\_\+\+SINGLE\+\_\+\+BLOCK~24}
+
+
+
+Definition at line \textbf{ 42} of file \textbf{ sd\+\_\+routines.\+h}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{sd\_routines.h@{sd\_routines.h}!SD\_erase@{SD\_erase}}
+\index{SD\_erase@{SD\_erase}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_erase()}
+{\footnotesize\ttfamily \label{sd__routines_8h_a42f0a626164a7e52e260d0cd735e5479} 
+unsigned char SD\+\_\+erase (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{, }\item[{unsigned long}]{total\+Blocks}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 191} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_init@{SD\_init}}
+\index{SD\_init@{SD\_init}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_init()}
+{\footnotesize\ttfamily \label{sd__routines_8h_a1b26e131140b8ab739faa4dd100d6cf2} 
+unsigned char SD\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 32} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_readMultipleBlock@{SD\_readMultipleBlock}}
+\index{SD\_readMultipleBlock@{SD\_readMultipleBlock}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_readMultipleBlock()}
+{\footnotesize\ttfamily \label{sd__routines_8h_a53bffe1cf14bfa7bf68d9573e31a2970} 
+unsigned char SD\+\_\+read\+Multiple\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{, }\item[{unsigned long}]{total\+Blocks}{}\end{DoxyParamCaption})}
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_readSingleBlock@{SD\_readSingleBlock}}
+\index{SD\_readSingleBlock@{SD\_readSingleBlock}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_readSingleBlock()}
+{\footnotesize\ttfamily \label{sd__routines_8h_a479d5a79e118601ffede156b20d87494} 
+unsigned char SD\+\_\+read\+Single\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 216} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_sendCommand@{SD\_sendCommand}}
+\index{SD\_sendCommand@{SD\_sendCommand}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_sendCommand()}
+{\footnotesize\ttfamily \label{sd__routines_8h_a9faa6fa4ebcf98a07808f2d2c040dcfd} 
+unsigned char SD\+\_\+send\+Command (\begin{DoxyParamCaption}\item[{unsigned char}]{cmd}{, }\item[{unsigned long}]{arg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 128} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_writeMultipleBlock@{SD\_writeMultipleBlock}}
+\index{SD\_writeMultipleBlock@{SD\_writeMultipleBlock}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_writeMultipleBlock()}
+{\footnotesize\ttfamily \label{sd__routines_8h_af2c67f72a35334e82eedebef71964d9a} 
+unsigned char SD\+\_\+write\+Multiple\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{, }\item[{unsigned long}]{total\+Blocks}{}\end{DoxyParamCaption})}
+
+\index{sd\_routines.h@{sd\_routines.h}!SD\_writeSingleBlock@{SD\_writeSingleBlock}}
+\index{SD\_writeSingleBlock@{SD\_writeSingleBlock}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SD\_writeSingleBlock()}
+{\footnotesize\ttfamily \label{sd__routines_8h_aa72e78c5d2b4664dfdbb339030a1798c} 
+unsigned char SD\+\_\+write\+Single\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 251} of file \textbf{ SD\+\_\+routines.\+c}.
+
+
+
+\label{doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{sd\_routines.h@{sd\_routines.h}!buffer@{buffer}}
+\index{buffer@{buffer}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{buffer}
+{\footnotesize\ttfamily \label{sd__routines_8h_adfca90f2667c4bd33f89652fc0a75146} 
+volatile unsigned char buffer[512]}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!cardType@{cardType}}
+\index{cardType@{cardType}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{cardType}
+{\footnotesize\ttfamily \label{sd__routines_8h_add9f7153567b2f38191b157d2caf7b79} 
+volatile unsigned char card\+Type}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!SDHC\_flag@{SDHC\_flag}}
+\index{SDHC\_flag@{SDHC\_flag}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{SDHC\_flag}
+{\footnotesize\ttfamily \label{sd__routines_8h_a7fa85cbe61c04a9f71c57aaf1c04cfcc} 
+volatile unsigned char SDHC\+\_\+flag}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!startBlock@{startBlock}}
+\index{startBlock@{startBlock}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{startBlock}
+{\footnotesize\ttfamily \label{sd__routines_8h_aef9ccbd37ff89101204c1ab239f94453} 
+volatile unsigned long start\+Block}
+
+
+
+Definition at line \textbf{ 56} of file \textbf{ sd\+\_\+routines.\+h}.
+
+\index{sd\_routines.h@{sd\_routines.h}!totalBlocks@{totalBlocks}}
+\index{totalBlocks@{totalBlocks}!sd\_routines.h@{sd\_routines.h}}
+\doxysubsubsection{totalBlocks}
+{\footnotesize\ttfamily \label{sd__routines_8h_a18e6ba0217759ba11da835a1aa52edbf} 
+volatile unsigned long total\+Blocks}
+
+
+
+Definition at line \textbf{ 56} of file \textbf{ sd\+\_\+routines.\+h}.
+

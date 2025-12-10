@@ -1,0 +1,238 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="uart__compat_8h" kind="file" language="C++">
+    <compoundname>uart_compat.h</compoundname>
+    <includes local="no">avr/pgmspace.h</includes>
+    <includes refid="uart_8h" local="no">uart.h</includes>
+    <includedby refid="_f_a_t32_8c" local="yes">lib/FAT32/FAT32.c</includedby>
+    <incdepgraph>
+      <node id="3">
+        <label>uart.h</label>
+        <link refid="uart_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>lib/uart/uart_compat.h</label>
+        <link refid="uart__compat_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>avr/pgmspace.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/FAT32/FAT32.c</label>
+        <link refid="_f_a_t32_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/uart/uart_compat.h</label>
+        <link refid="uart__compat_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="uart__compat_8h_1ace7f07fcb2f48c84bedf0e825c999985" prot="public" static="no">
+        <name>transmitByte</name>
+        <param><defname>data</defname></param>
+        <initializer><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref>(<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>)</initializer>
+        <briefdescription>
+<para>Compatibility layer for old UART function names Maps transmitByte/transmitString to Peter Fleury UART library. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="13" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uart__compat_8h_1aea73bf4991134ec1f113b5ed8d79ec09" prot="public" static="no">
+        <name>transmitString</name>
+        <param><defname>str</defname></param>
+        <initializer><ref refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kindref="member">uart_puts</ref>((char*)(str))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="16" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uart__compat_8h_1a4f97041706df712db8c9bf3a35e20a7b" prot="public" static="no">
+        <name>TX_NEWLINE</name>
+        <initializer><ref refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kindref="member">uart_puts</ref>(&quot;\r\n&quot;)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="19" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uart__compat_8h_1aec93e83855ac17c3c25c55c37ca186dd" prot="public" static="no">
+        <name>BYTE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="66" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uart__compat_8h_1afeeffe52c8fd59db7c61cf8b02042dbf" prot="public" static="no">
+        <name>INT</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="67" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="uart__compat_8h_1acaa7b8a7167a8214f499c71c413ddcca" prot="public" static="no">
+        <name>LONG</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="68" column="9" bodyfile="lib/uart/uart_compat.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="uart__compat_8h_1adc008860c9c111531b5d1f85d04097ce" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void transmitString_P</definition>
+        <argsstring>(const char *string)</argsstring>
+        <name>transmitString_P</name>
+        <param>
+          <type>const char *</type>
+          <declname>string</declname>
+        </param>
+        <briefdescription>
+<para>Transmit string from PROGMEM (FLASH memory). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>string</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to string in PROGMEM </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="25" column="20" bodyfile="lib/uart/uart_compat.h" bodystart="25" bodyend="30"/>
+      </memberdef>
+      <memberdef kind="function" id="uart__compat_8h_1a62bc32467ae63e85b61dc134feffaa0f" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void transmitHex</definition>
+        <argsstring>(unsigned char type, unsigned long value)</argsstring>
+        <name>transmitHex</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>value</declname>
+        </param>
+        <briefdescription>
+<para>Transmit hexadecimal value as string. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>value</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Value to transmit in hex format </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart_compat.h" line="36" column="20" bodyfile="lib/uart/uart_compat.h" bodystart="36" bodyend="63"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>UART_COMPAT_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_COMPAT_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;avr/pgmspace.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="uart_8h" kindref="compound">uart.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Single<sp/>byte<sp/>transmission</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="uart__compat_8h_1ace7f07fcb2f48c84bedf0e825c999985" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>transmitByte(data)<sp/>uart_putc(data)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//<sp/>String<sp/>transmission<sp/>from<sp/>RAM</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="uart__compat_8h_1aea73bf4991134ec1f113b5ed8d79ec09" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>transmitString(str)<sp/>uart_puts((char*)(str))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Newline<sp/>transmission</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="uart__compat_8h_1a4f97041706df712db8c9bf3a35e20a7b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TX_NEWLINE<sp/>uart_puts(&quot;\r\n&quot;)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>transmitString_P(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/></highlight><highlight class="keywordtype">string</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="26"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>c;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((c<sp/>=<sp/>pgm_read_byte(</highlight><highlight class="keywordtype">string</highlight><highlight class="normal">++)))</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref>(c);</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>transmitHex(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>type,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>value)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>hex_string[12];</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*ptr<sp/>=<sp/>hex_string;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>nibble;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>i;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>digits;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Determine<sp/>number<sp/>of<sp/>digits<sp/>based<sp/>on<sp/>type</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(type<sp/>==<sp/>0)<sp/></highlight><highlight class="comment">//<sp/>BYTE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>digits<sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(type<sp/>==<sp/>1)<sp/></highlight><highlight class="comment">//<sp/>INT/WORD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>digits<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/></highlight><highlight class="comment">//<sp/>LONG</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>digits<sp/>=<sp/>8;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kindref="member">uart_puts</ref>(</highlight><highlight class="stringliteral">&quot;0x&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Convert<sp/>to<sp/>hex<sp/>string</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>digits;<sp/>i++)</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nibble<sp/>=<sp/>(value<sp/>&gt;&gt;<sp/>((digits<sp/>-<sp/>1<sp/>-<sp/>i)<sp/>*<sp/>4))<sp/>&amp;<sp/>0x0F;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(nibble<sp/>&lt;<sp/>10)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref>(</highlight><highlight class="charliteral">&apos;0&apos;</highlight><highlight class="normal"><sp/>+<sp/>nibble);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref>(</highlight><highlight class="charliteral">&apos;A&apos;</highlight><highlight class="normal"><sp/>+<sp/>nibble<sp/>-<sp/>10);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Type<sp/>definitions<sp/>for<sp/>transmitHex</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66" refid="uart__compat_8h_1aec93e83855ac17c3c25c55c37ca186dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BYTE<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="uart__compat_8h_1afeeffe52c8fd59db7c61cf8b02042dbf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INT<sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="uart__compat_8h_1acaa7b8a7167a8214f499c71c413ddcca" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LONG<sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>UART_COMPAT_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="lib/uart/uart_compat.h"/>
+  </compounddef>
+</doxygen>

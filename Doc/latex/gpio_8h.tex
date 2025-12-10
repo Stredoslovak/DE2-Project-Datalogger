@@ -1,0 +1,20 @@
+\doxysection{lib/gpio/gpio.h File Reference}
+\label{gpio_8h}\index{lib/gpio/gpio.h@{lib/gpio/gpio.h}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ gpio\+\_\+mode\+\_\+output} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Configure one output pin. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+mode\+\_\+input\+\_\+pullup} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Configure one input pin and enable pull-\/up. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+write\+\_\+low} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Write one pin to low value. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+write\+\_\+high} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Write one pin to high value. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ gpio\+\_\+read} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Read a value from input pin. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+mode\+\_\+input\+\_\+nopull} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\item 
+void \textbf{ gpio\+\_\+toggle} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\end{DoxyCompactItemize}

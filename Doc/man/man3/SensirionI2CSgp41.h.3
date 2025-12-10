@@ -1,0 +1,55 @@
+.TH "lib/sgp41/SensirionI2CSgp41.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/sgp41/SensirionI2CSgp41.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdint\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uint16_t \fBsgp41_executeConditioning\fP (uint16_t defaultRh, uint16_t defaultT, uint16_t *srawVoc)"
+.br
+.ti -1c
+.RI "uint16_t \fBsgp41_measureRawSignals\fP (uint16_t relativeHumidity, uint16_t temperature, uint16_t *srawVoc, uint16_t *srawNox)"
+.br
+.ti -1c
+.RI "uint16_t \fBsgp41_executeSelfTest\fP (uint16_t *testResult)"
+.br
+.ti -1c
+.RI "uint16_t \fBsgp41_turnHeaterOff\fP (void)"
+.br
+.ti -1c
+.RI "uint16_t \fBsgp41_getSerialNumber\fP (uint16_t serialNumber[])"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "uint16_t sgp41_executeConditioning (uint16_t defaultRh, uint16_t defaultT, uint16_t * srawVoc)"
+
+.PP
+Definition at line \fB127\fP of file \fBSensirionI2CSgp41\&.c\fP\&.
+.SS "uint16_t sgp41_executeSelfTest (uint16_t * testResult)"
+
+.PP
+Definition at line \fB157\fP of file \fBSensirionI2CSgp41\&.c\fP\&.
+.SS "uint16_t sgp41_getSerialNumber (uint16_t serialNumber[])"
+
+.PP
+Definition at line \fB176\fP of file \fBSensirionI2CSgp41\&.c\fP\&.
+.SS "uint16_t sgp41_measureRawSignals (uint16_t relativeHumidity, uint16_t temperature, uint16_t * srawVoc, uint16_t * srawNox)"
+
+.PP
+Definition at line \fB141\fP of file \fBSensirionI2CSgp41\&.c\fP\&.
+.SS "uint16_t sgp41_turnHeaterOff (void )"
+
+.PP
+Definition at line \fB169\fP of file \fBSensirionI2CSgp41\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

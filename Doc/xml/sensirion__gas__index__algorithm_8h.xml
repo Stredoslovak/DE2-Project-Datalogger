@@ -1,0 +1,1286 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="sensirion__gas__index__algorithm_8h" kind="file" language="C++">
+    <compoundname>sensirion_gas_index_algorithm.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="sensirion__gas__index__algorithm_8c" local="yes">lib/gas_index_algorithm/sensirion_gas_index_algorithm.c</includedby>
+    <includedby refid="sgp41_8c" local="yes">src/sgp41.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/gas_index_algorithm/sensirion_gas_index_algorithm.h</label>
+        <link refid="sensirion__gas__index__algorithm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/gas_index_algorithm/sensirion_gas_index_algorithm.c</label>
+        <link refid="sensirion__gas__index__algorithm_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/gas_index_algorithm/sensirion_gas_index_algorithm.h</label>
+        <link refid="sensirion__gas__index__algorithm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/sgp41.c</label>
+        <link refid="sgp41_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_gas_index_algorithm_params" prot="public">GasIndexAlgorithmParams</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a78b91da60017324e077f3b4c46cc82e6" prot="public" static="no">
+        <name>GASINDEXALGORITHM_H_</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="36" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a2ce26e171e495499b9c91d7797edb5f0" prot="public" static="no">
+        <name>F16</name>
+        <param><defname>x</defname></param>
+        <initializer>    ((<ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref>)(((x) &gt;= 0) ? ((x)*65536.0 + 0.5) : ((x)*65536.0 - 0.5)))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="46" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="46" bodyend="47"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1abb452686968e48b67397da5f97445f5b" prot="public" static="no">
+        <name>bool</name>
+        <initializer>int</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="56" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a41f9c5fb8b08eb5dc3edce4dcb37fee7" prot="public" static="no">
+        <name>true</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="57" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a65e9886d74aaee76545e83dd09011727" prot="public" static="no">
+        <name>false</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="58" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ab2ff8fc34fb9262af92d0524fc6ae2a5" prot="public" static="no">
+        <name>LIBRARY_VERSION_NAME</name>
+        <initializer>&quot;3.2.0&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="67" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a65553d56f3f8007d1768c662833ab294" prot="public" static="no">
+        <name>GasIndexAlgorithm_ALGORITHM_TYPE_VOC</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="70" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aefbc8af43c9df3537fe4545b86f3cd9b" prot="public" static="no">
+        <name>GasIndexAlgorithm_ALGORITHM_TYPE_NOX</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="71" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1affc1d4c9cf8f4227ec6ac215299a4d2f" prot="public" static="no">
+        <name>GasIndexAlgorithm_SAMPLING_INTERVAL</name>
+        <initializer>(1.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="72" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a8e0817dfc832435e4df6ad264ee5c047" prot="public" static="no">
+        <name>GasIndexAlgorithm_INITIAL_BLACKOUT</name>
+        <initializer>(45.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="73" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aabae1c241e1218fd43942752d12616e8" prot="public" static="no">
+        <name>GasIndexAlgorithm_INDEX_GAIN</name>
+        <initializer>(230.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="74" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a52aa63874447b4b9d854a5d36e0d35af" prot="public" static="no">
+        <name>GasIndexAlgorithm_SRAW_STD_INITIAL</name>
+        <initializer>(50.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="75" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="75" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a23bfd900cb240929e687f6e1ec1eaf4c" prot="public" static="no">
+        <name>GasIndexAlgorithm_SRAW_STD_BONUS_VOC</name>
+        <initializer>(220.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="76" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ad815e5e2d8f417a0e0eb71bd47d49b8d" prot="public" static="no">
+        <name>GasIndexAlgorithm_SRAW_STD_NOX</name>
+        <initializer>(2000.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="77" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="77" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a1b3c2250f40e0bc66b8cb4a70d942f98" prot="public" static="no">
+        <name>GasIndexAlgorithm_TAU_MEAN_HOURS</name>
+        <initializer>(12.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="78" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ac8a62c45f8c290cf2e57174b2b537770" prot="public" static="no">
+        <name>GasIndexAlgorithm_TAU_VARIANCE_HOURS</name>
+        <initializer>(12.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="79" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="79" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aa6470efcc86cd6af48c63040c4323c74" prot="public" static="no">
+        <name>GasIndexAlgorithm_TAU_INITIAL_MEAN_VOC</name>
+        <initializer>(20.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="80" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="80" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1af7aa5d98de4f206ff02ccb9b118f381f" prot="public" static="no">
+        <name>GasIndexAlgorithm_TAU_INITIAL_MEAN_NOX</name>
+        <initializer>(1200.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="81" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ae61bc42f510606781ad77b08d6cfac6a" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_DURATION_MEAN_VOC</name>
+        <initializer>((3600. * 0.75))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="82" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a2719beb4bc5f20df40e1acdc50e039c6" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_DURATION_MEAN_NOX</name>
+        <initializer>((3600. * 4.75))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="83" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a17b38c74ebbda88ace468bb5854040e1" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_TRANSITION_MEAN</name>
+        <initializer>(0.01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="84" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a0277496ccdf852da572cb14381ee21de" prot="public" static="no">
+        <name>GasIndexAlgorithm_TAU_INITIAL_VARIANCE</name>
+        <initializer>(2500.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="85" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a2afacba1b691d0bd4e01ce0fd9e8a7fb" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_DURATION_VARIANCE_VOC</name>
+        <initializer>((3600. * 1.45))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="86" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a1fb45129bce7e2e1dd9f2dd72761a1a8" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_DURATION_VARIANCE_NOX</name>
+        <initializer>((3600. * 5.70))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="87" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a0ed2d688c0930b6a95433696171faf5e" prot="public" static="no">
+        <name>GasIndexAlgorithm_INIT_TRANSITION_VARIANCE</name>
+        <initializer>(0.01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="88" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="88" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a2134028a7a92032b0936019d3d9a9731" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_THRESHOLD_VOC</name>
+        <initializer>(340.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="89" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="89" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a345328861f5b23f0e57897dfe170867f" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_THRESHOLD_NOX</name>
+        <initializer>(30.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="90" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a66482d05b71f915ea8730151293c1cbf" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_THRESHOLD_INITIAL</name>
+        <initializer>(510.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="91" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="91" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a5e571bd5d2598eae72fdeabd0b67c996" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_THRESHOLD_TRANSITION</name>
+        <initializer>(0.09)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="92" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a58b77b6443eb5c1f245ab5efb81e99dc" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_VOC_MAX_DURATION_MINUTES</name>
+        <initializer>((60. * 3.))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="93" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aee6a7d0a00785f22e618ac792ac6f004" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_NOX_MAX_DURATION_MINUTES</name>
+        <initializer>((60. * 12.))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="94" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="94" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a5c9a67ad92ca88a3f9cab5a4c041c72f" prot="public" static="no">
+        <name>GasIndexAlgorithm_GATING_MAX_RATIO</name>
+        <initializer>(0.3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="95" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="95" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ad1a1f8ee49cdef4f45d795bdf51eca75" prot="public" static="no">
+        <name>GasIndexAlgorithm_SIGMOID_L</name>
+        <initializer>(500.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="96" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="96" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a237639cca1b7097814d5d59641c6f64f" prot="public" static="no">
+        <name>GasIndexAlgorithm_SIGMOID_K_VOC</name>
+        <initializer>(-0.0065)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="97" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a3a5abf61617208f230b4d86dc46ddd4e" prot="public" static="no">
+        <name>GasIndexAlgorithm_SIGMOID_X0_VOC</name>
+        <initializer>(213.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="98" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a3dddce158535f161ecac1fd65e2dd041" prot="public" static="no">
+        <name>GasIndexAlgorithm_SIGMOID_K_NOX</name>
+        <initializer>(-0.0101)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="99" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a578ec9b9b07dfdeea678e555727de760" prot="public" static="no">
+        <name>GasIndexAlgorithm_SIGMOID_X0_NOX</name>
+        <initializer>(614.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="100" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a298c01bf061e3a0de6bb1c3210070ceb" prot="public" static="no">
+        <name>GasIndexAlgorithm_VOC_INDEX_OFFSET_DEFAULT</name>
+        <initializer>(100.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="101" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ad14f5b2d784a0c089a40a0353266d9cf" prot="public" static="no">
+        <name>GasIndexAlgorithm_NOX_INDEX_OFFSET_DEFAULT</name>
+        <initializer>(1.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="102" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ab7a67ed8447673477ea6d6f18eb89e5c" prot="public" static="no">
+        <name>GasIndexAlgorithm_LP_TAU_FAST</name>
+        <initializer>(20.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="103" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a8ee41aa49a3d9bd5a7bb6d306c2b67f5" prot="public" static="no">
+        <name>GasIndexAlgorithm_LP_TAU_SLOW</name>
+        <initializer>(500.0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="104" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aa5acfc6b763f1f5a70ec02c80b9ea570" prot="public" static="no">
+        <name>GasIndexAlgorithm_LP_ALPHA</name>
+        <initializer>(-0.2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="105" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a8a8c79da034acb1c615b11bc1648fa6a" prot="public" static="no">
+        <name>GasIndexAlgorithm_VOC_SRAW_MINIMUM</name>
+        <initializer>(20000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="106" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a431a9bc88341cd080e7354ca27ddbfd9" prot="public" static="no">
+        <name>GasIndexAlgorithm_NOX_SRAW_MINIMUM</name>
+        <initializer>(10000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="107" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1adc213bf22c5ff669b5a4d1043deb66af" prot="public" static="no">
+        <name>GasIndexAlgorithm_PERSISTENCE_UPTIME_GAMMA</name>
+        <initializer>((3. * 3600.))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="108" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a1a37b38d4622f634fff6eb2652ef23b9" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_INDEX_OFFSET_MIN</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="109" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ac3b6d740df353191e3af30ba760da397" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_INDEX_OFFSET_MAX</name>
+        <initializer>(250)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="110" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ab4f6fd73c153344712f485c569df35a3" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_LEARNING_TIME_OFFSET_HOURS_MIN</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="111" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a0109cf4f6c274b37d5d2de46fc291583" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_LEARNING_TIME_OFFSET_HOURS_MAX</name>
+        <initializer>(1000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="112" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ada1c26924e93c05330a364bd8dd0b00f" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_LEARNING_TIME_GAIN_HOURS_MIN</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="113" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a421a90ddfbcf61a595e1d78d15674d26" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_LEARNING_TIME_GAIN_HOURS_MAX</name>
+        <initializer>(1000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="114" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a3115fe11dd62538441f2e252379ca5f9" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_GATING_MAX_DURATION_MINUTES_MIN</name>
+        <initializer>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="115" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1aaf01e8c4d5258ab61c328107b58ba6d3" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_GATING_MAX_DURATION_MINUTES_MAX</name>
+        <initializer>(3000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="116" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a0128cd57b0e1949c68b5d2754b5f9062" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_STD_INITIAL_MIN</name>
+        <initializer>(10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="117" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a0d9591d379984fff1e3040933d49a2e2" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_STD_INITIAL_MAX</name>
+        <initializer>(5000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="118" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ab369c8bd560e41f01010d2901feabce4" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_GAIN_FACTOR_MIN</name>
+        <initializer>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="119" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ac172efa5a9b092b395f8850acd804a72" prot="public" static="no">
+        <name>GasIndexAlgorithm_TUNING_GAIN_FACTOR_MAX</name>
+        <initializer>(1000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="120" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1ae668ba617dc6dea8b7a94981868930ef" prot="public" static="no">
+        <name>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING</name>
+        <initializer>(64.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="121" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a2c5f1fd825776b93ab125f3a42144f63" prot="public" static="no">
+        <name>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING</name>
+        <initializer>    (8.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="122" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="122" bodyend="123"/>
+      </memberdef>
+      <memberdef kind="define" id="sensirion__gas__index__algorithm_8h_1a44325df492b1c248d312e2c33609d898" prot="public" static="no">
+        <name>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__FIX16_MAX</name>
+        <initializer>(32767.)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="124" column="9" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="124" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="typedef">
+      <memberdef kind="typedef" id="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" prot="public" static="no">
+        <type>int32_t</type>
+        <definition>typedef int32_t fix16_t</definition>
+        <argsstring></argsstring>
+        <name>fix16_t</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="44" column="17" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a39e8ff626b9de149244ea53418b97f47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_init</definition>
+        <argsstring>(GasIndexAlgorithmParams *params, int32_t algorithm_type)</argsstring>
+        <name>GasIndexAlgorithm_init</name>
+        <param>
+          <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>algorithm_type</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Initialize the gas index algorithm parameters for the specified algorithm type and reset its internal states. Call this once at the beginning. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>algorithm_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 (GasIndexAlgorithm_ALGORITHM_TYPE_VOC) for VOC or 1 (GasIndexAlgorithm_ALGORITHM_TYPE_NOX) for NOx </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="179" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="321" bodyend="351" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="179" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a384a6c2521ab3ffea737ca6aca9ba95a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_reset</definition>
+        <argsstring>(GasIndexAlgorithmParams *params)</argsstring>
+        <name>GasIndexAlgorithm_reset</name>
+        <param>
+          <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Reset the internal states of the gas index algorithm. Previously set tuning parameters are preserved. Call this when resuming operation after a measurement interruption. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="188" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="353" bodyend="358" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="188" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a1e163ca69501abb38c9176c1e933c9b1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_get_states</definition>
+        <argsstring>(const GasIndexAlgorithmParams *params, int32_t *state0, int32_t *state1)</argsstring>
+        <name>GasIndexAlgorithm_get_states</name>
+        <param>
+          <type>const <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>state0</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>state1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current algorithm states. Retrieved values can be used in <ref refid="sensirion__gas__index__algorithm_8h_1a66ca339428d66175e53c6c0cb34a1ed0" kindref="member">GasIndexAlgorithm_set_states()</ref> to resume operation after a short interruption, skipping initial learning phase. NOTE: This feature can only be used for VOC algorithm type and after at least 3 hours of continuous operation. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State0 to be stored </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State1 to be stored </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="200" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="380" bodyend="386" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="200" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a66ca339428d66175e53c6c0cb34a1ed0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_set_states</definition>
+        <argsstring>(GasIndexAlgorithmParams *params, int32_t state0, int32_t state1)</argsstring>
+        <name>GasIndexAlgorithm_set_states</name>
+        <param>
+          <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>state0</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>state1</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set previously retrieved algorithm states to resume operation after a short interruption, skipping initial learning phase. This feature should not be used after interruptions of more than 10 minutes. Call this once after <ref refid="sensirion__gas__index__algorithm_8h_1a39e8ff626b9de149244ea53418b97f47" kindref="member">GasIndexAlgorithm_init()</ref> or <ref refid="sensirion__gas__index__algorithm_8h_1a384a6c2521ab3ffea737ca6aca9ba95a" kindref="member">GasIndexAlgorithm_reset()</ref> and the optional <ref refid="sensirion__gas__index__algorithm_8h_1a4bef9d1a53546711018b907cea278dac" kindref="member">GasIndexAlgorithm_set_tuning_parameters()</ref>, if desired. Otherwise, the algorithm will start with initial learning phase. NOTE: This feature can only be used for VOC algorithm type. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State0 to be restored </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>state1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>State1 to be restored </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="215" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="388" bodyend="398" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="215" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a4bef9d1a53546711018b907cea278dac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_set_tuning_parameters</definition>
+        <argsstring>(GasIndexAlgorithmParams *params, int32_t index_offset, int32_t learning_time_offset_hours, int32_t learning_time_gain_hours, int32_t gating_max_duration_minutes, int32_t std_initial, int32_t gain_factor)</argsstring>
+        <name>GasIndexAlgorithm_set_tuning_parameters</name>
+        <param>
+          <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>index_offset</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>learning_time_offset_hours</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>learning_time_gain_hours</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>gating_max_duration_minutes</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>std_initial</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>gain_factor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Set parameters to customize the gas index algorithm. Call this once after <ref refid="sensirion__gas__index__algorithm_8h_1a39e8ff626b9de149244ea53418b97f47" kindref="member">GasIndexAlgorithm_init()</ref> and before optional <ref refid="sensirion__gas__index__algorithm_8h_1a66ca339428d66175e53c6c0cb34a1ed0" kindref="member">GasIndexAlgorithm_set_states()</ref>, if desired. Otherwise, the default values will be used.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>index_offset</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Gas index representing typical (average) conditions. Range 1..250, default 100 for VOC and 1 for NOx </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>learning_time_offset_hours</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time constant of long-term estimator for offset. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>learning_time_gain_hours</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time constant of long-term estimator for gain. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] NOTE: This value is not relevant for NOx algorithm type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gating_max_duration_minutes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Maximum duration of gating (freeze of estimator during high gas index signal). 0 (no gating) or range 1..3000 [minutes], default 180 [minutes] for VOC and 720 [minutes] for NOx </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>std_initial</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Initial estimate for standard deviation. Lower value boosts events during initial learning period, but may result in larger device-to-device variations. Range 10..5000, default 50 NOTE: This value is not relevant for NOx algorithm type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gain_factor</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Factor used to scale applied gain value when calculating gas index. Range 1..1000, default 230 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="254" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="400" bodyend="414" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="254" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a409f98c042ef6e200fb8c735e521664c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_get_tuning_parameters</definition>
+        <argsstring>(const GasIndexAlgorithmParams *params, int32_t *index_offset, int32_t *learning_time_offset_hours, int32_t *learning_time_gain_hours, int32_t *gating_max_duration_minutes, int32_t *std_initial, int32_t *gain_factor)</argsstring>
+        <name>GasIndexAlgorithm_get_tuning_parameters</name>
+        <param>
+          <type>const <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>index_offset</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>learning_time_offset_hours</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>learning_time_gain_hours</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>gating_max_duration_minutes</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>std_initial</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>gain_factor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Get current parameters to customize the gas index algorithm. Refer to <ref refid="sensirion__gas__index__algorithm_8h_1a4bef9d1a53546711018b907cea278dac" kindref="member">GasIndexAlgorithm_set_tuning_parameters()</ref> for description of the parameters. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="265" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="416" bodyend="431" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="265" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="sensirion__gas__index__algorithm_8h_1a4be92e48685ba183966d2612ce33528c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void GasIndexAlgorithm_process</definition>
+        <argsstring>(GasIndexAlgorithmParams *params, int32_t sraw, int32_t *gas_index)</argsstring>
+        <name>GasIndexAlgorithm_process</name>
+        <param>
+          <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> *</type>
+          <declname>params</declname>
+        </param>
+        <param>
+          <type>int32_t</type>
+          <declname>sraw</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>gas_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calculate the gas index value from the raw sensor value.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>params</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pointer to the <ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref> struct </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>sraw</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Raw value from the SGP4x sensor </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gas_index</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Calculated gas index value from the raw sensor value. Zero during initial blackout period and 1..500 afterwards </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="279" column="6" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" bodystart="433" bodyend="475" declfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" declline="279" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2022,<sp/>Sensirion<sp/>AG</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Redistribution<sp/>and<sp/>use<sp/>in<sp/>source<sp/>and<sp/>binary<sp/>forms,<sp/>with<sp/>or<sp/>without</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>modification,<sp/>are<sp/>permitted<sp/>provided<sp/>that<sp/>the<sp/>following<sp/>conditions<sp/>are<sp/>met:</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>*<sp/>Redistributions<sp/>of<sp/>source<sp/>code<sp/>must<sp/>retain<sp/>the<sp/>above<sp/>copyright<sp/>notice,<sp/>this</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/><sp/><sp/>list<sp/>of<sp/>conditions<sp/>and<sp/>the<sp/>following<sp/>disclaimer.</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>*<sp/>Redistributions<sp/>in<sp/>binary<sp/>form<sp/>must<sp/>reproduce<sp/>the<sp/>above<sp/>copyright<sp/>notice,</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*<sp/><sp/><sp/>this<sp/>list<sp/>of<sp/>conditions<sp/>and<sp/>the<sp/>following<sp/>disclaimer<sp/>in<sp/>the<sp/>documentation</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/><sp/><sp/>and/or<sp/>other<sp/>materials<sp/>provided<sp/>with<sp/>the<sp/>distribution.</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>*<sp/>Neither<sp/>the<sp/>name<sp/>of<sp/>Sensirion<sp/>AG<sp/>nor<sp/>the<sp/>names<sp/>of<sp/>its</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/><sp/><sp/>contributors<sp/>may<sp/>be<sp/>used<sp/>to<sp/>endorse<sp/>or<sp/>promote<sp/>products<sp/>derived<sp/>from</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/><sp/><sp/>this<sp/>software<sp/>without<sp/>specific<sp/>prior<sp/>written<sp/>permission.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>THIS<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>BY<sp/>THE<sp/>COPYRIGHT<sp/>HOLDERS<sp/>AND<sp/>CONTRIBUTORS<sp/>&quot;AS<sp/>IS&quot;</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>AND<sp/>ANY<sp/>EXPRESS<sp/>OR<sp/>IMPLIED<sp/>WARRANTIES,<sp/>INCLUDING,<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO,<sp/>THE</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/>IMPLIED<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY<sp/>AND<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/>ARE<sp/>DISCLAIMED.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>COPYRIGHT<sp/>HOLDER<sp/>OR<sp/>CONTRIBUTORS<sp/>BE</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>DIRECT,<sp/>INDIRECT,<sp/>INCIDENTAL,<sp/>SPECIAL,<sp/>EXEMPLARY,<sp/>OR</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>CONSEQUENTIAL<sp/>DAMAGES<sp/>(INCLUDING,<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO,<sp/>PROCUREMENT<sp/>OF</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>SUBSTITUTE<sp/>GOODS<sp/>OR<sp/>SERVICES;<sp/>LOSS<sp/>OF<sp/>USE,<sp/>DATA,<sp/>OR<sp/>PROFITS;<sp/>OR<sp/>BUSINESS</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>INTERRUPTION)<sp/>HOWEVER<sp/>CAUSED<sp/>AND<sp/>ON<sp/>ANY<sp/>THEORY<sp/>OF<sp/>LIABILITY,<sp/>WHETHER<sp/>IN</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/>CONTRACT,<sp/>STRICT<sp/>LIABILITY,<sp/>OR<sp/>TORT<sp/>(INCLUDING<sp/>NEGLIGENCE<sp/>OR<sp/>OTHERWISE)</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>IN<sp/>ANY<sp/>WAY<sp/>OUT<sp/>OF<sp/>THE<sp/>USE<sp/>OF<sp/>THIS<sp/>SOFTWARE,<sp/>EVEN<sp/>IF<sp/>ADVISED<sp/>OF<sp/>THE</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>POSSIBILITY<sp/>OF<sp/>SUCH<sp/>DAMAGE.</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>GASINDEXALGORITHM_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="sensirion__gas__index__algorithm_8h_1a78b91da60017324e077f3b4c46cc82e6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GASINDEXALGORITHM_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>The<sp/>fixed<sp/>point<sp/>arithmetic<sp/>parts<sp/>of<sp/>this<sp/>code<sp/>were<sp/>originally<sp/>created<sp/>by</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>https://github.com/PetteriAimonen/libfixmath</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>int32_t<sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="sensirion__gas__index__algorithm_8h_1a2ce26e171e495499b9c91d7797edb5f0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>F16(x)<sp/>\</highlight></codeline>
+<codeline lineno="47"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((fix16_t)(((x)<sp/>&gt;=<sp/>0)<sp/>?<sp/>((x)*65536.0<sp/>+<sp/>0.5)<sp/>:<sp/>((x)*65536.0<sp/>-<sp/>0.5)))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>__STDC_VERSION__<sp/>&gt;=<sp/>199901L</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdbool.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="sensirion__gas__index__algorithm_8h_1abb452686968e48b67397da5f97445f5b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>bool<sp/>int</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="sensirion__gas__index__algorithm_8h_1a41f9c5fb8b08eb5dc3edce4dcb37fee7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>true<sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="sensirion__gas__index__algorithm_8h_1a65e9886d74aaee76545e83dd09011727" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>false<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>bool</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>__STDC_VERSION__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="comment">//<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Should<sp/>be<sp/>set<sp/>by<sp/>the<sp/>building<sp/>toolchain</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>LIBRARY_VERSION_NAME</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="sensirion__gas__index__algorithm_8h_1ab2ff8fc34fb9262af92d0524fc6ae2a5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LIBRARY_VERSION_NAME<sp/>&quot;3.2.0&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="sensirion__gas__index__algorithm_8h_1a65553d56f3f8007d1768c662833ab294" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_ALGORITHM_TYPE_VOC<sp/>(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="sensirion__gas__index__algorithm_8h_1aefbc8af43c9df3537fe4545b86f3cd9b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_ALGORITHM_TYPE_NOX<sp/>(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="sensirion__gas__index__algorithm_8h_1affc1d4c9cf8f4227ec6ac215299a4d2f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SAMPLING_INTERVAL<sp/>(1.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="sensirion__gas__index__algorithm_8h_1a8e0817dfc832435e4df6ad264ee5c047" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INITIAL_BLACKOUT<sp/>(45.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="sensirion__gas__index__algorithm_8h_1aabae1c241e1218fd43942752d12616e8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INDEX_GAIN<sp/>(230.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="sensirion__gas__index__algorithm_8h_1a52aa63874447b4b9d854a5d36e0d35af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SRAW_STD_INITIAL<sp/>(50.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="sensirion__gas__index__algorithm_8h_1a23bfd900cb240929e687f6e1ec1eaf4c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SRAW_STD_BONUS_VOC<sp/>(220.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="sensirion__gas__index__algorithm_8h_1ad815e5e2d8f417a0e0eb71bd47d49b8d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SRAW_STD_NOX<sp/>(2000.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78" refid="sensirion__gas__index__algorithm_8h_1a1b3c2250f40e0bc66b8cb4a70d942f98" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TAU_MEAN_HOURS<sp/>(12.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79" refid="sensirion__gas__index__algorithm_8h_1ac8a62c45f8c290cf2e57174b2b537770" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TAU_VARIANCE_HOURS<sp/>(12.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="sensirion__gas__index__algorithm_8h_1aa6470efcc86cd6af48c63040c4323c74" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TAU_INITIAL_MEAN_VOC<sp/>(20.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="sensirion__gas__index__algorithm_8h_1af7aa5d98de4f206ff02ccb9b118f381f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TAU_INITIAL_MEAN_NOX<sp/>(1200.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="sensirion__gas__index__algorithm_8h_1ae61bc42f510606781ad77b08d6cfac6a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_DURATION_MEAN_VOC<sp/>((3600.<sp/>*<sp/>0.75))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="sensirion__gas__index__algorithm_8h_1a2719beb4bc5f20df40e1acdc50e039c6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_DURATION_MEAN_NOX<sp/>((3600.<sp/>*<sp/>4.75))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="sensirion__gas__index__algorithm_8h_1a17b38c74ebbda88ace468bb5854040e1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_TRANSITION_MEAN<sp/>(0.01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="sensirion__gas__index__algorithm_8h_1a0277496ccdf852da572cb14381ee21de" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TAU_INITIAL_VARIANCE<sp/>(2500.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="sensirion__gas__index__algorithm_8h_1a2afacba1b691d0bd4e01ce0fd9e8a7fb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_DURATION_VARIANCE_VOC<sp/>((3600.<sp/>*<sp/>1.45))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="sensirion__gas__index__algorithm_8h_1a1fb45129bce7e2e1dd9f2dd72761a1a8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_DURATION_VARIANCE_NOX<sp/>((3600.<sp/>*<sp/>5.70))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="sensirion__gas__index__algorithm_8h_1a0ed2d688c0930b6a95433696171faf5e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_INIT_TRANSITION_VARIANCE<sp/>(0.01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="sensirion__gas__index__algorithm_8h_1a2134028a7a92032b0936019d3d9a9731" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_THRESHOLD_VOC<sp/>(340.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="sensirion__gas__index__algorithm_8h_1a345328861f5b23f0e57897dfe170867f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_THRESHOLD_NOX<sp/>(30.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="sensirion__gas__index__algorithm_8h_1a66482d05b71f915ea8730151293c1cbf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_THRESHOLD_INITIAL<sp/>(510.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="sensirion__gas__index__algorithm_8h_1a5e571bd5d2598eae72fdeabd0b67c996" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_THRESHOLD_TRANSITION<sp/>(0.09)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="sensirion__gas__index__algorithm_8h_1a58b77b6443eb5c1f245ab5efb81e99dc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_VOC_MAX_DURATION_MINUTES<sp/>((60.<sp/>*<sp/>3.))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94" refid="sensirion__gas__index__algorithm_8h_1aee6a7d0a00785f22e618ac792ac6f004" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_NOX_MAX_DURATION_MINUTES<sp/>((60.<sp/>*<sp/>12.))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95" refid="sensirion__gas__index__algorithm_8h_1a5c9a67ad92ca88a3f9cab5a4c041c72f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_GATING_MAX_RATIO<sp/>(0.3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96" refid="sensirion__gas__index__algorithm_8h_1ad1a1f8ee49cdef4f45d795bdf51eca75" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SIGMOID_L<sp/>(500.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="sensirion__gas__index__algorithm_8h_1a237639cca1b7097814d5d59641c6f64f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SIGMOID_K_VOC<sp/>(-0.0065)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="sensirion__gas__index__algorithm_8h_1a3a5abf61617208f230b4d86dc46ddd4e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SIGMOID_X0_VOC<sp/>(213.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="sensirion__gas__index__algorithm_8h_1a3dddce158535f161ecac1fd65e2dd041" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SIGMOID_K_NOX<sp/>(-0.0101)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="sensirion__gas__index__algorithm_8h_1a578ec9b9b07dfdeea678e555727de760" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_SIGMOID_X0_NOX<sp/>(614.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="sensirion__gas__index__algorithm_8h_1a298c01bf061e3a0de6bb1c3210070ceb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_VOC_INDEX_OFFSET_DEFAULT<sp/>(100.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="sensirion__gas__index__algorithm_8h_1ad14f5b2d784a0c089a40a0353266d9cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_NOX_INDEX_OFFSET_DEFAULT<sp/>(1.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="sensirion__gas__index__algorithm_8h_1ab7a67ed8447673477ea6d6f18eb89e5c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_LP_TAU_FAST<sp/>(20.0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="sensirion__gas__index__algorithm_8h_1a8ee41aa49a3d9bd5a7bb6d306c2b67f5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_LP_TAU_SLOW<sp/>(500.0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="sensirion__gas__index__algorithm_8h_1aa5acfc6b763f1f5a70ec02c80b9ea570" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_LP_ALPHA<sp/>(-0.2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="sensirion__gas__index__algorithm_8h_1a8a8c79da034acb1c615b11bc1648fa6a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_VOC_SRAW_MINIMUM<sp/>(20000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="sensirion__gas__index__algorithm_8h_1a431a9bc88341cd080e7354ca27ddbfd9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_NOX_SRAW_MINIMUM<sp/>(10000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="sensirion__gas__index__algorithm_8h_1adc213bf22c5ff669b5a4d1043deb66af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_PERSISTENCE_UPTIME_GAMMA<sp/>((3.<sp/>*<sp/>3600.))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="sensirion__gas__index__algorithm_8h_1a1a37b38d4622f634fff6eb2652ef23b9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_INDEX_OFFSET_MIN<sp/>(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="sensirion__gas__index__algorithm_8h_1ac3b6d740df353191e3af30ba760da397" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_INDEX_OFFSET_MAX<sp/>(250)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="sensirion__gas__index__algorithm_8h_1ab4f6fd73c153344712f485c569df35a3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_LEARNING_TIME_OFFSET_HOURS_MIN<sp/>(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="sensirion__gas__index__algorithm_8h_1a0109cf4f6c274b37d5d2de46fc291583" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_LEARNING_TIME_OFFSET_HOURS_MAX<sp/>(1000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="sensirion__gas__index__algorithm_8h_1ada1c26924e93c05330a364bd8dd0b00f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_LEARNING_TIME_GAIN_HOURS_MIN<sp/>(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="sensirion__gas__index__algorithm_8h_1a421a90ddfbcf61a595e1d78d15674d26" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_LEARNING_TIME_GAIN_HOURS_MAX<sp/>(1000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="sensirion__gas__index__algorithm_8h_1a3115fe11dd62538441f2e252379ca5f9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_GATING_MAX_DURATION_MINUTES_MIN<sp/>(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="sensirion__gas__index__algorithm_8h_1aaf01e8c4d5258ab61c328107b58ba6d3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_GATING_MAX_DURATION_MINUTES_MAX<sp/>(3000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="sensirion__gas__index__algorithm_8h_1a0128cd57b0e1949c68b5d2754b5f9062" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_STD_INITIAL_MIN<sp/>(10)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="sensirion__gas__index__algorithm_8h_1a0d9591d379984fff1e3040933d49a2e2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_STD_INITIAL_MAX<sp/>(5000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="sensirion__gas__index__algorithm_8h_1ab369c8bd560e41f01010d2901feabce4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_GAIN_FACTOR_MIN<sp/>(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="sensirion__gas__index__algorithm_8h_1ac172efa5a9b092b395f8850acd804a72" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_TUNING_GAIN_FACTOR_MAX<sp/>(1000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="sensirion__gas__index__algorithm_8h_1ae668ba617dc6dea8b7a94981868930ef" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__GAMMA_SCALING<sp/>(64.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="sensirion__gas__index__algorithm_8h_1a2c5f1fd825776b93ab125f3a42144f63" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__ADDITIONAL_GAMMA_MEAN_SCALING<sp/>\</highlight></codeline>
+<codeline lineno="123"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>(8.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="sensirion__gas__index__algorithm_8h_1a44325df492b1c248d312e2c33609d898" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GasIndexAlgorithm_MEAN_VARIANCE_ESTIMATOR__FIX16_MAX<sp/>(32767.)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="struct_gas_index_algorithm_params" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="130" refid="struct_gas_index_algorithm_params_1a44159ed288e8fb4a9a9582f611bddb37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_gas_index_algorithm_params_1a44159ed288e8fb4a9a9582f611bddb37" kindref="member">mAlgorithm_Type</ref>;</highlight></codeline>
+<codeline lineno="131" refid="struct_gas_index_algorithm_params_1a7961634d1248d81cfc4a8eb6cfd264fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a7961634d1248d81cfc4a8eb6cfd264fc" kindref="member">mIndex_Offset</ref>;</highlight></codeline>
+<codeline lineno="132" refid="struct_gas_index_algorithm_params_1af200d3e670ff97ec3ebcffa58df18c8d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="struct_gas_index_algorithm_params_1af200d3e670ff97ec3ebcffa58df18c8d" kindref="member">mSraw_Minimum</ref>;</highlight></codeline>
+<codeline lineno="133" refid="struct_gas_index_algorithm_params_1aed68662aca7ac4eeb35fa55f8b29aecd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aed68662aca7ac4eeb35fa55f8b29aecd" kindref="member">mGating_Max_Duration_Minutes</ref>;</highlight></codeline>
+<codeline lineno="134" refid="struct_gas_index_algorithm_params_1a970888740603585689a77c6bb3824cba" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a970888740603585689a77c6bb3824cba" kindref="member">mInit_Duration_Mean</ref>;</highlight></codeline>
+<codeline lineno="135" refid="struct_gas_index_algorithm_params_1aee9d4a68c8188fbb671288744a57b58d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aee9d4a68c8188fbb671288744a57b58d" kindref="member">mInit_Duration_Variance</ref>;</highlight></codeline>
+<codeline lineno="136" refid="struct_gas_index_algorithm_params_1a9d7792ff4e2f781793bf51f29aae03b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a9d7792ff4e2f781793bf51f29aae03b2" kindref="member">mGating_Threshold</ref>;</highlight></codeline>
+<codeline lineno="137" refid="struct_gas_index_algorithm_params_1a45a856a547bebaf4f023e7f5e1d44b9a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a45a856a547bebaf4f023e7f5e1d44b9a" kindref="member">mIndex_Gain</ref>;</highlight></codeline>
+<codeline lineno="138" refid="struct_gas_index_algorithm_params_1a573adcccabd98b982b70ef875dc1cf7e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a573adcccabd98b982b70ef875dc1cf7e" kindref="member">mTau_Mean_Hours</ref>;</highlight></codeline>
+<codeline lineno="139" refid="struct_gas_index_algorithm_params_1a54a757b432945670d35a5899354ae4d9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a54a757b432945670d35a5899354ae4d9" kindref="member">mTau_Variance_Hours</ref>;</highlight></codeline>
+<codeline lineno="140" refid="struct_gas_index_algorithm_params_1a72855d4f653c0f99b6810cf82c3ccfb0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a72855d4f653c0f99b6810cf82c3ccfb0" kindref="member">mSraw_Std_Initial</ref>;</highlight></codeline>
+<codeline lineno="141" refid="struct_gas_index_algorithm_params_1a5638004748a844d62c25a3d7abbeee75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a5638004748a844d62c25a3d7abbeee75" kindref="member">mUptime</ref>;</highlight></codeline>
+<codeline lineno="142" refid="struct_gas_index_algorithm_params_1a1d7c6e19c90cea4884f8a15a4f36aaea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a1d7c6e19c90cea4884f8a15a4f36aaea" kindref="member">mSraw</ref>;</highlight></codeline>
+<codeline lineno="143" refid="struct_gas_index_algorithm_params_1a2acae073c58e6f3edc152a6f754138cf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a2acae073c58e6f3edc152a6f754138cf" kindref="member">mGas_Index</ref>;</highlight></codeline>
+<codeline lineno="144" refid="struct_gas_index_algorithm_params_1a30caee8b3331675119966654b0ed3421" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params_1a30caee8b3331675119966654b0ed3421" kindref="member">m_Mean_Variance_Estimator___Initialized</ref>;</highlight></codeline>
+<codeline lineno="145" refid="struct_gas_index_algorithm_params_1a302d7260327d0d34aa53aa23b334fb2c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a302d7260327d0d34aa53aa23b334fb2c" kindref="member">m_Mean_Variance_Estimator___Mean</ref>;</highlight></codeline>
+<codeline lineno="146" refid="struct_gas_index_algorithm_params_1a0b5364ddd60c76185afa756521f520c5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a0b5364ddd60c76185afa756521f520c5" kindref="member">m_Mean_Variance_Estimator___Sraw_Offset</ref>;</highlight></codeline>
+<codeline lineno="147" refid="struct_gas_index_algorithm_params_1a83d199bee7bb53f6be6a71444418877c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a83d199bee7bb53f6be6a71444418877c" kindref="member">m_Mean_Variance_Estimator___Std</ref>;</highlight></codeline>
+<codeline lineno="148" refid="struct_gas_index_algorithm_params_1a56666ef972833a7f3f8e508d1417c49b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a56666ef972833a7f3f8e508d1417c49b" kindref="member">m_Mean_Variance_Estimator___Gamma_Mean</ref>;</highlight></codeline>
+<codeline lineno="149" refid="struct_gas_index_algorithm_params_1a9a144c67b584c74360ef444e09a08cb2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a9a144c67b584c74360ef444e09a08cb2" kindref="member">m_Mean_Variance_Estimator___Gamma_Variance</ref>;</highlight></codeline>
+<codeline lineno="150" refid="struct_gas_index_algorithm_params_1abb0d4facedb3209d2f758e9fc54c6e6d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1abb0d4facedb3209d2f758e9fc54c6e6d" kindref="member">m_Mean_Variance_Estimator___Gamma_Initial_Mean</ref>;</highlight></codeline>
+<codeline lineno="151" refid="struct_gas_index_algorithm_params_1ae87101b154d3dcc37d346607fdbaac14" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1ae87101b154d3dcc37d346607fdbaac14" kindref="member">m_Mean_Variance_Estimator___Gamma_Initial_Variance</ref>;</highlight></codeline>
+<codeline lineno="152" refid="struct_gas_index_algorithm_params_1aabf390221d75f9a85bf67a380e8ef05c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aabf390221d75f9a85bf67a380e8ef05c" kindref="member">m_Mean_Variance_Estimator__Gamma_Mean</ref>;</highlight></codeline>
+<codeline lineno="153" refid="struct_gas_index_algorithm_params_1ab5009b7c88434f93d9a31f3ea226d7e5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1ab5009b7c88434f93d9a31f3ea226d7e5" kindref="member">m_Mean_Variance_Estimator__Gamma_Variance</ref>;</highlight></codeline>
+<codeline lineno="154" refid="struct_gas_index_algorithm_params_1aeec1c03d622166dc19ca68ede1ff5979" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aeec1c03d622166dc19ca68ede1ff5979" kindref="member">m_Mean_Variance_Estimator___Uptime_Gamma</ref>;</highlight></codeline>
+<codeline lineno="155" refid="struct_gas_index_algorithm_params_1a59f505ba655f46732fac7a9835cd2653" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a59f505ba655f46732fac7a9835cd2653" kindref="member">m_Mean_Variance_Estimator___Uptime_Gating</ref>;</highlight></codeline>
+<codeline lineno="156" refid="struct_gas_index_algorithm_params_1ab642a9e904bcd700161a1aa2394d2ecf" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1ab642a9e904bcd700161a1aa2394d2ecf" kindref="member">m_Mean_Variance_Estimator___Gating_Duration_Minutes</ref>;</highlight></codeline>
+<codeline lineno="157" refid="struct_gas_index_algorithm_params_1a52678ba8a381801f775b588dfdf29a5d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a52678ba8a381801f775b588dfdf29a5d" kindref="member">m_Mean_Variance_Estimator___Sigmoid__K</ref>;</highlight></codeline>
+<codeline lineno="158" refid="struct_gas_index_algorithm_params_1a3b70ce67b2fb1419281318b574a6896b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a3b70ce67b2fb1419281318b574a6896b" kindref="member">m_Mean_Variance_Estimator___Sigmoid__X0</ref>;</highlight></codeline>
+<codeline lineno="159" refid="struct_gas_index_algorithm_params_1a81d9e3deacb3ac2c819282d4dfc9f03d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a81d9e3deacb3ac2c819282d4dfc9f03d" kindref="member">m_Mox_Model__Sraw_Std</ref>;</highlight></codeline>
+<codeline lineno="160" refid="struct_gas_index_algorithm_params_1a391014f383ab8aa8b7a6d06fa0d0e112" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a391014f383ab8aa8b7a6d06fa0d0e112" kindref="member">m_Mox_Model__Sraw_Mean</ref>;</highlight></codeline>
+<codeline lineno="161" refid="struct_gas_index_algorithm_params_1a28f019a0cbf484473c37d364672640ad" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a28f019a0cbf484473c37d364672640ad" kindref="member">m_Sigmoid_Scaled__K</ref>;</highlight></codeline>
+<codeline lineno="162" refid="struct_gas_index_algorithm_params_1a19157a12d574ae78a96bddc4e0469189" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a19157a12d574ae78a96bddc4e0469189" kindref="member">m_Sigmoid_Scaled__X0</ref>;</highlight></codeline>
+<codeline lineno="163" refid="struct_gas_index_algorithm_params_1aa15d180da3def6094bf721ca29fafcf7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aa15d180da3def6094bf721ca29fafcf7" kindref="member">m_Sigmoid_Scaled__Offset_Default</ref>;</highlight></codeline>
+<codeline lineno="164" refid="struct_gas_index_algorithm_params_1a324a58eb9e2a10d05b94f26026e3bacd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a324a58eb9e2a10d05b94f26026e3bacd" kindref="member">m_Adaptive_Lowpass__A1</ref>;</highlight></codeline>
+<codeline lineno="165" refid="struct_gas_index_algorithm_params_1a81aacbb14a8799f275feeb3b986c318a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a81aacbb14a8799f275feeb3b986c318a" kindref="member">m_Adaptive_Lowpass__A2</ref>;</highlight></codeline>
+<codeline lineno="166" refid="struct_gas_index_algorithm_params_1ae9f3681fc40be5c2224fa23fa04e39fc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params_1ae9f3681fc40be5c2224fa23fa04e39fc" kindref="member">m_Adaptive_Lowpass___Initialized</ref>;</highlight></codeline>
+<codeline lineno="167" refid="struct_gas_index_algorithm_params_1ad82847471ac5f24ca0cb3847bc380c5b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1ad82847471ac5f24ca0cb3847bc380c5b" kindref="member">m_Adaptive_Lowpass___X1</ref>;</highlight></codeline>
+<codeline lineno="168" refid="struct_gas_index_algorithm_params_1a63de2e9c5dde2aeebfc66d3b498d8e75" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1a63de2e9c5dde2aeebfc66d3b498d8e75" kindref="member">m_Adaptive_Lowpass___X2</ref>;</highlight></codeline>
+<codeline lineno="169" refid="struct_gas_index_algorithm_params_1aa1581cf1506e4563a819fd0a2e373089" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref><sp/><ref refid="struct_gas_index_algorithm_params_1aa1581cf1506e4563a819fd0a2e373089" kindref="member">m_Adaptive_Lowpass___X3</ref>;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal">}<sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a39e8ff626b9de149244ea53418b97f47" kindref="member">GasIndexAlgorithm_init</ref>(<ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>algorithm_type);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a384a6c2521ab3ffea737ca6aca9ba95a" kindref="member">GasIndexAlgorithm_reset</ref>(<ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a1e163ca69501abb38c9176c1e933c9b1" kindref="member">GasIndexAlgorithm_get_states</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t*<sp/>state0,<sp/>int32_t*<sp/>state1);</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a66ca339428d66175e53c6c0cb34a1ed0" kindref="member">GasIndexAlgorithm_set_states</ref>(<ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t<sp/>state0,<sp/>int32_t<sp/>state1);</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a4bef9d1a53546711018b907cea278dac" kindref="member">GasIndexAlgorithm_set_tuning_parameters</ref>(</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,<sp/>int32_t<sp/>index_offset,</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>learning_time_offset_hours,<sp/>int32_t<sp/>learning_time_gain_hours,</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>gating_max_duration_minutes,<sp/>int32_t<sp/>std_initial,</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>gain_factor);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a409f98c042ef6e200fb8c735e521664c" kindref="member">GasIndexAlgorithm_get_tuning_parameters</ref>(</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,<sp/>int32_t*<sp/>index_offset,</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t*<sp/>learning_time_offset_hours,<sp/>int32_t*<sp/>learning_time_gain_hours,</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t*<sp/>gating_max_duration_minutes,<sp/>int32_t*<sp/>std_initial,</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t*<sp/>gain_factor);</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="279"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="sensirion__gas__index__algorithm_8h_1a4be92e48685ba183966d2612ce33528c" kindref="member">GasIndexAlgorithm_process</ref>(<ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref>*<sp/>params,<sp/>int32_t<sp/>sraw,</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int32_t*<sp/>gas_index);</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>GASINDEXALGORITHM_H_<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h"/>
+  </compounddef>
+</doxygen>

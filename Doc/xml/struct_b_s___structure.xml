@@ -1,0 +1,451 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="struct_b_s___structure" kind="struct" language="C++" prot="public">
+    <compoundname>BS_Structure</compoundname>
+    <includes refid="_f_a_t32_8h" local="no">FAT32.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_b_s___structure_1adecfee5d15aa0546cb7d9b526016b6bd" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::jumpBoot[3]</definition>
+        <argsstring>[3]</argsstring>
+        <name>jumpBoot</name>
+        <qualifiedname>BS_Structure::jumpBoot</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="36" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a098074f9902021de7e8643fb5cda7c13" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::OEMName[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>OEMName</name>
+        <qualifiedname>BS_Structure::OEMName</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="37" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1acac43d7200b78119da81c3f042a549a5" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::bytesPerSector</definition>
+        <argsstring></argsstring>
+        <name>bytesPerSector</name>
+        <qualifiedname>BS_Structure::bytesPerSector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="38" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a3c091e5e25c6a576c2cf60bd5d33efc6" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::sectorPerCluster</definition>
+        <argsstring></argsstring>
+        <name>sectorPerCluster</name>
+        <qualifiedname>BS_Structure::sectorPerCluster</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="39" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1aab33678a8d6ba2ce7efe792db3a71ae3" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::reservedSectorCount</definition>
+        <argsstring></argsstring>
+        <name>reservedSectorCount</name>
+        <qualifiedname>BS_Structure::reservedSectorCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="40" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a4b92102f6eea055d57ca56089588ec83" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::numberofFATs</definition>
+        <argsstring></argsstring>
+        <name>numberofFATs</name>
+        <qualifiedname>BS_Structure::numberofFATs</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="41" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a9aae7eea55e36ee205ed6a09fd2faa04" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::rootEntryCount</definition>
+        <argsstring></argsstring>
+        <name>rootEntryCount</name>
+        <qualifiedname>BS_Structure::rootEntryCount</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="42" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1aba9ab844a63d4169c26635a8f9e89a36" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::totalSectors_F16</definition>
+        <argsstring></argsstring>
+        <name>totalSectors_F16</name>
+        <qualifiedname>BS_Structure::totalSectors_F16</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="43" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a695db39ff2ef8d53a3906862055acbc0" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::mediaType</definition>
+        <argsstring></argsstring>
+        <name>mediaType</name>
+        <qualifiedname>BS_Structure::mediaType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="44" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a23382388dd0b77dbd7c0854bd4cbdc3e" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::FATsize_F16</definition>
+        <argsstring></argsstring>
+        <name>FATsize_F16</name>
+        <qualifiedname>BS_Structure::FATsize_F16</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="45" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a343886a6675bcfa2ac01c9cb56aeb07b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::sectorsPerTrack</definition>
+        <argsstring></argsstring>
+        <name>sectorsPerTrack</name>
+        <qualifiedname>BS_Structure::sectorsPerTrack</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="46" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a1ef566dd23a35e9ea6e67a53da0c9bf0" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::numberofHeads</definition>
+        <argsstring></argsstring>
+        <name>numberofHeads</name>
+        <qualifiedname>BS_Structure::numberofHeads</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="47" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a08affcdcb8c7ad28520d990a4e3d22f2" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long BS_Structure::hiddenSectors</definition>
+        <argsstring></argsstring>
+        <name>hiddenSectors</name>
+        <qualifiedname>BS_Structure::hiddenSectors</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="48" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a9cb6a4269abeca81390a2b42be07b16f" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long BS_Structure::totalSectors_F32</definition>
+        <argsstring></argsstring>
+        <name>totalSectors_F32</name>
+        <qualifiedname>BS_Structure::totalSectors_F32</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="49" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1abdc187711f5332c09f73c890fd45eb62" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long BS_Structure::FATsize_F32</definition>
+        <argsstring></argsstring>
+        <name>FATsize_F32</name>
+        <qualifiedname>BS_Structure::FATsize_F32</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="50" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1aaf2851444feeaaeae580212a77491ffc" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::extFlags</definition>
+        <argsstring></argsstring>
+        <name>extFlags</name>
+        <qualifiedname>BS_Structure::extFlags</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="51" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="51" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1ad75d83f7c5a6c04f58f27ab2e23f8915" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::FSversion</definition>
+        <argsstring></argsstring>
+        <name>FSversion</name>
+        <qualifiedname>BS_Structure::FSversion</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="52" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="52" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a04b0b3480b867ae2beae09223bcc14af" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long BS_Structure::rootCluster</definition>
+        <argsstring></argsstring>
+        <name>rootCluster</name>
+        <qualifiedname>BS_Structure::rootCluster</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="53" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1aa3e276801f9d08544be577e558c21edf" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::FSinfo</definition>
+        <argsstring></argsstring>
+        <name>FSinfo</name>
+        <qualifiedname>BS_Structure::FSinfo</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="54" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1aadaff346d14c35c273ae0dbac1cff407" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::BackupBootSector</definition>
+        <argsstring></argsstring>
+        <name>BackupBootSector</name>
+        <qualifiedname>BS_Structure::BackupBootSector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="55" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a419422ad4dcc889639bfc1b5f8edd7b1" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::reserved[12]</definition>
+        <argsstring>[12]</argsstring>
+        <name>reserved</name>
+        <qualifiedname>BS_Structure::reserved</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="56" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a994d5390d6bfa5d62a9025e5582a04ad" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::driveNumber</definition>
+        <argsstring></argsstring>
+        <name>driveNumber</name>
+        <qualifiedname>BS_Structure::driveNumber</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="57" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1af4624a817e2ced2f85ee5f22c1884cbe" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::reserved1</definition>
+        <argsstring></argsstring>
+        <name>reserved1</name>
+        <qualifiedname>BS_Structure::reserved1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="58" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a1d8eed59005f61ddcbc9d6a1c3774e3e" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::bootSignature</definition>
+        <argsstring></argsstring>
+        <name>bootSignature</name>
+        <qualifiedname>BS_Structure::bootSignature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="59" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="59" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1afeb0eff07541fde293c29f2c77e46e3a" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long BS_Structure::volumeID</definition>
+        <argsstring></argsstring>
+        <name>volumeID</name>
+        <qualifiedname>BS_Structure::volumeID</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="60" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="60" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1ab2345321a677116822f385fe338d595f" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::volumeLabel[11]</definition>
+        <argsstring>[11]</argsstring>
+        <name>volumeLabel</name>
+        <qualifiedname>BS_Structure::volumeLabel</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="61" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="61" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a5f166c0bae260164ff95b090ba387c76" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::fileSystemType[8]</definition>
+        <argsstring>[8]</argsstring>
+        <name>fileSystemType</name>
+        <qualifiedname>BS_Structure::fileSystemType</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="62" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1a5b27c883e59333b017172ea98228caed" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char BS_Structure::bootData[420]</definition>
+        <argsstring>[420]</argsstring>
+        <name>bootData</name>
+        <qualifiedname>BS_Structure::bootData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="63" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_b_s___structure_1af109abdf763e4e25e1c283fc0639447a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int BS_Structure::bootEndSignature</definition>
+        <argsstring></argsstring>
+        <name>bootEndSignature</name>
+        <qualifiedname>BS_Structure::bootEndSignature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="64" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="64" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/FAT32/FAT32.h" line="35" column="1" bodyfile="lib/FAT32/FAT32.h" bodystart="35" bodyend="65"/>
+    <listofallmembers>
+      <member refid="struct_b_s___structure_1aadaff346d14c35c273ae0dbac1cff407" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>BackupBootSector</name></member>
+      <member refid="struct_b_s___structure_1a5b27c883e59333b017172ea98228caed" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>bootData</name></member>
+      <member refid="struct_b_s___structure_1af109abdf763e4e25e1c283fc0639447a" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>bootEndSignature</name></member>
+      <member refid="struct_b_s___structure_1a1d8eed59005f61ddcbc9d6a1c3774e3e" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>bootSignature</name></member>
+      <member refid="struct_b_s___structure_1acac43d7200b78119da81c3f042a549a5" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>bytesPerSector</name></member>
+      <member refid="struct_b_s___structure_1a994d5390d6bfa5d62a9025e5582a04ad" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>driveNumber</name></member>
+      <member refid="struct_b_s___structure_1aaf2851444feeaaeae580212a77491ffc" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>extFlags</name></member>
+      <member refid="struct_b_s___structure_1a23382388dd0b77dbd7c0854bd4cbdc3e" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>FATsize_F16</name></member>
+      <member refid="struct_b_s___structure_1abdc187711f5332c09f73c890fd45eb62" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>FATsize_F32</name></member>
+      <member refid="struct_b_s___structure_1a5f166c0bae260164ff95b090ba387c76" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>fileSystemType</name></member>
+      <member refid="struct_b_s___structure_1aa3e276801f9d08544be577e558c21edf" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>FSinfo</name></member>
+      <member refid="struct_b_s___structure_1ad75d83f7c5a6c04f58f27ab2e23f8915" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>FSversion</name></member>
+      <member refid="struct_b_s___structure_1a08affcdcb8c7ad28520d990a4e3d22f2" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>hiddenSectors</name></member>
+      <member refid="struct_b_s___structure_1adecfee5d15aa0546cb7d9b526016b6bd" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>jumpBoot</name></member>
+      <member refid="struct_b_s___structure_1a695db39ff2ef8d53a3906862055acbc0" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>mediaType</name></member>
+      <member refid="struct_b_s___structure_1a4b92102f6eea055d57ca56089588ec83" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>numberofFATs</name></member>
+      <member refid="struct_b_s___structure_1a1ef566dd23a35e9ea6e67a53da0c9bf0" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>numberofHeads</name></member>
+      <member refid="struct_b_s___structure_1a098074f9902021de7e8643fb5cda7c13" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>OEMName</name></member>
+      <member refid="struct_b_s___structure_1a419422ad4dcc889639bfc1b5f8edd7b1" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>reserved</name></member>
+      <member refid="struct_b_s___structure_1af4624a817e2ced2f85ee5f22c1884cbe" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>reserved1</name></member>
+      <member refid="struct_b_s___structure_1aab33678a8d6ba2ce7efe792db3a71ae3" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>reservedSectorCount</name></member>
+      <member refid="struct_b_s___structure_1a04b0b3480b867ae2beae09223bcc14af" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>rootCluster</name></member>
+      <member refid="struct_b_s___structure_1a9aae7eea55e36ee205ed6a09fd2faa04" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>rootEntryCount</name></member>
+      <member refid="struct_b_s___structure_1a3c091e5e25c6a576c2cf60bd5d33efc6" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>sectorPerCluster</name></member>
+      <member refid="struct_b_s___structure_1a343886a6675bcfa2ac01c9cb56aeb07b" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>sectorsPerTrack</name></member>
+      <member refid="struct_b_s___structure_1aba9ab844a63d4169c26635a8f9e89a36" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>totalSectors_F16</name></member>
+      <member refid="struct_b_s___structure_1a9cb6a4269abeca81390a2b42be07b16f" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>totalSectors_F32</name></member>
+      <member refid="struct_b_s___structure_1afeb0eff07541fde293c29f2c77e46e3a" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>volumeID</name></member>
+      <member refid="struct_b_s___structure_1ab2345321a677116822f385fe338d595f" prot="public" virt="non-virtual"><scope>BS_Structure</scope><name>volumeLabel</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,187 @@
+\doxysection{rtc.\+c}
+\label{rtc_8c_source}\index{lib/rtc/rtc.c@{lib/rtc/rtc.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ "{}rtc.h"{}}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <twi.h>}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#define\ RTC\_ADDRESS\ 0x68\ \ }\textcolor{comment}{//\ I2C\ slave\ address\ of\ RTC\ DS3231}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//adresy\ registrov}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ RTC\_SEC\ 0x00\ \ \ \ }\textcolor{comment}{//\ RTC\ register\ address\ for\ "{}seconds"{}}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#define\ RTC\_MIN\ 0x01\ \ \ \ }\textcolor{comment}{//\ RTC\ register\ address\ for\ "{}minutes"{}}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#define\ RTC\_HOUR\ 0x02\ \ \ }\textcolor{comment}{//\ RTC\ register\ address\ for\ "{}hours"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ RTC\_DAY\ 0x03}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ RTC\_DATE\ 0x04}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ RTC\_MONTH\ 0x05}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ RTC\_YEAR\ 0x06}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ \#define\ RTC\_CONTROL\ 0x07}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//\ -\/-\/\ Functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00018\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint8\_t\ decimal\_to\_bcd(uint8\_t\ value)}
+\DoxyCodeLine{00019\ \{}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)((value\ /\ 10)\ <<\ 4)\ |\ (value\ \%\ 10);}
+\DoxyCodeLine{00021\ \}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ uint8\_t\ bcd\_to\_decimal(uint8\_t\ bcd)}
+\DoxyCodeLine{00024\ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint8\_t)(((bcd\ >>\ 4)\ *\ 10)\ +\ (bcd\ \&\ 0x0F));}
+\DoxyCodeLine{00026\ \}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{void}\ rtc\_setup(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00029\ \{\ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//start\ oscilator\ and\ select\ 24-\/hour\ mode}}
+\DoxyCodeLine{00031\ \ \ \ \ uint8\_t\ sec\_reg\ =\ rtc\_read\_reg(RTC\_SEC);}
+\DoxyCodeLine{00032\ \ \ \ \ uint8\_t\ hour\_reg\ =\ rtc\_read\_reg(RTC\_HOUR);}
+\DoxyCodeLine{00033\ \ \ \ \ hour\_reg\ \&=\ \string~(1\ <<\ 6);\ \textcolor{comment}{//\ Clear\ 12/24\ bit\ to\ select\ 24-\/hour\ mode}}
+\DoxyCodeLine{00034\ \ \ \ \ sec\_reg\ \&=\ \string~(1\ <<\ 7);\ \textcolor{comment}{//\ Clear\ CH\ (Clock\ Halt)\ bit\ to\ start\ the\ oscillator}}
+\DoxyCodeLine{00035\ \ \ \ \ rtc\_write\_reg(RTC\_SEC,\ sec\_reg);}
+\DoxyCodeLine{00036\ \ \ \ \ rtc\_write\_reg(RTC\_HOUR,\ hour\_reg);}
+\DoxyCodeLine{00037\ \ \ \ \ rtc\_write\_reg(RTC\_CONTROL,\ 0x00);\ \textcolor{comment}{//\ set\ the\ control\ register\ to\ disable\ oscillator\ output}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ uint8\_t\ rtc\_read\_reg(uint8\_t\ reg\_addr)}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \ \ \ \ uint8\_t\ data\ =\ 0;}
+\DoxyCodeLine{00044\ \ \ \ \ twi\_readfrom\_mem\_into(RTC\_ADDRESS,\ reg\_addr,\ \&data,\ 1);}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ uint8\_t\ rtc\_write\_reg(uint8\_t\ reg\_addr,\ uint8\_t\ data)}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{return}\ twi\_writeto\_mem(RTC\_ADDRESS,\ reg\_addr,\ data);}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ uint8\_t\ rtc\_set\_time(uint8\_t\ hours,\ uint8\_t\ minutes,\ uint8\_t\ seconds)}
+\DoxyCodeLine{00054\ \{}
+\DoxyCodeLine{00055\ \ \ \ \ rtc\_write\_reg(RTC\_HOUR,\ decimal\_to\_bcd(hours));}
+\DoxyCodeLine{00056\ \ \ \ \ rtc\_write\_reg(RTC\_MIN,\ decimal\_to\_bcd(minutes));}
+\DoxyCodeLine{00057\ \ \ \ \ rtc\_write\_reg(RTC\_SEC,\ decimal\_to\_bcd(seconds));}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00059\ \}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ uint8\_t\ rtc\_get\_time(uint8\_t\ *hours,\ uint8\_t\ *minutes,\ uint8\_t\ *seconds)}
+\DoxyCodeLine{00062\ \{}
+\DoxyCodeLine{00063\ \ \ \ \ uint8\_t\ sec\_bcd\ =\ rtc\_read\_reg(RTC\_SEC);}
+\DoxyCodeLine{00064\ \ \ \ \ uint8\_t\ min\_bcd\ =\ rtc\_read\_reg(RTC\_MIN);}
+\DoxyCodeLine{00065\ \ \ \ \ uint8\_t\ hour\_bcd\ =\ rtc\_read\_reg(RTC\_HOUR);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ *seconds\ =\ bcd\_to\_decimal(sec\_bcd);\ \textcolor{comment}{//\ CH\ bit\ je\ stale\ nulovy\ takze\ netreba\ maskovat}}
+\DoxyCodeLine{00068\ \ \ \ \ *minutes\ =\ bcd\_to\_decimal(min\_bcd);}
+\DoxyCodeLine{00069\ \ \ \ \ *hours\ =\ bcd\_to\_decimal(hour\_bcd);\ \textcolor{comment}{//\ netreba\ maskovat\ ani\ 24h\ mod\ lebo\ ten\ bit\ 6\ je\ stale\ nulovy}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ uint8\_t\ rtc\_get\_date(uint8\_t\ *date,\ uint8\_t\ *month,\ uint8\_t\ *year)}
+\DoxyCodeLine{00074\ \{}
+\DoxyCodeLine{00075\ \ \ \ \ uint8\_t\ date\_bcd\ =\ rtc\_read\_reg(RTC\_DATE);}
+\DoxyCodeLine{00076\ \ \ \ \ uint8\_t\ month\_bcd\ =\ rtc\_read\_reg(RTC\_MONTH);}
+\DoxyCodeLine{00077\ \ \ \ \ uint8\_t\ year\_bcd\ =\ rtc\_read\_reg(RTC\_YEAR);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ *date\ =\ bcd\_to\_decimal(date\_bcd);}
+\DoxyCodeLine{00080\ \ \ \ \ *month\ =\ bcd\_to\_decimal(month\_bcd);}
+\DoxyCodeLine{00081\ \ \ \ \ *year\ =\ bcd\_to\_decimal(year\_bcd);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00084\ \}}
+\DoxyCodeLine{00085\ uint8\_t\ rtc\_get\_day(uint8\_t\ *day)}
+\DoxyCodeLine{00086\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ uint8\_t\ day\_bcd\ =\ rtc\_read\_reg(RTC\_DAY);}
+\DoxyCodeLine{00088\ \ \ \ \ *day\ =\ bcd\_to\_decimal(day\_bcd);}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00090\ \}}
+\DoxyCodeLine{00091\ uint8\_t\ rtc\_set\_date(uint8\_t\ day,\ uint8\_t\ date,\ uint8\_t\ month,\ uint8\_t\ year)}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ rtc\_write\_reg(RTC\_DAY,\ decimal\_to\_bcd(day));}
+\DoxyCodeLine{00094\ \ \ \ \ rtc\_write\_reg(RTC\_DATE,\ decimal\_to\_bcd(date));}
+\DoxyCodeLine{00095\ \ \ \ \ rtc\_write\_reg(RTC\_MONTH,\ decimal\_to\_bcd(month));}
+\DoxyCodeLine{00096\ \ \ \ \ rtc\_write\_reg(RTC\_YEAR,\ decimal\_to\_bcd(year));}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00098\ \}}
+\DoxyCodeLine{00099\ uint8\_t\ RTC\_read(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ twi\_readfrom\_mem\_into(RTC\_ADDRESS,\ RTC\_SEC,\ \&rtc\_register[0],\ 7);}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00103\ \}}
+\DoxyCodeLine{00104\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ getDateTime\_FAT(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ uint8\_t\ date,\ month,\ year;}
+\DoxyCodeLine{00107\ \ \ \ \ uint8\_t\ hours,\ minutes,\ seconds;}
+\DoxyCodeLine{00108\ \ \ \ \ uint8\_t\ error;}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ error\ =\ rtc\_get\_date(\&date,\ \&month,\ \&year);}
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordflow}{if}(error)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00112\ \ \ \ \ }
+\DoxyCodeLine{00113\ \ \ \ \ error\ =\ rtc\_get\_time(\&hours,\ \&minutes,\ \&seconds);}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{if}(error)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{comment}{//\ Calculate\ year\ for\ FAT\ (years\ since\ 1980)}}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ yr\ =\ year\ +\ 2000\ -\/\ 1980;}
+\DoxyCodeLine{00118\ \ \ \ \ dateFAT\ =\ yr;}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ Add\ month}}
+\DoxyCodeLine{00121\ \ \ \ \ dateFAT\ =\ (dateFAT\ <<\ 4)\ |\ month;}
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ Add\ date}}
+\DoxyCodeLine{00124\ \ \ \ \ dateFAT\ =\ (dateFAT\ <<\ 5)\ |\ date;}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{comment}{//\ Add\ hours}}
+\DoxyCodeLine{00127\ \ \ \ \ timeFAT\ =\ hours;}
+\DoxyCodeLine{00128\ }
+\DoxyCodeLine{00129\ \ \ \ \ \textcolor{comment}{//\ Add\ minutes}}
+\DoxyCodeLine{00130\ \ \ \ \ timeFAT\ =\ (timeFAT\ <<\ 6)\ |\ minutes;}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{comment}{//\ Add\ seconds\ (FAT32\ uses\ 2-\/second\ resolution)}}
+\DoxyCodeLine{00133\ \ \ \ \ timeFAT\ =\ (timeFAT\ <<\ 5)\ |\ (seconds\ /\ 2);}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00136\ \}}
+\DoxyCodeLine{00137\ \textcolor{comment}{//\ \{}}
+\DoxyCodeLine{00138\ \ \ }
+\DoxyCodeLine{00139\ \textcolor{comment}{//\ \ \ \ unsigned\ char\ mth,\ dt,\ hr,\ min,\ sec,\ error;\ }}
+\DoxyCodeLine{00140\ \textcolor{comment}{//\ \ \ \ unsigned\ int\ yr;}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \textcolor{comment}{//\ \ \ \ error\ =\ RTC\_read();}}
+\DoxyCodeLine{00143\ \textcolor{comment}{//\ \ \ \ if(error)\ return\ 1;}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{comment}{//\ \ \ \ yr\ =\ (YEAR\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00146\ \textcolor{comment}{//\ \ \ \ yr\ =\ (yr\ *\ 10)+(YEAR\ \&\ 0x0f);}}
+\DoxyCodeLine{00147\ \textcolor{comment}{//\ \ \ \ yr\ =\ yr+2000;}}
+\DoxyCodeLine{00148\ \textcolor{comment}{//\ \ \ \ yr\ =\ yr\ -\/\ 1980;}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{//\ \ \ \ dateFAT\ =\ yr;}}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \textcolor{comment}{//\ \ \ \ mth\ =\ (MONTH\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00153\ \textcolor{comment}{//\ \ \ \ mth\ =\ (mth\ *\ 10)+(MONTH\ \&\ 0x0f);}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00155\ \textcolor{comment}{//\ \ \ \ dateFAT\ =\ (dateFAT\ <<\ 4)\ |\ mth;}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ \ \ dt\ =\ (DATE\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ \ \ \ dt\ =\ (dt\ *\ 10)+(DATE\ \&\ 0x0f);}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00160\ \textcolor{comment}{//\ \ \ \ dateFAT\ =\ (dateFAT\ <<\ 5)\ |\ dt;}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{//\ \ \ \ hr\ =\ (HOURS\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00164\ \textcolor{comment}{//\ \ \ \ hr\ =\ (hr\ *\ 10)+(HOURS\ \&\ 0x0f);}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ \ \ \ timeFAT\ =\ hr;}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{comment}{//\ \ \ \ min\ =\ (MINUTES\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00169\ \textcolor{comment}{//\ \ \ \ min\ =\ (min\ *\ 10)+(MINUTES\ \&\ 0x0f);}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ \ \ \ timeFAT\ =\ (timeFAT\ <<\ 6)\ |\ min;}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \textcolor{comment}{//\ \ \ \ sec\ =\ (SECONDS\ \&\ 0xf0)\ >>\ 4;}}
+\DoxyCodeLine{00174\ \textcolor{comment}{//\ \ \ \ sec\ =\ (sec\ *\ 10)+(SECONDS\ \&\ 0x0f);}}
+\DoxyCodeLine{00175\ \textcolor{comment}{//\ \ \ \ sec\ =\ sec\ /\ 2;\ \ \ \ //FAT32\ fromat\ accepts\ dates\ with\ 2sec\ resolution\ (e.g.\ value\ 5\ =>\ 10sec)}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{comment}{//\ \ \ \ timeFAT\ =\ (timeFAT\ <<\ 5)\ |\ sec;}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ }
+\DoxyCodeLine{00180\ \textcolor{comment}{//\ \ \ \ return\ 0;}}
+\DoxyCodeLine{00181\ \textcolor{comment}{//\ \}}}
+
+\end{DoxyCode}

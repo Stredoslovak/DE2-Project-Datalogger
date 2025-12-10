@@ -1,0 +1,305 @@
+.TH "GasIndexAlgorithmParams" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+GasIndexAlgorithmParams
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <sensirion_gas_index_algorithm\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int32_t \fBmAlgorithm_Type\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmIndex_Offset\fP"
+.br
+.ti -1c
+.RI "int32_t \fBmSraw_Minimum\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmGating_Max_Duration_Minutes\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmInit_Duration_Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmInit_Duration_Variance\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmGating_Threshold\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmIndex_Gain\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmTau_Mean_Hours\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmTau_Variance_Hours\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmSraw_Std_Initial\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmUptime\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmSraw\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBmGas_Index\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBm_Mean_Variance_Estimator___Initialized\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Sraw_Offset\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Std\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Gamma_Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Gamma_Variance\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Gamma_Initial_Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Gamma_Initial_Variance\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator__Gamma_Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator__Gamma_Variance\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Uptime_Gamma\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Uptime_Gating\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Gating_Duration_Minutes\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Sigmoid__K\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mean_Variance_Estimator___Sigmoid__X0\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mox_Model__Sraw_Std\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Mox_Model__Sraw_Mean\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Sigmoid_Scaled__K\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Sigmoid_Scaled__X0\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Sigmoid_Scaled__Offset_Default\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Adaptive_Lowpass__A1\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Adaptive_Lowpass__A2\fP"
+.br
+.ti -1c
+.RI "\fBbool\fP \fBm_Adaptive_Lowpass___Initialized\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Adaptive_Lowpass___X1\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Adaptive_Lowpass___X2\fP"
+.br
+.ti -1c
+.RI "\fBfix16_t\fP \fBm_Adaptive_Lowpass___X3\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Struct to hold all parameters and states of the gas algorithm\&. 
+.PP
+Definition at line \fB129\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "\fBbool\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass___Initialized"
+
+.PP
+Definition at line \fB166\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass___X1"
+
+.PP
+Definition at line \fB167\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass___X2"
+
+.PP
+Definition at line \fB168\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass___X3"
+
+.PP
+Definition at line \fB169\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass__A1"
+
+.PP
+Definition at line \fB164\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Adaptive_Lowpass__A2"
+
+.PP
+Definition at line \fB165\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Mean"
+
+.PP
+Definition at line \fB150\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Variance"
+
+.PP
+Definition at line \fB151\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Mean"
+
+.PP
+Definition at line \fB148\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Variance"
+
+.PP
+Definition at line \fB149\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gating_Duration_Minutes"
+
+.PP
+Definition at line \fB156\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBbool\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Initialized"
+
+.PP
+Definition at line \fB144\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Mean"
+
+.PP
+Definition at line \fB145\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__K"
+
+.PP
+Definition at line \fB157\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__X0"
+
+.PP
+Definition at line \fB158\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sraw_Offset"
+
+.PP
+Definition at line \fB146\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Std"
+
+.PP
+Definition at line \fB147\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gamma"
+
+.PP
+Definition at line \fB154\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gating"
+
+.PP
+Definition at line \fB155\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Mean"
+
+.PP
+Definition at line \fB152\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Variance"
+
+.PP
+Definition at line \fB153\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mox_Model__Sraw_Mean"
+
+.PP
+Definition at line \fB160\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Mox_Model__Sraw_Std"
+
+.PP
+Definition at line \fB159\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Sigmoid_Scaled__K"
+
+.PP
+Definition at line \fB161\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Sigmoid_Scaled__Offset_Default"
+
+.PP
+Definition at line \fB163\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::m_Sigmoid_Scaled__X0"
+
+.PP
+Definition at line \fB162\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "int32_t GasIndexAlgorithmParams::mAlgorithm_Type"
+
+.PP
+Definition at line \fB130\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mGas_Index"
+
+.PP
+Definition at line \fB143\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mGating_Max_Duration_Minutes"
+
+.PP
+Definition at line \fB133\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mGating_Threshold"
+
+.PP
+Definition at line \fB136\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mIndex_Gain"
+
+.PP
+Definition at line \fB137\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mIndex_Offset"
+
+.PP
+Definition at line \fB131\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mInit_Duration_Mean"
+
+.PP
+Definition at line \fB134\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mInit_Duration_Variance"
+
+.PP
+Definition at line \fB135\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mSraw"
+
+.PP
+Definition at line \fB142\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "int32_t GasIndexAlgorithmParams::mSraw_Minimum"
+
+.PP
+Definition at line \fB132\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mSraw_Std_Initial"
+
+.PP
+Definition at line \fB140\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mTau_Mean_Hours"
+
+.PP
+Definition at line \fB138\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mTau_Variance_Hours"
+
+.PP
+Definition at line \fB139\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+.SS "\fBfix16_t\fP GasIndexAlgorithmParams::mUptime"
+
+.PP
+Definition at line \fB141\fP of file \fBsensirion_gas_index_algorithm\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

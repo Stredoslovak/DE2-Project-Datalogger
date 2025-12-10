@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_delay" kind="group">
+    <compoundname>bme280ApiSensorDelay</compoundname>
+    <title>Sensor Delay</title>
+    <innerpage refid="group__bme280_api_sensor_delay_bme280_api_bme280_cal_meas_delay">bme280_cal_meas_delay</innerpage>
+    <briefdescription>
+<para>Generic API for measuring sensor delay. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

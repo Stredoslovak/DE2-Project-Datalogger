@@ -1,0 +1,188 @@
+\doxysection{GPIO Library $<$gpio.\+h$>$ }
+\label{group__fryza__gpio}\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+
+
+GPIO library for AVR-\/\+GCC.  
+
+
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ gpio\+\_\+mode\+\_\+output} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Configure one output pin. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+mode\+\_\+input\+\_\+pullup} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Configure one input pin and enable pull-\/up. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+write\+\_\+low} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Write one pin to low value. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+write\+\_\+high} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Write one pin to high value. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ gpio\+\_\+read} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\begin{DoxyCompactList}\small\item\em Read a value from input pin. \end{DoxyCompactList}\item 
+void \textbf{ gpio\+\_\+mode\+\_\+input\+\_\+nopull} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\item 
+void \textbf{ gpio\+\_\+toggle} (volatile uint8\+\_\+t $\ast$reg, uint8\+\_\+t pin)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+GPIO library for AVR-\/\+GCC. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <gpio.h>}\ }
+
+\end{DoxyCode}
+
+
+The library contains functions for controlling AVRs\textquotesingle{} gpio pin(s).
+
+\begin{DoxyNote}{Note}
+Based on AVR Libc Reference Manual. 
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+(c) 2019-\/2024 Tomas Fryza, MIT license 
+\end{DoxyCopyright}
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_mode\_input\_nopull@{gpio\_mode\_input\_nopull}}
+\index{gpio\_mode\_input\_nopull@{gpio\_mode\_input\_nopull}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_mode\_input\_nopull()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga2c33ba6b22fba1079e6665bc134919b9} 
+void gpio\+\_\+mode\+\_\+input\+\_\+nopull (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 91} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_mode\_input\_pullup@{gpio\_mode\_input\_pullup}}
+\index{gpio\_mode\_input\_pullup@{gpio\_mode\_input\_pullup}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_mode\_input\_pullup()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga92d8842507a7a60233e172c7665cd448} 
+void gpio\+\_\+mode\+\_\+input\+\_\+pullup (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Configure one input pin and enable pull-\/up. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Address of Data Direction Register, such as \&DDRB \\
+\hline
+{\em pin} & Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 34} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_mode\_output@{gpio\_mode\_output}}
+\index{gpio\_mode\_output@{gpio\_mode\_output}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_mode\_output()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga67245684611d6a62494cd100c9731f8e} 
+void gpio\+\_\+mode\+\_\+output (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Configure one output pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Address of Data Direction Register, such as \&DDRB \\
+\hline
+{\em pin} & Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 21} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_read@{gpio\_read}}
+\index{gpio\_read@{gpio\_read}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_read()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_gab48bdf6775e5ebb50f349c5182238231} 
+uint8\+\_\+t gpio\+\_\+read (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Read a value from input pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Address of Pin Register, such as \&PIND \\
+\hline
+{\em pin} & Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pin value 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 75} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_toggle@{gpio\_toggle}}
+\index{gpio\_toggle@{gpio\_toggle}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_toggle()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga898c950bb2b5b6b1c158cf7ad18ea84e} 
+void gpio\+\_\+toggle (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 98} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_write\_high@{gpio\_write\_high}}
+\index{gpio\_write\_high@{gpio\_write\_high}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_write\_high()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga7bb32a27f42d2d93b8cd3e48597674ad} 
+void gpio\+\_\+write\+\_\+high (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Write one pin to high value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Address of Port Register, such as \&PORTB \\
+\hline
+{\em pin} & Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 62} of file \textbf{ gpio.\+c}.
+
+\index{GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}!gpio\_write\_low@{gpio\_write\_low}}
+\index{gpio\_write\_low@{gpio\_write\_low}!GPIO Library $<$gpio.h$>$@{GPIO Library $<$gpio.h$>$}}
+\doxysubsubsection{gpio\_write\_low()}
+{\footnotesize\ttfamily \label{group__fryza__gpio_ga8f9f18909c674d02f76e514221b505b2} 
+void gpio\+\_\+write\+\_\+low (\begin{DoxyParamCaption}\item[{volatile uint8\+\_\+t $\ast$}]{reg}{, }\item[{uint8\+\_\+t}]{pin}{}\end{DoxyParamCaption})}
+
+
+
+Write one pin to low value. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em reg} & Address of Port Register, such as \&PORTB \\
+\hline
+{\em pin} & Pin designation in the interval 0 to 7 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 49} of file \textbf{ gpio.\+c}.
+

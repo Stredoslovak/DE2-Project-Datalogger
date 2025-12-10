@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structbme280__settings" kind="struct" language="C++" prot="public">
+    <compoundname>bme280_settings</compoundname>
+    <includes refid="bme280__defs_8h" local="no">bme280_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbme280__settings_1a6359b35d9547f53dea01d893313c7dc3" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_settings::osr_p</definition>
+        <argsstring></argsstring>
+        <name>osr_p</name>
+        <qualifiedname>bme280_settings::osr_p</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Pressure oversampling </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="441" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="441" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__settings_1a49bf8f73813386b4dc37a9676230c263" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_settings::osr_t</definition>
+        <argsstring></argsstring>
+        <name>osr_t</name>
+        <qualifiedname>bme280_settings::osr_t</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Temperature oversampling </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="444" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="444" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__settings_1ab09e8c0b2ff1ee7e7eb35540ad95acf5" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_settings::osr_h</definition>
+        <argsstring></argsstring>
+        <name>osr_h</name>
+        <qualifiedname>bme280_settings::osr_h</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Humidity oversampling </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="447" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="447" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__settings_1a46eae004d968b4fd9a89e5cb5748f1c1" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_settings::filter</definition>
+        <argsstring></argsstring>
+        <name>filter</name>
+        <qualifiedname>bme280_settings::filter</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Filter coefficient </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="450" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="450" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__settings_1a9c881ed1a45bfd9092260383f13c9fbc" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_settings::standby_time</definition>
+        <argsstring></argsstring>
+        <name>standby_time</name>
+        <qualifiedname>bme280_settings::standby_time</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Standby time </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="453" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="453" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>bme280 sensor settings structure which comprises of mode, oversampling and filter settings. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/bme280/bme280_defs.h" line="438" column="1" bodyfile="lib/bme280/bme280_defs.h" bodystart="439" bodyend="454"/>
+    <listofallmembers>
+      <member refid="structbme280__settings_1a46eae004d968b4fd9a89e5cb5748f1c1" prot="public" virt="non-virtual"><scope>bme280_settings</scope><name>filter</name></member>
+      <member refid="structbme280__settings_1ab09e8c0b2ff1ee7e7eb35540ad95acf5" prot="public" virt="non-virtual"><scope>bme280_settings</scope><name>osr_h</name></member>
+      <member refid="structbme280__settings_1a6359b35d9547f53dea01d893313c7dc3" prot="public" virt="non-virtual"><scope>bme280_settings</scope><name>osr_p</name></member>
+      <member refid="structbme280__settings_1a49bf8f73813386b4dc37a9676230c263" prot="public" virt="non-virtual"><scope>bme280_settings</scope><name>osr_t</name></member>
+      <member refid="structbme280__settings_1a9c881ed1a45bfd9092260383f13c9fbc" prot="public" virt="non-virtual"><scope>bme280_settings</scope><name>standby_time</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,97 @@
+.TH "bme280ApiRegister" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280ApiRegister \- Registers
+.PP
+ \- Generic API for accessing sensor registers\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SH "Detailed Description"
+.PP 
+Generic API for accessing sensor registers\&. 
+
+bme280_set_regs
+.PP
+
+.PP
+.nf
+int8_t bme280_set_regs(const uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API writes the given data to the register address of the sensor
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg_addr\fP : Register addresses to where the data is to be written 
+.br
+\fIreg_data\fP : Pointer to data buffer which is to be written in the reg_addr of sensor\&. 
+.br
+\fIlen\fP : No of bytes of data to write 
+.br
+\fIdev\fP : Structure instance of \fBbme280_dev\fP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SS "bme280_get_regs"
+
+.PP
+.nf
+int8_t bme280_get_regs(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API reads the data from the given register address of sensor\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg_addr\fP : Register address from where the data to be read 
+.br
+\fIreg_data\fP : Pointer to data buffer to store the read data\&. 
+.br
+\fIlen\fP : No of bytes of data to be read\&. 
+.br
+\fIdev\fP : Structure instance of \fBbme280_dev\fP\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

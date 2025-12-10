@@ -1,0 +1,61 @@
+.TH "bme280_settings" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280_settings \- bme280 sensor settings structure which comprises of mode, oversampling and filter settings\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <bme280_defs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBosr_p\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBosr_t\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBosr_h\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBfilter\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBstandby_time\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+bme280 sensor settings structure which comprises of mode, oversampling and filter settings\&. 
+.PP
+Definition at line \fB438\fP of file \fBbme280_defs\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "uint8_t bme280_settings::filter"
+Filter coefficient 
+.PP
+Definition at line \fB450\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "uint8_t bme280_settings::osr_h"
+Humidity oversampling 
+.PP
+Definition at line \fB447\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "uint8_t bme280_settings::osr_p"
+Pressure oversampling 
+.PP
+Definition at line \fB441\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "uint8_t bme280_settings::osr_t"
+Temperature oversampling 
+.PP
+Definition at line \fB444\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "uint8_t bme280_settings::standby_time"
+Standby time 
+.PP
+Definition at line \fB453\fP of file \fBbme280_defs\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

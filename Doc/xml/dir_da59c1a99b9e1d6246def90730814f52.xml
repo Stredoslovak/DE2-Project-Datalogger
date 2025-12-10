@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_da59c1a99b9e1d6246def90730814f52" kind="dir">
+    <compoundname>lib/FAT32</compoundname>
+    <innerfile refid="_f_a_t32_8c">FAT32.c</innerfile>
+    <innerfile refid="_f_a_t32_8h">FAT32.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/FAT32/"/>
+  </compounddef>
+</doxygen>

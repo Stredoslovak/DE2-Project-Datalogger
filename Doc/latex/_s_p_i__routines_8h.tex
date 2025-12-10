@@ -1,0 +1,76 @@
+\doxysection{lib/\+SPI/\+SPI\+\_\+routines.h File Reference}
+\label{_s_p_i__routines_8h}\index{lib/SPI/SPI\_routines.h@{lib/SPI/SPI\_routines.h}}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ SPI\+\_\+\+SD}~SPCR = 0x52
+\item 
+\#define \textbf{ SPI\+\_\+\+HIGH\+\_\+\+SPEED}~SPCR = 0x50; SPSR $\vert$= (1$<$$<$SPI2X)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ spi\+\_\+init} (void)
+\item 
+unsigned char \textbf{ SPI\+\_\+transmit} (unsigned char)
+\item 
+unsigned char \textbf{ SPI\+\_\+receive} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{SPI\_routines.h@{SPI\_routines.h}!SPI\_HIGH\_SPEED@{SPI\_HIGH\_SPEED}}
+\index{SPI\_HIGH\_SPEED@{SPI\_HIGH\_SPEED}!SPI\_routines.h@{SPI\_routines.h}}
+\doxysubsubsection{SPI\_HIGH\_SPEED}
+{\footnotesize\ttfamily \label{_s_p_i__routines_8h_a69de399bcf6b3c1a5c5fea36d823566f} 
+\#define SPI\+\_\+\+HIGH\+\_\+\+SPEED~SPCR = 0x50; SPSR $\vert$= (1$<$$<$SPI2X)}
+
+
+
+Definition at line \textbf{ 16} of file \textbf{ SPI\+\_\+routines.\+h}.
+
+\index{SPI\_routines.h@{SPI\_routines.h}!SPI\_SD@{SPI\_SD}}
+\index{SPI\_SD@{SPI\_SD}!SPI\_routines.h@{SPI\_routines.h}}
+\doxysubsubsection{SPI\_SD}
+{\footnotesize\ttfamily \label{_s_p_i__routines_8h_aa978946aa329d3c733c478c41b812d14} 
+\#define SPI\+\_\+\+SD~SPCR = 0x52}
+
+
+
+Definition at line \textbf{ 15} of file \textbf{ SPI\+\_\+routines.\+h}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{SPI\_routines.h@{SPI\_routines.h}!spi\_init@{spi\_init}}
+\index{spi\_init@{spi\_init}!SPI\_routines.h@{SPI\_routines.h}}
+\doxysubsubsection{spi\_init()}
+{\footnotesize\ttfamily \label{_s_p_i__routines_8h_ae909944aa85ae98323073c628be541aa} 
+void spi\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 17} of file \textbf{ SPI\+\_\+routines.\+c}.
+
+\index{SPI\_routines.h@{SPI\_routines.h}!SPI\_receive@{SPI\_receive}}
+\index{SPI\_receive@{SPI\_receive}!SPI\_routines.h@{SPI\_routines.h}}
+\doxysubsubsection{SPI\_receive()}
+{\footnotesize\ttfamily \label{_s_p_i__routines_8h_a7bf9d94fbfaeda91cbe31f30025f837a} 
+unsigned char SPI\+\_\+receive (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 42} of file \textbf{ SPI\+\_\+routines.\+c}.
+
+\index{SPI\_routines.h@{SPI\_routines.h}!SPI\_transmit@{SPI\_transmit}}
+\index{SPI\_transmit@{SPI\_transmit}!SPI\_routines.h@{SPI\_routines.h}}
+\doxysubsubsection{SPI\_transmit()}
+{\footnotesize\ttfamily \label{_s_p_i__routines_8h_a9fe2b5ca4c93e342f99ed0e36b2025d6} 
+unsigned char SPI\+\_\+transmit (\begin{DoxyParamCaption}\item[{unsigned char}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 29} of file \textbf{ SPI\+\_\+routines.\+c}.
+

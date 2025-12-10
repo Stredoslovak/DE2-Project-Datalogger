@@ -1,0 +1,617 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="struct_gas_index_algorithm_params" kind="struct" language="C++" prot="public">
+    <compoundname>GasIndexAlgorithmParams</compoundname>
+    <includes refid="sensirion__gas__index__algorithm_8h" local="no">sensirion_gas_index_algorithm.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a44159ed288e8fb4a9a9582f611bddb37" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t GasIndexAlgorithmParams::mAlgorithm_Type</definition>
+        <argsstring></argsstring>
+        <name>mAlgorithm_Type</name>
+        <qualifiedname>GasIndexAlgorithmParams::mAlgorithm_Type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="130" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a7961634d1248d81cfc4a8eb6cfd264fc" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mIndex_Offset</definition>
+        <argsstring></argsstring>
+        <name>mIndex_Offset</name>
+        <qualifiedname>GasIndexAlgorithmParams::mIndex_Offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="131" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1af200d3e670ff97ec3ebcffa58df18c8d" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t GasIndexAlgorithmParams::mSraw_Minimum</definition>
+        <argsstring></argsstring>
+        <name>mSraw_Minimum</name>
+        <qualifiedname>GasIndexAlgorithmParams::mSraw_Minimum</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="132" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="132" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aed68662aca7ac4eeb35fa55f8b29aecd" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mGating_Max_Duration_Minutes</definition>
+        <argsstring></argsstring>
+        <name>mGating_Max_Duration_Minutes</name>
+        <qualifiedname>GasIndexAlgorithmParams::mGating_Max_Duration_Minutes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="133" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a970888740603585689a77c6bb3824cba" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mInit_Duration_Mean</definition>
+        <argsstring></argsstring>
+        <name>mInit_Duration_Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::mInit_Duration_Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="134" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aee9d4a68c8188fbb671288744a57b58d" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mInit_Duration_Variance</definition>
+        <argsstring></argsstring>
+        <name>mInit_Duration_Variance</name>
+        <qualifiedname>GasIndexAlgorithmParams::mInit_Duration_Variance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="135" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="135" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a9d7792ff4e2f781793bf51f29aae03b2" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mGating_Threshold</definition>
+        <argsstring></argsstring>
+        <name>mGating_Threshold</name>
+        <qualifiedname>GasIndexAlgorithmParams::mGating_Threshold</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="136" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a45a856a547bebaf4f023e7f5e1d44b9a" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mIndex_Gain</definition>
+        <argsstring></argsstring>
+        <name>mIndex_Gain</name>
+        <qualifiedname>GasIndexAlgorithmParams::mIndex_Gain</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="137" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a573adcccabd98b982b70ef875dc1cf7e" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mTau_Mean_Hours</definition>
+        <argsstring></argsstring>
+        <name>mTau_Mean_Hours</name>
+        <qualifiedname>GasIndexAlgorithmParams::mTau_Mean_Hours</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="138" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a54a757b432945670d35a5899354ae4d9" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mTau_Variance_Hours</definition>
+        <argsstring></argsstring>
+        <name>mTau_Variance_Hours</name>
+        <qualifiedname>GasIndexAlgorithmParams::mTau_Variance_Hours</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="139" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a72855d4f653c0f99b6810cf82c3ccfb0" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mSraw_Std_Initial</definition>
+        <argsstring></argsstring>
+        <name>mSraw_Std_Initial</name>
+        <qualifiedname>GasIndexAlgorithmParams::mSraw_Std_Initial</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="140" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a5638004748a844d62c25a3d7abbeee75" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mUptime</definition>
+        <argsstring></argsstring>
+        <name>mUptime</name>
+        <qualifiedname>GasIndexAlgorithmParams::mUptime</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="141" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="141" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a1d7c6e19c90cea4884f8a15a4f36aaea" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mSraw</definition>
+        <argsstring></argsstring>
+        <name>mSraw</name>
+        <qualifiedname>GasIndexAlgorithmParams::mSraw</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="142" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a2acae073c58e6f3edc152a6f754138cf" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::mGas_Index</definition>
+        <argsstring></argsstring>
+        <name>mGas_Index</name>
+        <qualifiedname>GasIndexAlgorithmParams::mGas_Index</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="143" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a30caee8b3331675119966654b0ed3421" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1abb452686968e48b67397da5f97445f5b" kindref="member">bool</ref></type>
+        <definition>bool GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Initialized</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Initialized</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Initialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="144" column="10" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a302d7260327d0d34aa53aa23b334fb2c" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Mean</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="145" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a0b5364ddd60c76185afa756521f520c5" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sraw_Offset</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Sraw_Offset</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sraw_Offset</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="146" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a83d199bee7bb53f6be6a71444418877c" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Std</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Std</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Std</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="147" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a56666ef972833a7f3f8e508d1417c49b" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Mean</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Gamma_Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="148" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a9a144c67b584c74360ef444e09a08cb2" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Variance</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Gamma_Variance</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Variance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="149" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1abb0d4facedb3209d2f758e9fc54c6e6d" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Mean</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Gamma_Initial_Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="150" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1ae87101b154d3dcc37d346607fdbaac14" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Variance</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Gamma_Initial_Variance</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gamma_Initial_Variance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="151" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aabf390221d75f9a85bf67a380e8ef05c" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Mean</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator__Gamma_Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="152" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1ab5009b7c88434f93d9a31f3ea226d7e5" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Variance</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator__Gamma_Variance</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator__Gamma_Variance</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="153" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="153" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aeec1c03d622166dc19ca68ede1ff5979" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gamma</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Uptime_Gamma</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gamma</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="154" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a59f505ba655f46732fac7a9835cd2653" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gating</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Uptime_Gating</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Uptime_Gating</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="155" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1ab642a9e904bcd700161a1aa2394d2ecf" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gating_Duration_Minutes</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Gating_Duration_Minutes</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Gating_Duration_Minutes</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="156" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a52678ba8a381801f775b588dfdf29a5d" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__K</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Sigmoid__K</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__K</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="157" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a3b70ce67b2fb1419281318b574a6896b" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__X0</definition>
+        <argsstring></argsstring>
+        <name>m_Mean_Variance_Estimator___Sigmoid__X0</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mean_Variance_Estimator___Sigmoid__X0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="158" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a81d9e3deacb3ac2c819282d4dfc9f03d" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mox_Model__Sraw_Std</definition>
+        <argsstring></argsstring>
+        <name>m_Mox_Model__Sraw_Std</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mox_Model__Sraw_Std</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="159" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a391014f383ab8aa8b7a6d06fa0d0e112" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Mox_Model__Sraw_Mean</definition>
+        <argsstring></argsstring>
+        <name>m_Mox_Model__Sraw_Mean</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Mox_Model__Sraw_Mean</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="160" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a28f019a0cbf484473c37d364672640ad" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Sigmoid_Scaled__K</definition>
+        <argsstring></argsstring>
+        <name>m_Sigmoid_Scaled__K</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Sigmoid_Scaled__K</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="161" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a19157a12d574ae78a96bddc4e0469189" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Sigmoid_Scaled__X0</definition>
+        <argsstring></argsstring>
+        <name>m_Sigmoid_Scaled__X0</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Sigmoid_Scaled__X0</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="162" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aa15d180da3def6094bf721ca29fafcf7" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Sigmoid_Scaled__Offset_Default</definition>
+        <argsstring></argsstring>
+        <name>m_Sigmoid_Scaled__Offset_Default</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Sigmoid_Scaled__Offset_Default</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="163" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a324a58eb9e2a10d05b94f26026e3bacd" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Adaptive_Lowpass__A1</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass__A1</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass__A1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="164" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a81aacbb14a8799f275feeb3b986c318a" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Adaptive_Lowpass__A2</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass__A2</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass__A2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="165" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1ae9f3681fc40be5c2224fa23fa04e39fc" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1abb452686968e48b67397da5f97445f5b" kindref="member">bool</ref></type>
+        <definition>bool GasIndexAlgorithmParams::m_Adaptive_Lowpass___Initialized</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass___Initialized</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass___Initialized</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="166" column="10" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1ad82847471ac5f24ca0cb3847bc380c5b" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Adaptive_Lowpass___X1</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass___X1</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass___X1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="167" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="167" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1a63de2e9c5dde2aeebfc66d3b498d8e75" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Adaptive_Lowpass___X2</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass___X2</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass___X2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="168" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_gas_index_algorithm_params_1aa1581cf1506e4563a819fd0a2e373089" prot="public" static="no" mutable="no">
+        <type><ref refid="sensirion__gas__index__algorithm_8h_1aca43c6dc0c416d1e27c18614b7ebcb73" kindref="member">fix16_t</ref></type>
+        <definition>fix16_t GasIndexAlgorithmParams::m_Adaptive_Lowpass___X3</definition>
+        <argsstring></argsstring>
+        <name>m_Adaptive_Lowpass___X3</name>
+        <qualifiedname>GasIndexAlgorithmParams::m_Adaptive_Lowpass___X3</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="169" column="13" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="169" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Struct to hold all parameters and states of the gas algorithm. </para>
+    </detaileddescription>
+    <location file="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" line="129" column="1" bodyfile="lib/gas_index_algorithm/sensirion_gas_index_algorithm.h" bodystart="129" bodyend="170"/>
+    <listofallmembers>
+      <member refid="struct_gas_index_algorithm_params_1ae9f3681fc40be5c2224fa23fa04e39fc" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass___Initialized</name></member>
+      <member refid="struct_gas_index_algorithm_params_1ad82847471ac5f24ca0cb3847bc380c5b" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass___X1</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a63de2e9c5dde2aeebfc66d3b498d8e75" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass___X2</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aa1581cf1506e4563a819fd0a2e373089" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass___X3</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a324a58eb9e2a10d05b94f26026e3bacd" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass__A1</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a81aacbb14a8799f275feeb3b986c318a" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Adaptive_Lowpass__A2</name></member>
+      <member refid="struct_gas_index_algorithm_params_1abb0d4facedb3209d2f758e9fc54c6e6d" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Gamma_Initial_Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1ae87101b154d3dcc37d346607fdbaac14" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Gamma_Initial_Variance</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a56666ef972833a7f3f8e508d1417c49b" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Gamma_Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a9a144c67b584c74360ef444e09a08cb2" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Gamma_Variance</name></member>
+      <member refid="struct_gas_index_algorithm_params_1ab642a9e904bcd700161a1aa2394d2ecf" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Gating_Duration_Minutes</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a30caee8b3331675119966654b0ed3421" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Initialized</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a302d7260327d0d34aa53aa23b334fb2c" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a52678ba8a381801f775b588dfdf29a5d" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Sigmoid__K</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a3b70ce67b2fb1419281318b574a6896b" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Sigmoid__X0</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a0b5364ddd60c76185afa756521f520c5" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Sraw_Offset</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a83d199bee7bb53f6be6a71444418877c" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Std</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aeec1c03d622166dc19ca68ede1ff5979" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Uptime_Gamma</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a59f505ba655f46732fac7a9835cd2653" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator___Uptime_Gating</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aabf390221d75f9a85bf67a380e8ef05c" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator__Gamma_Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1ab5009b7c88434f93d9a31f3ea226d7e5" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mean_Variance_Estimator__Gamma_Variance</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a391014f383ab8aa8b7a6d06fa0d0e112" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mox_Model__Sraw_Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a81d9e3deacb3ac2c819282d4dfc9f03d" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Mox_Model__Sraw_Std</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a28f019a0cbf484473c37d364672640ad" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Sigmoid_Scaled__K</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aa15d180da3def6094bf721ca29fafcf7" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Sigmoid_Scaled__Offset_Default</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a19157a12d574ae78a96bddc4e0469189" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>m_Sigmoid_Scaled__X0</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a44159ed288e8fb4a9a9582f611bddb37" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mAlgorithm_Type</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a2acae073c58e6f3edc152a6f754138cf" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mGas_Index</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aed68662aca7ac4eeb35fa55f8b29aecd" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mGating_Max_Duration_Minutes</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a9d7792ff4e2f781793bf51f29aae03b2" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mGating_Threshold</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a45a856a547bebaf4f023e7f5e1d44b9a" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mIndex_Gain</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a7961634d1248d81cfc4a8eb6cfd264fc" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mIndex_Offset</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a970888740603585689a77c6bb3824cba" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mInit_Duration_Mean</name></member>
+      <member refid="struct_gas_index_algorithm_params_1aee9d4a68c8188fbb671288744a57b58d" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mInit_Duration_Variance</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a1d7c6e19c90cea4884f8a15a4f36aaea" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mSraw</name></member>
+      <member refid="struct_gas_index_algorithm_params_1af200d3e670ff97ec3ebcffa58df18c8d" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mSraw_Minimum</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a72855d4f653c0f99b6810cf82c3ccfb0" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mSraw_Std_Initial</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a573adcccabd98b982b70ef875dc1cf7e" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mTau_Mean_Hours</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a54a757b432945670d35a5899354ae4d9" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mTau_Variance_Hours</name></member>
+      <member refid="struct_gas_index_algorithm_params_1a5638004748a844d62c25a3d7abbeee75" prot="public" virt="non-virtual"><scope>GasIndexAlgorithmParams</scope><name>mUptime</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

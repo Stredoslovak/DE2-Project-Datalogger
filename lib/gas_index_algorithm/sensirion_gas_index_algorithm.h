@@ -70,7 +70,7 @@ typedef int32_t fix16_t;
 #define GasIndexAlgorithm_ALGORITHM_TYPE_VOC (0)
 #define GasIndexAlgorithm_ALGORITHM_TYPE_NOX (1)
 #define GasIndexAlgorithm_SAMPLING_INTERVAL (1.)
-#define GasIndexAlgorithm_INITIAL_BLACKOUT (45.)
+#define GasIndexAlgorithm_INITIAL_BLACKOUT (9.)
 #define GasIndexAlgorithm_INDEX_GAIN (230.)
 #define GasIndexAlgorithm_SRAW_STD_INITIAL (50.)
 #define GasIndexAlgorithm_SRAW_STD_BONUS_VOC (220.)

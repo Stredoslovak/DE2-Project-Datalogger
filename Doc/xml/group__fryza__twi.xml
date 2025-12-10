@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__fryza__twi" kind="group">
+    <compoundname>fryza_twi</compoundname>
+    <title>TWI Library &lt;twi.h&gt;</title>
+    <sectiondef kind="user-defined">
+      <header>Other definitions</header>
+      <memberdef kind="function" id="group__fryza__twi_1ga16f0e6b2fa5a26eadbf4086ab6d54467" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void twi_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>twi_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Initialize TWI unit, enable internal pull-ups, and set SCL frequency. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="par"><title>Implementation notes:</title><para><itemizedlist>
+<listitem><para>AVR internal pull-up resistors at pins TWI_SDA_PIN and TWI_SCL_PIN are enabled</para>
+</listitem><listitem><para>TWI bit rate register value is calculated as follows fscl = fcpu/(16 + 2*TWBR) </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="71" column="6" bodyfile="lib/twi/twi.c" bodystart="20" bodyend="29" declfile="lib/twi/twi.h" declline="71" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void twi_start</definition>
+        <argsstring>(void)</argsstring>
+        <name>twi_start</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Start communication on I2C/TWI bus. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="78" column="6" bodyfile="lib/twi/twi.c" bodystart="37" bodyend="42" declfile="lib/twi/twi.h" declline="78" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t twi_write</definition>
+        <argsstring>(uint8_t data)</argsstring>
+        <name>twi_write</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Write one byte to the I2C/TWI bus. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Byte to be transmitted </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ACK/NACK received value </para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ACK has been received </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- NACK has been received </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>Function returns 0 if 0x18, 0x28, or 0x40 status code is detected<linebreak/>
+<itemizedlist>
+<listitem><para>0x18: SLA+W has been transmitted and ACK has been received<linebreak/>
+</para>
+</listitem><listitem><para>0x28: Data byte has been transmitted and ACK has been received<linebreak/>
+</para>
+</listitem><listitem><para>0x40: SLA+R has been transmitted and ACK has been received<linebreak/>
+</para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="92" column="9" bodyfile="lib/twi/twi.c" bodystart="51" bodyend="72" declfile="lib/twi/twi.h" declline="92" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t twi_read</definition>
+        <argsstring>(uint8_t ack)</argsstring>
+        <name>twi_read</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>ack</declname>
+        </param>
+        <briefdescription>
+<para>Read one byte from the I2C/TWI bus and acknowledge it by ACK or NACK. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ack</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ACK/NACK value to be transmitted </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Received data byte </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="101" column="9" bodyfile="lib/twi/twi.c" bodystart="82" bodyend="91" declfile="lib/twi/twi.h" declline="101" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void twi_stop</definition>
+        <argsstring>(void)</argsstring>
+        <name>twi_stop</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Generates Stop condition on I2C/TWI bus. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="108" column="6" bodyfile="lib/twi/twi.c" bodystart="99" bodyend="102" declfile="lib/twi/twi.h" declline="108" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1gae830c20b3544c9619c2c316b9a578ab2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t twi_test_address</definition>
+        <argsstring>(uint8_t addr)</argsstring>
+        <name>twi_test_address</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>addr</declname>
+        </param>
+        <briefdescription>
+<para>Test presence of one I2C device on the bus. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave address </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>ACK/NACK received value </para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- ACK has been received </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>1</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>- NACK has been received </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="118" column="9" bodyfile="lib/twi/twi.c" bodystart="111" bodyend="120" declfile="lib/twi/twi.h" declline="118" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1gacf2027b11accf8c8a40502c60dd1b76f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void twi_readfrom_mem_into</definition>
+        <argsstring>(uint8_t addr, uint8_t memaddr, volatile uint8_t *buf, uint8_t nbytes)</argsstring>
+        <name>twi_readfrom_mem_into</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>memaddr</declname>
+        </param>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>buf</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>nbytes</declname>
+        </param>
+        <briefdescription>
+<para>Read into buf from the peripheral, starting from the memory address. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>memaddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Starting address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>buf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Buffer to be read into </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>nbytes</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of bytes </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="129" column="6" bodyfile="lib/twi/twi.c" bodystart="132" bodyend="159" declfile="lib/twi/twi.h" declline="129" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__twi_1ga6562cd3358cc443e747cff94f4d66a43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t twi_writeto_mem</definition>
+        <argsstring>(uint8_t addr, uint8_t memaddr, uint8_t data)</argsstring>
+        <name>twi_writeto_mem</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>memaddr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Write into peripheral. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>memaddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be written </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="138" column="9" bodyfile="lib/twi/twi.c" bodystart="160" bodyend="179" declfile="lib/twi/twi.h" declline="138" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" prot="public" static="no">
+        <name>TWI_WRITE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>Mode for writing to I2C/TWI device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="53" column="9" bodyfile="lib/twi/twi.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1gaaf9a8abccd811954f9cc316f2b2f87b3" prot="public" static="no">
+        <name>TWI_READ</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>Mode for reading from I2C/TWI device. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="54" column="9" bodyfile="lib/twi/twi.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga00dcb08e2effea903c22763e0aeeb3cb" prot="public" static="no">
+        <name>TWI_ACK</name>
+        <initializer>0</initializer>
+        <briefdescription>
+<para>ACK value for writing to I2C/TWI bus. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="55" column="9" bodyfile="lib/twi/twi.h" bodystart="55" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1gaaf28e960d6d1c0553791faf52ebd8ef6" prot="public" static="no">
+        <name>TWI_NACK</name>
+        <initializer>1</initializer>
+        <briefdescription>
+<para>NACK value for writing to I2C/TWI bus. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="56" column="9" bodyfile="lib/twi/twi.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga6c0346728feb274834cad94daca316ee" prot="public" static="no">
+        <name>DDR</name>
+        <param><defname>_x</defname></param>
+        <initializer>(*(&amp;_x - 1))</initializer>
+        <briefdescription>
+<para>Address of Data Direction Register of port _x. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="57" column="9" bodyfile="lib/twi/twi.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga740f9eb9c9f9e33500ee61ec53945f6a" prot="public" static="no">
+        <name>PIN</name>
+        <param><defname>_x</defname></param>
+        <initializer>(*(&amp;_x - 2))</initializer>
+        <briefdescription>
+<para>Address of input register of port _x. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="58" column="9" bodyfile="lib/twi/twi.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Definition of frequencies</header>
+      <memberdef kind="define" id="group__fryza__twi_1ga43bafb28b29491ec7f871319b5a3b2f8" prot="public" static="no">
+        <name>F_CPU</name>
+        <initializer>16000000</initializer>
+        <briefdescription>
+<para>CPU frequency in Hz required TWI_BIT_RATE_REG. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="36" column="9" bodyfile="lib/twi/twi.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga7a1c522bed64982971384489ee477bd3" prot="public" static="no">
+        <name>F_SCL</name>
+        <initializer>100000</initializer>
+        <briefdescription>
+<para>I2C/TWI bit rate. Must be greater than 31000. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="38" column="10" bodyfile="lib/twi/twi.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga801c158406ca2334b446e442a2debe37" prot="public" static="no">
+        <name>TWI_BIT_RATE_REG</name>
+        <initializer>((<ref refid="group__fryza__twi_1ga43bafb28b29491ec7f871319b5a3b2f8" kindref="member">F_CPU</ref>/<ref refid="group__fryza__twi_1ga7a1c522bed64982971384489ee477bd3" kindref="member">F_SCL</ref> - 16) / 2)</initializer>
+        <briefdescription>
+<para>TWI bit rate register value. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="39" column="9" bodyfile="lib/twi/twi.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Definition of ports and pins</header>
+      <memberdef kind="define" id="group__fryza__twi_1ga762c164f4acd04d3ce3627fe73e7c018" prot="public" static="no">
+        <name>TWI_PORT</name>
+        <initializer>PORTC</initializer>
+        <briefdescription>
+<para>Port of TWI unit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="45" column="9" bodyfile="lib/twi/twi.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1ga3f14ed8491293d0dda1372cceaa39851" prot="public" static="no">
+        <name>TWI_SDA_PIN</name>
+        <initializer>4</initializer>
+        <briefdescription>
+<para>SDA pin of TWI unit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="46" column="9" bodyfile="lib/twi/twi.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__fryza__twi_1gac0ad8b33f1be48e211f1eeae2dd65cee" prot="public" static="no">
+        <name>TWI_SCL_PIN</name>
+        <initializer>5</initializer>
+        <briefdescription>
+<para>SCL pin of TWI unit. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="47" column="9" bodyfile="lib/twi/twi.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="group__fryza__twi_1gafca31c5aa83a4430c3e71923c6fa9ba8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t twi_writeto_mem_16b</definition>
+        <argsstring>(uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf, uint8_t dataLowerHalf)</argsstring>
+        <name>twi_writeto_mem_16b</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>addr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>memaddr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dataUpperHalf</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>dataLowerHalf</declname>
+        </param>
+        <briefdescription>
+<para>Write 16bit into peripheral. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Slave address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>memaddr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Memory address </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dataUpperHalf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be written </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>dataLowerHalf</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Data to be written </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/twi/twi.h" line="149" column="9" bodyfile="lib/twi/twi.c" bodystart="181" bodyend="204" declfile="lib/twi/twi.h" declline="149" declcolumn="9"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>I2C/TWI library for AVR-GCC. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="twi_8h" kindref="compound">twi.h</ref>&gt;</highlight><highlight class="normal"><sp/></highlight></codeline>
+</programlisting></para>
+<para>This library defines functions for the TWI (I2C) communication between AVR and Slave device(s). Functions use internal TWI module of AVR.</para>
+<para><simplesect kind="note"><para>Only Master transmitting and Master receiving modes are implemented. Based on Microchip Atmel ATmega16 and ATmega328P manuals. </para>
+</simplesect>
+<simplesect kind="copyright"><para>(c) 2018-2025 Tomas Fryza, MIT license </para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

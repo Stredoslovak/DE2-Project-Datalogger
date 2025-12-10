@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_system_bme280_api_bme280_soft_reset" kind="page">
+    <compoundname>bme280_api_bme280_soft_reset</compoundname>
+    <title>bme280_soft_reset</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">int8_t<sp/><ref refid="bme280_8c_1a6f874563c32b64cb625677e81ac20740" kindref="member">bme280_soft_reset</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+</programlisting></para>
+<para>This API soft-resets the sensor.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Structure instance of <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of API execution status.</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

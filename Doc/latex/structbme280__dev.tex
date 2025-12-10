@@ -1,0 +1,126 @@
+\doxysection{bme280\+\_\+dev Struct Reference}
+\label{structbme280__dev}\index{bme280\_dev@{bme280\_dev}}
+
+
+bme280 device structure  
+
+
+
+
+{\ttfamily \#include $<$bme280\+\_\+defs.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \textbf{ chip\+\_\+id}
+\item 
+enum \textbf{ bme280\+\_\+intf} \textbf{ intf}
+\item 
+void $\ast$ \textbf{ intf\+\_\+ptr}
+\item 
+\textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE} \textbf{ intf\+\_\+rslt}
+\item 
+\textbf{ bme280\+\_\+read\+\_\+fptr\+\_\+t} \textbf{ read}
+\item 
+\textbf{ bme280\+\_\+write\+\_\+fptr\+\_\+t} \textbf{ write}
+\item 
+\textbf{ bme280\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t} \textbf{ delay\+\_\+us}
+\item 
+struct \textbf{ bme280\+\_\+calib\+\_\+data} \textbf{ calib\+\_\+data}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+bme280 device structure 
+
+Definition at line \textbf{ 459} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+
+
+\label{doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{bme280\_dev@{bme280\_dev}!calib\_data@{calib\_data}}
+\index{calib\_data@{calib\_data}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{calib\_data}
+{\footnotesize\ttfamily \label{structbme280__dev_a8a57e57db020663dc3a8f3438cd6b399} 
+struct \textbf{ bme280\+\_\+calib\+\_\+data} bme280\+\_\+dev\+::calib\+\_\+data}
+
+Trim data 
+
+Definition at line \textbf{ 491} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!chip\_id@{chip\_id}}
+\index{chip\_id@{chip\_id}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{chip\_id}
+{\footnotesize\ttfamily \label{structbme280__dev_a6147bb3590bc7d1b02c41454d13c81c0} 
+uint8\+\_\+t bme280\+\_\+dev\+::chip\+\_\+id}
+
+Chip Id 
+
+Definition at line \textbf{ 462} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!delay\_us@{delay\_us}}
+\index{delay\_us@{delay\_us}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{delay\_us}
+{\footnotesize\ttfamily \label{structbme280__dev_a04c4f6d52685b73f3bb09eccf44374ab} 
+\textbf{ bme280\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t} bme280\+\_\+dev\+::delay\+\_\+us}
+
+Delay function pointer 
+
+Definition at line \textbf{ 488} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!intf@{intf}}
+\index{intf@{intf}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{intf}
+{\footnotesize\ttfamily \label{structbme280__dev_a937b25397d1455117b64b1380368d30c} 
+enum \textbf{ bme280\+\_\+intf} bme280\+\_\+dev\+::intf}
+
+Interface Selection For SPI, intf = BME280\+\_\+\+SPI\+\_\+\+INTF For I2C, intf = BME280\+\_\+\+I2\+C\+\_\+\+INTF 
+
+Definition at line \textbf{ 468} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!intf\_ptr@{intf\_ptr}}
+\index{intf\_ptr@{intf\_ptr}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{intf\_ptr}
+{\footnotesize\ttfamily \label{structbme280__dev_ac8640e40f4f3fd9c3495df4fc97e8f66} 
+void$\ast$ bme280\+\_\+dev\+::intf\+\_\+ptr}
+
+The interface pointer is used to enable the user to link their interface descriptors for reference during the implementation of the read and write interfaces to the hardware. 
+
+Definition at line \textbf{ 476} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!intf\_rslt@{intf\_rslt}}
+\index{intf\_rslt@{intf\_rslt}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{intf\_rslt}
+{\footnotesize\ttfamily \label{structbme280__dev_a7300e995dae0d0fde0b68d3a1352e667} 
+\textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE} bme280\+\_\+dev\+::intf\+\_\+rslt}
+
+Variable to store result of read/write function 
+
+Definition at line \textbf{ 479} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!read@{read}}
+\index{read@{read}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{read}
+{\footnotesize\ttfamily \label{structbme280__dev_aadbc5248e2bc46660e10af07fe6504ef} 
+\textbf{ bme280\+\_\+read\+\_\+fptr\+\_\+t} bme280\+\_\+dev\+::read}
+
+Read function pointer 
+
+Definition at line \textbf{ 482} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_dev@{bme280\_dev}!write@{write}}
+\index{write@{write}!bme280\_dev@{bme280\_dev}}
+\doxysubsubsection{write}
+{\footnotesize\ttfamily \label{structbme280__dev_a3360596144afdd8476469cdef11beb3b} 
+\textbf{ bme280\+\_\+write\+\_\+fptr\+\_\+t} bme280\+\_\+dev\+::write}
+
+Write function pointer 
+
+Definition at line \textbf{ 485} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/bme280/\textbf{ bme280\+\_\+defs.\+h}\end{DoxyCompactItemize}

@@ -1,0 +1,52 @@
+.TH "bme280ApiSystem" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280ApiSystem \- System
+.PP
+ \- API that performs system-level operations\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SH "Detailed Description"
+.PP 
+API that performs system-level operations\&. 
+
+bme280_soft_reset
+.PP
+
+.PP
+.nf
+int8_t bme280_soft_reset(struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API soft-resets the sensor\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIdev\fP : Structure instance of \fBbme280_dev\fP\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

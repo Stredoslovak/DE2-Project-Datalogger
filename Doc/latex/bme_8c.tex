@@ -1,0 +1,39 @@
+\doxysection{src/bme.c File Reference}
+\label{bme_8c}\index{src/bme.c@{src/bme.c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+{\ttfamily \#include "{}twi.\+h"{}}\newline
+{\ttfamily \#include "{}bme280.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ bme\+\_\+init\+\_\+simple} (struct \textbf{ bme280\+\_\+dev} $\ast$dev, uint8\+\_\+t $\ast$dev\+\_\+addr\+\_\+ptr)
+\item 
+int \textbf{ bme\+\_\+read\+\_\+once} (struct \textbf{ bme280\+\_\+dev} $\ast$dev, int32\+\_\+t $\ast$t100, uint32\+\_\+t $\ast$press\+\_\+pa, uint32\+\_\+t $\ast$hum\+\_\+x1024)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{bme.c@{bme.c}!bme\_init\_simple@{bme\_init\_simple}}
+\index{bme\_init\_simple@{bme\_init\_simple}!bme.c@{bme.c}}
+\doxysubsubsection{bme\_init\_simple()}
+{\footnotesize\ttfamily \label{bme_8c_ae711b62c391a71e52024c272611d64ee} 
+int bme\+\_\+init\+\_\+simple (\begin{DoxyParamCaption}\item[{struct \textbf{ bme280\+\_\+dev} $\ast$}]{dev}{, }\item[{uint8\+\_\+t $\ast$}]{dev\+\_\+addr\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 111} of file \textbf{ bme.\+c}.
+
+\index{bme.c@{bme.c}!bme\_read\_once@{bme\_read\_once}}
+\index{bme\_read\_once@{bme\_read\_once}!bme.c@{bme.c}}
+\doxysubsubsection{bme\_read\_once()}
+{\footnotesize\ttfamily \label{bme_8c_ae379d395f2a1351de8c7c1ddb28fea47} 
+int bme\+\_\+read\+\_\+once (\begin{DoxyParamCaption}\item[{struct \textbf{ bme280\+\_\+dev} $\ast$}]{dev}{, }\item[{int32\+\_\+t $\ast$}]{t100}{, }\item[{uint32\+\_\+t $\ast$}]{press\+\_\+pa}{, }\item[{uint32\+\_\+t $\ast$}]{hum\+\_\+x1024}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 147} of file \textbf{ bme.\+c}.
+

@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_mode" kind="group">
+    <compoundname>bme280ApiSensorMode</compoundname>
+    <title>Sensor Mode</title>
+    <innerpage refid="group__bme280_api_sensor_mode_bme280_api_bme280_set_sensor_mode">bme280_set_sensor_mode</innerpage>
+    <innerpage refid="group__bme280_api_sensor_mode_bme280_api_bme280_get_sensor_mode">bme280_get_sensor_mode</innerpage>
+    <briefdescription>
+<para>Generic API for configuring sensor power mode. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

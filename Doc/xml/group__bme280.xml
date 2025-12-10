@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280" kind="group">
+    <compoundname>bme280</compoundname>
+    <title>BME280</title>
+    <innergroup refid="group__bme280_api_init">Initialization</innergroup>
+    <innergroup refid="group__bme280_api_register">Registers</innergroup>
+    <innergroup refid="group__bme280_api_sensor_settings">Sensor Settings</innergroup>
+    <innergroup refid="group__bme280_api_sensor_mode">Sensor Mode</innergroup>
+    <innergroup refid="group__bme280_api_system">System</innergroup>
+    <innergroup refid="group__bme280_api_sensor_data">Sensor Data</innergroup>
+    <innergroup refid="group__bme280_api_sensor_delay">Sensor Delay</innergroup>
+    <briefdescription>
+<para><ulink url="https://www.bosch-sensortec.com/bst/products/all_products/bme280">Product Overview</ulink> and <ulink url="https://github.com/BoschSensortec/BME280_driver">Sensor API Source Code</ulink> </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

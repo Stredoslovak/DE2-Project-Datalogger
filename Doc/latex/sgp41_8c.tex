@@ -1,0 +1,42 @@
+\doxysection{src/sgp41.c File Reference}
+\label{sgp41_8c}\index{src/sgp41.c@{src/sgp41.c}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+{\ttfamily \#include "{}twi.\+h"{}}\newline
+{\ttfamily \#include "{}uart.\+h"{}}\newline
+{\ttfamily \#include "{}Sensirion\+I2\+CSgp41.\+h"{}}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include "{}timer.\+h"{}}\newline
+{\ttfamily \#include "{}sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ sgp41\+\_\+init\+\_\+simple} (void)
+\item 
+int \textbf{ sgp41\+\_\+measure\+\_\+once} (int32\+\_\+t $\ast$voc\+\_\+index, int32\+\_\+t $\ast$nox\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{sgp41.c@{sgp41.c}!sgp41\_init\_simple@{sgp41\_init\_simple}}
+\index{sgp41\_init\_simple@{sgp41\_init\_simple}!sgp41.c@{sgp41.c}}
+\doxysubsubsection{sgp41\_init\_simple()}
+{\footnotesize\ttfamily \label{sgp41_8c_ad82d82c1e0522151ea6921266e848e3f} 
+int sgp41\+\_\+init\+\_\+simple (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 64} of file \textbf{ sgp41.\+c}.
+
+\index{sgp41.c@{sgp41.c}!sgp41\_measure\_once@{sgp41\_measure\_once}}
+\index{sgp41\_measure\_once@{sgp41\_measure\_once}!sgp41.c@{sgp41.c}}
+\doxysubsubsection{sgp41\_measure\_once()}
+{\footnotesize\ttfamily \label{sgp41_8c_a90b58f4e4bdd065c1492a5e677681aab} 
+int sgp41\+\_\+measure\+\_\+once (\begin{DoxyParamCaption}\item[{int32\+\_\+t $\ast$}]{voc\+\_\+index}{, }\item[{int32\+\_\+t $\ast$}]{nox\+\_\+index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 87} of file \textbf{ sgp41.\+c}.
+

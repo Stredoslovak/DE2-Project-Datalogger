@@ -1,0 +1,118 @@
+\doxysection{lib/sd/\+SD\+\_\+routines.c File Reference}
+\label{_s_d__routines_8c}\index{lib/sd/SD\_routines.c@{lib/sd/SD\_routines.c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include "{}SPI\+\_\+routines.\+h"{}}\newline
+{\ttfamily \#include "{}sd\+\_\+routines.\+h"{}}\newline
+{\ttfamily \#include $<$uart.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ SD\+\_\+init} (void)
+\item 
+unsigned char \textbf{ SD\+\_\+send\+Command} (unsigned char cmd, unsigned long arg)
+\item 
+unsigned char \textbf{ SD\+\_\+erase} (unsigned long \textbf{ start\+Block}, unsigned long \textbf{ total\+Blocks})
+\item 
+unsigned char \textbf{ SD\+\_\+read\+Single\+Block} (unsigned long \textbf{ start\+Block})
+\item 
+unsigned char \textbf{ SD\+\_\+write\+Single\+Block} (unsigned long \textbf{ start\+Block})
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile unsigned char \textbf{ SDHC\+\_\+flag} = 0
+\item 
+volatile unsigned char \textbf{ card\+Type} = 0
+\item 
+volatile unsigned char \textbf{ buffer} [512]
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{SD\_routines.c@{SD\_routines.c}!SD\_erase@{SD\_erase}}
+\index{SD\_erase@{SD\_erase}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SD\_erase()}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_a42f0a626164a7e52e260d0cd735e5479} 
+unsigned char SD\+\_\+erase (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{, }\item[{unsigned long}]{total\+Blocks}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 191} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!SD\_init@{SD\_init}}
+\index{SD\_init@{SD\_init}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SD\_init()}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_a1b26e131140b8ab739faa4dd100d6cf2} 
+unsigned char SD\+\_\+init (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 32} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!SD\_readSingleBlock@{SD\_readSingleBlock}}
+\index{SD\_readSingleBlock@{SD\_readSingleBlock}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SD\_readSingleBlock()}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_a479d5a79e118601ffede156b20d87494} 
+unsigned char SD\+\_\+read\+Single\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 216} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!SD\_sendCommand@{SD\_sendCommand}}
+\index{SD\_sendCommand@{SD\_sendCommand}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SD\_sendCommand()}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_a9faa6fa4ebcf98a07808f2d2c040dcfd} 
+unsigned char SD\+\_\+send\+Command (\begin{DoxyParamCaption}\item[{unsigned char}]{cmd}{, }\item[{unsigned long}]{arg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 128} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!SD\_writeSingleBlock@{SD\_writeSingleBlock}}
+\index{SD\_writeSingleBlock@{SD\_writeSingleBlock}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SD\_writeSingleBlock()}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_aa72e78c5d2b4664dfdbb339030a1798c} 
+unsigned char SD\+\_\+write\+Single\+Block (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Block}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 251} of file \textbf{ SD\+\_\+routines.\+c}.
+
+
+
+\label{doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{SD\_routines.c@{SD\_routines.c}!buffer@{buffer}}
+\index{buffer@{buffer}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{buffer}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_adfca90f2667c4bd33f89652fc0a75146} 
+volatile unsigned char buffer[512]}
+
+
+
+Definition at line \textbf{ 24} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!cardType@{cardType}}
+\index{cardType@{cardType}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{cardType}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_add9f7153567b2f38191b157d2caf7b79} 
+volatile unsigned char card\+Type = 0}
+
+
+
+Definition at line \textbf{ 23} of file \textbf{ SD\+\_\+routines.\+c}.
+
+\index{SD\_routines.c@{SD\_routines.c}!SDHC\_flag@{SDHC\_flag}}
+\index{SDHC\_flag@{SDHC\_flag}!SD\_routines.c@{SD\_routines.c}}
+\doxysubsubsection{SDHC\_flag}
+{\footnotesize\ttfamily \label{_s_d__routines_8c_a7fa85cbe61c04a9f71c57aaf1c04cfcc} 
+volatile unsigned char SDHC\+\_\+flag = 0}
+
+
+
+Definition at line \textbf{ 22} of file \textbf{ SD\+\_\+routines.\+c}.
+

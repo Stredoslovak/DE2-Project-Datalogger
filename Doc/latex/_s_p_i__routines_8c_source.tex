@@ -1,0 +1,61 @@
+\doxysection{SPI\+\_\+routines.\+c}
+\label{_s_p_i__routines_8c_source}\index{lib/SPI/SPI\_routines.c@{lib/SPI/SPI\_routines.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ ******\ FUNCTIONS\ FOR\ SPI\ COMMUNICATION\ *******}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//Controller\ \ \ \ \ \ \ \ :\ ATmega32\ (Clock:\ 8\ Mhz-\/internal)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//Compiler\ \ \ \ \ \ \ \ \ \ :\ AVR-\/GCC\ (winAVR\ with\ AVRStudio-\/4)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//Project\ Version\ \ \ :\ DL\_1.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//Author\ \ \ \ \ \ \ \ \ \ \ \ :\ CC\ Dharmani,\ Chennai\ (India)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.dharmanitech.com}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//Date\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 10\ May\ 2011}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ "{}SPI\_routines.h"{}}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//SPI\ initialize\ for\ SD\ card}}
+\DoxyCodeLine{00016\ \textcolor{comment}{//clock\ rate:\ 125Khz}}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{void}\ spi\_init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00018\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{comment}{//\ Enable\ SPI,\ Set\ as\ Master}}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{comment}{//-\/\ Prescaler:\ Fosc/16,\ Enable\ Interrupts}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//The\ MOSI,\ SCK\ pins}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{comment}{//SPCR=(1<<SPE)|(1<<MSTR)|(1<<SPR0)|(1<<SPIE);}}
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{comment}{//SPR01\ }}
+\DoxyCodeLine{00025\ SPCR\ =\ 0x52;\ \textcolor{comment}{//setup\ SPI:\ Master\ mode,\ MSB\ first,\ SCK\ phase\ low,\ SCK\ idle\ low}}
+\DoxyCodeLine{00026\ SPSR\ =\ 0x00;}
+\DoxyCodeLine{00027\ \}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SPI\_transmit(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data)}
+\DoxyCodeLine{00030\ \{}
+\DoxyCodeLine{00031\ \textcolor{comment}{//\ Start\ transmission}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//\ uart\_puts\_P("{}T\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00033\ SPDR\ =\ data;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{//\ Wait\ for\ transmission\ complete}}
+\DoxyCodeLine{00036\ \textcolor{keywordflow}{while}(!(SPSR\ \&\ (1<<SPIF)));}
+\DoxyCodeLine{00037\ data\ =\ SPDR;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keywordflow}{return}(data);}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SPI\_receive(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data;}
+\DoxyCodeLine{00045\ \textcolor{comment}{//\ Wait\ for\ reception\ complete}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ SPDR\ =\ 0xff;}
+\DoxyCodeLine{00048\ \textcolor{keywordflow}{while}(!(SPSR\ \&\ (1<<SPIF)));}
+\DoxyCodeLine{00049\ data\ =\ SPDR;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \textcolor{comment}{//\ Return\ data\ register}}
+\DoxyCodeLine{00052\ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{00053\ \}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{//********\ END\ ******\ www.dharmanitech.com\ *****}}
+
+\end{DoxyCode}

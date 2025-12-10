@@ -1,0 +1,158 @@
+\doxysection{lib/uart/uart.c File Reference}
+\label{uart_8c}\index{lib/uart/uart.c@{lib/uart/uart.c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include "{}uart.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+MASK}~( \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE} -\/ 1)
+\item 
+\#define \textbf{ UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+MASK}~( \textbf{ UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE} -\/ 1)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\textbf{ if} (\textbf{ tmphead}==UART\+\_\+\+Rx\+Tail)
+\item 
+\textbf{ if} (UART\+\_\+\+Tx\+Head !=UART\+\_\+\+Tx\+Tail)
+\item 
+void \textbf{ uart\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize UART and set baudrate. \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte from ringbuffer. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+putc} (unsigned char \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts\+\_\+p} (const char $\ast$progmem\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via UART. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ data}
+\item 
+unsigned char \textbf{ usr} = UART0\+\_\+\+STATUS
+\item 
+unsigned char \textbf{ last\+Rx\+Error} = 0
+\item 
+\textbf{ tmphead} = ( UART\+\_\+\+Rx\+Head + 1) \& \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+MASK}
+\item 
+\textbf{ else}
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{uart.c@{uart.c}!UART\_RX\_BUFFER\_MASK@{UART\_RX\_BUFFER\_MASK}}
+\index{UART\_RX\_BUFFER\_MASK@{UART\_RX\_BUFFER\_MASK}!uart.c@{uart.c}}
+\doxysubsubsection{UART\_RX\_BUFFER\_MASK}
+{\footnotesize\ttfamily \label{uart_8c_a07b20e76327f35ec90e49111cb13164d} 
+\#define UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+MASK~( \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE} -\/ 1)}
+
+
+
+Definition at line \textbf{ 50} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!UART\_TX\_BUFFER\_MASK@{UART\_TX\_BUFFER\_MASK}}
+\index{UART\_TX\_BUFFER\_MASK@{UART\_TX\_BUFFER\_MASK}!uart.c@{uart.c}}
+\doxysubsubsection{UART\_TX\_BUFFER\_MASK}
+{\footnotesize\ttfamily \label{uart_8c_a7ddb8c271caedb7c17167749946b543d} 
+\#define UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+MASK~( \textbf{ UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE} -\/ 1)}
+
+
+
+Definition at line \textbf{ 51} of file \textbf{ uart.\+c}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{uart.c@{uart.c}!if@{if}}
+\index{if@{if}!uart.c@{uart.c}}
+\doxysubsubsection{if()\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{uart_8c_adc65ebbfbfcddc0c7b9b1bb068361f43} 
+if (\begin{DoxyParamCaption}\item[{\textbf{ tmphead}}]{}{ = {\ttfamily =~UART\+\_\+RxTail}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 391} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!if@{if}}
+\index{if@{if}!uart.c@{uart.c}}
+\doxysubsubsection{if()\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{uart_8c_afe3da97c9064b3fd7641292f8a914c8f} 
+if (\begin{DoxyParamCaption}\item[{UART\+\_\+\+Tx\+Head !}]{}{ = {\ttfamily UART\+\_\+TxTail}}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 417} of file \textbf{ uart.\+c}.
+
+
+
+\label{doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{uart.c@{uart.c}!data@{data}}
+\index{data@{data}!uart.c@{uart.c}}
+\doxysubsubsection{data}
+{\footnotesize\ttfamily \label{uart_8c_a511ae0b1c13f95e5f08f1a0dd3da3d93} 
+data}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmphead}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 368} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!else@{else}}
+\index{else@{else}!uart.c@{uart.c}}
+\doxysubsubsection{else}
+{\footnotesize\ttfamily \label{uart_8c_a0544c3fe466e421738dae463968b70ba} 
+else}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{\ \ \ \ \ \ \ \ UART\_RxHead\ =\ tmphead}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 396} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!lastRxError@{lastRxError}}
+\index{lastRxError@{lastRxError}!uart.c@{uart.c}}
+\doxysubsubsection{lastRxError}
+{\footnotesize\ttfamily \label{uart_8c_ac3fda17426f97bc7484917e1ed70ea26} 
+unsigned char last\+Rx\+Error = 0}
+
+
+
+Definition at line \textbf{ 370} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!tmphead@{tmphead}}
+\index{tmphead@{tmphead}!uart.c@{uart.c}}
+\doxysubsubsection{tmphead}
+{\footnotesize\ttfamily \label{uart_8c_ac198387817821eb64a630bb38426ab68} 
+tmphead = ( UART\+\_\+\+Rx\+Head + 1) \& \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+MASK}}
+
+
+
+Definition at line \textbf{ 389} of file \textbf{ uart.\+c}.
+
+\index{uart.c@{uart.c}!usr@{usr}}
+\index{usr@{usr}!uart.c@{uart.c}}
+\doxysubsubsection{usr}
+{\footnotesize\ttfamily \label{uart_8c_a074adba0d5b54cdd1ba67d1d65f78a72} 
+usr = UART0\+\_\+\+STATUS}
+
+
+
+Definition at line \textbf{ 369} of file \textbf{ uart.\+c}.
+

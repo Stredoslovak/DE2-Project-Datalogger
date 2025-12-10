@@ -1,0 +1,38 @@
+\doxysubsection{Sensor Delay }
+\label{group__bme280_api_sensor_delay}\index{Sensor Delay@{Sensor Delay}}
+
+
+Generic API for measuring sensor delay.  
+
+
+Generic API for measuring sensor delay. 
+
+\doxysubsubsection{bme280\+\_\+cal\+\_\+meas\+\_\+delay}\label{bme280_api_bme280_cal_meas_delay}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uint32\_t\ bme280\_cal\_meas\_delay(uint32\_t\ *max\_delay,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+
+\end{DoxyCode}
+
+
+This API is used to calculate the maximum delay in microseconds required for the temperature/pressure/humidity(whichever are enabled) measurement to complete. The delay depends upon the number of sensors enabled and their oversampling configuration.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{out}}  & {\em max\+\_\+delay} & \+: Delay required in microseconds. \\
+\hline
+\mbox{\texttt{in}}  & {\em settings} & \+: Contains the oversampling configurations.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status.
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}

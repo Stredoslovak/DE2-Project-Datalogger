@@ -1,0 +1,1102 @@
+\doxysection{bme280.\+c}
+\label{bme280_8c_source}\index{lib/bme280/bme280.c@{lib/bme280/bme280.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}bme280.h"{}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ To\ identify\ osr\ settings\ selected\ by\ user\ */}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ OVERSAMPLING\_SETTINGS\ \ \ \ UINT8\_C(0x07)}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ To\ identify\ filter\ and\ standby\ settings\ selected\ by\ user\ */}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ FILTER\_STANDBY\_SETTINGS\ \ UINT8\_C(0x18)}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00063\ \textcolor{keyword}{static}\ int8\_t\ put\_device\_to\_sleep(\textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{static}\ int8\_t\ write\_power\_mode(uint8\_t\ sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00093\ \textcolor{keyword}{static}\ int8\_t\ null\_ptr\_check(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00107\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ interleave\_reg\_addr(\textcolor{keyword}{const}\ uint8\_t\ *reg\_addr,\ uint8\_t\ *temp\_buff,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len);}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00122\ \textcolor{keyword}{static}\ int8\_t\ get\_calib\_data(\textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00132\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_temp\_press\_calib\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00142\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_humidity\_calib\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00158\ \textcolor{keyword}{static}\ uint8\_t\ are\_settings\_changed(uint8\_t\ sub\_settings,\ uint8\_t\ desired\_settings);}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00174\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_humidity\_settings(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00193\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_settings(uint8\_t\ desired\_settings,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00213\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_press\_temp\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00227\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_osr\_press\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00239\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_osr\_temp\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00257\ \textcolor{keyword}{static}\ int8\_t\ set\_filter\_standby\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00271\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_filter\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00272\ }
+\DoxyCodeLine{00283\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_standby\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00295\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_device\_settings(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00304\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_sensor\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data);}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00321\ \textcolor{keyword}{static}\ int8\_t\ reload\_device\_settings(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#ifdef\ BME280\_DOUBLE\_ENABLE}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00335\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_pressure(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00348\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_humidity(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00361\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_temperature(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00376\ \textcolor{keyword}{static}\ int32\_t\ compensate\_temperature(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00378\ }
+\DoxyCodeLine{00389\ \textcolor{keyword}{static}\ uint32\_t\ compensate\_pressure(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00391\ }
+\DoxyCodeLine{00402\ \textcolor{keyword}{static}\ uint32\_t\ compensate\_humidity(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ \textcolor{comment}{/******************\ Global\ Function\ Definitions\ *******************************/}}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00413\ int8\_t\ bme280\_init(\textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00414\ \{}
+\DoxyCodeLine{00415\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00416\ \ \ \ \ uint8\_t\ chip\_id\ =\ 0;}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00418\ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ chip-\/id\ of\ bme280\ sensor\ */}}
+\DoxyCodeLine{00419\ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_CHIP\_ID,\ \&chip\_id,\ 1,\ dev);}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ chip\ id\ validity\ */}}
+\DoxyCodeLine{00422\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00423\ \ \ \ \ \{}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (chip\_id\ ==\ BME280\_CHIP\_ID)}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ dev-\/>chip\_id\ =\ chip\_id;}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Reset\ the\ sensor\ */}}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_soft\_reset(dev);}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ calibration\ data\ */}}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ get\_calib\_data(dev);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_DEV\_NOT\_FOUND;}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00441\ \ \ \ \ \}}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00444\ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00449\ int8\_t\ bme280\_get\_regs(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00450\ \{}
+\DoxyCodeLine{00451\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00452\ }
+\DoxyCodeLine{00453\ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ null\ pointer\ in\ the\ device\ structure\ */}}
+\DoxyCodeLine{00454\ \ \ \ \ rslt\ =\ null\_ptr\_check(dev);}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \ \ \ \ \textcolor{keywordflow}{if}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ (reg\_data\ !=\ NULL))}
+\DoxyCodeLine{00457\ \ \ \ \ \{}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ interface\ selected\ is\ SPI\ */}}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dev-\/>intf\ !=\ BME280\_I2C\_INTF)}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ reg\_addr\ =\ reg\_addr\ |\ 0x80;}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ data\ */}}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ dev-\/>intf\_rslt\ =\ dev-\/>read(reg\_addr,\ reg\_data,\ len,\ dev-\/>intf\_ptr);}
+\DoxyCodeLine{00466\ }
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ communication\ error\ */}}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dev-\/>intf\_rslt\ !=\ BME280\_INTF\_RET\_SUCCESS)}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_COMM\_FAIL;}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00472\ \ \ \ \ \}}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00474\ \ \ \ \ \{}
+\DoxyCodeLine{00475\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00476\ \ \ \ \ \}}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00479\ \}}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00485\ int8\_t\ bme280\_set\_regs(uint8\_t\ *reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00486\ \{}
+\DoxyCodeLine{00487\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00488\ \ \ \ \ uint8\_t\ temp\_buff[20];\ \textcolor{comment}{/*\ Typically\ not\ to\ write\ more\ than\ 10\ registers\ */}}
+\DoxyCodeLine{00489\ \ \ \ \ uint32\_t\ temp\_len;}
+\DoxyCodeLine{00490\ \ \ \ \ uint32\_t\ reg\_addr\_cnt;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ BME280\_MAX\_LEN)}
+\DoxyCodeLine{00493\ \ \ \ \ \{}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ len\ =\ BME280\_MAX\_LEN;}
+\DoxyCodeLine{00495\ \ \ \ \ \}}
+\DoxyCodeLine{00496\ }
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ null\ pointer\ in\ the\ device\ structure\ */}}
+\DoxyCodeLine{00498\ \ \ \ \ rslt\ =\ null\_ptr\_check(dev);}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ arguments\ validity\ */}}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{if}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ (reg\_addr\ !=\ NULL)\ \&\&\ (reg\_data\ !=\ NULL))}
+\DoxyCodeLine{00502\ \ \ \ \ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ !=\ 0)}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_buff[0]\ =\ reg\_data[0];}
+\DoxyCodeLine{00506\ }
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ interface\ selected\ is\ SPI\ */}}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dev-\/>intf\ !=\ BME280\_I2C\_INTF)}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00510\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (reg\_addr\_cnt\ =\ 0;\ reg\_addr\_cnt\ <\ len;\ reg\_addr\_cnt++)}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ reg\_addr[reg\_addr\_cnt]\ =\ reg\_addr[reg\_addr\_cnt]\ \&\ 0x7F;}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Burst\ write\ mode\ */}}
+\DoxyCodeLine{00517\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ >\ 1)}
+\DoxyCodeLine{00518\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00519\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Interleave\ register\ address\ w.r.t\ data\ for}}
+\DoxyCodeLine{00520\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *\ burst\ write}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00522\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ interleave\_reg\_addr(reg\_addr,\ temp\_buff,\ reg\_data,\ len);}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\_len\ =\ ((len\ *\ 2)\ -\/\ 1);}
+\DoxyCodeLine{00524\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00525\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00526\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00527\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ temp\_len\ =\ len;}
+\DoxyCodeLine{00528\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ \ \ \ \ \ \ \ \ \ \ \ \ dev-\/>intf\_rslt\ =\ dev-\/>write(reg\_addr[0],\ temp\_buff,\ temp\_len,\ dev-\/>intf\_ptr);}
+\DoxyCodeLine{00531\ }
+\DoxyCodeLine{00532\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ for\ communication\ error\ */}}
+\DoxyCodeLine{00533\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dev-\/>intf\_rslt\ !=\ BME280\_INTF\_RET\_SUCCESS)}
+\DoxyCodeLine{00534\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_COMM\_FAIL;}
+\DoxyCodeLine{00536\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00537\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00539\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00540\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_INVALID\_LEN;}
+\DoxyCodeLine{00541\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00542\ \ \ \ \ \}}
+\DoxyCodeLine{00543\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00544\ \ \ \ \ \{}
+\DoxyCodeLine{00545\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00546\ \ \ \ \ \}}
+\DoxyCodeLine{00547\ }
+\DoxyCodeLine{00548\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00549\ \}}
+\DoxyCodeLine{00550\ }
+\DoxyCodeLine{00555\ int8\_t\ bme280\_set\_sensor\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00556\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00557\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00558\ \{}
+\DoxyCodeLine{00559\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00560\ \ \ \ \ uint8\_t\ sensor\_mode;}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ \ \textcolor{keywordflow}{if}\ (settings\ !=\ NULL)}
+\DoxyCodeLine{00563\ \ \ \ \ \{}
+\DoxyCodeLine{00564\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_sensor\_mode(\&sensor\_mode,\ dev);}
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ (sensor\_mode\ !=\ BME280\_POWERMODE\_SLEEP))}
+\DoxyCodeLine{00567\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ put\_device\_to\_sleep(dev);}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00572\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ if\ user\ wants\ to\ change\ oversampling}}
+\DoxyCodeLine{00574\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ settings}}
+\DoxyCodeLine{00575\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00576\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (are\_settings\_changed(OVERSAMPLING\_SETTINGS,\ desired\_settings))}
+\DoxyCodeLine{00577\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ set\_osr\_settings(desired\_settings,\ settings,\ dev);}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00580\ }
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Check\ if\ user\ wants\ to\ change\ filter\ and/or}}
+\DoxyCodeLine{00582\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ standby\ settings}}
+\DoxyCodeLine{00583\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ are\_settings\_changed(FILTER\_STANDBY\_SETTINGS,\ desired\_settings))}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ set\_filter\_standby\_settings(desired\_settings,\ settings,\ dev);}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00588\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00589\ \ \ \ \ \}}
+\DoxyCodeLine{00590\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00591\ \ \ \ \ \{}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00593\ \ \ \ \ \}}
+\DoxyCodeLine{00594\ }
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00596\ \}}
+\DoxyCodeLine{00597\ }
+\DoxyCodeLine{00602\ int8\_t\ bme280\_get\_sensor\_settings(\textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00603\ \{}
+\DoxyCodeLine{00604\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00605\ \ \ \ \ uint8\_t\ reg\_data[4];}
+\DoxyCodeLine{00606\ }
+\DoxyCodeLine{00607\ \ \ \ \ \textcolor{keywordflow}{if}\ (settings\ !=\ NULL)}
+\DoxyCodeLine{00608\ \ \ \ \ \{}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_CTRL\_HUM,\ reg\_data,\ 4,\ dev);}
+\DoxyCodeLine{00610\ }
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ parse\_device\_settings(reg\_data,\ settings);}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00615\ \ \ \ \ \}}
+\DoxyCodeLine{00616\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00617\ \ \ \ \ \{}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00619\ \ \ \ \ \}}
+\DoxyCodeLine{00620\ }
+\DoxyCodeLine{00621\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00622\ \}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00627\ int8\_t\ bme280\_set\_sensor\_mode(uint8\_t\ sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00628\ \{}
+\DoxyCodeLine{00629\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00630\ \ \ \ \ uint8\_t\ last\_set\_mode;}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \ \ \ \ rslt\ =\ bme280\_get\_sensor\_mode(\&last\_set\_mode,\ dev);}
+\DoxyCodeLine{00633\ }
+\DoxyCodeLine{00634\ \ \ \ \ \textcolor{comment}{/*\ If\ the\ sensor\ is\ not\ in\ sleep\ mode\ put\ the\ device\ to\ sleep}}
+\DoxyCodeLine{00635\ \textcolor{comment}{\ \ \ \ \ *\ mode}}
+\DoxyCodeLine{00636\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keywordflow}{if}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ (last\_set\_mode\ !=\ BME280\_POWERMODE\_SLEEP))}
+\DoxyCodeLine{00638\ \ \ \ \ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ rslt\ =\ put\_device\_to\_sleep(dev);}
+\DoxyCodeLine{00640\ \ \ \ \ \}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ \ \textcolor{comment}{/*\ Set\ the\ power\ mode\ */}}
+\DoxyCodeLine{00643\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00644\ \ \ \ \ \{}
+\DoxyCodeLine{00645\ \ \ \ \ \ \ \ \ rslt\ =\ write\_power\_mode(sensor\_mode,\ dev);}
+\DoxyCodeLine{00646\ \ \ \ \ \}}
+\DoxyCodeLine{00647\ }
+\DoxyCodeLine{00648\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00649\ \}}
+\DoxyCodeLine{00650\ }
+\DoxyCodeLine{00654\ int8\_t\ bme280\_get\_sensor\_mode(uint8\_t\ *sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00655\ \{}
+\DoxyCodeLine{00656\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00657\ }
+\DoxyCodeLine{00658\ \ \ \ \ \textcolor{keywordflow}{if}\ (sensor\_mode\ !=\ NULL)}
+\DoxyCodeLine{00659\ \ \ \ \ \{}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ power\ mode\ register\ */}}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_PWR\_CTRL,\ sensor\_mode,\ 1,\ dev);}
+\DoxyCodeLine{00662\ }
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Assign\ the\ power\ mode\ to\ variable\ */}}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ *sensor\_mode\ =\ BME280\_GET\_BITS\_POS\_0(*sensor\_mode,\ BME280\_SENSOR\_MODE);}
+\DoxyCodeLine{00665\ \ \ \ \ \}}
+\DoxyCodeLine{00666\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00667\ \ \ \ \ \{}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00669\ \ \ \ \ \}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00672\ \}}
+\DoxyCodeLine{00673\ }
+\DoxyCodeLine{00677\ int8\_t\ bme280\_soft\_reset(\textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00678\ \{}
+\DoxyCodeLine{00679\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00680\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_RESET;}
+\DoxyCodeLine{00681\ \ \ \ \ uint8\_t\ status\_reg\ =\ 0;}
+\DoxyCodeLine{00682\ \ \ \ \ uint8\_t\ try\_run\ =\ 5;}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{comment}{/*\ 0xB6\ is\ the\ soft\ reset\ command\ */}}
+\DoxyCodeLine{00685\ \ \ \ \ uint8\_t\ soft\_rst\_cmd\ =\ BME280\_SOFT\_RESET\_COMMAND;}
+\DoxyCodeLine{00686\ }
+\DoxyCodeLine{00687\ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ soft\ reset\ command\ in\ the\ sensor\ */}}
+\DoxyCodeLine{00688\ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&soft\_rst\_cmd,\ 1,\ dev);}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00691\ \ \ \ \ \{}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ NVM\ not\ copied\ yet,\ Wait\ for\ NVM\ to\ copy\ */}}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ As\ per\ data\ sheet\ -\/\ Table\ 1,\ startup\ time\ is\ 2\ ms.\ */}}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ dev-\/>delay\_us(BME280\_STARTUP\_DELAY,\ dev-\/>intf\_ptr);}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_STATUS,\ \&status\_reg,\ 1,\ dev);}
+\DoxyCodeLine{00698\ }
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{while}\ ((rslt\ ==\ BME280\_OK)\ \&\&\ (try\_run-\/-\/)\ \&\&\ (status\_reg\ \&\ BME280\_STATUS\_IM\_UPDATE));}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (status\_reg\ \&\ BME280\_STATUS\_IM\_UPDATE)}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NVM\_COPY\_FAILED;}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00705\ \ \ \ \ \}}
+\DoxyCodeLine{00706\ }
+\DoxyCodeLine{00707\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00708\ \}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00715\ int8\_t\ bme280\_get\_sensor\_data(uint8\_t\ sensor\_comp,\ \textcolor{keyword}{struct}\ bme280\_data\ *comp\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00716\ \{}
+\DoxyCodeLine{00717\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00718\ }
+\DoxyCodeLine{00719\ \ \ \ \ \textcolor{comment}{/*\ Array\ to\ store\ the\ pressure,\ temperature\ and\ humidity\ data\ read\ from}}
+\DoxyCodeLine{00720\ \textcolor{comment}{\ \ \ \ \ *\ the\ sensor}}
+\DoxyCodeLine{00721\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00722\ \ \ \ \ uint8\_t\ reg\_data[BME280\_LEN\_P\_T\_H\_DATA]\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00723\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_uncomp\_data\ uncomp\_data\ =\ \{\ 0\ \};}
+\DoxyCodeLine{00724\ }
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{keywordflow}{if}\ (comp\_data\ !=\ NULL)}
+\DoxyCodeLine{00726\ \ \ \ \ \{}
+\DoxyCodeLine{00727\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ pressure\ and\ temperature\ data\ from\ the\ sensor\ */}}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_DATA,\ reg\_data,\ BME280\_LEN\_P\_T\_H\_DATA,\ dev);}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00731\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00732\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parse\ the\ read\ data\ from\ the\ sensor\ */}}
+\DoxyCodeLine{00733\ \ \ \ \ \ \ \ \ \ \ \ \ parse\_sensor\_data(reg\_data,\ \&uncomp\_data);}
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00735\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Compensate\ the\ pressure\ and/or\ temperature\ and/or}}
+\DoxyCodeLine{00736\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ humidity\ data\ from\ the\ sensor}}
+\DoxyCodeLine{00737\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00738\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_compensate\_data(sensor\_comp,\ \&uncomp\_data,\ comp\_data,\ \&dev-\/>calib\_data);}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00740\ \ \ \ \ \}}
+\DoxyCodeLine{00741\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00742\ \ \ \ \ \{}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00744\ \ \ \ \ \}}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00747\ \}}
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00754\ int8\_t\ bme280\_compensate\_data(uint8\_t\ sensor\_comp,}
+\DoxyCodeLine{00755\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_data\ *comp\_data,}
+\DoxyCodeLine{00757\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{00758\ \{}
+\DoxyCodeLine{00759\ \ \ \ \ int8\_t\ rslt\ =\ BME280\_OK;}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \ \ \ \ \textcolor{keywordflow}{if}\ ((uncomp\_data\ !=\ NULL)\ \&\&\ (comp\_data\ !=\ NULL)\ \&\&\ (calib\_data\ !=\ NULL))}
+\DoxyCodeLine{00762\ \ \ \ \ \{}
+\DoxyCodeLine{00763\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Initialize\ to\ zero\ */}}
+\DoxyCodeLine{00764\ \ \ \ \ \ \ \ \ comp\_data-\/>temperature\ =\ 0;}
+\DoxyCodeLine{00765\ \ \ \ \ \ \ \ \ comp\_data-\/>pressure\ =\ 0;}
+\DoxyCodeLine{00766\ \ \ \ \ \ \ \ \ comp\_data-\/>humidity\ =\ 0;}
+\DoxyCodeLine{00767\ }
+\DoxyCodeLine{00768\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ If\ pressure\ or\ temperature\ component\ is\ selected\ */}}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sensor\_comp\ \&\ (BME280\_PRESS\ |\ BME280\_TEMP\ |\ BME280\_HUM))}
+\DoxyCodeLine{00770\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00771\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Compensate\ the\ temperature\ data\ */}}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ \ \ \ \ comp\_data-\/>temperature\ =\ compensate\_temperature(uncomp\_data,\ calib\_data);}
+\DoxyCodeLine{00773\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sensor\_comp\ \&\ BME280\_PRESS)}
+\DoxyCodeLine{00776\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Compensate\ the\ pressure\ data\ */}}
+\DoxyCodeLine{00778\ \ \ \ \ \ \ \ \ \ \ \ \ comp\_data-\/>pressure\ =\ compensate\_pressure(uncomp\_data,\ calib\_data);}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00780\ }
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sensor\_comp\ \&\ BME280\_HUM)}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Compensate\ the\ humidity\ data\ */}}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ comp\_data-\/>humidity\ =\ compensate\_humidity(uncomp\_data,\ calib\_data);}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00786\ \ \ \ \ \}}
+\DoxyCodeLine{00787\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00788\ \ \ \ \ \{}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00790\ \ \ \ \ \}}
+\DoxyCodeLine{00791\ }
+\DoxyCodeLine{00792\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00793\ \}}
+\DoxyCodeLine{00794\ }
+\DoxyCodeLine{00799\ int8\_t\ bme280\_cal\_meas\_delay(uint32\_t\ *max\_delay,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{00800\ \{}
+\DoxyCodeLine{00801\ \ \ \ \ int8\_t\ rslt\ =\ BME280\_OK;}
+\DoxyCodeLine{00802\ \ \ \ \ uint8\_t\ temp\_osr;}
+\DoxyCodeLine{00803\ \ \ \ \ uint8\_t\ pres\_osr;}
+\DoxyCodeLine{00804\ \ \ \ \ uint8\_t\ hum\_osr;}
+\DoxyCodeLine{00805\ }
+\DoxyCodeLine{00806\ \ \ \ \ \textcolor{comment}{/*\ Array\ to\ map\ OSR\ config\ register\ value\ to\ actual\ OSR\ */}}
+\DoxyCodeLine{00807\ \ \ \ \ uint8\_t\ osr\_sett\_to\_act\_osr[]\ =\ \{\ 0,\ 1,\ 2,\ 4,\ 8,\ 16\ \};}
+\DoxyCodeLine{00808\ }
+\DoxyCodeLine{00809\ \ \ \ \ \textcolor{keywordflow}{if}\ ((settings\ !=\ NULL)\ \&\&\ (max\_delay\ !=\ NULL))}
+\DoxyCodeLine{00810\ \ \ \ \ \{}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Mapping\ osr\ settings\ to\ the\ actual\ osr\ values\ e.g.\ 0b101\ -\/>\ osr\ X16\ */}}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (settings-\/>osr\_t\ <=\ BME280\_OVERSAMPLING\_16X)}
+\DoxyCodeLine{00813\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00814\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_osr\ =\ osr\_sett\_to\_act\_osr[settings-\/>osr\_t];}
+\DoxyCodeLine{00815\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00816\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00817\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ temp\_osr\ =\ BME280\_OVERSAMPLING\_MAX;}
+\DoxyCodeLine{00819\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00820\ }
+\DoxyCodeLine{00821\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (settings-\/>osr\_p\ <=\ BME280\_OVERSAMPLING\_16X)}
+\DoxyCodeLine{00822\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00823\ \ \ \ \ \ \ \ \ \ \ \ \ pres\_osr\ =\ osr\_sett\_to\_act\_osr[settings-\/>osr\_p];}
+\DoxyCodeLine{00824\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00825\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ \ \ \ \ pres\_osr\ =\ BME280\_OVERSAMPLING\_MAX;}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00829\ }
+\DoxyCodeLine{00830\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (settings-\/>osr\_h\ <=\ BME280\_OVERSAMPLING\_16X)}
+\DoxyCodeLine{00831\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ \ \ \ \ hum\_osr\ =\ osr\_sett\_to\_act\_osr[settings-\/>osr\_h];}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00835\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ \ \ \ \ hum\_osr\ =\ BME280\_OVERSAMPLING\_MAX;}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00838\ }
+\DoxyCodeLine{00839\ \ \ \ \ \ \ \ \ (*max\_delay)\ =}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ \ \ \ \ (uint32\_t)((BME280\_MEAS\_OFFSET\ +\ (BME280\_MEAS\_DUR\ *\ temp\_osr)\ +}
+\DoxyCodeLine{00841\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((BME280\_MEAS\_DUR\ *\ pres\_osr)\ +\ BME280\_PRES\_HUM\_MEAS\_OFFSET)\ +}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((BME280\_MEAS\_DUR\ *\ hum\_osr)\ +\ BME280\_PRES\_HUM\_MEAS\_OFFSET)));}
+\DoxyCodeLine{00843\ \ \ \ \ \}}
+\DoxyCodeLine{00844\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00845\ \ \ \ \ \{}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{00847\ \ \ \ \ \}}
+\DoxyCodeLine{00848\ }
+\DoxyCodeLine{00849\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00850\ \}}
+\DoxyCodeLine{00851\ }
+\DoxyCodeLine{00852\ \textcolor{comment}{/****************************************************************************/}}
+\DoxyCodeLine{00854\ }
+\DoxyCodeLine{00859\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_settings(uint8\_t\ desired\_settings,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00860\ \{}
+\DoxyCodeLine{00861\ \ \ \ \ int8\_t\ rslt\ =\ BME280\_W\_INVALID\_OSR\_MACRO;}
+\DoxyCodeLine{00862\ }
+\DoxyCodeLine{00863\ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ BME280\_SEL\_OSR\_HUM)}
+\DoxyCodeLine{00864\ \ \ \ \ \{}
+\DoxyCodeLine{00865\ \ \ \ \ \ \ \ \ rslt\ =\ set\_osr\_humidity\_settings(settings,\ dev);}
+\DoxyCodeLine{00866\ \ \ \ \ \}}
+\DoxyCodeLine{00867\ }
+\DoxyCodeLine{00868\ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ (BME280\_SEL\_OSR\_PRESS\ |\ BME280\_SEL\_OSR\_TEMP))}
+\DoxyCodeLine{00869\ \ \ \ \ \{}
+\DoxyCodeLine{00870\ \ \ \ \ \ \ \ \ rslt\ =\ set\_osr\_press\_temp\_settings(desired\_settings,\ settings,\ dev);}
+\DoxyCodeLine{00871\ \ \ \ \ \}}
+\DoxyCodeLine{00872\ }
+\DoxyCodeLine{00873\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00874\ \}}
+\DoxyCodeLine{00875\ }
+\DoxyCodeLine{00879\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_humidity\_settings(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00880\ \{}
+\DoxyCodeLine{00881\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00882\ \ \ \ \ uint8\_t\ ctrl\_hum;}
+\DoxyCodeLine{00883\ \ \ \ \ uint8\_t\ ctrl\_meas;}
+\DoxyCodeLine{00884\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_CTRL\_HUM;}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \ \ \ \ ctrl\_hum\ =\ settings-\/>osr\_h\ \&\ BME280\_CTRL\_HUM\_MSK;}
+\DoxyCodeLine{00887\ }
+\DoxyCodeLine{00888\ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ humidity\ control\ value\ in\ the\ register\ */}}
+\DoxyCodeLine{00889\ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&ctrl\_hum,\ 1,\ dev);}
+\DoxyCodeLine{00890\ }
+\DoxyCodeLine{00891\ \ \ \ \ \textcolor{comment}{/*\ Humidity\ related\ changes\ will\ be\ only\ effective\ after\ a}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ \ \ \ \ *\ write\ operation\ to\ ctrl\_meas\ register}}
+\DoxyCodeLine{00893\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00894\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00895\ \ \ \ \ \{}
+\DoxyCodeLine{00896\ \ \ \ \ \ \ \ \ reg\_addr\ =\ BME280\_REG\_CTRL\_MEAS;}
+\DoxyCodeLine{00897\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ \&ctrl\_meas,\ 1,\ dev);}
+\DoxyCodeLine{00898\ }
+\DoxyCodeLine{00899\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&ctrl\_meas,\ 1,\ dev);}
+\DoxyCodeLine{00902\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00903\ \ \ \ \ \}}
+\DoxyCodeLine{00904\ }
+\DoxyCodeLine{00905\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00906\ \}}
+\DoxyCodeLine{00907\ }
+\DoxyCodeLine{00912\ \textcolor{keyword}{static}\ int8\_t\ set\_osr\_press\_temp\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00913\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00914\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00915\ \{}
+\DoxyCodeLine{00916\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00917\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_CTRL\_MEAS;}
+\DoxyCodeLine{00918\ \ \ \ \ uint8\_t\ reg\_data;}
+\DoxyCodeLine{00919\ }
+\DoxyCodeLine{00920\ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ \&reg\_data,\ 1,\ dev);}
+\DoxyCodeLine{00921\ }
+\DoxyCodeLine{00922\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00923\ \ \ \ \ \{}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ BME280\_SEL\_OSR\_PRESS)}
+\DoxyCodeLine{00925\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00926\ \ \ \ \ \ \ \ \ \ \ \ \ fill\_osr\_press\_settings(\&reg\_data,\ settings);}
+\DoxyCodeLine{00927\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00928\ }
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ BME280\_SEL\_OSR\_TEMP)}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00931\ \ \ \ \ \ \ \ \ \ \ \ \ fill\_osr\_temp\_settings(\&reg\_data,\ settings);}
+\DoxyCodeLine{00932\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00934\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ oversampling\ settings\ in\ the\ register\ */}}
+\DoxyCodeLine{00935\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&reg\_data,\ 1,\ dev);}
+\DoxyCodeLine{00936\ \ \ \ \ \}}
+\DoxyCodeLine{00937\ }
+\DoxyCodeLine{00938\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00939\ \}}
+\DoxyCodeLine{00940\ }
+\DoxyCodeLine{00945\ \textcolor{keyword}{static}\ int8\_t\ set\_filter\_standby\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00946\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00947\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{00948\ \{}
+\DoxyCodeLine{00949\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{00950\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_CONFIG;}
+\DoxyCodeLine{00951\ \ \ \ \ uint8\_t\ reg\_data;}
+\DoxyCodeLine{00952\ }
+\DoxyCodeLine{00953\ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ \&reg\_data,\ 1,\ dev);}
+\DoxyCodeLine{00954\ }
+\DoxyCodeLine{00955\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00956\ \ \ \ \ \{}
+\DoxyCodeLine{00957\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ BME280\_SEL\_FILTER)}
+\DoxyCodeLine{00958\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00959\ \ \ \ \ \ \ \ \ \ \ \ \ fill\_filter\_settings(\&reg\_data,\ settings);}
+\DoxyCodeLine{00960\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00961\ }
+\DoxyCodeLine{00962\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (desired\_settings\ \&\ BME280\_SEL\_STANDBY)}
+\DoxyCodeLine{00963\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00964\ \ \ \ \ \ \ \ \ \ \ \ \ fill\_standby\_settings(\&reg\_data,\ settings);}
+\DoxyCodeLine{00965\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00966\ }
+\DoxyCodeLine{00967\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ oversampling\ settings\ in\ the\ register\ */}}
+\DoxyCodeLine{00968\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&reg\_data,\ 1,\ dev);}
+\DoxyCodeLine{00969\ \ \ \ \ \}}
+\DoxyCodeLine{00970\ }
+\DoxyCodeLine{00971\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00972\ \}}
+\DoxyCodeLine{00973\ }
+\DoxyCodeLine{00978\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_filter\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{00979\ \{}
+\DoxyCodeLine{00980\ \ \ \ \ *reg\_data\ =\ BME280\_SET\_BITS(*reg\_data,\ BME280\_FILTER,\ settings-\/>filter);}
+\DoxyCodeLine{00981\ \}}
+\DoxyCodeLine{00982\ }
+\DoxyCodeLine{00987\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_standby\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{00988\ \{}
+\DoxyCodeLine{00989\ \ \ \ \ *reg\_data\ =\ BME280\_SET\_BITS(*reg\_data,\ BME280\_STANDBY,\ settings-\/>standby\_time);}
+\DoxyCodeLine{00990\ \}}
+\DoxyCodeLine{00991\ }
+\DoxyCodeLine{00996\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_osr\_press\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{00997\ \{}
+\DoxyCodeLine{00998\ \ \ \ \ *reg\_data\ =\ BME280\_SET\_BITS(*reg\_data,\ BME280\_CTRL\_PRESS,\ settings-\/>osr\_p);}
+\DoxyCodeLine{00999\ \}}
+\DoxyCodeLine{01000\ }
+\DoxyCodeLine{01005\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ fill\_osr\_temp\_settings(uint8\_t\ *reg\_data,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{01006\ \{}
+\DoxyCodeLine{01007\ \ \ \ \ *reg\_data\ =\ BME280\_SET\_BITS(*reg\_data,\ BME280\_CTRL\_TEMP,\ settings-\/>osr\_t);}
+\DoxyCodeLine{01008\ \}}
+\DoxyCodeLine{01009\ }
+\DoxyCodeLine{01015\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_device\_settings(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings)}
+\DoxyCodeLine{01016\ \{}
+\DoxyCodeLine{01017\ \ \ \ \ settings-\/>osr\_h\ =\ BME280\_GET\_BITS\_POS\_0(reg\_data[0],\ BME280\_CTRL\_HUM);}
+\DoxyCodeLine{01018\ \ \ \ \ settings-\/>osr\_p\ =\ BME280\_GET\_BITS(reg\_data[2],\ BME280\_CTRL\_PRESS);}
+\DoxyCodeLine{01019\ \ \ \ \ settings-\/>osr\_t\ =\ BME280\_GET\_BITS(reg\_data[2],\ BME280\_CTRL\_TEMP);}
+\DoxyCodeLine{01020\ \ \ \ \ settings-\/>filter\ =\ BME280\_GET\_BITS(reg\_data[3],\ BME280\_FILTER);}
+\DoxyCodeLine{01021\ \ \ \ \ settings-\/>standby\_time\ =\ BME280\_GET\_BITS(reg\_data[3],\ BME280\_STANDBY);}
+\DoxyCodeLine{01022\ \}}
+\DoxyCodeLine{01023\ }
+\DoxyCodeLine{01028\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_sensor\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data)}
+\DoxyCodeLine{01029\ \{}
+\DoxyCodeLine{01030\ \ \ \ \ \textcolor{comment}{/*\ Variables\ to\ store\ the\ sensor\ data\ */}}
+\DoxyCodeLine{01031\ \ \ \ \ uint32\_t\ data\_xlsb;}
+\DoxyCodeLine{01032\ \ \ \ \ uint32\_t\ data\_lsb;}
+\DoxyCodeLine{01033\ \ \ \ \ uint32\_t\ data\_msb;}
+\DoxyCodeLine{01034\ }
+\DoxyCodeLine{01035\ \ \ \ \ \textcolor{comment}{/*\ Store\ the\ parsed\ register\ values\ for\ pressure\ data\ */}}
+\DoxyCodeLine{01036\ \ \ \ \ data\_msb\ =\ (uint32\_t)reg\_data[0]\ <<\ BME280\_12\_BIT\_SHIFT;}
+\DoxyCodeLine{01037\ \ \ \ \ data\_lsb\ =\ (uint32\_t)reg\_data[1]\ <<\ BME280\_4\_BIT\_SHIFT;}
+\DoxyCodeLine{01038\ \ \ \ \ data\_xlsb\ =\ (uint32\_t)reg\_data[2]\ >>\ BME280\_4\_BIT\_SHIFT;}
+\DoxyCodeLine{01039\ \ \ \ \ uncomp\_data-\/>pressure\ =\ data\_msb\ |\ data\_lsb\ |\ data\_xlsb;}
+\DoxyCodeLine{01040\ }
+\DoxyCodeLine{01041\ \ \ \ \ \textcolor{comment}{/*\ Store\ the\ parsed\ register\ values\ for\ temperature\ data\ */}}
+\DoxyCodeLine{01042\ \ \ \ \ data\_msb\ =\ (uint32\_t)reg\_data[3]\ <<\ BME280\_12\_BIT\_SHIFT;}
+\DoxyCodeLine{01043\ \ \ \ \ data\_lsb\ =\ (uint32\_t)reg\_data[4]\ <<\ BME280\_4\_BIT\_SHIFT;}
+\DoxyCodeLine{01044\ \ \ \ \ data\_xlsb\ =\ (uint32\_t)reg\_data[5]\ >>\ BME280\_4\_BIT\_SHIFT;}
+\DoxyCodeLine{01045\ \ \ \ \ uncomp\_data-\/>temperature\ =\ data\_msb\ |\ data\_lsb\ |\ data\_xlsb;}
+\DoxyCodeLine{01046\ }
+\DoxyCodeLine{01047\ \ \ \ \ \textcolor{comment}{/*\ Store\ the\ parsed\ register\ values\ for\ humidity\ data\ */}}
+\DoxyCodeLine{01048\ \ \ \ \ data\_msb\ =\ (uint32\_t)reg\_data[6]\ <<\ BME280\_8\_BIT\_SHIFT;}
+\DoxyCodeLine{01049\ \ \ \ \ data\_lsb\ =\ (uint32\_t)reg\_data[7];}
+\DoxyCodeLine{01050\ \ \ \ \ uncomp\_data-\/>humidity\ =\ data\_msb\ |\ data\_lsb;}
+\DoxyCodeLine{01051\ \}}
+\DoxyCodeLine{01052\ }
+\DoxyCodeLine{01056\ \textcolor{keyword}{static}\ int8\_t\ write\_power\_mode(uint8\_t\ sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01057\ \{}
+\DoxyCodeLine{01058\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{01059\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_PWR\_CTRL;}
+\DoxyCodeLine{01060\ }
+\DoxyCodeLine{01061\ \ \ \ \ \textcolor{comment}{/*\ Variable\ to\ store\ the\ value\ read\ from\ power\ mode\ register\ */}}
+\DoxyCodeLine{01062\ \ \ \ \ uint8\_t\ sensor\_mode\_reg\_val;}
+\DoxyCodeLine{01063\ }
+\DoxyCodeLine{01064\ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ power\ mode\ register\ */}}
+\DoxyCodeLine{01065\ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ \&sensor\_mode\_reg\_val,\ 1,\ dev);}
+\DoxyCodeLine{01066\ }
+\DoxyCodeLine{01067\ \ \ \ \ \textcolor{comment}{/*\ Set\ the\ power\ mode\ */}}
+\DoxyCodeLine{01068\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01069\ \ \ \ \ \{}
+\DoxyCodeLine{01070\ \ \ \ \ \ \ \ \ sensor\_mode\_reg\_val\ =\ BME280\_SET\_BITS\_POS\_0(sensor\_mode\_reg\_val,\ BME280\_SENSOR\_MODE,\ sensor\_mode);}
+\DoxyCodeLine{01071\ }
+\DoxyCodeLine{01072\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ the\ power\ mode\ in\ the\ register\ */}}
+\DoxyCodeLine{01073\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_set\_regs(\&reg\_addr,\ \&sensor\_mode\_reg\_val,\ 1,\ dev);}
+\DoxyCodeLine{01074\ \ \ \ \ \}}
+\DoxyCodeLine{01075\ }
+\DoxyCodeLine{01076\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{01077\ \}}
+\DoxyCodeLine{01078\ }
+\DoxyCodeLine{01082\ \textcolor{keyword}{static}\ int8\_t\ put\_device\_to\_sleep(\textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01083\ \{}
+\DoxyCodeLine{01084\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{01085\ \ \ \ \ uint8\_t\ reg\_data[4];}
+\DoxyCodeLine{01086\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_settings\ settings;}
+\DoxyCodeLine{01087\ }
+\DoxyCodeLine{01088\ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_CTRL\_HUM,\ reg\_data,\ 4,\ dev);}
+\DoxyCodeLine{01089\ }
+\DoxyCodeLine{01090\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01091\ \ \ \ \ \{}
+\DoxyCodeLine{01092\ \ \ \ \ \ \ \ \ parse\_device\_settings(reg\_data,\ \&settings);}
+\DoxyCodeLine{01093\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_soft\_reset(dev);}
+\DoxyCodeLine{01094\ }
+\DoxyCodeLine{01095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01096\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01097\ \ \ \ \ \ \ \ \ \ \ \ \ rslt\ =\ reload\_device\_settings(\&settings,\ dev);}
+\DoxyCodeLine{01098\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01099\ \ \ \ \ \}}
+\DoxyCodeLine{01100\ }
+\DoxyCodeLine{01101\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{01102\ \}}
+\DoxyCodeLine{01103\ }
+\DoxyCodeLine{01108\ \textcolor{keyword}{static}\ int8\_t\ reload\_device\_settings(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01109\ \{}
+\DoxyCodeLine{01110\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{01111\ }
+\DoxyCodeLine{01112\ \ \ \ \ rslt\ =\ set\_osr\_settings(BME280\_SEL\_ALL\_SETTINGS,\ settings,\ dev);}
+\DoxyCodeLine{01113\ }
+\DoxyCodeLine{01114\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01115\ \ \ \ \ \{}
+\DoxyCodeLine{01116\ \ \ \ \ \ \ \ \ rslt\ =\ set\_filter\_standby\_settings(BME280\_SEL\_ALL\_SETTINGS,\ settings,\ dev);}
+\DoxyCodeLine{01117\ \ \ \ \ \}}
+\DoxyCodeLine{01118\ }
+\DoxyCodeLine{01119\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{01120\ \}}
+\DoxyCodeLine{01121\ }
+\DoxyCodeLine{01122\ \textcolor{preprocessor}{\#ifdef\ BME280\_DOUBLE\_ENABLE}}
+\DoxyCodeLine{01123\ }
+\DoxyCodeLine{01128\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_temperature(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01129\ \{}
+\DoxyCodeLine{01130\ \ \ \ \ \textcolor{keywordtype}{double}\ var1;}
+\DoxyCodeLine{01131\ \ \ \ \ \textcolor{keywordtype}{double}\ var2;}
+\DoxyCodeLine{01132\ \ \ \ \ \textcolor{keywordtype}{double}\ temperature;}
+\DoxyCodeLine{01133\ \ \ \ \ \textcolor{keywordtype}{double}\ temperature\_min\ =\ -\/40;}
+\DoxyCodeLine{01134\ \ \ \ \ \textcolor{keywordtype}{double}\ temperature\_max\ =\ 85;}
+\DoxyCodeLine{01135\ }
+\DoxyCodeLine{01136\ \ \ \ \ var1\ =\ (((double)uncomp\_data-\/>temperature)\ /\ 16384.0\ -\/\ ((double)calib\_data-\/>dig\_t1)\ /\ 1024.0);}
+\DoxyCodeLine{01137\ \ \ \ \ var1\ =\ var1\ *\ ((double)calib\_data-\/>dig\_t2);}
+\DoxyCodeLine{01138\ \ \ \ \ var2\ =\ (((double)uncomp\_data-\/>temperature)\ /\ 131072.0\ -\/\ ((double)calib\_data-\/>dig\_t1)\ /\ 8192.0);}
+\DoxyCodeLine{01139\ \ \ \ \ var2\ =\ (var2\ *\ var2)\ *\ ((\textcolor{keywordtype}{double})calib\_data-\/>dig\_t3);}
+\DoxyCodeLine{01140\ \ \ \ \ calib\_data-\/>t\_fine\ =\ (int32\_t)(var1\ +\ var2);}
+\DoxyCodeLine{01141\ \ \ \ \ temperature\ =\ (var1\ +\ var2)\ /\ 5120.0;}
+\DoxyCodeLine{01142\ }
+\DoxyCodeLine{01143\ \ \ \ \ \textcolor{keywordflow}{if}\ (temperature\ <\ temperature\_min)}
+\DoxyCodeLine{01144\ \ \ \ \ \{}
+\DoxyCodeLine{01145\ \ \ \ \ \ \ \ \ temperature\ =\ temperature\_min;}
+\DoxyCodeLine{01146\ \ \ \ \ \}}
+\DoxyCodeLine{01147\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (temperature\ >\ temperature\_max)}
+\DoxyCodeLine{01148\ \ \ \ \ \{}
+\DoxyCodeLine{01149\ \ \ \ \ \ \ \ \ temperature\ =\ temperature\_max;}
+\DoxyCodeLine{01150\ \ \ \ \ \}}
+\DoxyCodeLine{01151\ }
+\DoxyCodeLine{01152\ \ \ \ \ \textcolor{keywordflow}{return}\ temperature;}
+\DoxyCodeLine{01153\ \}}
+\DoxyCodeLine{01154\ }
+\DoxyCodeLine{01159\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_pressure(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01160\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01161\ \{}
+\DoxyCodeLine{01162\ \ \ \ \ \textcolor{keywordtype}{double}\ var1;}
+\DoxyCodeLine{01163\ \ \ \ \ \textcolor{keywordtype}{double}\ var2;}
+\DoxyCodeLine{01164\ \ \ \ \ \textcolor{keywordtype}{double}\ var3;}
+\DoxyCodeLine{01165\ \ \ \ \ \textcolor{keywordtype}{double}\ pressure;}
+\DoxyCodeLine{01166\ \ \ \ \ \textcolor{keywordtype}{double}\ pressure\_min\ =\ 30000.0;}
+\DoxyCodeLine{01167\ \ \ \ \ \textcolor{keywordtype}{double}\ pressure\_max\ =\ 110000.0;}
+\DoxyCodeLine{01168\ }
+\DoxyCodeLine{01169\ \ \ \ \ var1\ =\ ((double)calib\_data-\/>t\_fine\ /\ 2.0)\ -\/\ 64000.0;}
+\DoxyCodeLine{01170\ \ \ \ \ var2\ =\ var1\ *\ var1\ *\ ((double)calib\_data-\/>dig\_p6)\ /\ 32768.0;}
+\DoxyCodeLine{01171\ \ \ \ \ var2\ =\ var2\ +\ var1\ *\ ((double)calib\_data-\/>dig\_p5)\ *\ 2.0;}
+\DoxyCodeLine{01172\ \ \ \ \ var2\ =\ (var2\ /\ 4.0)\ +\ (((\textcolor{keywordtype}{double})calib\_data-\/>dig\_p4)\ *\ 65536.0);}
+\DoxyCodeLine{01173\ \ \ \ \ var3\ =\ ((double)calib\_data-\/>dig\_p3)\ *\ var1\ *\ var1\ /\ 524288.0;}
+\DoxyCodeLine{01174\ \ \ \ \ var1\ =\ (var3\ +\ ((double)calib\_data-\/>dig\_p2)\ *\ var1)\ /\ 524288.0;}
+\DoxyCodeLine{01175\ \ \ \ \ var1\ =\ (1.0\ +\ var1\ /\ 32768.0)\ *\ ((\textcolor{keywordtype}{double})calib\_data-\/>dig\_p1);}
+\DoxyCodeLine{01176\ }
+\DoxyCodeLine{01177\ \ \ \ \ \textcolor{comment}{/*\ Avoid\ exception\ caused\ by\ division\ by\ zero\ */}}
+\DoxyCodeLine{01178\ \ \ \ \ \textcolor{keywordflow}{if}\ (var1\ >\ (0.0))}
+\DoxyCodeLine{01179\ \ \ \ \ \{}
+\DoxyCodeLine{01180\ \ \ \ \ \ \ \ \ pressure\ =\ 1048576.0\ -\/\ (double)\ uncomp\_data-\/>pressure;}
+\DoxyCodeLine{01181\ \ \ \ \ \ \ \ \ pressure\ =\ (pressure\ -\/\ (var2\ /\ 4096.0))\ *\ 6250.0\ /\ var1;}
+\DoxyCodeLine{01182\ \ \ \ \ \ \ \ \ var1\ =\ ((double)calib\_data-\/>dig\_p9)\ *\ pressure\ *\ pressure\ /\ 2147483648.0;}
+\DoxyCodeLine{01183\ \ \ \ \ \ \ \ \ var2\ =\ pressure\ *\ ((double)calib\_data-\/>dig\_p8)\ /\ 32768.0;}
+\DoxyCodeLine{01184\ \ \ \ \ \ \ \ \ pressure\ =\ pressure\ +\ (var1\ +\ var2\ +\ ((double)calib\_data-\/>dig\_p7))\ /\ 16.0;}
+\DoxyCodeLine{01185\ }
+\DoxyCodeLine{01186\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pressure\ <\ pressure\_min)}
+\DoxyCodeLine{01187\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01188\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01189\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01190\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pressure\ >\ pressure\_max)}
+\DoxyCodeLine{01191\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01192\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_max;}
+\DoxyCodeLine{01193\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01194\ \ \ \ \ \}}
+\DoxyCodeLine{01195\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{/*\ Invalid\ case\ */}}
+\DoxyCodeLine{01196\ \ \ \ \ \{}
+\DoxyCodeLine{01197\ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01198\ \ \ \ \ \}}
+\DoxyCodeLine{01199\ }
+\DoxyCodeLine{01200\ \ \ \ \ \textcolor{keywordflow}{return}\ pressure;}
+\DoxyCodeLine{01201\ \}}
+\DoxyCodeLine{01202\ }
+\DoxyCodeLine{01207\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ compensate\_humidity(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01208\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01209\ \{}
+\DoxyCodeLine{01210\ \ \ \ \ \textcolor{keywordtype}{double}\ humidity;}
+\DoxyCodeLine{01211\ \ \ \ \ \textcolor{keywordtype}{double}\ humidity\_min\ =\ 0.0;}
+\DoxyCodeLine{01212\ \ \ \ \ \textcolor{keywordtype}{double}\ humidity\_max\ =\ 100.0;}
+\DoxyCodeLine{01213\ \ \ \ \ \textcolor{keywordtype}{double}\ var1;}
+\DoxyCodeLine{01214\ \ \ \ \ \textcolor{keywordtype}{double}\ var2;}
+\DoxyCodeLine{01215\ \ \ \ \ \textcolor{keywordtype}{double}\ var3;}
+\DoxyCodeLine{01216\ \ \ \ \ \textcolor{keywordtype}{double}\ var4;}
+\DoxyCodeLine{01217\ \ \ \ \ \textcolor{keywordtype}{double}\ var5;}
+\DoxyCodeLine{01218\ \ \ \ \ \textcolor{keywordtype}{double}\ var6;}
+\DoxyCodeLine{01219\ }
+\DoxyCodeLine{01220\ \ \ \ \ var1\ =\ ((double)calib\_data-\/>t\_fine)\ -\/\ 76800.0;}
+\DoxyCodeLine{01221\ \ \ \ \ var2\ =\ (((double)calib\_data-\/>dig\_h4)\ *\ 64.0\ +\ (((double)calib\_data-\/>dig\_h5)\ /\ 16384.0)\ *\ var1);}
+\DoxyCodeLine{01222\ \ \ \ \ var3\ =\ uncomp\_data-\/>humidity\ -\/\ var2;}
+\DoxyCodeLine{01223\ \ \ \ \ var4\ =\ ((double)calib\_data-\/>dig\_h2)\ /\ 65536.0;}
+\DoxyCodeLine{01224\ \ \ \ \ var5\ =\ (1.0\ +\ (((double)calib\_data-\/>dig\_h3)\ /\ 67108864.0)\ *\ var1);}
+\DoxyCodeLine{01225\ \ \ \ \ var6\ =\ 1.0\ +\ (((double)calib\_data-\/>dig\_h6)\ /\ 67108864.0)\ *\ var1\ *\ var5;}
+\DoxyCodeLine{01226\ \ \ \ \ var6\ =\ var3\ *\ var4\ *\ (var5\ *\ var6);}
+\DoxyCodeLine{01227\ \ \ \ \ humidity\ =\ var6\ *\ (1.0\ -\/\ ((double)calib\_data-\/>dig\_h1)\ *\ var6\ /\ 524288.0);}
+\DoxyCodeLine{01228\ }
+\DoxyCodeLine{01229\ \ \ \ \ \textcolor{keywordflow}{if}\ (humidity\ >\ humidity\_max)}
+\DoxyCodeLine{01230\ \ \ \ \ \{}
+\DoxyCodeLine{01231\ \ \ \ \ \ \ \ \ humidity\ =\ humidity\_max;}
+\DoxyCodeLine{01232\ \ \ \ \ \}}
+\DoxyCodeLine{01233\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (humidity\ <\ humidity\_min)}
+\DoxyCodeLine{01234\ \ \ \ \ \{}
+\DoxyCodeLine{01235\ \ \ \ \ \ \ \ \ humidity\ =\ humidity\_min;}
+\DoxyCodeLine{01236\ \ \ \ \ \}}
+\DoxyCodeLine{01237\ }
+\DoxyCodeLine{01238\ \ \ \ \ \textcolor{keywordflow}{return}\ humidity;}
+\DoxyCodeLine{01239\ \}}
+\DoxyCodeLine{01240\ }
+\DoxyCodeLine{01241\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{01242\ }
+\DoxyCodeLine{01247\ \textcolor{keyword}{static}\ int32\_t\ compensate\_temperature(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01248\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01249\ \{}
+\DoxyCodeLine{01250\ \ \ \ \ int32\_t\ var1;}
+\DoxyCodeLine{01251\ \ \ \ \ int32\_t\ var2;}
+\DoxyCodeLine{01252\ \ \ \ \ int32\_t\ temperature;}
+\DoxyCodeLine{01253\ \ \ \ \ int32\_t\ temperature\_min\ =\ -\/4000;}
+\DoxyCodeLine{01254\ \ \ \ \ int32\_t\ temperature\_max\ =\ 8500;}
+\DoxyCodeLine{01255\ }
+\DoxyCodeLine{01256\ \ \ \ \ var1\ =\ (int32\_t)((uncomp\_data-\/>temperature\ /\ 8)\ -\/\ ((int32\_t)calib\_data-\/>dig\_t1\ *\ 2));}
+\DoxyCodeLine{01257\ \ \ \ \ var1\ =\ (var1\ *\ ((int32\_t)calib\_data-\/>dig\_t2))\ /\ 2048;}
+\DoxyCodeLine{01258\ \ \ \ \ var2\ =\ (int32\_t)((uncomp\_data-\/>temperature\ /\ 16)\ -\/\ ((int32\_t)calib\_data-\/>dig\_t1));}
+\DoxyCodeLine{01259\ \ \ \ \ var2\ =\ (((var2\ *\ var2)\ /\ 4096)\ *\ ((int32\_t)calib\_data-\/>dig\_t3))\ /\ 16384;}
+\DoxyCodeLine{01260\ \ \ \ \ calib\_data-\/>t\_fine\ =\ var1\ +\ var2;}
+\DoxyCodeLine{01261\ \ \ \ \ temperature\ =\ (calib\_data-\/>t\_fine\ *\ 5\ +\ 128)\ /\ 256;}
+\DoxyCodeLine{01262\ }
+\DoxyCodeLine{01263\ \ \ \ \ \textcolor{keywordflow}{if}\ (temperature\ <\ temperature\_min)}
+\DoxyCodeLine{01264\ \ \ \ \ \{}
+\DoxyCodeLine{01265\ \ \ \ \ \ \ \ \ temperature\ =\ temperature\_min;}
+\DoxyCodeLine{01266\ \ \ \ \ \}}
+\DoxyCodeLine{01267\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (temperature\ >\ temperature\_max)}
+\DoxyCodeLine{01268\ \ \ \ \ \{}
+\DoxyCodeLine{01269\ \ \ \ \ \ \ \ \ temperature\ =\ temperature\_max;}
+\DoxyCodeLine{01270\ \ \ \ \ \}}
+\DoxyCodeLine{01271\ }
+\DoxyCodeLine{01272\ \ \ \ \ \textcolor{keywordflow}{return}\ temperature;}
+\DoxyCodeLine{01273\ \}}
+\DoxyCodeLine{01274\ \textcolor{preprocessor}{\#ifndef\ BME280\_32BIT\_ENABLE\ }\textcolor{comment}{/*\ 64\ bit\ compensation\ for\ pressure\ data\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01275\ }
+\DoxyCodeLine{01281\ \textcolor{keyword}{static}\ uint32\_t\ compensate\_pressure(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01283\ \{}
+\DoxyCodeLine{01284\ \ \ \ \ int64\_t\ var1;}
+\DoxyCodeLine{01285\ \ \ \ \ int64\_t\ var2;}
+\DoxyCodeLine{01286\ \ \ \ \ int64\_t\ var3;}
+\DoxyCodeLine{01287\ \ \ \ \ int64\_t\ var4;}
+\DoxyCodeLine{01288\ \ \ \ \ uint32\_t\ pressure;}
+\DoxyCodeLine{01289\ \ \ \ \ uint32\_t\ pressure\_min\ =\ 3000000;}
+\DoxyCodeLine{01290\ \ \ \ \ uint32\_t\ pressure\_max\ =\ 11000000;}
+\DoxyCodeLine{01291\ }
+\DoxyCodeLine{01292\ \ \ \ \ var1\ =\ ((int64\_t)calib\_data-\/>t\_fine)\ -\/\ 128000;}
+\DoxyCodeLine{01293\ \ \ \ \ var2\ =\ var1\ *\ var1\ *\ (int64\_t)calib\_data-\/>dig\_p6;}
+\DoxyCodeLine{01294\ \ \ \ \ var2\ =\ var2\ +\ ((var1\ *\ (int64\_t)calib\_data-\/>dig\_p5)\ *\ 131072);}
+\DoxyCodeLine{01295\ \ \ \ \ var2\ =\ var2\ +\ (((int64\_t)calib\_data-\/>dig\_p4)\ *\ 34359738368);}
+\DoxyCodeLine{01296\ \ \ \ \ var1\ =\ ((var1\ *\ var1\ *\ (int64\_t)calib\_data-\/>dig\_p3)\ /\ 256)\ +\ ((var1\ *\ ((int64\_t)calib\_data-\/>dig\_p2)\ *\ 4096));}
+\DoxyCodeLine{01297\ \ \ \ \ var3\ =\ ((int64\_t)1)\ *\ 140737488355328;}
+\DoxyCodeLine{01298\ \ \ \ \ var1\ =\ (var3\ +\ var1)\ *\ ((int64\_t)calib\_data-\/>dig\_p1)\ /\ 8589934592;}
+\DoxyCodeLine{01299\ }
+\DoxyCodeLine{01300\ \ \ \ \ \textcolor{comment}{/*\ To\ avoid\ divide\ by\ zero\ exception\ */}}
+\DoxyCodeLine{01301\ \ \ \ \ \textcolor{keywordflow}{if}\ (var1\ !=\ 0)}
+\DoxyCodeLine{01302\ \ \ \ \ \{}
+\DoxyCodeLine{01303\ \ \ \ \ \ \ \ \ var4\ =\ 1048576\ -\/\ uncomp\_data-\/>pressure;}
+\DoxyCodeLine{01304\ \ \ \ \ \ \ \ \ var4\ =\ (((var4\ *\ INT64\_C(2147483648))\ -\/\ var2)\ *\ 3125)\ /\ var1;}
+\DoxyCodeLine{01305\ \ \ \ \ \ \ \ \ var1\ =\ (((int64\_t)calib\_data-\/>dig\_p9)\ *\ (var4\ /\ 8192)\ *\ (var4\ /\ 8192))\ /\ 33554432;}
+\DoxyCodeLine{01306\ \ \ \ \ \ \ \ \ var2\ =\ (((int64\_t)calib\_data-\/>dig\_p8)\ *\ var4)\ /\ 524288;}
+\DoxyCodeLine{01307\ \ \ \ \ \ \ \ \ var4\ =\ ((var4\ +\ var1\ +\ var2)\ /\ 256)\ +\ (((int64\_t)calib\_data-\/>dig\_p7)\ *\ 16);}
+\DoxyCodeLine{01308\ \ \ \ \ \ \ \ \ pressure\ =\ (uint32\_t)(((var4\ /\ 2)\ *\ 100)\ /\ 128);}
+\DoxyCodeLine{01309\ }
+\DoxyCodeLine{01310\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pressure\ <\ pressure\_min)}
+\DoxyCodeLine{01311\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01312\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01313\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01314\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pressure\ >\ pressure\_max)}
+\DoxyCodeLine{01315\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01316\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_max;}
+\DoxyCodeLine{01317\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01318\ \ \ \ \ \}}
+\DoxyCodeLine{01319\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01320\ \ \ \ \ \{}
+\DoxyCodeLine{01321\ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01322\ \ \ \ \ \}}
+\DoxyCodeLine{01323\ }
+\DoxyCodeLine{01324\ \ \ \ \ \textcolor{keywordflow}{return}\ pressure;}
+\DoxyCodeLine{01325\ \}}
+\DoxyCodeLine{01326\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ 32\ bit\ compensation\ for\ pressure\ data\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{01327\ }
+\DoxyCodeLine{01332\ \textcolor{keyword}{static}\ uint32\_t\ compensate\_pressure(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01333\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01334\ \{}
+\DoxyCodeLine{01335\ \ \ \ \ int32\_t\ var1;}
+\DoxyCodeLine{01336\ \ \ \ \ int32\_t\ var2;}
+\DoxyCodeLine{01337\ \ \ \ \ int32\_t\ var3;}
+\DoxyCodeLine{01338\ \ \ \ \ int32\_t\ var4;}
+\DoxyCodeLine{01339\ \ \ \ \ uint32\_t\ var5;}
+\DoxyCodeLine{01340\ \ \ \ \ uint32\_t\ pressure;}
+\DoxyCodeLine{01341\ \ \ \ \ uint32\_t\ pressure\_min\ =\ 30000;}
+\DoxyCodeLine{01342\ \ \ \ \ uint32\_t\ pressure\_max\ =\ 110000;}
+\DoxyCodeLine{01343\ }
+\DoxyCodeLine{01344\ \ \ \ \ var1\ =\ (((int32\_t)calib\_data-\/>t\_fine)\ /\ 2)\ -\/\ (int32\_t)64000;}
+\DoxyCodeLine{01345\ \ \ \ \ var2\ =\ (((var1\ /\ 4)\ *\ (var1\ /\ 4))\ /\ 2048)\ *\ ((int32\_t)calib\_data-\/>dig\_p6);}
+\DoxyCodeLine{01346\ \ \ \ \ var2\ =\ var2\ +\ ((var1\ *\ ((int32\_t)calib\_data-\/>dig\_p5))\ *\ 2);}
+\DoxyCodeLine{01347\ \ \ \ \ var2\ =\ (var2\ /\ 4)\ +\ (((int32\_t)calib\_data-\/>dig\_p4)\ *\ 65536);}
+\DoxyCodeLine{01348\ \ \ \ \ var3\ =\ (calib\_data-\/>dig\_p3\ *\ (((var1\ /\ 4)\ *\ (var1\ /\ 4))\ /\ 8192))\ /\ 8;}
+\DoxyCodeLine{01349\ \ \ \ \ var4\ =\ (((int32\_t)calib\_data-\/>dig\_p2)\ *\ var1)\ /\ 2;}
+\DoxyCodeLine{01350\ \ \ \ \ var1\ =\ (var3\ +\ var4)\ /\ 262144;}
+\DoxyCodeLine{01351\ \ \ \ \ var1\ =\ (((32768\ +\ var1))\ *\ ((int32\_t)calib\_data-\/>dig\_p1))\ /\ 32768;}
+\DoxyCodeLine{01352\ }
+\DoxyCodeLine{01353\ \ \ \ \ \textcolor{comment}{/*\ Avoid\ exception\ caused\ by\ division\ by\ zero\ */}}
+\DoxyCodeLine{01354\ \ \ \ \ \textcolor{keywordflow}{if}\ (var1)}
+\DoxyCodeLine{01355\ \ \ \ \ \{}
+\DoxyCodeLine{01356\ \ \ \ \ \ \ \ \ var5\ =\ (uint32\_t)((uint32\_t)1048576)\ -\/\ uncomp\_data-\/>pressure;}
+\DoxyCodeLine{01357\ \ \ \ \ \ \ \ \ pressure\ =\ ((uint32\_t)(var5\ -\/\ (uint32\_t)(var2\ /\ 4096)))\ *\ 3125;}
+\DoxyCodeLine{01358\ }
+\DoxyCodeLine{01359\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pressure\ <\ 0x80000000)}
+\DoxyCodeLine{01360\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01361\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ (pressure\ <<\ 1)\ /\ ((uint32\_t)var1);}
+\DoxyCodeLine{01362\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01363\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01364\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01365\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ (pressure\ /\ (uint32\_t)var1)\ *\ 2;}
+\DoxyCodeLine{01366\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01367\ }
+\DoxyCodeLine{01368\ \ \ \ \ \ \ \ \ var1\ =\ (((int32\_t)calib\_data-\/>dig\_p9)\ *\ ((int32\_t)(((pressure\ /\ 8)\ *\ (pressure\ /\ 8))\ /\ 8192)))\ /\ 4096;}
+\DoxyCodeLine{01369\ \ \ \ \ \ \ \ \ var2\ =\ (((int32\_t)(pressure\ /\ 4))\ *\ ((int32\_t)calib\_data-\/>dig\_p8))\ /\ 8192;}
+\DoxyCodeLine{01370\ \ \ \ \ \ \ \ \ pressure\ =\ (uint32\_t)((int32\_t)pressure\ +\ ((var1\ +\ var2\ +\ calib\_data-\/>dig\_p7)\ /\ 16));}
+\DoxyCodeLine{01371\ }
+\DoxyCodeLine{01372\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (pressure\ <\ pressure\_min)}
+\DoxyCodeLine{01373\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01374\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01375\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01376\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (pressure\ >\ pressure\_max)}
+\DoxyCodeLine{01377\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01378\ \ \ \ \ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_max;}
+\DoxyCodeLine{01379\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01380\ \ \ \ \ \}}
+\DoxyCodeLine{01381\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01382\ \ \ \ \ \{}
+\DoxyCodeLine{01383\ \ \ \ \ \ \ \ \ pressure\ =\ pressure\_min;}
+\DoxyCodeLine{01384\ \ \ \ \ \}}
+\DoxyCodeLine{01385\ }
+\DoxyCodeLine{01386\ \ \ \ \ \textcolor{keywordflow}{return}\ pressure;}
+\DoxyCodeLine{01387\ \}}
+\DoxyCodeLine{01388\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01389\ }
+\DoxyCodeLine{01394\ \textcolor{keyword}{static}\ uint32\_t\ compensate\_humidity(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{01395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data)}
+\DoxyCodeLine{01396\ \{}
+\DoxyCodeLine{01397\ \ \ \ \ int32\_t\ var1;}
+\DoxyCodeLine{01398\ \ \ \ \ int32\_t\ var2;}
+\DoxyCodeLine{01399\ \ \ \ \ int32\_t\ var3;}
+\DoxyCodeLine{01400\ \ \ \ \ int32\_t\ var4;}
+\DoxyCodeLine{01401\ \ \ \ \ int32\_t\ var5;}
+\DoxyCodeLine{01402\ \ \ \ \ uint32\_t\ humidity;}
+\DoxyCodeLine{01403\ \ \ \ \ uint32\_t\ humidity\_max\ =\ 102400;}
+\DoxyCodeLine{01404\ }
+\DoxyCodeLine{01405\ \ \ \ \ var1\ =\ calib\_data-\/>t\_fine\ -\/\ ((int32\_t)76800);}
+\DoxyCodeLine{01406\ \ \ \ \ var2\ =\ (int32\_t)(uncomp\_data-\/>humidity\ *\ 16384);}
+\DoxyCodeLine{01407\ \ \ \ \ var3\ =\ (int32\_t)(((int32\_t)calib\_data-\/>dig\_h4)\ *\ 1048576);}
+\DoxyCodeLine{01408\ \ \ \ \ var4\ =\ ((int32\_t)calib\_data-\/>dig\_h5)\ *\ var1;}
+\DoxyCodeLine{01409\ \ \ \ \ var5\ =\ (((var2\ -\/\ var3)\ -\/\ var4)\ +\ (int32\_t)16384)\ /\ 32768;}
+\DoxyCodeLine{01410\ \ \ \ \ var2\ =\ (var1\ *\ ((int32\_t)calib\_data-\/>dig\_h6))\ /\ 1024;}
+\DoxyCodeLine{01411\ \ \ \ \ var3\ =\ (var1\ *\ ((int32\_t)calib\_data-\/>dig\_h3))\ /\ 2048;}
+\DoxyCodeLine{01412\ \ \ \ \ var4\ =\ ((var2\ *\ (var3\ +\ (int32\_t)32768))\ /\ 1024)\ +\ (int32\_t)2097152;}
+\DoxyCodeLine{01413\ \ \ \ \ var2\ =\ ((var4\ *\ ((int32\_t)calib\_data-\/>dig\_h2))\ +\ 8192)\ /\ 16384;}
+\DoxyCodeLine{01414\ \ \ \ \ var3\ =\ var5\ *\ var2;}
+\DoxyCodeLine{01415\ \ \ \ \ var4\ =\ ((var3\ /\ 32768)\ *\ (var3\ /\ 32768))\ /\ 128;}
+\DoxyCodeLine{01416\ \ \ \ \ var5\ =\ var3\ -\/\ ((var4\ *\ ((int32\_t)calib\_data-\/>dig\_h1))\ /\ 16);}
+\DoxyCodeLine{01417\ \ \ \ \ var5\ =\ (var5\ <\ 0\ ?\ 0\ :\ var5);}
+\DoxyCodeLine{01418\ \ \ \ \ var5\ =\ (var5\ >\ 419430400\ ?\ 419430400\ :\ var5);}
+\DoxyCodeLine{01419\ \ \ \ \ humidity\ =\ (uint32\_t)(var5\ /\ 4096);}
+\DoxyCodeLine{01420\ }
+\DoxyCodeLine{01421\ \ \ \ \ \textcolor{keywordflow}{if}\ (humidity\ >\ humidity\_max)}
+\DoxyCodeLine{01422\ \ \ \ \ \{}
+\DoxyCodeLine{01423\ \ \ \ \ \ \ \ \ humidity\ =\ humidity\_max;}
+\DoxyCodeLine{01424\ \ \ \ \ \}}
+\DoxyCodeLine{01425\ }
+\DoxyCodeLine{01426\ \ \ \ \ \textcolor{keywordflow}{return}\ humidity;}
+\DoxyCodeLine{01427\ \}}
+\DoxyCodeLine{01428\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{01429\ }
+\DoxyCodeLine{01434\ \textcolor{keyword}{static}\ int8\_t\ get\_calib\_data(\textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01435\ \{}
+\DoxyCodeLine{01436\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{01437\ \ \ \ \ uint8\_t\ reg\_addr\ =\ BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA;}
+\DoxyCodeLine{01438\ }
+\DoxyCodeLine{01439\ \ \ \ \ \textcolor{comment}{/*\ Array\ to\ store\ calibration\ data\ */}}
+\DoxyCodeLine{01440\ \ \ \ \ uint8\_t\ calib\_data[BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA]\ =\ \{\ 0\ \};}
+\DoxyCodeLine{01441\ }
+\DoxyCodeLine{01442\ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ calibration\ data\ from\ the\ sensor\ */}}
+\DoxyCodeLine{01443\ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ calib\_data,\ BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA,\ dev);}
+\DoxyCodeLine{01444\ }
+\DoxyCodeLine{01445\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01446\ \ \ \ \ \{}
+\DoxyCodeLine{01447\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parse\ temperature\ and\ pressure\ calibration\ data\ and\ store}}
+\DoxyCodeLine{01448\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ *\ it\ in\ device\ structure}}
+\DoxyCodeLine{01449\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01450\ \ \ \ \ \ \ \ \ parse\_temp\_press\_calib\_data(calib\_data,\ dev);}
+\DoxyCodeLine{01451\ \ \ \ \ \ \ \ \ reg\_addr\ =\ BME280\_REG\_HUMIDITY\_CALIB\_DATA;}
+\DoxyCodeLine{01452\ }
+\DoxyCodeLine{01453\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ humidity\ calibration\ data\ from\ the\ sensor\ */}}
+\DoxyCodeLine{01454\ \ \ \ \ \ \ \ \ rslt\ =\ bme280\_get\_regs(reg\_addr,\ calib\_data,\ BME280\_LEN\_HUMIDITY\_CALIB\_DATA,\ dev);}
+\DoxyCodeLine{01455\ }
+\DoxyCodeLine{01456\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{01457\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{01458\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Parse\ humidity\ calibration\ data\ and\ store\ it\ in}}
+\DoxyCodeLine{01459\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ *\ device\ structure}}
+\DoxyCodeLine{01460\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{01461\ \ \ \ \ \ \ \ \ \ \ \ \ parse\_humidity\_calib\_data(calib\_data,\ dev);}
+\DoxyCodeLine{01462\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{01463\ \ \ \ \ \}}
+\DoxyCodeLine{01464\ }
+\DoxyCodeLine{01465\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{01466\ \}}
+\DoxyCodeLine{01467\ }
+\DoxyCodeLine{01472\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ interleave\_reg\_addr(\textcolor{keyword}{const}\ uint8\_t\ *reg\_addr,\ uint8\_t\ *temp\_buff,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len)}
+\DoxyCodeLine{01473\ \{}
+\DoxyCodeLine{01474\ \ \ \ \ uint32\_t\ index;}
+\DoxyCodeLine{01475\ }
+\DoxyCodeLine{01476\ \ \ \ \ \textcolor{keywordflow}{for}\ (index\ =\ 1;\ index\ <\ len;\ index++)}
+\DoxyCodeLine{01477\ \ \ \ \ \{}
+\DoxyCodeLine{01478\ \ \ \ \ \ \ \ \ temp\_buff[(index\ *\ 2)\ -\/\ 1]\ =\ reg\_addr[index];}
+\DoxyCodeLine{01479\ \ \ \ \ \ \ \ \ temp\_buff[index\ *\ 2]\ =\ reg\_data[index];}
+\DoxyCodeLine{01480\ \ \ \ \ \}}
+\DoxyCodeLine{01481\ \}}
+\DoxyCodeLine{01482\ }
+\DoxyCodeLine{01487\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_temp\_press\_calib\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01488\ \{}
+\DoxyCodeLine{01489\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_calib\_data\ *calib\_data\ =\ \&dev-\/>calib\_data;}
+\DoxyCodeLine{01490\ }
+\DoxyCodeLine{01491\ \ \ \ \ calib\_data-\/>dig\_t1\ =\ BME280\_CONCAT\_BYTES(reg\_data[1],\ reg\_data[0]);}
+\DoxyCodeLine{01492\ \ \ \ \ calib\_data-\/>dig\_t2\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[3],\ reg\_data[2]);}
+\DoxyCodeLine{01493\ \ \ \ \ calib\_data-\/>dig\_t3\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[5],\ reg\_data[4]);}
+\DoxyCodeLine{01494\ \ \ \ \ calib\_data-\/>dig\_p1\ =\ BME280\_CONCAT\_BYTES(reg\_data[7],\ reg\_data[6]);}
+\DoxyCodeLine{01495\ \ \ \ \ calib\_data-\/>dig\_p2\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[9],\ reg\_data[8]);}
+\DoxyCodeLine{01496\ \ \ \ \ calib\_data-\/>dig\_p3\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[11],\ reg\_data[10]);}
+\DoxyCodeLine{01497\ \ \ \ \ calib\_data-\/>dig\_p4\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[13],\ reg\_data[12]);}
+\DoxyCodeLine{01498\ \ \ \ \ calib\_data-\/>dig\_p5\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[15],\ reg\_data[14]);}
+\DoxyCodeLine{01499\ \ \ \ \ calib\_data-\/>dig\_p6\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[17],\ reg\_data[16]);}
+\DoxyCodeLine{01500\ \ \ \ \ calib\_data-\/>dig\_p7\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[19],\ reg\_data[18]);}
+\DoxyCodeLine{01501\ \ \ \ \ calib\_data-\/>dig\_p8\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[21],\ reg\_data[20]);}
+\DoxyCodeLine{01502\ \ \ \ \ calib\_data-\/>dig\_p9\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[23],\ reg\_data[22]);}
+\DoxyCodeLine{01503\ \ \ \ \ calib\_data-\/>dig\_h1\ =\ reg\_data[25];}
+\DoxyCodeLine{01504\ \}}
+\DoxyCodeLine{01505\ }
+\DoxyCodeLine{01510\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ parse\_humidity\_calib\_data(\textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01511\ \{}
+\DoxyCodeLine{01512\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_calib\_data\ *calib\_data\ =\ \&dev-\/>calib\_data;}
+\DoxyCodeLine{01513\ \ \ \ \ int16\_t\ dig\_h4\_lsb;}
+\DoxyCodeLine{01514\ \ \ \ \ int16\_t\ dig\_h4\_msb;}
+\DoxyCodeLine{01515\ \ \ \ \ int16\_t\ dig\_h5\_lsb;}
+\DoxyCodeLine{01516\ \ \ \ \ int16\_t\ dig\_h5\_msb;}
+\DoxyCodeLine{01517\ }
+\DoxyCodeLine{01518\ \ \ \ \ calib\_data-\/>dig\_h2\ =\ (int16\_t)BME280\_CONCAT\_BYTES(reg\_data[1],\ reg\_data[0]);}
+\DoxyCodeLine{01519\ \ \ \ \ calib\_data-\/>dig\_h3\ =\ reg\_data[2];}
+\DoxyCodeLine{01520\ \ \ \ \ dig\_h4\_msb\ =\ (int16\_t)(int8\_t)reg\_data[3]\ *\ 16;}
+\DoxyCodeLine{01521\ \ \ \ \ dig\_h4\_lsb\ =\ (int16\_t)(reg\_data[4]\ \&\ 0x0F);}
+\DoxyCodeLine{01522\ \ \ \ \ calib\_data-\/>dig\_h4\ =\ dig\_h4\_msb\ |\ dig\_h4\_lsb;}
+\DoxyCodeLine{01523\ \ \ \ \ dig\_h5\_msb\ =\ (int16\_t)(int8\_t)reg\_data[5]\ *\ 16;}
+\DoxyCodeLine{01524\ \ \ \ \ dig\_h5\_lsb\ =\ (int16\_t)(reg\_data[4]\ >>\ 4);}
+\DoxyCodeLine{01525\ \ \ \ \ calib\_data-\/>dig\_h5\ =\ dig\_h5\_msb\ |\ dig\_h5\_lsb;}
+\DoxyCodeLine{01526\ \ \ \ \ calib\_data-\/>dig\_h6\ =\ (int8\_t)reg\_data[6];}
+\DoxyCodeLine{01527\ \}}
+\DoxyCodeLine{01528\ }
+\DoxyCodeLine{01533\ \textcolor{keyword}{static}\ uint8\_t\ are\_settings\_changed(uint8\_t\ sub\_settings,\ uint8\_t\ desired\_settings)}
+\DoxyCodeLine{01534\ \{}
+\DoxyCodeLine{01535\ \ \ \ \ uint8\_t\ settings\_changed\ =\ FALSE;}
+\DoxyCodeLine{01536\ }
+\DoxyCodeLine{01537\ \ \ \ \ \textcolor{keywordflow}{if}\ (sub\_settings\ \&\ desired\_settings)}
+\DoxyCodeLine{01538\ \ \ \ \ \{}
+\DoxyCodeLine{01539\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ User\ wants\ to\ modify\ this\ particular\ settings\ */}}
+\DoxyCodeLine{01540\ \ \ \ \ \ \ \ \ settings\_changed\ =\ TRUE;}
+\DoxyCodeLine{01541\ \ \ \ \ \}}
+\DoxyCodeLine{01542\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01543\ \ \ \ \ \{}
+\DoxyCodeLine{01544\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ User\ don't\ want\ to\ modify\ this\ particular\ settings\ */}}
+\DoxyCodeLine{01545\ \ \ \ \ \ \ \ \ settings\_changed\ =\ FALSE;}
+\DoxyCodeLine{01546\ \ \ \ \ \}}
+\DoxyCodeLine{01547\ }
+\DoxyCodeLine{01548\ \ \ \ \ \textcolor{keywordflow}{return}\ settings\_changed;}
+\DoxyCodeLine{01549\ \}}
+\DoxyCodeLine{01550\ }
+\DoxyCodeLine{01555\ \textcolor{keyword}{static}\ int8\_t\ null\_ptr\_check(\textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev)}
+\DoxyCodeLine{01556\ \{}
+\DoxyCodeLine{01557\ \ \ \ \ int8\_t\ rslt;}
+\DoxyCodeLine{01558\ }
+\DoxyCodeLine{01559\ \ \ \ \ \textcolor{keywordflow}{if}\ ((dev\ ==\ NULL)\ ||\ (dev-\/>read\ ==\ NULL)\ ||\ (dev-\/>write\ ==\ NULL)\ ||\ (dev-\/>delay\_us\ ==\ NULL))}
+\DoxyCodeLine{01560\ \ \ \ \ \{}
+\DoxyCodeLine{01561\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Device\ structure\ pointer\ is\ not\ valid\ */}}
+\DoxyCodeLine{01562\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_E\_NULL\_PTR;}
+\DoxyCodeLine{01563\ \ \ \ \ \}}
+\DoxyCodeLine{01564\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{01565\ \ \ \ \ \{}
+\DoxyCodeLine{01566\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Device\ structure\ is\ fine\ */}}
+\DoxyCodeLine{01567\ \ \ \ \ \ \ \ \ rslt\ =\ BME280\_OK;}
+\DoxyCodeLine{01568\ \ \ \ \ \}}
+\DoxyCodeLine{01569\ }
+\DoxyCodeLine{01570\ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{01571\ \}}
+
+\end{DoxyCode}

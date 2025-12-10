@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="uart_8h" kind="file" language="C++">
+    <compoundname>uart.h</compoundname>
+    <includes local="no">avr/pgmspace.h</includes>
+    <includedby refid="_f_a_t32_8c" local="yes">lib/FAT32/FAT32.c</includedby>
+    <includedby refid="_s_d__routines_8c" local="no">lib/sd/SD_routines.c</includedby>
+    <includedby refid="uart_8c" local="yes">lib/uart/uart.c</includedby>
+    <includedby refid="uart__compat_8h" local="no">lib/uart/uart_compat.h</includedby>
+    <includedby refid="main_8c" local="no">src/main.c</includedby>
+    <includedby refid="sgp41_8c" local="yes">src/sgp41.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/uart/uart.h</label>
+        <link refid="uart_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>avr/pgmspace.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/FAT32/FAT32.c</label>
+        <link refid="_f_a_t32_8c"/>
+      </node>
+      <node id="3">
+        <label>lib/sd/SD_routines.c</label>
+        <link refid="_s_d__routines_8c"/>
+      </node>
+      <node id="4">
+        <label>lib/uart/uart.c</label>
+        <link refid="uart_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/uart/uart.h</label>
+        <link refid="uart_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>lib/uart/uart_compat.h</label>
+        <link refid="uart__compat_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="7">
+        <label>src/sgp41.c</label>
+        <link refid="sgp41_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <member refid="group__pfleury__uart_1ga367ff7b5de225ed936a63239ad4adb0b" kind="define"><name>UART_BAUD_SELECT</name></member>
+      <member refid="group__pfleury__uart_1ga1a02d45130520cb651ab313e69039382" kind="define"><name>UART_BAUD_SELECT_DOUBLE_SPEED</name></member>
+      <member refid="group__pfleury__uart_1ga5bdd6772c246436bb14377095de79b31" kind="define"><name>UART_RX_BUFFER_SIZE</name></member>
+      <member refid="group__pfleury__uart_1ga05f5d709605c6317c97e4974bec3402a" kind="define"><name>UART_TX_BUFFER_SIZE</name></member>
+      <member refid="group__pfleury__uart_1gabcdb1041d763560cd8f8e722370dfd37" kind="define"><name>UART_FRAME_ERROR</name></member>
+      <member refid="group__pfleury__uart_1ga3183177e3613d8785d8cc8516931beb6" kind="define"><name>UART_OVERRUN_ERROR</name></member>
+      <member refid="group__pfleury__uart_1ga946e3d317937e003d2057bf19e96dd1d" kind="define"><name>UART_PARITY_ERROR</name></member>
+      <member refid="group__pfleury__uart_1ga94758f3dad6864703b7417d3e40f11df" kind="define"><name>UART_BUFFER_OVERFLOW</name></member>
+      <member refid="group__pfleury__uart_1ga77ba544d423ff42d400220a05303f268" kind="define"><name>UART_NO_DATA</name></member>
+      <member refid="group__pfleury__uart_1gae9e143569df2285379bc55f9f5595bf9" kind="define"><name>uart_puts_P</name></member>
+      <member refid="group__pfleury__uart_1gaabd7a5b0c15611ee9ecb2873cc9ee87a" kind="define"><name>uart1_puts_P</name></member>
+    </sectiondef>
+    <sectiondef kind="func">
+      <member refid="group__pfleury__uart_1gac19a76bb7d446125734a67f9f4b68991" kind="function"><name>uart_init</name></member>
+      <member refid="group__pfleury__uart_1gaefaab30a8338ec46a6be35b99b1b4f09" kind="function"><name>uart_getc</name></member>
+      <member refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kind="function"><name>uart_putc</name></member>
+      <member refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kind="function"><name>uart_puts</name></member>
+      <member refid="group__pfleury__uart_1ga6d78b6744db6232f52b4616402036c2f" kind="function"><name>uart_puts_p</name></member>
+      <member refid="group__pfleury__uart_1ga4db697cb5469fd70e794fa7df73a6d6a" kind="function"><name>uart1_init</name></member>
+      <member refid="group__pfleury__uart_1gaeb1405c641e5bc9b7224018f5e8d90de" kind="function"><name>uart1_getc</name></member>
+      <member refid="group__pfleury__uart_1gab465f689d197fadfbacc374fc9411154" kind="function"><name>uart1_putc</name></member>
+      <member refid="group__pfleury__uart_1ga5568f8f3913b218fd4d0346af78831b2" kind="function"><name>uart1_puts</name></member>
+      <member refid="group__pfleury__uart_1ga1e8074d0a2d5922601c5db2f9777ba79" kind="function"><name>uart1_puts_p</name></member>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>UART_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>UART_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">/************************************************************************</highlight></codeline>
+<codeline lineno="5"><highlight class="comment">*<sp/><sp/>Title:<sp/><sp/><sp/><sp/>Interrupt<sp/>UART<sp/>library<sp/>with<sp/>receive/transmit<sp/>circular<sp/>buffers</highlight></codeline>
+<codeline lineno="6"><highlight class="comment">*<sp/><sp/>Author:<sp/><sp/><sp/>Peter<sp/>Fleury<sp/>&lt;pfleury@gmx.ch&gt;<sp/><sp/>http://tinyurl.com/peterfleury</highlight></codeline>
+<codeline lineno="7"><highlight class="comment">*<sp/><sp/>File:<sp/><sp/><sp/><sp/><sp/>$Id:<sp/>uart.h,v<sp/>1.13<sp/>2015/01/11<sp/>13:53:25<sp/>peter<sp/>Exp<sp/>$</highlight></codeline>
+<codeline lineno="8"><highlight class="comment">*<sp/><sp/>Software:<sp/>AVR-GCC<sp/>4.x,<sp/>AVR<sp/>Libc<sp/>1.4<sp/>or<sp/>higher</highlight></codeline>
+<codeline lineno="9"><highlight class="comment">*<sp/><sp/>Hardware:<sp/>any<sp/>AVR<sp/>with<sp/>built-in<sp/>UART/USART</highlight></codeline>
+<codeline lineno="10"><highlight class="comment">*<sp/><sp/>Usage:<sp/><sp/><sp/><sp/>see<sp/>Doxygen<sp/>manual</highlight></codeline>
+<codeline lineno="11"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="12"><highlight class="comment">*<sp/><sp/>LICENSE:</highlight></codeline>
+<codeline lineno="13"><highlight class="comment">*<sp/><sp/><sp/>Copyright<sp/>(C)<sp/>2015<sp/>Peter<sp/>Fleury,<sp/>GNU<sp/>General<sp/>Public<sp/>License<sp/>Version<sp/>3</highlight></codeline>
+<codeline lineno="14"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment">*<sp/><sp/><sp/>This<sp/>program<sp/>is<sp/>free<sp/>software;<sp/>you<sp/>can<sp/>redistribute<sp/>it<sp/>and/or<sp/>modify</highlight></codeline>
+<codeline lineno="16"><highlight class="comment">*<sp/><sp/><sp/>it<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General<sp/>Public<sp/>License<sp/>as<sp/>published<sp/>by</highlight></codeline>
+<codeline lineno="17"><highlight class="comment">*<sp/><sp/><sp/>the<sp/>Free<sp/>Software<sp/>Foundation;<sp/>either<sp/>version<sp/>3<sp/>of<sp/>the<sp/>License,<sp/>or</highlight></codeline>
+<codeline lineno="18"><highlight class="comment">*<sp/><sp/><sp/>any<sp/>later<sp/>version.</highlight></codeline>
+<codeline lineno="19"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="20"><highlight class="comment">*<sp/><sp/><sp/>This<sp/>program<sp/>is<sp/>distributed<sp/>in<sp/>the<sp/>hope<sp/>that<sp/>it<sp/>will<sp/>be<sp/>useful,</highlight></codeline>
+<codeline lineno="21"><highlight class="comment">*<sp/><sp/><sp/>but<sp/>WITHOUT<sp/>ANY<sp/>WARRANTY;<sp/>without<sp/>even<sp/>the<sp/>implied<sp/>warranty<sp/>of</highlight></codeline>
+<codeline lineno="22"><highlight class="comment">*<sp/><sp/><sp/>MERCHANTABILITY<sp/>or<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE.<sp/><sp/>See<sp/>the</highlight></codeline>
+<codeline lineno="23"><highlight class="comment">*<sp/><sp/><sp/>GNU<sp/>General<sp/>Public<sp/>License<sp/>for<sp/>more<sp/>details.</highlight></codeline>
+<codeline lineno="24"><highlight class="comment">*</highlight></codeline>
+<codeline lineno="25"><highlight class="comment">************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;avr/pgmspace.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(__GNUC__<sp/>*<sp/>100<sp/>+<sp/>__GNUC_MINOR__)<sp/>&lt;<sp/>405</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>error<sp/>&quot;This<sp/>library<sp/>requires<sp/>AVR-GCC<sp/>4.5<sp/>or<sp/>later,<sp/>update<sp/>to<sp/>newer<sp/>AVR-GCC<sp/>compiler<sp/>!&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="62"><highlight class="comment">**<sp/>constants<sp/>and<sp/>macros</highlight></codeline>
+<codeline lineno="63"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="70" refid="group__pfleury__uart_1ga367ff7b5de225ed936a63239ad4adb0b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_BAUD_SELECT(baudRate,<sp/>xtalCpu)<sp/>(((xtalCpu)<sp/>+<sp/>8UL<sp/>*<sp/>(baudRate))<sp/>/<sp/>(16UL<sp/>*<sp/>(baudRate))<sp/>-<sp/>1UL)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="group__pfleury__uart_1ga1a02d45130520cb651ab313e69039382" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_BAUD_SELECT_DOUBLE_SPEED(baudRate,<sp/>xtalCpu)<sp/>(<sp/>((((xtalCpu)<sp/>+<sp/>4UL<sp/>*<sp/>(baudRate))<sp/>/<sp/>(8UL<sp/>*<sp/>(baudRate))<sp/>-<sp/>1UL))<sp/>|<sp/>0x8000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>UART_RX_BUFFER_SIZE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="group__pfleury__uart_1ga5bdd6772c246436bb14377095de79b31" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>UART_RX_BUFFER_SIZE<sp/>128</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>UART_TX_BUFFER_SIZE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="group__pfleury__uart_1ga05f5d709605c6317c97e4974bec3402a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>UART_TX_BUFFER_SIZE<sp/>128</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>TX_NEWLINE<sp/>{transmitByte(0x0d);<sp/>transmitByte(0x0a);}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>test<sp/>if<sp/>the<sp/>size<sp/>of<sp/>the<sp/>circular<sp/>buffers<sp/>fits<sp/>into<sp/>SRAM<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>(<sp/>(UART_RX_BUFFER_SIZE<sp/>+<sp/>UART_TX_BUFFER_SIZE)<sp/>&gt;=<sp/>(RAMEND<sp/>-<sp/>0x60<sp/>)<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>error<sp/>&quot;size<sp/>of<sp/>UART_RX_BUFFER_SIZE<sp/>+<sp/>UART_TX_BUFFER_SIZE<sp/>larger<sp/>than<sp/>size<sp/>of<sp/>SRAM&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="102"><highlight class="comment">**<sp/>high<sp/>byte<sp/>error<sp/>return<sp/>code<sp/>of<sp/>uart_getc()</highlight></codeline>
+<codeline lineno="103"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="group__pfleury__uart_1gabcdb1041d763560cd8f8e722370dfd37" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_FRAME_ERROR<sp/><sp/><sp/><sp/><sp/>0x1000<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105" refid="group__pfleury__uart_1ga3183177e3613d8785d8cc8516931beb6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_OVERRUN_ERROR<sp/><sp/><sp/>0x0800<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="group__pfleury__uart_1ga946e3d317937e003d2057bf19e96dd1d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_PARITY_ERROR<sp/><sp/><sp/><sp/>0x0400<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="group__pfleury__uart_1ga94758f3dad6864703b7417d3e40f11df" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_BUFFER_OVERFLOW<sp/>0x0200<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="group__pfleury__uart_1ga77ba544d423ff42d400220a05303f268" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UART_NO_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x0100<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="112"><highlight class="comment">**<sp/>function<sp/>prototypes</highlight></codeline>
+<codeline lineno="113"><highlight class="comment">*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gac19a76bb7d446125734a67f9f4b68991" kindref="member">uart_init</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>baudrate);</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gaefaab30a8338ec46a6be35b99b1b4f09" kindref="member">uart_getc</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kindref="member">uart_puts</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*s);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1ga6d78b6744db6232f52b4616402036c2f" kindref="member">uart_puts_p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*s);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187" refid="group__pfleury__uart_1gae9e143569df2285379bc55f9f5595bf9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>uart_puts_P(__s)<sp/>uart_puts_p(PSTR(__s))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191" refid="group__pfleury__uart_1ga4db697cb5469fd70e794fa7df73a6d6a" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1ga4db697cb5469fd70e794fa7df73a6d6a" kindref="member">uart1_init</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>baudrate);</highlight></codeline>
+<codeline lineno="193" refid="group__pfleury__uart_1gaeb1405c641e5bc9b7224018f5e8d90de" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gaeb1405c641e5bc9b7224018f5e8d90de" kindref="member">uart1_getc</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="195" refid="group__pfleury__uart_1gab465f689d197fadfbacc374fc9411154" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1gab465f689d197fadfbacc374fc9411154" kindref="member">uart1_putc</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="197" refid="group__pfleury__uart_1ga5568f8f3913b218fd4d0346af78831b2" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1ga5568f8f3913b218fd4d0346af78831b2" kindref="member">uart1_puts</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*s);</highlight></codeline>
+<codeline lineno="199" refid="group__pfleury__uart_1ga1e8074d0a2d5922601c5db2f9777ba79" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__pfleury__uart_1ga1e8074d0a2d5922601c5db2f9777ba79" kindref="member">uart1_puts_p</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*s);</highlight></codeline>
+<codeline lineno="201" refid="group__pfleury__uart_1gaabd7a5b0c15611ee9ecb2873cc9ee87a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>uart1_puts_P(__s)<sp/>uart1_puts_p(PSTR(__s))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//<sp/>UART_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="lib/uart/uart.h"/>
+  </compounddef>
+</doxygen>

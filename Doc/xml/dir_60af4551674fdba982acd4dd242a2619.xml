@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_60af4551674fdba982acd4dd242a2619" kind="dir">
+    <compoundname>lib/sgp41</compoundname>
+    <innerfile refid="_sensirion_i2_c_sgp41_8c">SensirionI2CSgp41.c</innerfile>
+    <innerfile refid="_sensirion_i2_c_sgp41_8h">SensirionI2CSgp41.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/sgp41/"/>
+  </compounddef>
+</doxygen>

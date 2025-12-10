@@ -1,0 +1,226 @@
+.TH "BS_Structure" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BS_Structure
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <FAT32\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBjumpBoot\fP [3]"
+.br
+.ti -1c
+.RI "unsigned char \fBOEMName\fP [8]"
+.br
+.ti -1c
+.RI "unsigned int \fBbytesPerSector\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBsectorPerCluster\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBreservedSectorCount\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBnumberofFATs\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBrootEntryCount\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBtotalSectors_F16\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBmediaType\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBFATsize_F16\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBsectorsPerTrack\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBnumberofHeads\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBhiddenSectors\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBtotalSectors_F32\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBFATsize_F32\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBextFlags\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBFSversion\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBrootCluster\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBFSinfo\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBBackupBootSector\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBreserved\fP [12]"
+.br
+.ti -1c
+.RI "unsigned char \fBdriveNumber\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBreserved1\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBbootSignature\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBvolumeID\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBvolumeLabel\fP [11]"
+.br
+.ti -1c
+.RI "unsigned char \fBfileSystemType\fP [8]"
+.br
+.ti -1c
+.RI "unsigned char \fBbootData\fP [420]"
+.br
+.ti -1c
+.RI "unsigned int \fBbootEndSignature\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB35\fP of file \fBFAT32\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "unsigned int BS_Structure::BackupBootSector"
+
+.PP
+Definition at line \fB55\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::bootData[420]"
+
+.PP
+Definition at line \fB63\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::bootEndSignature"
+
+.PP
+Definition at line \fB64\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::bootSignature"
+
+.PP
+Definition at line \fB59\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::bytesPerSector"
+
+.PP
+Definition at line \fB38\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::driveNumber"
+
+.PP
+Definition at line \fB57\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::extFlags"
+
+.PP
+Definition at line \fB51\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::FATsize_F16"
+
+.PP
+Definition at line \fB45\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long BS_Structure::FATsize_F32"
+
+.PP
+Definition at line \fB50\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::fileSystemType[8]"
+
+.PP
+Definition at line \fB62\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::FSinfo"
+
+.PP
+Definition at line \fB54\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::FSversion"
+
+.PP
+Definition at line \fB52\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long BS_Structure::hiddenSectors"
+
+.PP
+Definition at line \fB48\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::jumpBoot[3]"
+
+.PP
+Definition at line \fB36\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::mediaType"
+
+.PP
+Definition at line \fB44\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::numberofFATs"
+
+.PP
+Definition at line \fB41\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::numberofHeads"
+
+.PP
+Definition at line \fB47\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::OEMName[8]"
+
+.PP
+Definition at line \fB37\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::reserved[12]"
+
+.PP
+Definition at line \fB56\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::reserved1"
+
+.PP
+Definition at line \fB58\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::reservedSectorCount"
+
+.PP
+Definition at line \fB40\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long BS_Structure::rootCluster"
+
+.PP
+Definition at line \fB53\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::rootEntryCount"
+
+.PP
+Definition at line \fB42\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::sectorPerCluster"
+
+.PP
+Definition at line \fB39\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::sectorsPerTrack"
+
+.PP
+Definition at line \fB46\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned int BS_Structure::totalSectors_F16"
+
+.PP
+Definition at line \fB43\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long BS_Structure::totalSectors_F32"
+
+.PP
+Definition at line \fB49\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long BS_Structure::volumeID"
+
+.PP
+Definition at line \fB60\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char BS_Structure::volumeLabel[11]"
+
+.PP
+Definition at line \fB61\fP of file \fBFAT32\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

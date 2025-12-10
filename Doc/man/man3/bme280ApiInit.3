@@ -1,0 +1,52 @@
+.TH "bme280ApiInit" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280ApiInit \- Initialization
+.PP
+ \- Initialize the sensor and device structure\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SH "Detailed Description"
+.PP 
+Initialize the sensor and device structure\&. 
+
+CPP guard bme280_init
+.PP
+
+.PP
+.nf
+int8_t bme280_init(struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API reads the chip-id of the sensor which is the first step to verify the sensor and also calibrates the sensor As this API is the entry point, call this API before using other APIs\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIdev\fP : Structure instance of \fBbme280_dev\fP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

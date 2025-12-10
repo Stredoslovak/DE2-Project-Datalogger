@@ -1,0 +1,58 @@
+\doxysection{bme280.\+h}
+\label{bme280_8h_source}\index{lib/bme280/bme280.h@{lib/bme280/bme280.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#ifndef\ \_BME280\_H}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ \_BME280\_H}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ Header\ includes\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#include\ "{}bme280\_defs.h"{}}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00085\ int8\_t\ bme280\_init(\textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00114\ int8\_t\ bme280\_set\_regs(uint8\_t\ *reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00136\ int8\_t\ bme280\_get\_regs(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00179\ int8\_t\ bme280\_set\_sensor\_settings(uint8\_t\ desired\_settings,}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings,}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00202\ int8\_t\ bme280\_get\_sensor\_settings(\textcolor{keyword}{struct}\ bme280\_settings\ *settings,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00236\ int8\_t\ bme280\_set\_sensor\_mode(uint8\_t\ sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00264\ int8\_t\ bme280\_get\_sensor\_mode(uint8\_t\ *sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00289\ int8\_t\ bme280\_soft\_reset(\textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00296\ }
+\DoxyCodeLine{00329\ int8\_t\ bme280\_get\_sensor\_data(uint8\_t\ sensor\_comp,\ \textcolor{keyword}{struct}\ bme280\_data\ *comp\_data,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00359\ int8\_t\ bme280\_compensate\_data(uint8\_t\ sensor\_comp,}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_uncomp\_data\ *uncomp\_data,}
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_data\ *comp\_data,}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib\_data);}
+\DoxyCodeLine{00363\ }
+\DoxyCodeLine{00369\ }
+\DoxyCodeLine{00391\ int8\_t\ bme280\_cal\_meas\_delay(uint32\_t\ *max\_delay,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_settings\ *settings);}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00394\ \}}
+\DoxyCodeLine{00395\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ End\ of\ CPP\ guard\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00396\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_BME280\_H\ */}\textcolor{preprocessor}{}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

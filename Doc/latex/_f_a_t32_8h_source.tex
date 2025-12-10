@@ -1,0 +1,162 @@
+\doxysection{FAT32.\+h}
+\label{_f_a_t32_8h_source}\index{lib/FAT32/FAT32.h@{lib/FAT32/FAT32.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//********************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ ****\ ROUTINES\ FOR\ FAT32\ IMPLEMATATION\ OF\ SD\ CARD\ *****}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//********************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//Controller\ \ \ \ \ \ \ \ :\ ATmega32\ (Clock:\ 8\ Mhz-\/internal)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//Compiler\ \ \ \ \ \ \ \ \ \ :\ AVR-\/GCC\ (winAVR\ with\ AVRStudio-\/4)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//Project\ Version\ \ \ :\ DL\_1.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//Author\ \ \ \ \ \ \ \ \ \ \ \ :\ CC\ Dharmani,\ Chennai\ (India)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.dharmanitech.com}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//Date\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 10\ May\ 2011}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//*********************************************************}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#ifndef\ \_FAT32\_H\_}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ \_FAT32\_H\_}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//Structure\ to\ access\ Master\ Boot\ Record\ for\ getting\ info\ about\ partioions}}
+\DoxyCodeLine{00016\ \textcolor{keyword}{struct\ }MBRinfo\_Structure\{}
+\DoxyCodeLine{00017\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ nothing[446];\ \ \ \ \ \ \ \textcolor{comment}{//ignore,\ placed\ here\ to\ fill\ the\ gap\ in\ the\ structure}}
+\DoxyCodeLine{00018\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ partitionData[64];\ \ \textcolor{comment}{//partition\ records\ (16x4)}}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ signature;\ \ \ \ \ \ \textcolor{comment}{//0xaa55}}
+\DoxyCodeLine{00020\ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//Structure\ to\ access\ info\ of\ the\ first\ partioion\ of\ the\ disk\ }}
+\DoxyCodeLine{00023\ \textcolor{keyword}{struct\ }partitionInfo\_Structure\{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00024\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ status;\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//0x80\ -\/\ active\ partition}}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ headStart;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//starting\ head}}
+\DoxyCodeLine{00026\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ cylSectStart;\ \ \ \ \ \ \ \textcolor{comment}{//starting\ cylinder\ and\ sector}}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ type;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//partition\ type\ }}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ \ \ headEnd;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//ending\ head\ of\ the\ partition}}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ \ \ cylSectEnd;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//ending\ cylinder\ and\ sector}}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ firstSector;\ \ \ \ \ \ \ \ \textcolor{comment}{//total\ sectors\ between\ MBR\ \&\ the\ first\ sector\ of\ the\ partition}}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ \ \ sectorsTotal;\ \ \ \ \ \ \ \textcolor{comment}{//size\ of\ this\ partition\ in\ sectors}}
+\DoxyCodeLine{00032\ \};}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{comment}{//Structure\ to\ access\ boot\ sector\ data}}
+\DoxyCodeLine{00035\ \textcolor{keyword}{struct\ }BS\_Structure\{}
+\DoxyCodeLine{00036\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ jumpBoot[3];\ \textcolor{comment}{//default:\ 0x009000EB}}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ OEMName[8];}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bytesPerSector;\ \textcolor{comment}{//deafault:\ 512}}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ sectorPerCluster;}
+\DoxyCodeLine{00040\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ reservedSectorCount;}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ numberofFATs;}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ rootEntryCount;}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ totalSectors\_F16;\ \textcolor{comment}{//must\ be\ 0\ for\ FAT32}}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ mediaType;}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ FATsize\_F16;\ \textcolor{comment}{//must\ be\ 0\ for\ FAT32}}
+\DoxyCodeLine{00046\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ sectorsPerTrack;}
+\DoxyCodeLine{00047\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ numberofHeads;}
+\DoxyCodeLine{00048\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ hiddenSectors;}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalSectors\_F32;}
+\DoxyCodeLine{00050\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ FATsize\_F32;\ \textcolor{comment}{//count\ of\ sectors\ occupied\ by\ one\ FAT}}
+\DoxyCodeLine{00051\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ extFlags;}
+\DoxyCodeLine{00052\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ FSversion;\ \textcolor{comment}{//0x0000\ (defines\ version\ 0.0)}}
+\DoxyCodeLine{00053\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ rootCluster;\ \textcolor{comment}{//first\ cluster\ of\ root\ directory\ (=2)}}
+\DoxyCodeLine{00054\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ FSinfo;\ \textcolor{comment}{//sector\ number\ of\ FSinfo\ structure\ (=1)}}
+\DoxyCodeLine{00055\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ BackupBootSector;}
+\DoxyCodeLine{00056\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ reserved[12];}
+\DoxyCodeLine{00057\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ driveNumber;}
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ reserved1;}
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ bootSignature;}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ volumeID;}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ volumeLabel[11];\ \textcolor{comment}{//"{}NO\ NAME\ "{}}}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ fileSystemType[8];\ \textcolor{comment}{//"{}FAT32"{}}}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ bootData[420];}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ bootEndSignature;\ \textcolor{comment}{//0xaa55}}
+\DoxyCodeLine{00065\ \};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{//Structure\ to\ access\ FSinfo\ sector\ data}}
+\DoxyCodeLine{00069\ \textcolor{keyword}{struct\ }FSInfo\_Structure}
+\DoxyCodeLine{00070\ \{}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ leadSignature;\ \textcolor{comment}{//0x41615252}}
+\DoxyCodeLine{00072\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ reserved1[480];}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ structureSignature;\ \textcolor{comment}{//0x61417272}}
+\DoxyCodeLine{00074\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ freeClusterCount;\ \textcolor{comment}{//initial:\ 0xffffffff}}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ nextFreeCluster;\ \textcolor{comment}{//initial:\ 0xffffffff}}
+\DoxyCodeLine{00076\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ reserved2[12];}
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ trailSignature;\ \textcolor{comment}{//0xaa550000}}
+\DoxyCodeLine{00078\ \};}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \textcolor{comment}{//Structure\ to\ access\ Directory\ Entry\ in\ the\ FAT}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }dir\_Structure\{}
+\DoxyCodeLine{00082\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ name[11];}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ attrib;\ \textcolor{comment}{//file\ attributes}}
+\DoxyCodeLine{00084\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ NTreserved;\ \textcolor{comment}{//always\ 0}}
+\DoxyCodeLine{00085\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ timeTenth;\ \textcolor{comment}{//tenths\ of\ seconds,\ set\ to\ 0\ here}}
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ createTime;\ \textcolor{comment}{//time\ file\ was\ created}}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ createDate;\ \textcolor{comment}{//date\ file\ was\ created}}
+\DoxyCodeLine{00088\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ lastAccessDate;}
+\DoxyCodeLine{00089\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ firstClusterHI;\ \textcolor{comment}{//higher\ word\ of\ the\ first\ cluster\ number}}
+\DoxyCodeLine{00090\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ writeTime;\ \textcolor{comment}{//time\ of\ last\ write}}
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ writeDate;\ \textcolor{comment}{//date\ of\ last\ write}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ firstClusterLO;\ \textcolor{comment}{//lower\ word\ of\ the\ first\ cluster\ number}}
+\DoxyCodeLine{00093\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ fileSize;\ \textcolor{comment}{//size\ of\ file\ in\ bytes}}
+\DoxyCodeLine{00094\ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{comment}{//Attribute\ definitions\ for\ file/directory}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ ATTR\_READ\_ONLY\ \ \ \ \ 0x01}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#define\ ATTR\_HIDDEN\ \ \ \ \ \ \ \ 0x02}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#define\ ATTR\_SYSTEM\ \ \ \ \ \ \ \ 0x04}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#define\ ATTR\_VOLUME\_ID\ \ \ \ \ 0x08}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ ATTR\_DIRECTORY\ \ \ \ \ 0x10}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#define\ ATTR\_ARCHIVE\ \ \ \ \ \ \ 0x20}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#define\ ATTR\_LONG\_NAME\ \ \ \ \ 0x0f}}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#define\ DIR\_ENTRY\_SIZE\ \ \ \ \ 0x32}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ EMPTY\ \ \ \ \ \ \ \ \ \ \ \ \ \ 0x00}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#define\ DELETED\ \ \ \ \ \ \ \ \ \ \ \ 0xe5}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#define\ GET\ \ \ \ \ 0}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ SET\ \ \ \ \ 1}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ READ\ \ \ \ 0}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ VERIFY\ \ 1}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#define\ ADD\ \ \ \ \ 0}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#define\ REMOVE\ \ 1}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#define\ LOW\ \ \ \ \ 0}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#define\ HIGH\ \ \ \ 1\ \ \ }}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#define\ TOTAL\_FREE\ \ \ 1}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ NEXT\_FREE\ \ \ \ 2}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#define\ GET\_LIST\ \ \ \ \ 0}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#define\ GET\_FILE\ \ \ \ \ 1}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#define\ DELETE\ \ \ \ \ \ \ 2}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ EOF\ \ \ \ \ 0x0fffffff}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ MAX\_STRING\_SIZE\ \ \ \ \ 100\ \ }\textcolor{comment}{//defining\ the\ maximum\ size\ of\ the\ dataString}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \textcolor{comment}{//*************\ external\ variables\ *************}}
+\DoxyCodeLine{00129\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ firstDataSector,\ rootCluster,\ totalClusters;}
+\DoxyCodeLine{00130\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \ bytesPerSector,\ sectorPerCluster,\ reservedSectorCount;}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ unusedSectors,\ appendFileSector,\ appendFileLocation,\ fileSize,\ appendStartCluster;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{//global\ flag\ to\ keep\ track\ of\ free\ cluster\ count\ updating\ in\ FSinfo\ sector}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ freeClusterCountUpdated;}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{//data\ string\ where\ data\ is\ collected\ before\ sending\ to\ the\ card}}
+\DoxyCodeLine{00137\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ dataString[MAX\_STRING\_SIZE];}
+\DoxyCodeLine{00138\ }
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{//*************\ functions\ *************}}
+\DoxyCodeLine{00142\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ getBootSectorData\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00143\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getFirstSector(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterNumber);}
+\DoxyCodeLine{00144\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getSetFreeCluster(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ totOrNext,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ get\_set,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ FSEntry);}
+\DoxyCodeLine{00145\ \textcolor{keyword}{struct\ }dir\_Structure*\ findFiles\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00146\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getSetNextCluster\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterNumber,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ get\_set,\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterEntry);}
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ readFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ convertFileName\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00149\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ writeFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00150\ \textcolor{keywordtype}{void}\ appendFile\ (\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00151\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ searchNextFreeCluster\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startCluster);}
+\DoxyCodeLine{00152\ \textcolor{keywordtype}{void}\ displayMemory\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ memory);}
+\DoxyCodeLine{00153\ \textcolor{keywordtype}{void}\ deleteFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00154\ \textcolor{keywordtype}{void}\ freeMemoryUpdate\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ size);}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

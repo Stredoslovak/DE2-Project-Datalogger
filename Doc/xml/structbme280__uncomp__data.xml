@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structbme280__uncomp__data" kind="struct" language="C++" prot="public">
+    <compoundname>bme280_uncomp_data</compoundname>
+    <includes refid="bme280__defs_8h" local="no">bme280_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbme280__uncomp__data_1afa4d1b43f8412d393dcc5fd41f4203ce" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t bme280_uncomp_data::pressure</definition>
+        <argsstring></argsstring>
+        <name>pressure</name>
+        <qualifiedname>bme280_uncomp_data::pressure</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Un-compensated pressure </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="425" column="14" bodyfile="lib/bme280/bme280_defs.h" bodystart="425" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__uncomp__data_1a0ae24e11ffef8390b948b53ba4dbb652" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t bme280_uncomp_data::temperature</definition>
+        <argsstring></argsstring>
+        <name>temperature</name>
+        <qualifiedname>bme280_uncomp_data::temperature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Un-compensated temperature </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="428" column="14" bodyfile="lib/bme280/bme280_defs.h" bodystart="428" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__uncomp__data_1a31e311e6fc9a49e8159a81017a7393a1" prot="public" static="no" mutable="no">
+        <type>uint32_t</type>
+        <definition>uint32_t bme280_uncomp_data::humidity</definition>
+        <argsstring></argsstring>
+        <name>humidity</name>
+        <qualifiedname>bme280_uncomp_data::humidity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Un-compensated humidity </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="431" column="14" bodyfile="lib/bme280/bme280_defs.h" bodystart="431" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>bme280 sensor structure which comprises of uncompensated temperature, pressure and humidity data </para>
+    </briefdescription>
+    <detaileddescription>
+<para>BME280_USE_FLOATING_POINT </para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280_defs.h" line="422" column="1" bodyfile="lib/bme280/bme280_defs.h" bodystart="423" bodyend="432"/>
+    <listofallmembers>
+      <member refid="structbme280__uncomp__data_1a31e311e6fc9a49e8159a81017a7393a1" prot="public" virt="non-virtual"><scope>bme280_uncomp_data</scope><name>humidity</name></member>
+      <member refid="structbme280__uncomp__data_1afa4d1b43f8412d393dcc5fd41f4203ce" prot="public" virt="non-virtual"><scope>bme280_uncomp_data</scope><name>pressure</name></member>
+      <member refid="structbme280__uncomp__data_1a0ae24e11ffef8390b948b53ba4dbb652" prot="public" virt="non-virtual"><scope>bme280_uncomp_data</scope><name>temperature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

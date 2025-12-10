@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_data_bme280_api_bme280_compensate_data" kind="page">
+    <compoundname>bme280_api_bme280_compensate_data</compoundname>
+    <title>bme280_compensate_data</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">int8_t<sp/><ref refid="bme280_8c_1a9f2c3c8c683b434ca10447515f85c0de" kindref="member">bme280_compensate_data</ref>(uint8_t<sp/>sensor_comp,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__uncomp__data" kindref="compound">bme280_uncomp_data</ref><sp/>*uncomp_data,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__data" kindref="compound">bme280_data</ref><sp/>*comp_data,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/>*calib_data);</highlight></codeline>
+</programlisting></para>
+<para>This API is used to compensate the pressure and/or temperature and/or humidity data according to the component selected by the user.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">sensor_comp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Used to select pressure and/or temperature and/or humidity. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">uncomp_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Contains the uncompensated pressure, temperature and humidity data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">comp_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Contains the compensated pressure and/or temperature and/or humidity data. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">calib_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Pointer to <ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of API execution status.</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

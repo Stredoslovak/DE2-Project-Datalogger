@@ -1,0 +1,399 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="bme280_8h" kind="file" language="C++">
+    <compoundname>bme280.h</compoundname>
+    <includes refid="bme280__defs_8h" local="yes">bme280_defs.h</includes>
+    <includedby refid="bme280_8c" local="yes">lib/bme280/bme280.c</includedby>
+    <includedby refid="bme_8c" local="yes">src/bme.c</includedby>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/bme280/bme280.h</label>
+        <link refid="bme280_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>bme280_defs.h</label>
+        <link refid="bme280__defs_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/bme280/bme280.c</label>
+        <link refid="bme280_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/bme280/bme280.h</label>
+        <link refid="bme280_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/bme.c</label>
+        <link refid="bme_8c"/>
+      </node>
+      <node id="4">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="bme280_8h_1af0b7d7a19bb48ec9eb3651b79f0c3e85" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_init</definition>
+        <argsstring>(struct bme280_dev *dev)</argsstring>
+        <name>bme280_init</name>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API is the entry point. It reads the chip-id and calibration data from the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="85" column="8" bodyfile="lib/bme280/bme280.c" bodystart="413" bodyend="444" declfile="lib/bme280/bme280.h" declline="85" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a3ec35a81f49291e9bd1a943703c6df09" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_set_regs</definition>
+        <argsstring>(uint8_t *reg_addr, const uint8_t *reg_data, uint32_t len, struct bme280_dev *dev)</argsstring>
+        <name>bme280_set_regs</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>reg_addr</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>reg_data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API writes the given data to the register address of the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="114" column="8" bodyfile="lib/bme280/bme280.c" bodystart="485" bodyend="549" declfile="lib/bme280/bme280.h" declline="114" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a5bed904938a03b902e48132ff2e33ec7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_get_regs</definition>
+        <argsstring>(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct bme280_dev *dev)</argsstring>
+        <name>bme280_get_regs</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>reg_data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API reads the data from the given register address of the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="136" column="8" bodyfile="lib/bme280/bme280.c" bodystart="449" bodyend="479" declfile="lib/bme280/bme280.h" declline="136" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a00d3e4ef8f4ecf850307790f61eddf76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_set_sensor_settings</definition>
+        <argsstring>(uint8_t desired_settings, const struct bme280_settings *settings, struct bme280_dev *dev)</argsstring>
+        <name>bme280_set_sensor_settings</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>desired_settings</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structbme280__settings" kindref="compound">bme280_settings</ref> *</type>
+          <declname>settings</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API sets the oversampling, filter and standby duration (normal mode) settings in the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="179" column="8" bodyfile="lib/bme280/bme280.c" bodystart="555" bodyend="596" declfile="lib/bme280/bme280.h" declline="179" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1ae394ec42dc3a39d972fcb2123d7af4ed" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_get_sensor_settings</definition>
+        <argsstring>(struct bme280_settings *settings, struct bme280_dev *dev)</argsstring>
+        <name>bme280_get_sensor_settings</name>
+        <param>
+          <type>struct <ref refid="structbme280__settings" kindref="compound">bme280_settings</ref> *</type>
+          <declname>settings</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API gets the oversampling, filter and standby duration (normal mode) settings from the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="202" column="8" bodyfile="lib/bme280/bme280.c" bodystart="602" bodyend="622" declfile="lib/bme280/bme280.h" declline="202" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a6373385e51038a9b982c42e0dce4ba9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_set_sensor_mode</definition>
+        <argsstring>(uint8_t sensor_mode, struct bme280_dev *dev)</argsstring>
+        <name>bme280_set_sensor_mode</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>sensor_mode</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API sets the power mode of the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="236" column="8" bodyfile="lib/bme280/bme280.c" bodystart="627" bodyend="649" declfile="lib/bme280/bme280.h" declline="236" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1aab44df556ac18f4e7800d8869a5d483f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_get_sensor_mode</definition>
+        <argsstring>(uint8_t *sensor_mode, struct bme280_dev *dev)</argsstring>
+        <name>bme280_get_sensor_mode</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>sensor_mode</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API gets the power mode of the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="264" column="8" bodyfile="lib/bme280/bme280.c" bodystart="654" bodyend="672" declfile="lib/bme280/bme280.h" declline="264" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a6f874563c32b64cb625677e81ac20740" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_soft_reset</definition>
+        <argsstring>(struct bme280_dev *dev)</argsstring>
+        <name>bme280_soft_reset</name>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API performs the soft reset of the sensor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="289" column="8" bodyfile="lib/bme280/bme280.c" bodystart="677" bodyend="708" declfile="lib/bme280/bme280.h" declline="289" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a6671fea2c1e01f40029a653b9ab4410d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_get_sensor_data</definition>
+        <argsstring>(uint8_t sensor_comp, struct bme280_data *comp_data, struct bme280_dev *dev)</argsstring>
+        <name>bme280_get_sensor_data</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>sensor_comp</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__data" kindref="compound">bme280_data</ref> *</type>
+          <declname>comp_data</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <briefdescription>
+<para>This API reads the pressure, temperature and humidity data from the sensor, compensates the data and store it in the <ref refid="structbme280__data" kindref="compound">bme280_data</ref> structure instance passed by the user. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="329" column="8" bodyfile="lib/bme280/bme280.c" bodystart="715" bodyend="747" declfile="lib/bme280/bme280.h" declline="329" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a9f2c3c8c683b434ca10447515f85c0de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_compensate_data</definition>
+        <argsstring>(uint8_t sensor_comp, const struct bme280_uncomp_data *uncomp_data, struct bme280_data *comp_data, struct bme280_calib_data *calib_data)</argsstring>
+        <name>bme280_compensate_data</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>sensor_comp</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structbme280__uncomp__data" kindref="compound">bme280_uncomp_data</ref> *</type>
+          <declname>uncomp_data</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__data" kindref="compound">bme280_data</ref> *</type>
+          <declname>comp_data</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref> *</type>
+          <declname>calib_data</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to compensate the pressure and/or temperature and/or humidity data according to the component selected by the user. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="359" column="8" bodyfile="lib/bme280/bme280.c" bodystart="754" bodyend="793" declfile="lib/bme280/bme280.h" declline="359" declcolumn="8"/>
+      </memberdef>
+      <memberdef kind="function" id="bme280_8h_1a8cd94409bc278b9a0cdd11206d0652ca" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int8_t</type>
+        <definition>int8_t bme280_cal_meas_delay</definition>
+        <argsstring>(uint32_t *max_delay, const struct bme280_settings *settings)</argsstring>
+        <name>bme280_cal_meas_delay</name>
+        <param>
+          <type>uint32_t *</type>
+          <declname>max_delay</declname>
+        </param>
+        <param>
+          <type>const struct <ref refid="structbme280__settings" kindref="compound">bme280_settings</ref> *</type>
+          <declname>settings</declname>
+        </param>
+        <briefdescription>
+<para>This API is used to calculate the maximum delay in milliseconds required for the temperature/pressure/humidity(whichever are enabled) measurement to complete. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280.h" line="391" column="8" bodyfile="lib/bme280/bme280.c" bodystart="799" bodyend="850" declfile="lib/bme280/bme280.h" declline="391" declcolumn="8"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Sensor driver for BME280 sensor. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.</para>
+<para>BSD-3-Clause</para>
+<para>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</para>
+<para><orderedlist>
+<listitem><para>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</para>
+</listitem><listitem><para>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</para>
+</listitem><listitem><para>Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</para>
+</listitem></orderedlist>
+</para>
+<para>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</para>
+<para><simplesect kind="date"><para>2020-12-17 </para>
+</simplesect>
+<simplesect kind="version"><para>v3.5.1</para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_BME280_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_BME280_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;C&quot;</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Header<sp/>includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="bme280__defs_8h" kindref="compound">bme280_defs.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1af0b7d7a19bb48ec9eb3651b79f0c3e85" kindref="member">bme280_init</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a3ec35a81f49291e9bd1a943703c6df09" kindref="member">bme280_set_regs</ref>(uint8_t<sp/>*reg_addr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a5bed904938a03b902e48132ff2e33ec7" kindref="member">bme280_get_regs</ref>(uint8_t<sp/>reg_addr,<sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a00d3e4ef8f4ecf850307790f61eddf76" kindref="member">bme280_set_sensor_settings</ref>(uint8_t<sp/>desired_settings,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>*settings,</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1ae394ec42dc3a39d972fcb2123d7af4ed" kindref="member">bme280_get_sensor_settings</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>*settings,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a6373385e51038a9b982c42e0dce4ba9f" kindref="member">bme280_set_sensor_mode</ref>(uint8_t<sp/>sensor_mode,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1aab44df556ac18f4e7800d8869a5d483f" kindref="member">bme280_get_sensor_mode</ref>(uint8_t<sp/>*sensor_mode,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="289"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a6f874563c32b64cb625677e81ac20740" kindref="member">bme280_soft_reset</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a6671fea2c1e01f40029a653b9ab4410d" kindref="member">bme280_get_sensor_data</ref>(uint8_t<sp/>sensor_comp,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__data" kindref="compound">bme280_data</ref><sp/>*comp_data,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+<codeline lineno="330"><highlight class="normal"></highlight></codeline>
+<codeline lineno="359"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a9f2c3c8c683b434ca10447515f85c0de" kindref="member">bme280_compensate_data</ref>(uint8_t<sp/>sensor_comp,</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__uncomp__data" kindref="compound">bme280_uncomp_data</ref><sp/>*uncomp_data,</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__data" kindref="compound">bme280_data</ref><sp/>*comp_data,</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/>*calib_data);</highlight></codeline>
+<codeline lineno="363"><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal">int8_t<sp/><ref refid="bme280_8h_1a8cd94409bc278b9a0cdd11206d0652ca" kindref="member">bme280_cal_meas_delay</ref>(uint32_t<sp/>*max_delay,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>*settings);</highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="394"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="395"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>End<sp/>of<sp/>CPP<sp/>guard<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="396"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_BME280_H<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

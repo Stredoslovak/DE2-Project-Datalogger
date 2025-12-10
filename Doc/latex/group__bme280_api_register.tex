@@ -1,0 +1,75 @@
+\doxysubsection{Registers }
+\label{group__bme280_api_register}\index{Registers@{Registers}}
+
+
+Generic API for accessing sensor registers.  
+
+
+Generic API for accessing sensor registers. 
+
+\doxysubsubsection{bme280\+\_\+set\+\_\+regs}\label{bme280_api_bme280_set_regs}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ bme280\_set\_regs(\textcolor{keyword}{const}\ uint8\_t\ reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+
+\end{DoxyCode}
+
+
+This API writes the given data to the register address of the sensor
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em reg\+\_\+addr} & \+: Register addresses to where the data is to be written \\
+\hline
+\mbox{\texttt{in}}  & {\em reg\+\_\+data} & \+: Pointer to data buffer which is to be written in the reg\+\_\+addr of sensor. \\
+\hline
+\mbox{\texttt{in}}  & {\em len} & \+: No of bytes of data to write \\
+\hline
+\mbox{\texttt{in,out}}  & {\em dev} & \+: Structure instance of \doxyref{bme280\+\_\+dev}{p.}{structbme280__dev}\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status.
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}
+\doxysubsubsection{bme280\+\_\+get\+\_\+regs}\label{bme280_api_bme280_get_regs}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ bme280\_get\_regs(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+
+\end{DoxyCode}
+
+
+This API reads the data from the given register address of sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em reg\+\_\+addr} & \+: Register address from where the data to be read \\
+\hline
+\mbox{\texttt{out}}  & {\em reg\+\_\+data} & \+: Pointer to data buffer to store the read data. \\
+\hline
+\mbox{\texttt{in}}  & {\em len} & \+: No of bytes of data to be read. \\
+\hline
+\mbox{\texttt{in,out}}  & {\em dev} & \+: Structure instance of \doxyref{bme280\+\_\+dev}{p.}{structbme280__dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status.
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}

@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structpartition_info___structure" kind="struct" language="C++" prot="public">
+    <compoundname>partitionInfo_Structure</compoundname>
+    <includes refid="_f_a_t32_8h" local="no">FAT32.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structpartition_info___structure_1a70b734a0878d426ac9c6da0a94b466d0" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char partitionInfo_Structure::status</definition>
+        <argsstring></argsstring>
+        <name>status</name>
+        <qualifiedname>partitionInfo_Structure::status</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="24" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a736782ddf708dc130b09909aba23ab3b" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char partitionInfo_Structure::headStart</definition>
+        <argsstring></argsstring>
+        <name>headStart</name>
+        <qualifiedname>partitionInfo_Structure::headStart</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="25" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a8da58ea6de317c87bfc0183ccf1b2e2b" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int partitionInfo_Structure::cylSectStart</definition>
+        <argsstring></argsstring>
+        <name>cylSectStart</name>
+        <qualifiedname>partitionInfo_Structure::cylSectStart</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="26" column="13" bodyfile="lib/FAT32/FAT32.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a19a736deab9c3e705688e2d3c2a8139d" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char partitionInfo_Structure::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <qualifiedname>partitionInfo_Structure::type</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="27" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a1d5a88999390f37bed55fdf04a1d138b" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char partitionInfo_Structure::headEnd</definition>
+        <argsstring></argsstring>
+        <name>headEnd</name>
+        <qualifiedname>partitionInfo_Structure::headEnd</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="28" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="28" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a61507a320b2eaec3b412778df21d4cf0" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int partitionInfo_Structure::cylSectEnd</definition>
+        <argsstring></argsstring>
+        <name>cylSectEnd</name>
+        <qualifiedname>partitionInfo_Structure::cylSectEnd</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="29" column="13" bodyfile="lib/FAT32/FAT32.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a90664247ac05aa81fb8f7af3f0cf8eb7" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long partitionInfo_Structure::firstSector</definition>
+        <argsstring></argsstring>
+        <name>firstSector</name>
+        <qualifiedname>partitionInfo_Structure::firstSector</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="30" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structpartition_info___structure_1a0bd4f974d31b6da25d50d4d9a998649a" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long partitionInfo_Structure::sectorsTotal</definition>
+        <argsstring></argsstring>
+        <name>sectorsTotal</name>
+        <qualifiedname>partitionInfo_Structure::sectorsTotal</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="31" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/FAT32/FAT32.h" line="23" column="1" bodyfile="lib/FAT32/FAT32.h" bodystart="23" bodyend="32"/>
+    <listofallmembers>
+      <member refid="structpartition_info___structure_1a61507a320b2eaec3b412778df21d4cf0" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>cylSectEnd</name></member>
+      <member refid="structpartition_info___structure_1a8da58ea6de317c87bfc0183ccf1b2e2b" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>cylSectStart</name></member>
+      <member refid="structpartition_info___structure_1a90664247ac05aa81fb8f7af3f0cf8eb7" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>firstSector</name></member>
+      <member refid="structpartition_info___structure_1a1d5a88999390f37bed55fdf04a1d138b" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>headEnd</name></member>
+      <member refid="structpartition_info___structure_1a736782ddf708dc130b09909aba23ab3b" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>headStart</name></member>
+      <member refid="structpartition_info___structure_1a0bd4f974d31b6da25d50d4d9a998649a" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>sectorsTotal</name></member>
+      <member refid="structpartition_info___structure_1a70b734a0878d426ac9c6da0a94b466d0" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>status</name></member>
+      <member refid="structpartition_info___structure_1a19a736deab9c3e705688e2d3c2a8139d" prot="public" virt="non-virtual"><scope>partitionInfo_Structure</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

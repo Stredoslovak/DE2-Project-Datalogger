@@ -1,0 +1,1541 @@
+\doxysection{lib/bme280/bme280\+\_\+defs.h File Reference}
+\label{bme280__defs_8h}\index{lib/bme280/bme280\_defs.h@{lib/bme280/bme280\_defs.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \textbf{ bme280\+\_\+calib\+\_\+data}
+\begin{DoxyCompactList}\small\item\em Calibration data. \end{DoxyCompactList}\item 
+struct \textbf{ bme280\+\_\+data}
+\begin{DoxyCompactList}\small\item\em bme280 sensor structure which comprises of temperature, pressure and humidity data \end{DoxyCompactList}\item 
+struct \textbf{ bme280\+\_\+uncomp\+\_\+data}
+\begin{DoxyCompactList}\small\item\em bme280 sensor structure which comprises of uncompensated temperature, pressure and humidity data \end{DoxyCompactList}\item 
+struct \textbf{ bme280\+\_\+settings}
+\begin{DoxyCompactList}\small\item\em bme280 sensor settings structure which comprises of mode, oversampling and filter settings. \end{DoxyCompactList}\item 
+struct \textbf{ bme280\+\_\+dev}
+\begin{DoxyCompactList}\small\item\em bme280 device structure \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Common macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ INT8\+\_\+C}(x)
+\item 
+\#define \textbf{ UINT8\+\_\+C}(x)
+\item 
+\#define \textbf{ INT16\+\_\+C}(x)
+\item 
+\#define \textbf{ UINT16\+\_\+C}(x)
+\item 
+\#define \textbf{ INT32\+\_\+C}(x)
+\item 
+\#define \textbf{ UINT32\+\_\+C}(x)
+\item 
+\#define \textbf{ INT64\+\_\+C}(x)
+\item 
+\#define \textbf{ UINT64\+\_\+C}(x)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ C standard macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ NULL}~((void $\ast$) 0)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Compiler switch macros Definitions}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+DOUBLE\+\_\+\+ENABLE}
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ General Macro Definitions}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ TRUE}~\textbf{ UINT8\+\_\+C}(1)
+\item 
+\#define \textbf{ FALSE}~\textbf{ UINT8\+\_\+C}(0)
+\item 
+\#define \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}~int8\+\_\+t
+\item 
+\#define \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+SUCCESS}~\textbf{ INT8\+\_\+C}(0)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ API success code}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+OK}~\textbf{ INT8\+\_\+C}(0)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ API error codes}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+NULL\+\_\+\+PTR}~\textbf{ INT8\+\_\+C}(-\/1)
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+COMM\+\_\+\+FAIL}~\textbf{ INT8\+\_\+C}(-\/2)
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+INVALID\+\_\+\+LEN}~\textbf{ INT8\+\_\+C}(-\/3)
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+DEV\+\_\+\+NOT\+\_\+\+FOUND}~\textbf{ INT8\+\_\+C}(-\/4)
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+SLEEP\+\_\+\+MODE\+\_\+\+FAIL}~\textbf{ INT8\+\_\+C}(-\/5)
+\item 
+\#define \textbf{ BME280\+\_\+\+E\+\_\+\+NVM\+\_\+\+COPY\+\_\+\+FAILED}~\textbf{ INT8\+\_\+C}(-\/6)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ API warning codes}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+W\+\_\+\+INVALID\+\_\+\+OSR\+\_\+\+MACRO}~\textbf{ INT8\+\_\+C}(1)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ BME280 chip identifier}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+CHIP\+\_\+\+ID}~\textbf{ UINT8\+\_\+C}(0x60)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ I2C addresses}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+I2\+C\+\_\+\+ADDR\+\_\+\+PRIM}~\textbf{ UINT8\+\_\+C}(0x76)
+\item 
+\#define \textbf{ BME280\+\_\+\+I2\+C\+\_\+\+ADDR\+\_\+\+SEC}~\textbf{ UINT8\+\_\+C}(0x77)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Register Address}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+CHIP\+\_\+\+ID}~\textbf{ UINT8\+\_\+C}(0x\+D0)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+RESET}~\textbf{ UINT8\+\_\+C}(0x\+E0)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+TEMP\+\_\+\+PRESS\+\_\+\+CALIB\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(0x88)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+HUMIDITY\+\_\+\+CALIB\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(0x\+E1)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+HUM}~\textbf{ UINT8\+\_\+C}(0x\+F2)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+STATUS}~\textbf{ UINT8\+\_\+C}(0x\+F3)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+PWR\+\_\+\+CTRL}~\textbf{ UINT8\+\_\+C}(0x\+F4)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+MEAS}~\textbf{ UINT8\+\_\+C}(0x\+F4)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+CONFIG}~\textbf{ UINT8\+\_\+C}(0x\+F5)
+\item 
+\#define \textbf{ BME280\+\_\+\+REG\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(0x\+F7)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Macros related to size}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+LEN\+\_\+\+TEMP\+\_\+\+PRESS\+\_\+\+CALIB\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(26)
+\item 
+\#define \textbf{ BME280\+\_\+\+LEN\+\_\+\+HUMIDITY\+\_\+\+CALIB\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(7)
+\item 
+\#define \textbf{ BME280\+\_\+\+LEN\+\_\+\+P\+\_\+\+T\+\_\+\+H\+\_\+\+DATA}~\textbf{ UINT8\+\_\+C}(8)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Sensor power modes}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+POWERMODE\+\_\+\+SLEEP}~\textbf{ UINT8\+\_\+C}(0x00)
+\item 
+\#define \textbf{ BME280\+\_\+\+POWERMODE\+\_\+\+FORCED}~\textbf{ UINT8\+\_\+C}(0x01)
+\item 
+\#define \textbf{ BME280\+\_\+\+POWERMODE\+\_\+\+NORMAL}~\textbf{ UINT8\+\_\+C}(0x03)
+\item 
+\#define \textbf{ BME280\+\_\+\+SENSOR\+\_\+\+MODE\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x03)
+\item 
+\#define \textbf{ BME280\+\_\+\+SENSOR\+\_\+\+MODE\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x00)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Soft reset command}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+SOFT\+\_\+\+RESET\+\_\+\+COMMAND}~\textbf{ UINT8\+\_\+C}(0x\+B6)
+\item 
+\#define \textbf{ BME280\+\_\+\+STATUS\+\_\+\+IM\+\_\+\+UPDATE}~\textbf{ UINT8\+\_\+C}(0x01)
+\item 
+\#define \textbf{ BME280\+\_\+\+STATUS\+\_\+\+MEAS\+\_\+\+DONE}~\textbf{ UINT8\+\_\+C}(0x08)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Sensor component selection macros}\par
+{\em These values are internal for API implementation. Don\textquotesingle{}t relate this to data sheet. }\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+PRESS}~\textbf{ UINT8\+\_\+C}(1)
+\item 
+\#define \textbf{ BME280\+\_\+\+TEMP}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 1)
+\item 
+\#define \textbf{ BME280\+\_\+\+HUM}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 2)
+\item 
+\#define \textbf{ BME280\+\_\+\+ALL}~\textbf{ UINT8\+\_\+C}(0x07)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Settings selection macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+PRESS}~\textbf{ UINT8\+\_\+C}(1)
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+TEMP}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 1)
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+HUM}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 2)
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+FILTER}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 3)
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+STANDBY}~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 4)
+\item 
+\#define \textbf{ BME280\+\_\+\+SEL\+\_\+\+ALL\+\_\+\+SETTINGS}~\textbf{ UINT8\+\_\+C}(0x1F)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Oversampling macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+NO\+\_\+\+OVERSAMPLING}~\textbf{ UINT8\+\_\+C}(0x00)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+1X}~\textbf{ UINT8\+\_\+C}(0x01)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+2X}~\textbf{ UINT8\+\_\+C}(0x02)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+4X}~\textbf{ UINT8\+\_\+C}(0x03)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+8X}~\textbf{ UINT8\+\_\+C}(0x04)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+16X}~\textbf{ UINT8\+\_\+C}(0x05)
+\item 
+\#define \textbf{ BME280\+\_\+\+OVERSAMPLING\+\_\+\+MAX}~\textbf{ UINT8\+\_\+C}(16)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+HUM\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x07)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+HUM\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x00)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+PRESS\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x1C)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+PRESS\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x02)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+TEMP\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x\+E0)
+\item 
+\#define \textbf{ BME280\+\_\+\+CTRL\+\_\+\+TEMP\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x05)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Measurement delay calculation macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+MEAS\+\_\+\+OFFSET}~\textbf{ UINT16\+\_\+C}(1250)
+\item 
+\#define \textbf{ BME280\+\_\+\+MEAS\+\_\+\+DUR}~\textbf{ UINT16\+\_\+C}(2300)
+\item 
+\#define \textbf{ BME280\+\_\+\+PRES\+\_\+\+HUM\+\_\+\+MEAS\+\_\+\+OFFSET}~\textbf{ UINT16\+\_\+C}(575)
+\item 
+\#define \textbf{ BME280\+\_\+\+MEAS\+\_\+\+SCALING\+\_\+\+FACTOR}~\textbf{ UINT16\+\_\+C}(1000)
+\item 
+\#define \textbf{ BME280\+\_\+\+STARTUP\+\_\+\+DELAY}~\textbf{ UINT16\+\_\+C}(2000)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Length macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+MAX\+\_\+\+LEN}~\textbf{ UINT8\+\_\+C}(10)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Standby duration selection macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+0\+\_\+5\+\_\+\+MS}~(0x00)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+62\+\_\+5\+\_\+\+MS}~(0x01)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+125\+\_\+\+MS}~(0x02)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+250\+\_\+\+MS}~(0x03)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+500\+\_\+\+MS}~(0x04)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+1000\+\_\+\+MS}~(0x05)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+10\+\_\+\+MS}~(0x06)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+20\+\_\+\+MS}~(0x07)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x\+E0)
+\item 
+\#define \textbf{ BME280\+\_\+\+STANDBY\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x05)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Bit shift macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+12\+\_\+\+BIT\+\_\+\+SHIFT}~\textbf{ UINT8\+\_\+C}(12)
+\item 
+\#define \textbf{ BME280\+\_\+8\+\_\+\+BIT\+\_\+\+SHIFT}~\textbf{ UINT8\+\_\+C}(8)
+\item 
+\#define \textbf{ BME280\+\_\+4\+\_\+\+BIT\+\_\+\+SHIFT}~\textbf{ UINT8\+\_\+C}(4)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Filter coefficient selection macros}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+\+OFF}~(0x00)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+2}~(0x01)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+4}~(0x02)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+8}~(0x03)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+16}~(0x04)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+MSK}~\textbf{ UINT8\+\_\+C}(0x1C)
+\item 
+\#define \textbf{ BME280\+\_\+\+FILTER\+\_\+\+POS}~\textbf{ UINT8\+\_\+C}(0x02)
+\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Macro to combine two 8 bit data\textquotesingle{}s to form a 16 bit data}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+CONCAT\+\_\+\+BYTES}(msb,  lsb)
+\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Typedefs}
+\begin{Indent}\textbf{ Function Pointers}\par
+\begin{DoxyCompactItemize}
+\item 
+typedef \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}($\ast$ \textbf{ bme280\+\_\+read\+\_\+fptr\+\_\+t}) (uint8\+\_\+t reg\+\_\+addr, uint8\+\_\+t $\ast$reg\+\_\+data, uint32\+\_\+t len, void $\ast$intf\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Bus communication function pointer which should be mapped to the platform specific read functions of the user. \end{DoxyCompactList}\item 
+typedef \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}($\ast$ \textbf{ bme280\+\_\+write\+\_\+fptr\+\_\+t}) (uint8\+\_\+t reg\+\_\+addr, const uint8\+\_\+t $\ast$reg\+\_\+data, uint32\+\_\+t len, void $\ast$intf\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Bus communication function pointer which should be mapped to the platform specific write functions of the user. \end{DoxyCompactList}\item 
+typedef void($\ast$ \textbf{ bme280\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t}) (uint32\+\_\+t period, void $\ast$intf\+\_\+ptr)
+\begin{DoxyCompactList}\small\item\em Delay function pointer which should be mapped to delay function of the user. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Macro to SET and GET BITS of a register}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ BME280\+\_\+\+SET\+\_\+\+BITS}(reg\+\_\+data,  bitname,  \textbf{ data})
+\item 
+\#define \textbf{ BME280\+\_\+\+SET\+\_\+\+BITS\+\_\+\+POS\+\_\+0}(reg\+\_\+data,  bitname,  \textbf{ data})
+\item 
+\#define \textbf{ BME280\+\_\+\+GET\+\_\+\+BITS}(reg\+\_\+data,  bitname)
+\item 
+\#define \textbf{ BME280\+\_\+\+GET\+\_\+\+BITS\+\_\+\+POS\+\_\+0}(reg\+\_\+data,  bitname)
+\item 
+enum \textbf{ bme280\+\_\+intf} \{ \textbf{ BME280\+\_\+\+SPI\+\_\+\+INTF}
+, \textbf{ BME280\+\_\+\+I2\+C\+\_\+\+INTF}
+ \}
+\begin{DoxyCompactList}\small\item\em Interface selection Enums. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.
+
+BSD-\/3-\/\+Clause
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met\+:
+
+
+\begin{DoxyEnumerate}
+\item Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+\item Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+\item Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+\end{DoxyEnumerate}
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "{}\+AS IS"{} AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+\begin{DoxyDate}{Date}
+2020-\/12-\/17 
+\end{DoxyDate}
+\begin{DoxyVersion}{Version}
+v3.\+5.\+1 
+\end{DoxyVersion}
+
+
+Definition in file \textbf{ bme280\+\_\+defs.\+h}.
+
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_12\_BIT\_SHIFT@{BME280\_12\_BIT\_SHIFT}}
+\index{BME280\_12\_BIT\_SHIFT@{BME280\_12\_BIT\_SHIFT}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_12\_BIT\_SHIFT}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ac95e877c7acc084a25fbd6ef22d7c706} 
+\#define BME280\+\_\+12\+\_\+\+BIT\+\_\+\+SHIFT~\textbf{ UINT8\+\_\+C}(12)}
+
+
+
+Definition at line \textbf{ 230} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_4\_BIT\_SHIFT@{BME280\_4\_BIT\_SHIFT}}
+\index{BME280\_4\_BIT\_SHIFT@{BME280\_4\_BIT\_SHIFT}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_4\_BIT\_SHIFT}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a43815af2cf6844cb8780227ed6e74539} 
+\#define BME280\+\_\+4\+\_\+\+BIT\+\_\+\+SHIFT~\textbf{ UINT8\+\_\+C}(4)}
+
+
+
+Definition at line \textbf{ 232} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_8\_BIT\_SHIFT@{BME280\_8\_BIT\_SHIFT}}
+\index{BME280\_8\_BIT\_SHIFT@{BME280\_8\_BIT\_SHIFT}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_8\_BIT\_SHIFT}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a137364983d137133488d8fd3e650b02a} 
+\#define BME280\+\_\+8\+\_\+\+BIT\+\_\+\+SHIFT~\textbf{ UINT8\+\_\+C}(8)}
+
+
+
+Definition at line \textbf{ 231} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_ALL@{BME280\_ALL}}
+\index{BME280\_ALL@{BME280\_ALL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_ALL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a8b1cf23a873282113bb8218e615855e3} 
+\#define BME280\+\_\+\+ALL~\textbf{ UINT8\+\_\+C}(0x07)}
+
+
+
+Definition at line \textbf{ 180} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CHIP\_ID@{BME280\_CHIP\_ID}}
+\index{BME280\_CHIP\_ID@{BME280\_CHIP\_ID}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CHIP\_ID}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa9471d8f9c99880c3b85360017908e6b} 
+\#define BME280\+\_\+\+CHIP\+\_\+\+ID~\textbf{ UINT8\+\_\+C}(0x60)}
+
+
+
+Definition at line \textbf{ 136} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CONCAT\_BYTES@{BME280\_CONCAT\_BYTES}}
+\index{BME280\_CONCAT\_BYTES@{BME280\_CONCAT\_BYTES}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CONCAT\_BYTES}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a0202d632129238d5f788e362c19ccf93} 
+\#define BME280\+\_\+\+CONCAT\+\_\+\+BYTES(\begin{DoxyParamCaption}\item[{}]{msb}{, }\item[{}]{lsb}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((uint16\_t)msb\ <<\ 8)\ |\ (uint16\_t)lsb)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 245} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_HUM\_MSK@{BME280\_CTRL\_HUM\_MSK}}
+\index{BME280\_CTRL\_HUM\_MSK@{BME280\_CTRL\_HUM\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_HUM\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_af0b6595ecc184d00b061d06cc14b9a29} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+HUM\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x07)}
+
+
+
+Definition at line \textbf{ 199} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_HUM\_POS@{BME280\_CTRL\_HUM\_POS}}
+\index{BME280\_CTRL\_HUM\_POS@{BME280\_CTRL\_HUM\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_HUM\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a90412039a144a430b9e6aeff23b63665} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+HUM\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x00)}
+
+
+
+Definition at line \textbf{ 200} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_PRESS\_MSK@{BME280\_CTRL\_PRESS\_MSK}}
+\index{BME280\_CTRL\_PRESS\_MSK@{BME280\_CTRL\_PRESS\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_PRESS\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a579a2e3a1a74b90ccf28e50dae21d6e4} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+PRESS\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x1C)}
+
+
+
+Definition at line \textbf{ 201} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_PRESS\_POS@{BME280\_CTRL\_PRESS\_POS}}
+\index{BME280\_CTRL\_PRESS\_POS@{BME280\_CTRL\_PRESS\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_PRESS\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aaed4e0278b7c828ed24100640a2d9a82} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+PRESS\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x02)}
+
+
+
+Definition at line \textbf{ 202} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_TEMP\_MSK@{BME280\_CTRL\_TEMP\_MSK}}
+\index{BME280\_CTRL\_TEMP\_MSK@{BME280\_CTRL\_TEMP\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_TEMP\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_af7371331e2fa7adb92322120ace956c2} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+TEMP\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x\+E0)}
+
+
+
+Definition at line \textbf{ 203} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_CTRL\_TEMP\_POS@{BME280\_CTRL\_TEMP\_POS}}
+\index{BME280\_CTRL\_TEMP\_POS@{BME280\_CTRL\_TEMP\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_CTRL\_TEMP\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ae8c4ff4ea9185b90c3bd26a9e51c9ad9} 
+\#define BME280\+\_\+\+CTRL\+\_\+\+TEMP\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x05)}
+
+
+
+Definition at line \textbf{ 204} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_DOUBLE\_ENABLE@{BME280\_DOUBLE\_ENABLE}}
+\index{BME280\_DOUBLE\_ENABLE@{BME280\_DOUBLE\_ENABLE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_DOUBLE\_ENABLE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a694a5a14c5b004fd9c02630a34d1cd9b} 
+\#define BME280\+\_\+\+DOUBLE\+\_\+\+ENABLE}
+
+
+
+Definition at line \textbf{ 92} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_COMM\_FAIL@{BME280\_E\_COMM\_FAIL}}
+\index{BME280\_E\_COMM\_FAIL@{BME280\_E\_COMM\_FAIL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_COMM\_FAIL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2b47776b53e3167b0068bc6ef21f1523} 
+\#define BME280\+\_\+\+E\+\_\+\+COMM\+\_\+\+FAIL~\textbf{ INT8\+\_\+C}(-\/2)}
+
+
+
+Definition at line \textbf{ 126} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_DEV\_NOT\_FOUND@{BME280\_E\_DEV\_NOT\_FOUND}}
+\index{BME280\_E\_DEV\_NOT\_FOUND@{BME280\_E\_DEV\_NOT\_FOUND}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_DEV\_NOT\_FOUND}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a0be1b2946c861fe3e3212e14bb9762a0} 
+\#define BME280\+\_\+\+E\+\_\+\+DEV\+\_\+\+NOT\+\_\+\+FOUND~\textbf{ INT8\+\_\+C}(-\/4)}
+
+
+
+Definition at line \textbf{ 128} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_INVALID\_LEN@{BME280\_E\_INVALID\_LEN}}
+\index{BME280\_E\_INVALID\_LEN@{BME280\_E\_INVALID\_LEN}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_INVALID\_LEN}
+{\footnotesize\ttfamily \label{bme280__defs_8h_afeb74eb5e3f125d1f03be173e40c89b0} 
+\#define BME280\+\_\+\+E\+\_\+\+INVALID\+\_\+\+LEN~\textbf{ INT8\+\_\+C}(-\/3)}
+
+
+
+Definition at line \textbf{ 127} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_NULL\_PTR@{BME280\_E\_NULL\_PTR}}
+\index{BME280\_E\_NULL\_PTR@{BME280\_E\_NULL\_PTR}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_NULL\_PTR}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a269f65e4816ca679d618175efefcb00d} 
+\#define BME280\+\_\+\+E\+\_\+\+NULL\+\_\+\+PTR~\textbf{ INT8\+\_\+C}(-\/1)}
+
+
+
+Definition at line \textbf{ 125} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_NVM\_COPY\_FAILED@{BME280\_E\_NVM\_COPY\_FAILED}}
+\index{BME280\_E\_NVM\_COPY\_FAILED@{BME280\_E\_NVM\_COPY\_FAILED}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_NVM\_COPY\_FAILED}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a8b703c72ef7cc265bc46282e807ab61d} 
+\#define BME280\+\_\+\+E\+\_\+\+NVM\+\_\+\+COPY\+\_\+\+FAILED~\textbf{ INT8\+\_\+C}(-\/6)}
+
+
+
+Definition at line \textbf{ 130} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_E\_SLEEP\_MODE\_FAIL@{BME280\_E\_SLEEP\_MODE\_FAIL}}
+\index{BME280\_E\_SLEEP\_MODE\_FAIL@{BME280\_E\_SLEEP\_MODE\_FAIL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_E\_SLEEP\_MODE\_FAIL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2de574b1e957addef1056b59ec7502d5} 
+\#define BME280\+\_\+\+E\+\_\+\+SLEEP\+\_\+\+MODE\+\_\+\+FAIL~\textbf{ INT8\+\_\+C}(-\/5)}
+
+
+
+Definition at line \textbf{ 129} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_COEFF\_16@{BME280\_FILTER\_COEFF\_16}}
+\index{BME280\_FILTER\_COEFF\_16@{BME280\_FILTER\_COEFF\_16}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_COEFF\_16}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a73ced29de70a4fe0fa1f05676b2604e4} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+16~(0x04)}
+
+
+
+Definition at line \textbf{ 239} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_COEFF\_2@{BME280\_FILTER\_COEFF\_2}}
+\index{BME280\_FILTER\_COEFF\_2@{BME280\_FILTER\_COEFF\_2}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_COEFF\_2}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a225fa757613310b9dfd1cb83cfe71080} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+2~(0x01)}
+
+
+
+Definition at line \textbf{ 236} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_COEFF\_4@{BME280\_FILTER\_COEFF\_4}}
+\index{BME280\_FILTER\_COEFF\_4@{BME280\_FILTER\_COEFF\_4}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_COEFF\_4}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a75df0ff360627c3efdd98ad38a92dab0} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+4~(0x02)}
+
+
+
+Definition at line \textbf{ 237} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_COEFF\_8@{BME280\_FILTER\_COEFF\_8}}
+\index{BME280\_FILTER\_COEFF\_8@{BME280\_FILTER\_COEFF\_8}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_COEFF\_8}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ae6f638d18f380c7e537c02c7bb1a6c22} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+8~(0x03)}
+
+
+
+Definition at line \textbf{ 238} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_COEFF\_OFF@{BME280\_FILTER\_COEFF\_OFF}}
+\index{BME280\_FILTER\_COEFF\_OFF@{BME280\_FILTER\_COEFF\_OFF}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_COEFF\_OFF}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ae61c58ec304b87f6f9726992af323dc3} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+COEFF\+\_\+\+OFF~(0x00)}
+
+
+
+Definition at line \textbf{ 235} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_MSK@{BME280\_FILTER\_MSK}}
+\index{BME280\_FILTER\_MSK@{BME280\_FILTER\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2987fc2cac045851392c6be3adc97321} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x1C)}
+
+
+
+Definition at line \textbf{ 241} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_FILTER\_POS@{BME280\_FILTER\_POS}}
+\index{BME280\_FILTER\_POS@{BME280\_FILTER\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_FILTER\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa1b84aa73f4208ec8bc348f0befd6218} 
+\#define BME280\+\_\+\+FILTER\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x02)}
+
+
+
+Definition at line \textbf{ 242} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_GET\_BITS@{BME280\_GET\_BITS}}
+\index{BME280\_GET\_BITS@{BME280\_GET\_BITS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_GET\_BITS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa28698af242be4e59a2812ebe4165982} 
+\#define BME280\+\_\+\+GET\+\_\+\+BITS(\begin{DoxyParamCaption}\item[{}]{reg\+\_\+data}{, }\item[{}]{bitname}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ ((reg\_data\ \&\ (bitname\#\#\_MSK))\ >>\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (bitname\#\#\_POS))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 256} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_GET\_BITS\_POS\_0@{BME280\_GET\_BITS\_POS\_0}}
+\index{BME280\_GET\_BITS\_POS\_0@{BME280\_GET\_BITS\_POS\_0}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_GET\_BITS\_POS\_0}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2c4248bc9b39a806aca49e34b1a5636c} 
+\#define BME280\+\_\+\+GET\+\_\+\+BITS\+\_\+\+POS\+\_\+0(\begin{DoxyParamCaption}\item[{}]{reg\+\_\+data}{, }\item[{}]{bitname}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(reg\_data\ \&\ (bitname\#\#\_MSK))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 258} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_HUM@{BME280\_HUM}}
+\index{BME280\_HUM@{BME280\_HUM}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_HUM}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a709c35c30ebfe237189e533dedbca264} 
+\#define BME280\+\_\+\+HUM~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 2)}
+
+
+
+Definition at line \textbf{ 179} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_I2C\_ADDR\_PRIM@{BME280\_I2C\_ADDR\_PRIM}}
+\index{BME280\_I2C\_ADDR\_PRIM@{BME280\_I2C\_ADDR\_PRIM}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_I2C\_ADDR\_PRIM}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a34f07b8a4a9b1f48641b131f3dff720c} 
+\#define BME280\+\_\+\+I2\+C\+\_\+\+ADDR\+\_\+\+PRIM~\textbf{ UINT8\+\_\+C}(0x76)}
+
+
+
+Definition at line \textbf{ 139} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_I2C\_ADDR\_SEC@{BME280\_I2C\_ADDR\_SEC}}
+\index{BME280\_I2C\_ADDR\_SEC@{BME280\_I2C\_ADDR\_SEC}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_I2C\_ADDR\_SEC}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ad8bc0d50730a48164ee3a882139e9959} 
+\#define BME280\+\_\+\+I2\+C\+\_\+\+ADDR\+\_\+\+SEC~\textbf{ UINT8\+\_\+C}(0x77)}
+
+
+
+Definition at line \textbf{ 140} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_INTF\_RET\_SUCCESS@{BME280\_INTF\_RET\_SUCCESS}}
+\index{BME280\_INTF\_RET\_SUCCESS@{BME280\_INTF\_RET\_SUCCESS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_INTF\_RET\_SUCCESS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a029e7889430cabdd3fafc3831afe0962} 
+\#define BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+SUCCESS~\textbf{ INT8\+\_\+C}(0)}
+
+The last error code from read/write interface is stored in the device structure as intf\+\_\+rslt. 
+
+Definition at line \textbf{ 118} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_INTF\_RET\_TYPE@{BME280\_INTF\_RET\_TYPE}}
+\index{BME280\_INTF\_RET\_TYPE@{BME280\_INTF\_RET\_TYPE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_INTF\_RET\_TYPE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a88121b05b43598dba724e70a43533a36} 
+\#define BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE~int8\+\_\+t}
+
+BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE is the read/write interface return type which can be overwritten by the build system. 
+
+Definition at line \textbf{ 111} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_LEN\_HUMIDITY\_CALIB\_DATA@{BME280\_LEN\_HUMIDITY\_CALIB\_DATA}}
+\index{BME280\_LEN\_HUMIDITY\_CALIB\_DATA@{BME280\_LEN\_HUMIDITY\_CALIB\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_LEN\_HUMIDITY\_CALIB\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a484eebe5abe3f3ec70b4622fa774f1be} 
+\#define BME280\+\_\+\+LEN\+\_\+\+HUMIDITY\+\_\+\+CALIB\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(7)}
+
+
+
+Definition at line \textbf{ 156} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_LEN\_P\_T\_H\_DATA@{BME280\_LEN\_P\_T\_H\_DATA}}
+\index{BME280\_LEN\_P\_T\_H\_DATA@{BME280\_LEN\_P\_T\_H\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_LEN\_P\_T\_H\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_afabbf69cd09a104a81c32d5000dfaacd} 
+\#define BME280\+\_\+\+LEN\+\_\+\+P\+\_\+\+T\+\_\+\+H\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(8)}
+
+
+
+Definition at line \textbf{ 157} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA@{BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA}}
+\index{BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA@{BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a0a684a47d348f9ca425d72475edd3158} 
+\#define BME280\+\_\+\+LEN\+\_\+\+TEMP\+\_\+\+PRESS\+\_\+\+CALIB\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(26)}
+
+
+
+Definition at line \textbf{ 155} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_MAX\_LEN@{BME280\_MAX\_LEN}}
+\index{BME280\_MAX\_LEN@{BME280\_MAX\_LEN}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_MAX\_LEN}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a47325a399da4717029606aeba517adb9} 
+\#define BME280\+\_\+\+MAX\+\_\+\+LEN~\textbf{ UINT8\+\_\+C}(10)}
+
+
+
+Definition at line \textbf{ 214} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_MEAS\_DUR@{BME280\_MEAS\_DUR}}
+\index{BME280\_MEAS\_DUR@{BME280\_MEAS\_DUR}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_MEAS\_DUR}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a4a8ec019b392c6712b56ee0760958bdd} 
+\#define BME280\+\_\+\+MEAS\+\_\+\+DUR~\textbf{ UINT16\+\_\+C}(2300)}
+
+
+
+Definition at line \textbf{ 208} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_MEAS\_OFFSET@{BME280\_MEAS\_OFFSET}}
+\index{BME280\_MEAS\_OFFSET@{BME280\_MEAS\_OFFSET}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_MEAS\_OFFSET}
+{\footnotesize\ttfamily \label{bme280__defs_8h_adc03ec271d45723cb5a10d28f1cf8bd4} 
+\#define BME280\+\_\+\+MEAS\+\_\+\+OFFSET~\textbf{ UINT16\+\_\+C}(1250)}
+
+
+
+Definition at line \textbf{ 207} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_MEAS\_SCALING\_FACTOR@{BME280\_MEAS\_SCALING\_FACTOR}}
+\index{BME280\_MEAS\_SCALING\_FACTOR@{BME280\_MEAS\_SCALING\_FACTOR}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_MEAS\_SCALING\_FACTOR}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a1d68a125cb1658b8dd73e1875660be46} 
+\#define BME280\+\_\+\+MEAS\+\_\+\+SCALING\+\_\+\+FACTOR~\textbf{ UINT16\+\_\+C}(1000)}
+
+
+
+Definition at line \textbf{ 210} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_NO\_OVERSAMPLING@{BME280\_NO\_OVERSAMPLING}}
+\index{BME280\_NO\_OVERSAMPLING@{BME280\_NO\_OVERSAMPLING}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_NO\_OVERSAMPLING}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a58004a62b46ed7bcdb8d73ad4fa8cbc1} 
+\#define BME280\+\_\+\+NO\+\_\+\+OVERSAMPLING~\textbf{ UINT8\+\_\+C}(0x00)}
+
+
+
+Definition at line \textbf{ 191} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OK@{BME280\_OK}}
+\index{BME280\_OK@{BME280\_OK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_abfe3dd12ee6f5f5d51fbb340a22ff678} 
+\#define BME280\+\_\+\+OK~\textbf{ INT8\+\_\+C}(0)}
+
+
+
+Definition at line \textbf{ 122} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_16X@{BME280\_OVERSAMPLING\_16X}}
+\index{BME280\_OVERSAMPLING\_16X@{BME280\_OVERSAMPLING\_16X}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_16X}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ad8dc54a7a7d5bd1fd04d901561f7f646} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+16X~\textbf{ UINT8\+\_\+C}(0x05)}
+
+
+
+Definition at line \textbf{ 196} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_1X@{BME280\_OVERSAMPLING\_1X}}
+\index{BME280\_OVERSAMPLING\_1X@{BME280\_OVERSAMPLING\_1X}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_1X}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a701285fd2495e391411b694c9b50c08a} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+1X~\textbf{ UINT8\+\_\+C}(0x01)}
+
+
+
+Definition at line \textbf{ 192} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_2X@{BME280\_OVERSAMPLING\_2X}}
+\index{BME280\_OVERSAMPLING\_2X@{BME280\_OVERSAMPLING\_2X}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_2X}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a59a76b60316ed9a11ac552085f33603c} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+2X~\textbf{ UINT8\+\_\+C}(0x02)}
+
+
+
+Definition at line \textbf{ 193} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_4X@{BME280\_OVERSAMPLING\_4X}}
+\index{BME280\_OVERSAMPLING\_4X@{BME280\_OVERSAMPLING\_4X}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_4X}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a521eb8ad23776eee8faaf58b17191a76} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+4X~\textbf{ UINT8\+\_\+C}(0x03)}
+
+
+
+Definition at line \textbf{ 194} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_8X@{BME280\_OVERSAMPLING\_8X}}
+\index{BME280\_OVERSAMPLING\_8X@{BME280\_OVERSAMPLING\_8X}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_8X}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a7b3d9cb65ee6dfef65bc1982865c5a90} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+8X~\textbf{ UINT8\+\_\+C}(0x04)}
+
+
+
+Definition at line \textbf{ 195} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_OVERSAMPLING\_MAX@{BME280\_OVERSAMPLING\_MAX}}
+\index{BME280\_OVERSAMPLING\_MAX@{BME280\_OVERSAMPLING\_MAX}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_OVERSAMPLING\_MAX}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a9e82544abe963f3f4b09c6149b2b6a2f} 
+\#define BME280\+\_\+\+OVERSAMPLING\+\_\+\+MAX~\textbf{ UINT8\+\_\+C}(16)}
+
+
+
+Definition at line \textbf{ 197} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_POWERMODE\_FORCED@{BME280\_POWERMODE\_FORCED}}
+\index{BME280\_POWERMODE\_FORCED@{BME280\_POWERMODE\_FORCED}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_POWERMODE\_FORCED}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a549b26035e38c1dd91eadcfa0d287c3a} 
+\#define BME280\+\_\+\+POWERMODE\+\_\+\+FORCED~\textbf{ UINT8\+\_\+C}(0x01)}
+
+
+
+Definition at line \textbf{ 161} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_POWERMODE\_NORMAL@{BME280\_POWERMODE\_NORMAL}}
+\index{BME280\_POWERMODE\_NORMAL@{BME280\_POWERMODE\_NORMAL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_POWERMODE\_NORMAL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aee7b5305fac4b8df3d451e31aab68216} 
+\#define BME280\+\_\+\+POWERMODE\+\_\+\+NORMAL~\textbf{ UINT8\+\_\+C}(0x03)}
+
+
+
+Definition at line \textbf{ 162} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_POWERMODE\_SLEEP@{BME280\_POWERMODE\_SLEEP}}
+\index{BME280\_POWERMODE\_SLEEP@{BME280\_POWERMODE\_SLEEP}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_POWERMODE\_SLEEP}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa7154448c04b6ee9f644475a0784be71} 
+\#define BME280\+\_\+\+POWERMODE\+\_\+\+SLEEP~\textbf{ UINT8\+\_\+C}(0x00)}
+
+
+
+Definition at line \textbf{ 160} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_PRES\_HUM\_MEAS\_OFFSET@{BME280\_PRES\_HUM\_MEAS\_OFFSET}}
+\index{BME280\_PRES\_HUM\_MEAS\_OFFSET@{BME280\_PRES\_HUM\_MEAS\_OFFSET}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_PRES\_HUM\_MEAS\_OFFSET}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a490336b63c82d5e80493ba1a3e201b1e} 
+\#define BME280\+\_\+\+PRES\+\_\+\+HUM\+\_\+\+MEAS\+\_\+\+OFFSET~\textbf{ UINT16\+\_\+C}(575)}
+
+
+
+Definition at line \textbf{ 209} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_PRESS@{BME280\_PRESS}}
+\index{BME280\_PRESS@{BME280\_PRESS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_PRESS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_adfbc93f23e81f44aeb31d6e1c3e29f59} 
+\#define BME280\+\_\+\+PRESS~\textbf{ UINT8\+\_\+C}(1)}
+
+
+
+Definition at line \textbf{ 177} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_CHIP\_ID@{BME280\_REG\_CHIP\_ID}}
+\index{BME280\_REG\_CHIP\_ID@{BME280\_REG\_CHIP\_ID}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_CHIP\_ID}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a04bd3af58d575ad80092d966039d7df7} 
+\#define BME280\+\_\+\+REG\+\_\+\+CHIP\+\_\+\+ID~\textbf{ UINT8\+\_\+C}(0x\+D0)}
+
+
+
+Definition at line \textbf{ 143} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_CONFIG@{BME280\_REG\_CONFIG}}
+\index{BME280\_REG\_CONFIG@{BME280\_REG\_CONFIG}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_CONFIG}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a74148d55f85b04b5a496030144408f7c} 
+\#define BME280\+\_\+\+REG\+\_\+\+CONFIG~\textbf{ UINT8\+\_\+C}(0x\+F5)}
+
+
+
+Definition at line \textbf{ 151} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_CTRL\_HUM@{BME280\_REG\_CTRL\_HUM}}
+\index{BME280\_REG\_CTRL\_HUM@{BME280\_REG\_CTRL\_HUM}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_CTRL\_HUM}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a944aed4da03a7b75765df7becde44a23} 
+\#define BME280\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+HUM~\textbf{ UINT8\+\_\+C}(0x\+F2)}
+
+
+
+Definition at line \textbf{ 147} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_CTRL\_MEAS@{BME280\_REG\_CTRL\_MEAS}}
+\index{BME280\_REG\_CTRL\_MEAS@{BME280\_REG\_CTRL\_MEAS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_CTRL\_MEAS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ae302195af140b0b95aba069e47e5a0b0} 
+\#define BME280\+\_\+\+REG\+\_\+\+CTRL\+\_\+\+MEAS~\textbf{ UINT8\+\_\+C}(0x\+F4)}
+
+
+
+Definition at line \textbf{ 150} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_DATA@{BME280\_REG\_DATA}}
+\index{BME280\_REG\_DATA@{BME280\_REG\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a1a7fcae451785c51d7b5fb76c3676a94} 
+\#define BME280\+\_\+\+REG\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(0x\+F7)}
+
+
+
+Definition at line \textbf{ 152} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_HUMIDITY\_CALIB\_DATA@{BME280\_REG\_HUMIDITY\_CALIB\_DATA}}
+\index{BME280\_REG\_HUMIDITY\_CALIB\_DATA@{BME280\_REG\_HUMIDITY\_CALIB\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_HUMIDITY\_CALIB\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2057cd3c1abf6948e0b0ab2ac6167f8d} 
+\#define BME280\+\_\+\+REG\+\_\+\+HUMIDITY\+\_\+\+CALIB\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(0x\+E1)}
+
+
+
+Definition at line \textbf{ 146} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_PWR\_CTRL@{BME280\_REG\_PWR\_CTRL}}
+\index{BME280\_REG\_PWR\_CTRL@{BME280\_REG\_PWR\_CTRL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_PWR\_CTRL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a0acc3a1f71a3d9e1ecc9392dcc2b37b6} 
+\#define BME280\+\_\+\+REG\+\_\+\+PWR\+\_\+\+CTRL~\textbf{ UINT8\+\_\+C}(0x\+F4)}
+
+
+
+Definition at line \textbf{ 149} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_RESET@{BME280\_REG\_RESET}}
+\index{BME280\_REG\_RESET@{BME280\_REG\_RESET}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_RESET}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a4f3c6b448b8d4f841ad410821d953f06} 
+\#define BME280\+\_\+\+REG\+\_\+\+RESET~\textbf{ UINT8\+\_\+C}(0x\+E0)}
+
+
+
+Definition at line \textbf{ 144} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_STATUS@{BME280\_REG\_STATUS}}
+\index{BME280\_REG\_STATUS@{BME280\_REG\_STATUS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_STATUS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa6ee03aa0d6d5c9c0529eeac1e4035ba} 
+\#define BME280\+\_\+\+REG\+\_\+\+STATUS~\textbf{ UINT8\+\_\+C}(0x\+F3)}
+
+
+
+Definition at line \textbf{ 148} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA@{BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA}}
+\index{BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA@{BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a71624af430a950ca92a4861ddd2d8be2} 
+\#define BME280\+\_\+\+REG\+\_\+\+TEMP\+\_\+\+PRESS\+\_\+\+CALIB\+\_\+\+DATA~\textbf{ UINT8\+\_\+C}(0x88)}
+
+
+
+Definition at line \textbf{ 145} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_ALL\_SETTINGS@{BME280\_SEL\_ALL\_SETTINGS}}
+\index{BME280\_SEL\_ALL\_SETTINGS@{BME280\_SEL\_ALL\_SETTINGS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_ALL\_SETTINGS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ac9562a7db399000c5162c84e578380cf} 
+\#define BME280\+\_\+\+SEL\+\_\+\+ALL\+\_\+\+SETTINGS~\textbf{ UINT8\+\_\+C}(0x1F)}
+
+
+
+Definition at line \textbf{ 188} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_FILTER@{BME280\_SEL\_FILTER}}
+\index{BME280\_SEL\_FILTER@{BME280\_SEL\_FILTER}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_FILTER}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a651c8afed4c503fddcae73e92f34e884} 
+\#define BME280\+\_\+\+SEL\+\_\+\+FILTER~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 3)}
+
+
+
+Definition at line \textbf{ 186} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_OSR\_HUM@{BME280\_SEL\_OSR\_HUM}}
+\index{BME280\_SEL\_OSR\_HUM@{BME280\_SEL\_OSR\_HUM}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_OSR\_HUM}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a48bb00a4d93f42842bb594bf1a4341dd} 
+\#define BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+HUM~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 2)}
+
+
+
+Definition at line \textbf{ 185} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_OSR\_PRESS@{BME280\_SEL\_OSR\_PRESS}}
+\index{BME280\_SEL\_OSR\_PRESS@{BME280\_SEL\_OSR\_PRESS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_OSR\_PRESS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a17020c3c603c51ac6173a19257aaf01f} 
+\#define BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+PRESS~\textbf{ UINT8\+\_\+C}(1)}
+
+
+
+Definition at line \textbf{ 183} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_OSR\_TEMP@{BME280\_SEL\_OSR\_TEMP}}
+\index{BME280\_SEL\_OSR\_TEMP@{BME280\_SEL\_OSR\_TEMP}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_OSR\_TEMP}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ad8a64b0dcc92cb205599ee87168674b8} 
+\#define BME280\+\_\+\+SEL\+\_\+\+OSR\+\_\+\+TEMP~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 1)}
+
+
+
+Definition at line \textbf{ 184} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SEL\_STANDBY@{BME280\_SEL\_STANDBY}}
+\index{BME280\_SEL\_STANDBY@{BME280\_SEL\_STANDBY}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SEL\_STANDBY}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aad7651f95300f804211fed6b02b836e3} 
+\#define BME280\+\_\+\+SEL\+\_\+\+STANDBY~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 4)}
+
+
+
+Definition at line \textbf{ 187} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SENSOR\_MODE\_MSK@{BME280\_SENSOR\_MODE\_MSK}}
+\index{BME280\_SENSOR\_MODE\_MSK@{BME280\_SENSOR\_MODE\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SENSOR\_MODE\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa8dbb21db223923e34d32c285a2a6660} 
+\#define BME280\+\_\+\+SENSOR\+\_\+\+MODE\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x03)}
+
+
+
+Definition at line \textbf{ 164} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SENSOR\_MODE\_POS@{BME280\_SENSOR\_MODE\_POS}}
+\index{BME280\_SENSOR\_MODE\_POS@{BME280\_SENSOR\_MODE\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SENSOR\_MODE\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a20dfd35772ac7aff0f6ba4f0c7d8352e} 
+\#define BME280\+\_\+\+SENSOR\+\_\+\+MODE\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x00)}
+
+
+
+Definition at line \textbf{ 165} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SET\_BITS@{BME280\_SET\_BITS}}
+\index{BME280\_SET\_BITS@{BME280\_SET\_BITS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SET\_BITS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a78f60fe8571e15f6a21ba8fcaa12e0ce} 
+\#define BME280\+\_\+\+SET\+\_\+\+BITS(\begin{DoxyParamCaption}\item[{}]{reg\+\_\+data}{, }\item[{}]{bitname}{, }\item[{}]{\textbf{ data}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ ((reg\_data\ \&\ \string~(bitname\#\#\_MSK))\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ ((data\ <<\ bitname\#\#\_POS)\ \&\ bitname\#\#\_MSK))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 248} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SET\_BITS\_POS\_0@{BME280\_SET\_BITS\_POS\_0}}
+\index{BME280\_SET\_BITS\_POS\_0@{BME280\_SET\_BITS\_POS\_0}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SET\_BITS\_POS\_0}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a72c20c06b3a42de7660bf1d8678cd645} 
+\#define BME280\+\_\+\+SET\+\_\+\+BITS\+\_\+\+POS\+\_\+0(\begin{DoxyParamCaption}\item[{}]{reg\+\_\+data}{, }\item[{}]{bitname}{, }\item[{}]{\textbf{ data}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ ((reg\_data\ \&\ \string~(bitname\#\#\_MSK))\ |\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ (data\ \&\ bitname\#\#\_MSK))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 252} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SOFT\_RESET\_COMMAND@{BME280\_SOFT\_RESET\_COMMAND}}
+\index{BME280\_SOFT\_RESET\_COMMAND@{BME280\_SOFT\_RESET\_COMMAND}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_SOFT\_RESET\_COMMAND}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a459aacfaccab02562d4aa0c7c8fc6632} 
+\#define BME280\+\_\+\+SOFT\+\_\+\+RESET\+\_\+\+COMMAND~\textbf{ UINT8\+\_\+C}(0x\+B6)}
+
+
+
+Definition at line \textbf{ 168} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_MSK@{BME280\_STANDBY\_MSK}}
+\index{BME280\_STANDBY\_MSK@{BME280\_STANDBY\_MSK}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_MSK}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ad605c1d49d0c13cc7fd78148894c8be3} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+MSK~\textbf{ UINT8\+\_\+C}(0x\+E0)}
+
+
+
+Definition at line \textbf{ 226} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_POS@{BME280\_STANDBY\_POS}}
+\index{BME280\_STANDBY\_POS@{BME280\_STANDBY\_POS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_POS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a95d6cbf0004b76308440a9b72d157508} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+POS~\textbf{ UINT8\+\_\+C}(0x05)}
+
+
+
+Definition at line \textbf{ 227} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_0\_5\_MS@{BME280\_STANDBY\_TIME\_0\_5\_MS}}
+\index{BME280\_STANDBY\_TIME\_0\_5\_MS@{BME280\_STANDBY\_TIME\_0\_5\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_0\_5\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a1a90cbd4d3c4d4bb4d3493c5b978d184} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+0\+\_\+5\+\_\+\+MS~(0x00)}
+
+
+
+Definition at line \textbf{ 217} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_1000\_MS@{BME280\_STANDBY\_TIME\_1000\_MS}}
+\index{BME280\_STANDBY\_TIME\_1000\_MS@{BME280\_STANDBY\_TIME\_1000\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_1000\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_afe13ba4269e78b8a5b2463fbff88fdc9} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+1000\+\_\+\+MS~(0x05)}
+
+
+
+Definition at line \textbf{ 222} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_10\_MS@{BME280\_STANDBY\_TIME\_10\_MS}}
+\index{BME280\_STANDBY\_TIME\_10\_MS@{BME280\_STANDBY\_TIME\_10\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_10\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2d9584d45556539af37055d1cee375df} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+10\+\_\+\+MS~(0x06)}
+
+
+
+Definition at line \textbf{ 223} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_125\_MS@{BME280\_STANDBY\_TIME\_125\_MS}}
+\index{BME280\_STANDBY\_TIME\_125\_MS@{BME280\_STANDBY\_TIME\_125\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_125\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_abda2854c877d0ab552b0d3a5e92ce06a} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+125\+\_\+\+MS~(0x02)}
+
+
+
+Definition at line \textbf{ 219} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_20\_MS@{BME280\_STANDBY\_TIME\_20\_MS}}
+\index{BME280\_STANDBY\_TIME\_20\_MS@{BME280\_STANDBY\_TIME\_20\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_20\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ae9926694b90ad9154a2c849a7bceb7f6} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+20\+\_\+\+MS~(0x07)}
+
+
+
+Definition at line \textbf{ 224} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_250\_MS@{BME280\_STANDBY\_TIME\_250\_MS}}
+\index{BME280\_STANDBY\_TIME\_250\_MS@{BME280\_STANDBY\_TIME\_250\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_250\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a3c7744e622d09172d4c6fe19d5060901} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+250\+\_\+\+MS~(0x03)}
+
+
+
+Definition at line \textbf{ 220} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_500\_MS@{BME280\_STANDBY\_TIME\_500\_MS}}
+\index{BME280\_STANDBY\_TIME\_500\_MS@{BME280\_STANDBY\_TIME\_500\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_500\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a822d215c13193c2e88010c2c911a1e7c} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+500\+\_\+\+MS~(0x04)}
+
+
+
+Definition at line \textbf{ 221} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STANDBY\_TIME\_62\_5\_MS@{BME280\_STANDBY\_TIME\_62\_5\_MS}}
+\index{BME280\_STANDBY\_TIME\_62\_5\_MS@{BME280\_STANDBY\_TIME\_62\_5\_MS}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STANDBY\_TIME\_62\_5\_MS}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a08d610ade362b9a865fc126189110f96} 
+\#define BME280\+\_\+\+STANDBY\+\_\+\+TIME\+\_\+62\+\_\+5\+\_\+\+MS~(0x01)}
+
+
+
+Definition at line \textbf{ 218} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STARTUP\_DELAY@{BME280\_STARTUP\_DELAY}}
+\index{BME280\_STARTUP\_DELAY@{BME280\_STARTUP\_DELAY}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STARTUP\_DELAY}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2113bce8b06b7be04e051e32580952f0} 
+\#define BME280\+\_\+\+STARTUP\+\_\+\+DELAY~\textbf{ UINT16\+\_\+C}(2000)}
+
+
+
+Definition at line \textbf{ 211} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STATUS\_IM\_UPDATE@{BME280\_STATUS\_IM\_UPDATE}}
+\index{BME280\_STATUS\_IM\_UPDATE@{BME280\_STATUS\_IM\_UPDATE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STATUS\_IM\_UPDATE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a50d9c167bc634d4633919268f5b56100} 
+\#define BME280\+\_\+\+STATUS\+\_\+\+IM\+\_\+\+UPDATE~\textbf{ UINT8\+\_\+C}(0x01)}
+
+
+
+Definition at line \textbf{ 170} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_STATUS\_MEAS\_DONE@{BME280\_STATUS\_MEAS\_DONE}}
+\index{BME280\_STATUS\_MEAS\_DONE@{BME280\_STATUS\_MEAS\_DONE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_STATUS\_MEAS\_DONE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a3312b89ed44805e6d891edb0bd2d3923} 
+\#define BME280\+\_\+\+STATUS\+\_\+\+MEAS\+\_\+\+DONE~\textbf{ UINT8\+\_\+C}(0x08)}
+
+
+
+Definition at line \textbf{ 171} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_TEMP@{BME280\_TEMP}}
+\index{BME280\_TEMP@{BME280\_TEMP}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_TEMP}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa3ffc130a1db4dd1cdb4b11936a2becc} 
+\#define BME280\+\_\+\+TEMP~\textbf{ UINT8\+\_\+C}(1 $<$$<$ 1)}
+
+
+
+Definition at line \textbf{ 178} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_W\_INVALID\_OSR\_MACRO@{BME280\_W\_INVALID\_OSR\_MACRO}}
+\index{BME280\_W\_INVALID\_OSR\_MACRO@{BME280\_W\_INVALID\_OSR\_MACRO}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{BME280\_W\_INVALID\_OSR\_MACRO}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a14e40d625ed338734e57fbc434ca5723} 
+\#define BME280\+\_\+\+W\+\_\+\+INVALID\+\_\+\+OSR\+\_\+\+MACRO~\textbf{ INT8\+\_\+C}(1)}
+
+
+
+Definition at line \textbf{ 133} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!FALSE@{FALSE}}
+\index{FALSE@{FALSE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{FALSE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa93f0eb578d23995850d61f7d61c55c1} 
+\#define FALSE~\textbf{ UINT8\+\_\+C}(0)}
+
+
+
+Definition at line \textbf{ 104} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!INT16\_C@{INT16\_C}}
+\index{INT16\_C@{INT16\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{INT16\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a838b261fec725cb0f5d5b6769d3521e7} 
+\#define INT16\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{S16\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 62} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!INT32\_C@{INT32\_C}}
+\index{INT32\_C@{INT32\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{INT32\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_ad78650fb7726f4e99205406569ef403d} 
+\#define INT32\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{S32\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 67} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!INT64\_C@{INT64\_C}}
+\index{INT64\_C@{INT64\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{INT64\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a93d102802b35d3b8abae9bbe7f0fed75} 
+\#define INT64\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{S64\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 72} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!INT8\_C@{INT8\_C}}
+\index{INT8\_C@{INT8\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{INT8\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a1eaa7db37089dcdfb60227725c9c1585} 
+\#define INT8\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{S8\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 57} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!NULL@{NULL}}
+\index{NULL@{NULL}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{NULL}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a070d2ce7b6bb7e5c05602aa8c308d0c4} 
+\#define NULL~((void $\ast$) 0)}
+
+
+
+Definition at line \textbf{ 82} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!TRUE@{TRUE}}
+\index{TRUE@{TRUE}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{TRUE}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aa8cecfc5c5c054d2875c03e77b7be15d} 
+\#define TRUE~\textbf{ UINT8\+\_\+C}(1)}
+
+
+
+Definition at line \textbf{ 101} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!UINT16\_C@{UINT16\_C}}
+\index{UINT16\_C@{UINT16\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{UINT16\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a1cb39a2cfaf899fd38730c7637807708} 
+\#define UINT16\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{U16\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 63} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!UINT32\_C@{UINT32\_C}}
+\index{UINT32\_C@{UINT32\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{UINT32\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a2451a7ede7ebd810357f1503e9898ea6} 
+\#define UINT32\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{U32\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 68} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!UINT64\_C@{UINT64\_C}}
+\index{UINT64\_C@{UINT64\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{UINT64\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a134ae84400d184ed2570e3270d5472c2} 
+\#define UINT64\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{U64\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 73} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!UINT8\_C@{UINT8\_C}}
+\index{UINT8\_C@{UINT8\_C}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{UINT8\_C}
+{\footnotesize\ttfamily \label{bme280__defs_8h_acd2aa09844a8a245cf7fdbb808e215e5} 
+\#define UINT8\+\_\+C(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{U8\_C(x)}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 58} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+
+
+\label{doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\index{bme280\_defs.h@{bme280\_defs.h}!bme280\_delay\_us\_fptr\_t@{bme280\_delay\_us\_fptr\_t}}
+\index{bme280\_delay\_us\_fptr\_t@{bme280\_delay\_us\_fptr\_t}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{bme280\_delay\_us\_fptr\_t}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a779032ec51096ef4dd132b3a3d9c4944} 
+typedef void($\ast$ bme280\+\_\+delay\+\_\+us\+\_\+fptr\+\_\+t) (uint32\+\_\+t period, void $\ast$intf\+\_\+ptr)}
+
+
+
+Delay function pointer which should be mapped to delay function of the user. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em period} & \+: Delay in microseconds. \\
+\hline
+\mbox{\texttt{in,out}}  & {\em intf\+\_\+ptr} & \+: Void pointer that can enable the linking of descriptors for interface related call backs \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 319} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!bme280\_read\_fptr\_t@{bme280\_read\_fptr\_t}}
+\index{bme280\_read\_fptr\_t@{bme280\_read\_fptr\_t}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{bme280\_read\_fptr\_t}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a196a14c6101ddd1c640ddec1354095ef} 
+typedef \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}($\ast$ bme280\+\_\+read\+\_\+fptr\+\_\+t) (uint8\+\_\+t reg\+\_\+addr, uint8\+\_\+t $\ast$reg\+\_\+data, uint32\+\_\+t len, void $\ast$intf\+\_\+ptr)}
+
+
+
+Bus communication function pointer which should be mapped to the platform specific read functions of the user. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em reg\+\_\+addr} & \+: Register address from which data is read. \\
+\hline
+\mbox{\texttt{out}}  & {\em reg\+\_\+data} & \+: Pointer to data buffer where read data is stored. \\
+\hline
+\mbox{\texttt{in}}  & {\em len} & \+: Number of bytes of data to be read. \\
+\hline
+\mbox{\texttt{in,out}}  & {\em intf\+\_\+ptr} & \+: Void pointer that can enable the linking of descriptors for interface related call backs.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em Non} & zero value -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \textbf{ 290} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+\index{bme280\_defs.h@{bme280\_defs.h}!bme280\_write\_fptr\_t@{bme280\_write\_fptr\_t}}
+\index{bme280\_write\_fptr\_t@{bme280\_write\_fptr\_t}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{bme280\_write\_fptr\_t}
+{\footnotesize\ttfamily \label{bme280__defs_8h_aedc571d9f3e5a264838ea73e6a798ddd} 
+typedef \textbf{ BME280\+\_\+\+INTF\+\_\+\+RET\+\_\+\+TYPE}($\ast$ bme280\+\_\+write\+\_\+fptr\+\_\+t) (uint8\+\_\+t reg\+\_\+addr, const uint8\+\_\+t $\ast$reg\+\_\+data, uint32\+\_\+t len, void $\ast$intf\+\_\+ptr)}
+
+
+
+Bus communication function pointer which should be mapped to the platform specific write functions of the user. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em reg\+\_\+addr} & \+: Register address to which the data is written. \\
+\hline
+\mbox{\texttt{in}}  & {\em reg\+\_\+data} & \+: Pointer to data buffer in which data to be written is stored. \\
+\hline
+\mbox{\texttt{in}}  & {\em len} & \+: Number of bytes of data to be written. \\
+\hline
+\mbox{\texttt{in,out}}  & {\em intf\+\_\+ptr} & \+: Void pointer that can enable the linking of descriptors for interface related call backs\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em Non} & zero value -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \textbf{ 307} of file \textbf{ bme280\+\_\+defs.\+h}.
+
+
+
+\label{doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\index{bme280\_defs.h@{bme280\_defs.h}!bme280\_intf@{bme280\_intf}}
+\index{bme280\_intf@{bme280\_intf}!bme280\_defs.h@{bme280\_defs.h}}
+\doxysubsubsection{bme280\_intf}
+{\footnotesize\ttfamily \label{bme280__defs_8h_a142fcd9cb1e99b793488e9b3b1e6766e} 
+enum \textbf{ bme280\+\_\+intf}}
+
+
+
+Interface selection Enums. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BME280\_SPI\_INTF@{BME280\_SPI\_INTF}!bme280\_defs.h@{bme280\_defs.h}}\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_SPI\_INTF@{BME280\_SPI\_INTF}}}\label{bme280__defs_8h_a142fcd9cb1e99b793488e9b3b1e6766eab5516f6eca9b94ae116261c33c388f4c} 
+BME280\+\_\+\+SPI\+\_\+\+INTF&SPI interface \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BME280\_I2C\_INTF@{BME280\_I2C\_INTF}!bme280\_defs.h@{bme280\_defs.h}}\index{bme280\_defs.h@{bme280\_defs.h}!BME280\_I2C\_INTF@{BME280\_I2C\_INTF}}}\label{bme280__defs_8h_a142fcd9cb1e99b793488e9b3b1e6766eaae41ddfd32babefbce48e7b7671f46a2} 
+BME280\+\_\+\+I2\+C\+\_\+\+INTF&I2C interface \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line \textbf{ 265} of file \textbf{ bme280\+\_\+defs.\+h}.
+

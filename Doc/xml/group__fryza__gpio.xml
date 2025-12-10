@@ -1,0 +1,274 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__fryza__gpio" kind="group">
+    <compoundname>fryza_gpio</compoundname>
+    <title>GPIO Library &lt;gpio.h&gt;</title>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="group__fryza__gpio_1ga67245684611d6a62494cd100c9731f8e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_mode_output</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_mode_output</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Configure one output pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of Data Direction Register, such as &amp;DDRB </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin designation in the interval 0 to 7 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="37" column="6" bodyfile="lib/gpio/gpio.c" bodystart="21" bodyend="24" declfile="lib/gpio/gpio.h" declline="37" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1ga92d8842507a7a60233e172c7665cd448" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_mode_input_pullup</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_mode_input_pullup</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Configure one input pin and enable pull-up. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of Data Direction Register, such as &amp;DDRB </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin designation in the interval 0 to 7 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="46" column="6" bodyfile="lib/gpio/gpio.c" bodystart="34" bodyend="39" declfile="lib/gpio/gpio.h" declline="46" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1ga8f9f18909c674d02f76e514221b505b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_write_low</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_write_low</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Write one pin to low value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of Port Register, such as &amp;PORTB </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin designation in the interval 0 to 7 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="55" column="6" bodyfile="lib/gpio/gpio.c" bodystart="49" bodyend="52" declfile="lib/gpio/gpio.h" declline="55" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1ga7bb32a27f42d2d93b8cd3e48597674ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_write_high</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_write_high</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Write one pin to high value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of Port Register, such as &amp;PORTB </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin designation in the interval 0 to 7 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="64" column="6" bodyfile="lib/gpio/gpio.c" bodystart="62" bodyend="65" declfile="lib/gpio/gpio.h" declline="64" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1gab48bdf6775e5ebb50f349c5182238231" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t gpio_read</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_read</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+<para>Read a value from input pin. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>reg</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Address of Pin Register, such as &amp;PIND </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pin</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Pin designation in the interval 0 to 7 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Pin value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="73" column="9" bodyfile="lib/gpio/gpio.c" bodystart="75" bodyend="87" declfile="lib/gpio/gpio.h" declline="73" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1ga2c33ba6b22fba1079e6665bc134919b9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_mode_input_nopull</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_mode_input_nopull</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="76" column="6" bodyfile="lib/gpio/gpio.c" bodystart="91" bodyend="94" declfile="lib/gpio/gpio.h" declline="76" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="group__fryza__gpio_1ga898c950bb2b5b6b1c158cf7ad18ea84e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void gpio_toggle</definition>
+        <argsstring>(volatile uint8_t *reg, uint8_t pin)</argsstring>
+        <name>gpio_toggle</name>
+        <param>
+          <type>volatile uint8_t *</type>
+          <declname>reg</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>pin</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/gpio/gpio.h" line="79" column="6" bodyfile="lib/gpio/gpio.c" bodystart="98" bodyend="103" declfile="lib/gpio/gpio.h" declline="79" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>GPIO library for AVR-GCC. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="gpio_8h" kindref="compound">gpio.h</ref>&gt;</highlight><highlight class="normal"><sp/></highlight></codeline>
+</programlisting></para>
+<para>The library contains functions for controlling AVRs&apos; gpio pin(s).</para>
+<para><simplesect kind="note"><para>Based on AVR Libc Reference Manual. </para>
+</simplesect>
+<simplesect kind="copyright"><para>(c) 2019-2024 Tomas Fryza, MIT license </para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

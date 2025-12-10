@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="_s_p_i__routines_8h" kind="file" language="C++">
+    <compoundname>SPI_routines.h</compoundname>
+    <includedby refid="_s_p_i__routines_8c" local="yes">lib/SPI/SPI_routines.c</includedby>
+    <includedby refid="_s_d__routines_8c" local="yes">lib/sd/SD_routines.c</includedby>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/SPI/SPI_routines.c</label>
+        <link refid="_s_p_i__routines_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/SPI/SPI_routines.h</label>
+        <link refid="_s_p_i__routines_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>lib/sd/SD_routines.c</label>
+        <link refid="_s_d__routines_8c"/>
+      </node>
+      <node id="4">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_s_p_i__routines_8h_1aa978946aa329d3c733c478c41b812d14" prot="public" static="no">
+        <name>SPI_SD</name>
+        <initializer>SPCR = 0x52</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.h" line="15" column="9" bodyfile="lib/SPI/SPI_routines.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_s_p_i__routines_8h_1a69de399bcf6b3c1a5c5fea36d823566f" prot="public" static="no">
+        <name>SPI_HIGH_SPEED</name>
+        <initializer>SPCR = 0x50; SPSR |= (1&lt;&lt;SPI2X)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.h" line="16" column="9" bodyfile="lib/SPI/SPI_routines.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_s_p_i__routines_8h_1ae909944aa85ae98323073c628be541aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void spi_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>spi_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.h" line="19" column="6" bodyfile="lib/SPI/SPI_routines.c" bodystart="17" bodyend="27" declfile="lib/SPI/SPI_routines.h" declline="19" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_p_i__routines_8h_1a9fe2b5ca4c93e342f99ed0e36b2025d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SPI_transmit</definition>
+        <argsstring>(unsigned char)</argsstring>
+        <name>SPI_transmit</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.h" line="20" column="15" bodyfile="lib/SPI/SPI_routines.c" bodystart="29" bodyend="40" declfile="lib/SPI/SPI_routines.h" declline="20" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_p_i__routines_8h_1a7bf9d94fbfaeda91cbe31f30025f837a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SPI_receive</definition>
+        <argsstring>(void)</argsstring>
+        <name>SPI_receive</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.h" line="21" column="15" bodyfile="lib/SPI/SPI_routines.c" bodystart="42" bodyend="53" declfile="lib/SPI/SPI_routines.h" declline="21" declcolumn="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>******<sp/>FUNCTIONS<sp/>FOR<sp/>SPI<sp/>COMMUNICATION<sp/>*******</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//Controller<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>ATmega32<sp/>(Clock:<sp/>8<sp/>Mhz-internal)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//Compiler<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>AVR-GCC<sp/>(winAVR<sp/>with<sp/>AVRStudio-4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//Project<sp/>Version<sp/><sp/><sp/>:<sp/>DL_1.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//Author<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CC<sp/>Dharmani,<sp/>Chennai<sp/>(India)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>www.dharmanitech.com</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//Date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>10<sp/>May<sp/>2011</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_SPI_ROUTINES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_SPI_ROUTINES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="_s_p_i__routines_8h_1aa978946aa329d3c733c478c41b812d14" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SPI_SD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>SPCR<sp/>=<sp/>0x52</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="_s_p_i__routines_8h_1a69de399bcf6b3c1a5c5fea36d823566f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SPI_HIGH_SPEED<sp/><sp/><sp/><sp/><sp/>SPCR<sp/>=<sp/>0x50;<sp/>SPSR<sp/>|=<sp/>(1&lt;&lt;SPI2X)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8h_1ae909944aa85ae98323073c628be541aa" kindref="member">spi_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8h_1a9fe2b5ca4c93e342f99ed0e36b2025d6" kindref="member">SPI_transmit</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8h_1a7bf9d94fbfaeda91cbe31f30025f837a" kindref="member">SPI_receive</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="lib/SPI/SPI_routines.h"/>
+  </compounddef>
+</doxygen>

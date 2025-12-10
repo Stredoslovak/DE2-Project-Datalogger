@@ -1,0 +1,852 @@
+\doxysection{sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}
+\label{sensirion__gas__index__algorithm_8c_source}\index{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.c@{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2022,\ Sensirion\ AG}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ this}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ \ \ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ *\ Neither\ the\ name\ of\ Sensirion\ AG\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#include\ "{}sensirion\_gas\_index\_algorithm.h"{}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ FIX16\_MAXIMUM\ 0x7FFFFFFF}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ FIX16\_MINIMUM\ 0x80000000}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ FIX16\_OVERFLOW\ 0x80000000}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ FIX16\_ONE\ 0x00010000}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ fix16\_t\ fix16\_from\_int(int32\_t\ a)\ \{}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{return}\ a\ *\ FIX16\_ONE;}
+\DoxyCodeLine{00046\ \}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ int32\_t\ fix16\_cast\_to\_int(fix16\_t\ a)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{return}\ (a\ >=\ 0)\ ?\ (a\ >>\ 16)\ :\ -\/((-\/a)\ >>\ 16);}
+\DoxyCodeLine{00050\ \}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00053\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_mul(fix16\_t\ inArg0,\ fix16\_t\ inArg1);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_div(fix16\_t\ inArg0,\ fix16\_t\ inArg1);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00059\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_sqrt(fix16\_t\ inValue);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_exp(fix16\_t\ inValue);}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_mul(fix16\_t\ inArg0,\ fix16\_t\ inArg1)\ \{}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{comment}{//\ Each\ argument\ is\ divided\ to\ 16-\/bit\ parts.}}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AB}}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ *\ \ \ \ CD}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00069\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BD\ \ 16\ *\ 16\ -\/>\ 32\ bit\ products}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ CB}}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ AD}}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ AC}}
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ |-\/-\/-\/-\/|\ 64\ bit\ product}}
+\DoxyCodeLine{00074\ \ \ \ \ uint32\_t\ absArg0\ =\ (uint32\_t)((inArg0\ >=\ 0)\ ?\ inArg0\ :\ (-\/inArg0));}
+\DoxyCodeLine{00075\ \ \ \ \ uint32\_t\ absArg1\ =\ (uint32\_t)((inArg1\ >=\ 0)\ ?\ inArg1\ :\ (-\/inArg1));}
+\DoxyCodeLine{00076\ \ \ \ \ uint32\_t\ A\ =\ (absArg0\ >>\ 16),\ C\ =\ (absArg1\ >>\ 16);}
+\DoxyCodeLine{00077\ \ \ \ \ uint32\_t\ B\ =\ (absArg0\ \&\ 0xFFFF),\ D\ =\ (absArg1\ \&\ 0xFFFF);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ uint32\_t\ AC\ =\ A\ *\ C;}
+\DoxyCodeLine{00080\ \ \ \ \ uint32\_t\ AD\_CB\ =\ A\ *\ D\ +\ C\ *\ B;}
+\DoxyCodeLine{00081\ \ \ \ \ uint32\_t\ BD\ =\ B\ *\ D;}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \ \ \ \ uint32\_t\ product\_hi\ =\ AC\ +\ (AD\_CB\ >>\ 16);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{comment}{//\ Handle\ carry\ from\ lower\ 32\ bits\ to\ upper\ part\ of\ result.}}
+\DoxyCodeLine{00086\ \ \ \ \ uint32\_t\ ad\_cb\_temp\ =\ AD\_CB\ <<\ 16;}
+\DoxyCodeLine{00087\ \ \ \ \ uint32\_t\ product\_lo\ =\ BD\ +\ ad\_cb\_temp;}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (product\_lo\ <\ BD)}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ product\_hi++;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifndef\ FIXMATH\_NO\_OVERFLOW}}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{comment}{//\ The\ upper\ 17\ bits\ should\ all\ be\ zero.}}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (product\_hi\ >>\ 15)}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_t)FIX16\_OVERFLOW;}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#ifdef\ FIXMATH\_NO\_ROUNDING}}
+\DoxyCodeLine{00098\ \ \ \ \ fix16\_t\ result\ =\ (fix16\_t)((product\_hi\ <<\ 16)\ |\ (product\_lo\ >>\ 16));}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}\ ((inArg0\ <\ 0)\ !=\ (inArg1\ <\ 0))}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ result\ =\ -\/result;}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{comment}{//\ Adding\ 0x8000\ (=\ 0.5)\ and\ then\ using\ right\ shift}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{comment}{//\ achieves\ proper\ rounding\ to\ result.}}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{comment}{//\ Handle\ carry\ from\ lower\ to\ upper\ part.}}
+\DoxyCodeLine{00106\ \ \ \ \ uint32\_t\ product\_lo\_tmp\ =\ product\_lo;}
+\DoxyCodeLine{00107\ \ \ \ \ product\_lo\ +=\ 0x8000;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{if}\ (product\_lo\ <\ product\_lo\_tmp)}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ product\_hi++;}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \ \ \ \ \textcolor{comment}{//\ Discard\ the\ lowest\ 16\ bits\ and\ convert\ back\ to\ signed\ result.}}
+\DoxyCodeLine{00112\ \ \ \ \ fix16\_t\ result\ =\ (fix16\_t)((product\_hi\ <<\ 16)\ |\ (product\_lo\ >>\ 16));}
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{if}\ ((inArg0\ <\ 0)\ !=\ (inArg1\ <\ 0))}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ result\ =\ -\/result;}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00117\ \}}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_div(fix16\_t\ a,\ fix16\_t\ b)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{comment}{//\ This\ uses\ the\ basic\ binary\ restoring\ division\ algorithm.}}
+\DoxyCodeLine{00121\ \ \ \ \ \textcolor{comment}{//\ It\ appears\ to\ be\ faster\ to\ do\ the\ whole\ division\ manually\ than}}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{comment}{//\ trying\ to\ compose\ a\ 64-\/bit\ divide\ out\ of\ 32-\/bit\ divisions\ on}}
+\DoxyCodeLine{00123\ \ \ \ \ \textcolor{comment}{//\ platforms\ without\ hardware\ divide.}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{keywordflow}{if}\ (b\ ==\ 0)}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_t)FIX16\_MINIMUM;}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ uint32\_t\ remainder\ =\ (uint32\_t)((a\ >=\ 0)\ ?\ a\ :\ (-\/a));}
+\DoxyCodeLine{00129\ \ \ \ \ uint32\_t\ divider\ =\ (uint32\_t)((b\ >=\ 0)\ ?\ b\ :\ (-\/b));}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \ \ \ \ uint32\_t\ quotient\ =\ 0;}
+\DoxyCodeLine{00132\ \ \ \ \ uint32\_t\ bit\ =\ 0x10000;}
+\DoxyCodeLine{00133\ }
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{comment}{/*\ The\ algorithm\ requires\ D\ >=\ R\ */}}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{while}\ (divider\ <\ remainder)\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ divider\ <<=\ 1;}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ bit\ <<=\ 1;}
+\DoxyCodeLine{00138\ \ \ \ \ \}}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#ifndef\ FIXMATH\_NO\_OVERFLOW}}
+\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{if}\ (!bit)}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_t)FIX16\_OVERFLOW;}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \ \ \ \ \textcolor{keywordflow}{if}\ (divider\ \&\ 0x80000000)\ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Perform\ one\ step\ manually\ to\ avoid\ overflows\ later.}}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ We\ know\ that\ divider's\ bottom\ bit\ is\ 0\ here.}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (remainder\ >=\ divider)\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ quotient\ |=\ bit;}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \ \ \ \ remainder\ -\/=\ divider;}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ divider\ >>=\ 1;}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ bit\ >>=\ 1;}
+\DoxyCodeLine{00154\ \ \ \ \ \}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{comment}{/*\ Main\ division\ loop\ */}}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keywordflow}{while}\ (bit\ \&\&\ remainder)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (remainder\ >=\ divider)\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \ \ \ \ quotient\ |=\ bit;}
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \ \ \ \ \ \ remainder\ -\/=\ divider;}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ remainder\ <<=\ 1;}
+\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ bit\ >>=\ 1;}
+\DoxyCodeLine{00165\ \ \ \ \ \}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#ifndef\ FIXMATH\_NO\_ROUNDING}}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{if}\ (remainder\ >=\ divider)\ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ quotient++;}
+\DoxyCodeLine{00170\ \ \ \ \ \}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00173\ \ \ \ \ fix16\_t\ result\ =\ (fix16\_t)quotient;}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{/*\ Figure\ out\ the\ sign\ of\ result\ */}}
+\DoxyCodeLine{00176\ \ \ \ \ \textcolor{keywordflow}{if}\ ((a\ <\ 0)\ !=\ (b\ <\ 0))\ \{}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#ifndef\ FIXMATH\_NO\_OVERFLOW}}
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (result\ ==\ (fix16\_t)FIX16\_MINIMUM)}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_t)FIX16\_OVERFLOW;}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ result\ =\ -\/result;}
+\DoxyCodeLine{00183\ \ \ \ \ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{return}\ result;}
+\DoxyCodeLine{00186\ \}}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_sqrt(fix16\_t\ x)\ \{}
+\DoxyCodeLine{00189\ \ \ \ \ \textcolor{comment}{//\ It\ is\ assumed\ that\ x\ is\ not\ negative}}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00191\ \ \ \ \ uint32\_t\ num\ =\ (uint32\_t)x;}
+\DoxyCodeLine{00192\ \ \ \ \ uint32\_t\ result\ =\ 0;}
+\DoxyCodeLine{00193\ \ \ \ \ uint32\_t\ bit;}
+\DoxyCodeLine{00194\ \ \ \ \ uint8\_t\ n;}
+\DoxyCodeLine{00195\ }
+\DoxyCodeLine{00196\ \ \ \ \ bit\ =\ (uint32\_t)1\ <<\ 30;}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keywordflow}{while}\ (bit\ >\ num)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ bit\ >>=\ 2;}
+\DoxyCodeLine{00199\ }
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{comment}{//\ The\ main\ part\ is\ executed\ twice,\ in\ order\ to\ avoid}}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{comment}{//\ using\ 64\ bit\ values\ in\ computations.}}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keywordflow}{for}\ (n\ =\ 0;\ n\ <\ 2;\ n++)\ \{}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ First\ we\ get\ the\ top\ 24\ bits\ of\ the\ answer.}}
+\DoxyCodeLine{00204\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (bit)\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\ >=\ result\ +\ bit)\ \{}
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\ -\/=\ result\ +\ bit;}
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (result\ >>\ 1)\ +\ bit;}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (result\ >>\ 1);}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ bit\ >>=\ 2;}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (n\ ==\ 0)\ \{}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Then\ process\ it\ again\ to\ get\ the\ lowest\ 8\ bits.}}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (num\ >\ 65535)\ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ The\ remainder\ 'num'\ is\ too\ large\ to\ be\ shifted\ left}}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ by\ 16,\ so\ we\ have\ to\ add\ 1\ to\ result\ manually\ and}}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ adjust\ 'num'\ accordingly.}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ num\ =\ a\ -\/\ (result\ +\ 0.5)\string^2}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ num\ +\ result\string^2\ -\/\ (result\ +\ 0.5)\string^2}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ =\ num\ -\/\ result\ -\/\ 0.5}}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\ -\/=\ result;}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\ =\ (num\ <<\ 16)\ -\/\ 0x8000;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ =\ (result\ <<\ 16)\ +\ 0x8000;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ num\ <<=\ 16;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ result\ <<=\ 16;}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ bit\ =\ 1\ <<\ 14;}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00233\ \ \ \ \ \}}
+\DoxyCodeLine{00234\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#ifndef\ FIXMATH\_NO\_ROUNDING}}
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{comment}{//\ Finally,\ if\ next\ bit\ would\ have\ been\ 1,\ round\ the\ result\ upwards.}}
+\DoxyCodeLine{00237\ \ \ \ \ \textcolor{keywordflow}{if}\ (num\ >\ result)\ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ result++;}
+\DoxyCodeLine{00239\ \ \ \ \ \}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_t)result;}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{keyword}{static}\ fix16\_t\ fix16\_exp(fix16\_t\ x)\ \{}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{comment}{//\ Function\ to\ approximate\ exp();\ optimized\ more\ for\ code\ size\ than\ speed}}
+\DoxyCodeLine{00247\ }
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{comment}{//\ exp(x)\ for\ x\ =\ +/-\/\ \{1,\ 1/8,\ 1/64,\ 1/512\}}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#define\ NUM\_EXP\_VALUES\ 4}}
+\DoxyCodeLine{00250\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ fix16\_t\ exp\_pos\_values[NUM\_EXP\_VALUES]\ =\ \{}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ F16(2.7182818),\ F16(1.1331485),\ F16(1.0157477),\ F16(1.0019550)\};}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ fix16\_t\ exp\_neg\_values[NUM\_EXP\_VALUES]\ =\ \{}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ F16(0.3678794),\ F16(0.8824969),\ F16(0.9844964),\ F16(0.9980488)\};}
+\DoxyCodeLine{00254\ \ \ \ \ \textcolor{keyword}{const}\ fix16\_t*\ exp\_values;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ \ \ \ fix16\_t\ res,\ arg;}
+\DoxyCodeLine{00257\ \ \ \ \ uint16\_t\ i;}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ >=\ F16(10.3972))}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ FIX16\_MAXIMUM;}
+\DoxyCodeLine{00261\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <=\ F16(-\/11.7835))}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \ \ \ \ \textcolor{keywordflow}{if}\ (x\ <\ 0)\ \{}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ x\ =\ -\/x;}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ exp\_values\ =\ exp\_neg\_values;}
+\DoxyCodeLine{00267\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ exp\_values\ =\ exp\_pos\_values;}
+\DoxyCodeLine{00269\ \ \ \ \ \}}
+\DoxyCodeLine{00270\ }
+\DoxyCodeLine{00271\ \ \ \ \ res\ =\ FIX16\_ONE;}
+\DoxyCodeLine{00272\ \ \ \ \ arg\ =\ FIX16\_ONE;}
+\DoxyCodeLine{00273\ \ \ \ \ \textcolor{keywordflow}{for}\ (i\ =\ 0;\ i\ <\ NUM\_EXP\_VALUES;\ i++)\ \{}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (x\ >=\ arg)\ \{}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ res\ =\ fix16\_mul(res,\ exp\_values[i]);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \ \ x\ -\/=\ arg;}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ arg\ >>=\ 3;}
+\DoxyCodeLine{00279\ \ \ \ \ \}}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keywordflow}{return}\ res;}
+\DoxyCodeLine{00281\ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_init\_instances(GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00284\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_parameters(}
+\DoxyCodeLine{00285\ \ \ \ \ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00286\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_states(}
+\DoxyCodeLine{00287\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ mean,\ fix16\_t\ std,}
+\DoxyCodeLine{00288\ \ \ \ \ fix16\_t\ uptime\_gamma);}
+\DoxyCodeLine{00289\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(}
+\DoxyCodeLine{00290\ \ \ \ \ \textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00291\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(}
+\DoxyCodeLine{00292\ \ \ \ \ \textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00293\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_is\_initialized(}
+\DoxyCodeLine{00294\ \ \ \ \ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00295\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_calculate\_gamma(}
+\DoxyCodeLine{00296\ \ \ \ \ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00297\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_process(}
+\DoxyCodeLine{00298\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ sraw);}
+\DoxyCodeLine{00299\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00300\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00301\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ X0,\ fix16\_t\ K);}
+\DoxyCodeLine{00302\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00303\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ sample);}
+\DoxyCodeLine{00304\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mox\_model\_\_set\_parameters(}
+\DoxyCodeLine{00305\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ SRAW\_STD,\ fix16\_t\ SRAW\_MEAN);}
+\DoxyCodeLine{00306\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00307\ GasIndexAlgorithm\_\_mox\_model\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sraw);}
+\DoxyCodeLine{00309\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_set\_parameters(}
+\DoxyCodeLine{00310\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ X0,\ fix16\_t\ K,}
+\DoxyCodeLine{00311\ \ \ \ \ fix16\_t\ offset\_default);}
+\DoxyCodeLine{00312\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00313\ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sample);}
+\DoxyCodeLine{00315\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_set\_parameters(}
+\DoxyCodeLine{00316\ \ \ \ \ GasIndexAlgorithmParams*\ params);}
+\DoxyCodeLine{00317\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00318\ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sample);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_init(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ algorithm\_type)\ \{}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00324\ \ \ \ \ params-\/>mAlgorithm\_Type\ =\ algorithm\_type;}
+\DoxyCodeLine{00325\ \ \ \ \ \textcolor{keywordflow}{if}\ ((algorithm\_type\ ==\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX))\ \{}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ params-\/>mIndex\_Offset\ =\ F16(GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT);}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ params-\/>mSraw\_Minimum\ =\ GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM;}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ params-\/>mGating\_Max\_Duration\_Minutes\ =}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES);}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ params-\/>mInit\_Duration\_Mean\ =}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX);}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ params-\/>mInit\_Duration\_Variance\ =}
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX);}
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ params-\/>mGating\_Threshold\ =\ F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX);}
+\DoxyCodeLine{00335\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ params-\/>mIndex\_Offset\ =\ F16(GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT);}
+\DoxyCodeLine{00337\ \ \ \ \ \ \ \ \ params-\/>mSraw\_Minimum\ =\ GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM;}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ params-\/>mGating\_Max\_Duration\_Minutes\ =}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES);}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ params-\/>mInit\_Duration\_Mean\ =}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC);}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ params-\/>mInit\_Duration\_Variance\ =}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ params-\/>mGating\_Threshold\ =\ F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC);}
+\DoxyCodeLine{00345\ \ \ \ \ \}}
+\DoxyCodeLine{00346\ \ \ \ \ params-\/>mIndex\_Gain\ =\ F16(GasIndexAlgorithm\_INDEX\_GAIN);}
+\DoxyCodeLine{00347\ \ \ \ \ params-\/>mTau\_Mean\_Hours\ =\ F16(GasIndexAlgorithm\_TAU\_MEAN\_HOURS);}
+\DoxyCodeLine{00348\ \ \ \ \ params-\/>mTau\_Variance\_Hours\ =\ F16(GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS);}
+\DoxyCodeLine{00349\ \ \ \ \ params-\/>mSraw\_Std\_Initial\ =\ F16(GasIndexAlgorithm\_SRAW\_STD\_INITIAL);}
+\DoxyCodeLine{00350\ \ \ \ \ GasIndexAlgorithm\_reset(params);}
+\DoxyCodeLine{00351\ \}}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_reset(GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00354\ \ \ \ \ params-\/>mUptime\ =\ F16(0.);}
+\DoxyCodeLine{00355\ \ \ \ \ params-\/>mSraw\ =\ F16(0.);}
+\DoxyCodeLine{00356\ \ \ \ \ params-\/>mGas\_Index\ =\ 0;}
+\DoxyCodeLine{00357\ \ \ \ \ GasIndexAlgorithm\_\_init\_instances(params);}
+\DoxyCodeLine{00358\ \}}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_init\_instances(GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_parameters(params);}
+\DoxyCodeLine{00363\ \ \ \ \ GasIndexAlgorithm\_\_mox\_model\_\_set\_parameters(}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ params,\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(params),}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(params));}
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mAlgorithm\_Type\ ==\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX))\ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_set\_parameters(}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ F16(GasIndexAlgorithm\_SIGMOID\_X0\_NOX),}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SIGMOID\_K\_NOX),}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT));}
+\DoxyCodeLine{00371\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_set\_parameters(}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ F16(GasIndexAlgorithm\_SIGMOID\_X0\_VOC),}
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SIGMOID\_K\_VOC),}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT));}
+\DoxyCodeLine{00376\ \ \ \ \ \}}
+\DoxyCodeLine{00377\ \ \ \ \ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_set\_parameters(params);}
+\DoxyCodeLine{00378\ \}}
+\DoxyCodeLine{00379\ }
+\DoxyCodeLine{00380\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_get\_states(\textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t*\ state0,\ int32\_t*\ state1)\ \{}
+\DoxyCodeLine{00382\ }
+\DoxyCodeLine{00383\ \ \ \ \ *state0\ =\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(params);}
+\DoxyCodeLine{00384\ \ \ \ \ *state1\ =\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(params);}
+\DoxyCodeLine{00385\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00386\ \}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_set\_states(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ state0,\ int32\_t\ state1)\ \{}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_states(}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ params,\ state0,\ state1,}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA));}
+\DoxyCodeLine{00394\ \ \ \ \ GasIndexAlgorithm\_\_mox\_model\_\_set\_parameters(}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ params,\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(params),}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(params));}
+\DoxyCodeLine{00397\ \ \ \ \ params-\/>mSraw\ =\ state0;}
+\DoxyCodeLine{00398\ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_set\_tuning\_parameters(}
+\DoxyCodeLine{00401\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ int32\_t\ index\_offset,}
+\DoxyCodeLine{00402\ \ \ \ \ int32\_t\ learning\_time\_offset\_hours,\ int32\_t\ learning\_time\_gain\_hours,}
+\DoxyCodeLine{00403\ \ \ \ \ int32\_t\ gating\_max\_duration\_minutes,\ int32\_t\ std\_initial,}
+\DoxyCodeLine{00404\ \ \ \ \ int32\_t\ gain\_factor)\ \{}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ \ \ \ \ params-\/>mIndex\_Offset\ =\ (fix16\_from\_int(index\_offset));}
+\DoxyCodeLine{00407\ \ \ \ \ params-\/>mTau\_Mean\_Hours\ =\ (fix16\_from\_int(learning\_time\_offset\_hours));}
+\DoxyCodeLine{00408\ \ \ \ \ params-\/>mTau\_Variance\_Hours\ =\ (fix16\_from\_int(learning\_time\_gain\_hours));}
+\DoxyCodeLine{00409\ \ \ \ \ params-\/>mGating\_Max\_Duration\_Minutes\ =}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ (fix16\_from\_int(gating\_max\_duration\_minutes));}
+\DoxyCodeLine{00411\ \ \ \ \ params-\/>mSraw\_Std\_Initial\ =\ (fix16\_from\_int(std\_initial));}
+\DoxyCodeLine{00412\ \ \ \ \ params-\/>mIndex\_Gain\ =\ (fix16\_from\_int(gain\_factor));}
+\DoxyCodeLine{00413\ \ \ \ \ GasIndexAlgorithm\_\_init\_instances(params);}
+\DoxyCodeLine{00414\ \}}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_get\_tuning\_parameters(}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params,\ int32\_t*\ index\_offset,}
+\DoxyCodeLine{00418\ \ \ \ \ int32\_t*\ learning\_time\_offset\_hours,\ int32\_t*\ learning\_time\_gain\_hours,}
+\DoxyCodeLine{00419\ \ \ \ \ int32\_t*\ gating\_max\_duration\_minutes,\ int32\_t*\ std\_initial,}
+\DoxyCodeLine{00420\ \ \ \ \ int32\_t*\ gain\_factor)\ \{}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \ \ \ \ *index\_offset\ =\ (fix16\_cast\_to\_int(params-\/>mIndex\_Offset));}
+\DoxyCodeLine{00423\ \ \ \ \ *learning\_time\_offset\_hours\ =\ (fix16\_cast\_to\_int(params-\/>mTau\_Mean\_Hours));}
+\DoxyCodeLine{00424\ \ \ \ \ *learning\_time\_gain\_hours\ =}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ (fix16\_cast\_to\_int(params-\/>mTau\_Variance\_Hours));}
+\DoxyCodeLine{00426\ \ \ \ \ *gating\_max\_duration\_minutes\ =}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ (fix16\_cast\_to\_int(params-\/>mGating\_Max\_Duration\_Minutes));}
+\DoxyCodeLine{00428\ \ \ \ \ *std\_initial\ =\ (fix16\_cast\_to\_int(params-\/>mSraw\_Std\_Initial));}
+\DoxyCodeLine{00429\ \ \ \ \ *gain\_factor\ =\ (fix16\_cast\_to\_int(params-\/>mIndex\_Gain));}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00431\ \}}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_process(GasIndexAlgorithmParams*\ params,\ int32\_t\ sraw,}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t*\ gas\_index)\ \{}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mUptime\ <=\ F16(GasIndexAlgorithm\_INITIAL\_BLACKOUT)))\ \{}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ params-\/>mUptime\ =}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>mUptime\ +\ F16(GasIndexAlgorithm\_SAMPLING\_INTERVAL));}
+\DoxyCodeLine{00439\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((sraw\ >\ 0)\ \&\&\ (sraw\ <\ 65000)))\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((sraw\ <\ (params-\/>mSraw\_Minimum\ +\ 1)))\ \{}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sraw\ =\ (params-\/>mSraw\_Minimum\ +\ 1);}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((sraw\ >\ (params-\/>mSraw\_Minimum\ +\ 32767)))\ \{}
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sraw\ =\ (params-\/>mSraw\_Minimum\ +\ 32767);}
+\DoxyCodeLine{00445\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mSraw\ =\ (fix16\_from\_int((sraw\ -\/\ params-\/>mSraw\_Minimum)));}
+\DoxyCodeLine{00447\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((params-\/>mAlgorithm\_Type\ ==}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC)\ ||}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_is\_initialized(}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params)))\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGas\_Index\ =}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mox\_model\_\_process(params,\ params-\/>mSraw);}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGas\_Index\ =\ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_process(}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>mGas\_Index);}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGas\_Index\ =\ params-\/>mIndex\_Offset;}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ params-\/>mGas\_Index\ =\ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_process(}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>mGas\_Index);}
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mGas\_Index\ <\ F16(0.5)))\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGas\_Index\ =\ F16(0.5);}
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mSraw\ >\ F16(0.)))\ \{}
+\DoxyCodeLine{00465\ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_process(params,}
+\DoxyCodeLine{00466\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mSraw);}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mox\_model\_\_set\_parameters(}
+\DoxyCodeLine{00468\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params,}
+\DoxyCodeLine{00469\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(params),}
+\DoxyCodeLine{00470\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(params));}
+\DoxyCodeLine{00471\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00472\ \ \ \ \ \}}
+\DoxyCodeLine{00473\ \ \ \ \ *gas\_index\ =\ (fix16\_cast\_to\_int((params-\/>mGas\_Index\ +\ F16(0.5))));}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00475\ \}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_parameters(}
+\DoxyCodeLine{00478\ \ \ \ \ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00479\ }
+\DoxyCodeLine{00480\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Initialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00481\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ =\ F16(0.);}
+\DoxyCodeLine{00482\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset\ =\ F16(0.);}
+\DoxyCodeLine{00483\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std\ =\ params-\/>mSraw\_Std\_Initial;}
+\DoxyCodeLine{00484\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean\ =\ (fix16\_div(}
+\DoxyCodeLine{00485\ \ \ \ \ \ \ \ \ F16((}
+\DoxyCodeLine{00486\ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING\ *}
+\DoxyCodeLine{00487\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING)\ *}
+\DoxyCodeLine{00488\ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /\ 3600.))),}
+\DoxyCodeLine{00489\ \ \ \ \ \ \ \ \ (params-\/>mTau\_Mean\_Hours\ +}
+\DoxyCodeLine{00490\ \ \ \ \ \ \ \ \ \ F16((GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /\ 3600.)))));}
+\DoxyCodeLine{00491\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance\ =\ (fix16\_div(}
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ F16((GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING\ *}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /\ 3600.))),}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ (params-\/>mTau\_Variance\_Hours\ +}
+\DoxyCodeLine{00495\ \ \ \ \ \ \ \ \ \ F16((GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /\ 3600.)))));}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mAlgorithm\_Type\ ==\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX))\ \{}
+\DoxyCodeLine{00497\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean\ =\ F16((}
+\DoxyCodeLine{00498\ \ \ \ \ \ \ \ \ \ \ \ \ ((GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING\ *}
+\DoxyCodeLine{00499\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING)\ *}
+\DoxyCodeLine{00500\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)\ /}
+\DoxyCodeLine{00501\ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX\ +}
+\DoxyCodeLine{00502\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)));}
+\DoxyCodeLine{00503\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00504\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean\ =\ F16((}
+\DoxyCodeLine{00505\ \ \ \ \ \ \ \ \ \ \ \ \ ((GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING\ *}
+\DoxyCodeLine{00506\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING)\ *}
+\DoxyCodeLine{00507\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)\ /}
+\DoxyCodeLine{00508\ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC\ +}
+\DoxyCodeLine{00509\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)));}
+\DoxyCodeLine{00510\ \ \ \ \ \}}
+\DoxyCodeLine{00511\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance\ =}
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ F16(((GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING\ *}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)\ /}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE\ +}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL)));}
+\DoxyCodeLine{00516\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean\ =\ F16(0.);}
+\DoxyCodeLine{00517\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance\ =\ F16(0.);}
+\DoxyCodeLine{00518\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma\ =\ F16(0.);}
+\DoxyCodeLine{00519\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating\ =\ F16(0.);}
+\DoxyCodeLine{00520\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ =\ F16(0.);}
+\DoxyCodeLine{00521\ \}}
+\DoxyCodeLine{00522\ }
+\DoxyCodeLine{00523\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_set\_states(}
+\DoxyCodeLine{00524\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ mean,\ fix16\_t\ std,}
+\DoxyCodeLine{00525\ \ \ \ \ fix16\_t\ uptime\_gamma)\ \{}
+\DoxyCodeLine{00526\ }
+\DoxyCodeLine{00527\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ =\ mean;}
+\DoxyCodeLine{00528\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std\ =\ std;}
+\DoxyCodeLine{00529\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma\ =\ uptime\_gamma;}
+\DoxyCodeLine{00530\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Initialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00531\ \}}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_std(}
+\DoxyCodeLine{00534\ \ \ \ \ \textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00535\ }
+\DoxyCodeLine{00536\ \ \ \ \ \textcolor{keywordflow}{return}\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std;}
+\DoxyCodeLine{00537\ \}}
+\DoxyCodeLine{00538\ }
+\DoxyCodeLine{00539\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_get\_mean(}
+\DoxyCodeLine{00540\ \ \ \ \ \textcolor{keyword}{const}\ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00541\ }
+\DoxyCodeLine{00542\ \ \ \ \ \textcolor{keywordflow}{return}\ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ +}
+\DoxyCodeLine{00543\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset);}
+\DoxyCodeLine{00544\ \}}
+\DoxyCodeLine{00545\ }
+\DoxyCodeLine{00546\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{bool}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_is\_initialized(}
+\DoxyCodeLine{00547\ \ \ \ \ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00548\ }
+\DoxyCodeLine{00549\ \ \ \ \ \textcolor{keywordflow}{return}\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Initialized;}
+\DoxyCodeLine{00550\ \}}
+\DoxyCodeLine{00551\ }
+\DoxyCodeLine{00552\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_calculate\_gamma(}
+\DoxyCodeLine{00553\ \ \ \ \ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00554\ }
+\DoxyCodeLine{00555\ \ \ \ \ fix16\_t\ uptime\_limit;}
+\DoxyCodeLine{00556\ \ \ \ \ fix16\_t\ sigmoid\_gamma\_mean;}
+\DoxyCodeLine{00557\ \ \ \ \ fix16\_t\ gamma\_mean;}
+\DoxyCodeLine{00558\ \ \ \ \ fix16\_t\ gating\_threshold\_mean;}
+\DoxyCodeLine{00559\ \ \ \ \ fix16\_t\ sigmoid\_gating\_mean;}
+\DoxyCodeLine{00560\ \ \ \ \ fix16\_t\ sigmoid\_gamma\_variance;}
+\DoxyCodeLine{00561\ \ \ \ \ fix16\_t\ gamma\_variance;}
+\DoxyCodeLine{00562\ \ \ \ \ fix16\_t\ gating\_threshold\_variance;}
+\DoxyCodeLine{00563\ \ \ \ \ fix16\_t\ sigmoid\_gating\_variance;}
+\DoxyCodeLine{00564\ }
+\DoxyCodeLine{00565\ \ \ \ \ uptime\_limit\ =\ F16((GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX\ -\/}
+\DoxyCodeLine{00566\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL));}
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma\ <\ uptime\_limit))\ \{}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma\ =}
+\DoxyCodeLine{00569\ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma\ +}
+\DoxyCodeLine{00570\ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SAMPLING\_INTERVAL));}
+\DoxyCodeLine{00571\ \ \ \ \ \}}
+\DoxyCodeLine{00572\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating\ <\ uptime\_limit))\ \{}
+\DoxyCodeLine{00573\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating\ =}
+\DoxyCodeLine{00574\ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating\ +}
+\DoxyCodeLine{00575\ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SAMPLING\_INTERVAL));}
+\DoxyCodeLine{00576\ \ \ \ \ \}}
+\DoxyCodeLine{00577\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00578\ \ \ \ \ \ \ \ \ params,\ params-\/>mInit\_Duration\_Mean,}
+\DoxyCodeLine{00579\ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN));}
+\DoxyCodeLine{00580\ \ \ \ \ sigmoid\_gamma\_mean\ =}
+\DoxyCodeLine{00581\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00582\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma);}
+\DoxyCodeLine{00583\ \ \ \ \ gamma\_mean\ =}
+\DoxyCodeLine{00584\ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean\ +}
+\DoxyCodeLine{00585\ \ \ \ \ \ \ \ \ \ (fix16\_mul((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean\ -\/}
+\DoxyCodeLine{00586\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean),}
+\DoxyCodeLine{00587\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sigmoid\_gamma\_mean)));}
+\DoxyCodeLine{00588\ \ \ \ \ gating\_threshold\_mean\ =}
+\DoxyCodeLine{00589\ \ \ \ \ \ \ \ \ (params-\/>mGating\_Threshold\ +}
+\DoxyCodeLine{00590\ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00591\ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL)\ -\/}
+\DoxyCodeLine{00592\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGating\_Threshold),}
+\DoxyCodeLine{00593\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00594\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating))));}
+\DoxyCodeLine{00595\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00596\ \ \ \ \ \ \ \ \ params,\ gating\_threshold\_mean,}
+\DoxyCodeLine{00597\ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION));}
+\DoxyCodeLine{00598\ \ \ \ \ sigmoid\_gating\_mean\ =}
+\DoxyCodeLine{00599\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00600\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>mGas\_Index);}
+\DoxyCodeLine{00601\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean\ =}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ (fix16\_mul(sigmoid\_gating\_mean,\ gamma\_mean));}
+\DoxyCodeLine{00603\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ params,\ params-\/>mInit\_Duration\_Variance,}
+\DoxyCodeLine{00605\ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE));}
+\DoxyCodeLine{00606\ \ \ \ \ sigmoid\_gamma\_variance\ =}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma);}
+\DoxyCodeLine{00609\ \ \ \ \ gamma\_variance\ =}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance\ +}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00612\ \ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance\ -\/}
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance),}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \ \ \ \ \ (sigmoid\_gamma\_variance\ -\/\ sigmoid\_gamma\_mean))));}
+\DoxyCodeLine{00615\ \ \ \ \ gating\_threshold\_variance\ =}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ (params-\/>mGating\_Threshold\ +}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL)\ -\/}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mGating\_Threshold),}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating))));}
+\DoxyCodeLine{00622\ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ params,\ gating\_threshold\_variance,}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION));}
+\DoxyCodeLine{00625\ \ \ \ \ sigmoid\_gating\_variance\ =}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ \ \ params,\ params-\/>mGas\_Index);}
+\DoxyCodeLine{00628\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance\ =}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ (fix16\_mul(sigmoid\_gating\_variance,\ gamma\_variance));}
+\DoxyCodeLine{00630\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ =}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ +}
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \ \ \ F16((GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /\ 60.)),}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \ \ \ ((fix16\_mul((F16(1.)\ -\/\ sigmoid\_gating\_mean),}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16((1.\ +\ GasIndexAlgorithm\_GATING\_MAX\_RATIO))))\ -\/}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_GATING\_MAX\_RATIO)))));}
+\DoxyCodeLine{00637\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ <}
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \ F16(0.)))\ \{}
+\DoxyCodeLine{00639\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ =\ F16(0.);}
+\DoxyCodeLine{00640\ \ \ \ \ \}}
+\DoxyCodeLine{00641\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes\ >}
+\DoxyCodeLine{00642\ \ \ \ \ \ \ \ \ \ params-\/>mGating\_Max\_Duration\_Minutes))\ \{}
+\DoxyCodeLine{00643\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating\ =\ F16(0.);}
+\DoxyCodeLine{00644\ \ \ \ \ \}}
+\DoxyCodeLine{00645\ \}}
+\DoxyCodeLine{00646\ }
+\DoxyCodeLine{00647\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_process(}
+\DoxyCodeLine{00648\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ sraw)\ \{}
+\DoxyCodeLine{00649\ }
+\DoxyCodeLine{00650\ \ \ \ \ fix16\_t\ delta\_sgp;}
+\DoxyCodeLine{00651\ \ \ \ \ fix16\_t\ c;}
+\DoxyCodeLine{00652\ \ \ \ \ fix16\_t\ additional\_scaling;}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Initialized\ ==\ \textcolor{keyword}{false}))\ \{}
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Initialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset\ =\ sraw;}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ =\ F16(0.);}
+\DoxyCodeLine{00658\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00659\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (((params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ >=\ F16(100.))\ ||}
+\DoxyCodeLine{00660\ \ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ <=\ F16(-\/100.))))\ \{}
+\DoxyCodeLine{00661\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset\ =}
+\DoxyCodeLine{00662\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset\ +}
+\DoxyCodeLine{00663\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean);}
+\DoxyCodeLine{00664\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ =\ F16(0.);}
+\DoxyCodeLine{00665\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00666\ \ \ \ \ \ \ \ \ sraw\ =\ (sraw\ -\/\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset);}
+\DoxyCodeLine{00667\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_calculate\_gamma(params);}
+\DoxyCodeLine{00668\ \ \ \ \ \ \ \ \ delta\_sgp\ =\ (fix16\_div(}
+\DoxyCodeLine{00669\ \ \ \ \ \ \ \ \ \ \ \ \ (sraw\ -\/\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean),}
+\DoxyCodeLine{00670\ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING)));}
+\DoxyCodeLine{00671\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((delta\_sgp\ <\ F16(0.)))\ \{}
+\DoxyCodeLine{00672\ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std\ -\/\ delta\_sgp);}
+\DoxyCodeLine{00673\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00674\ \ \ \ \ \ \ \ \ \ \ \ \ c\ =\ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std\ +\ delta\_sgp);}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00676\ \ \ \ \ \ \ \ \ additional\_scaling\ =\ F16(1.);}
+\DoxyCodeLine{00677\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((c\ >\ F16(1440.)))\ \{}
+\DoxyCodeLine{00678\ \ \ \ \ \ \ \ \ \ \ \ \ additional\_scaling\ =\ (fix16\_mul((fix16\_div(c,\ F16(1440.))),}
+\DoxyCodeLine{00679\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div(c,\ F16(1440.)))));}
+\DoxyCodeLine{00680\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00681\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std\ =\ (fix16\_mul(}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_sqrt((fix16\_mul(}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_scaling,}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING)\ -\/}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance)))),}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_sqrt((}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std,}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div(}
+\DoxyCodeLine{00690\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Std,}
+\DoxyCodeLine{00691\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00692\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING),}
+\DoxyCodeLine{00693\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_scaling))))))\ +}
+\DoxyCodeLine{00694\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00695\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div(}
+\DoxyCodeLine{00696\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(}
+\DoxyCodeLine{00697\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance,}
+\DoxyCodeLine{00698\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delta\_sgp)),}
+\DoxyCodeLine{00699\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ additional\_scaling)),}
+\DoxyCodeLine{00700\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delta\_sgp))))));}
+\DoxyCodeLine{00701\ \ \ \ \ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ =}
+\DoxyCodeLine{00702\ \ \ \ \ \ \ \ \ \ \ \ \ (params-\/>m\_Mean\_Variance\_Estimator\_\_\_Mean\ +}
+\DoxyCodeLine{00703\ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div(}
+\DoxyCodeLine{00704\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(params-\/>m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean,}
+\DoxyCodeLine{00705\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ delta\_sgp)),}
+\DoxyCodeLine{00706\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING))));}
+\DoxyCodeLine{00707\ \ \ \ \ \}}
+\DoxyCodeLine{00708\ \}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00711\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_set\_parameters(}
+\DoxyCodeLine{00712\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ X0,\ fix16\_t\ K)\ \{}
+\DoxyCodeLine{00713\ }
+\DoxyCodeLine{00714\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K\ =\ K;}
+\DoxyCodeLine{00715\ \ \ \ \ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0\ =\ X0;}
+\DoxyCodeLine{00716\ \}}
+\DoxyCodeLine{00717\ }
+\DoxyCodeLine{00718\ \textcolor{keyword}{static}\ fix16\_t\ GasIndexAlgorithm\_\_mean\_variance\_estimator\_\_\_sigmoid\_\_process(}
+\DoxyCodeLine{00719\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ sample)\ \{}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \ \ \ \ fix16\_t\ x;}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \ \ \ \ x\ =\ (fix16\_mul(params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K,}
+\DoxyCodeLine{00724\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (sample\ -\/\ params-\/>m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0)));}
+\DoxyCodeLine{00725\ \ \ \ \ \textcolor{keywordflow}{if}\ ((x\ <\ F16(-\/50.)))\ \{}
+\DoxyCodeLine{00726\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ F16(1.);}
+\DoxyCodeLine{00727\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((x\ >\ F16(50.)))\ \{}
+\DoxyCodeLine{00728\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ F16(0.);}
+\DoxyCodeLine{00729\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00730\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_div(F16(1.),\ (F16(1.)\ +\ fix16\_exp(x))));}
+\DoxyCodeLine{00731\ \ \ \ \ \}}
+\DoxyCodeLine{00732\ \}}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_mox\_model\_\_set\_parameters(}
+\DoxyCodeLine{00735\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ SRAW\_STD,\ fix16\_t\ SRAW\_MEAN)\ \{}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ \ \ \ \ params-\/>m\_Mox\_Model\_\_Sraw\_Std\ =\ SRAW\_STD;}
+\DoxyCodeLine{00738\ \ \ \ \ params-\/>m\_Mox\_Model\_\_Sraw\_Mean\ =\ SRAW\_MEAN;}
+\DoxyCodeLine{00739\ \}}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00742\ GasIndexAlgorithm\_\_mox\_model\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00743\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sraw)\ \{}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>mAlgorithm\_Type\ ==\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX))\ \{}
+\DoxyCodeLine{00746\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_mul((fix16\_div((sraw\ -\/\ params-\/>m\_Mox\_Model\_\_Sraw\_Mean),}
+\DoxyCodeLine{00747\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SRAW\_STD\_NOX))),}
+\DoxyCodeLine{00748\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mIndex\_Gain));}
+\DoxyCodeLine{00749\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00750\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (fix16\_mul(}
+\DoxyCodeLine{00751\ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div((sraw\ -\/\ params-\/>m\_Mox\_Model\_\_Sraw\_Mean),}
+\DoxyCodeLine{00752\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (-\/(params-\/>m\_Mox\_Model\_\_Sraw\_Std\ +}
+\DoxyCodeLine{00753\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC))))),}
+\DoxyCodeLine{00754\ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>mIndex\_Gain));}
+\DoxyCodeLine{00755\ \ \ \ \ \}}
+\DoxyCodeLine{00756\ \}}
+\DoxyCodeLine{00757\ }
+\DoxyCodeLine{00758\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_set\_parameters(}
+\DoxyCodeLine{00759\ \ \ \ \ GasIndexAlgorithmParams*\ params,\ fix16\_t\ X0,\ fix16\_t\ K,}
+\DoxyCodeLine{00760\ \ \ \ \ fix16\_t\ offset\_default)\ \{}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \ \ \ \ params-\/>m\_Sigmoid\_Scaled\_\_K\ =\ K;}
+\DoxyCodeLine{00763\ \ \ \ \ params-\/>m\_Sigmoid\_Scaled\_\_X0\ =\ X0;}
+\DoxyCodeLine{00764\ \ \ \ \ params-\/>m\_Sigmoid\_Scaled\_\_Offset\_Default\ =\ offset\_default;}
+\DoxyCodeLine{00765\ \}}
+\DoxyCodeLine{00766\ }
+\DoxyCodeLine{00767\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00768\ GasIndexAlgorithm\_\_sigmoid\_scaled\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00769\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sample)\ \{}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \ \ \ \ fix16\_t\ x;}
+\DoxyCodeLine{00772\ \ \ \ \ fix16\_t\ shift;}
+\DoxyCodeLine{00773\ }
+\DoxyCodeLine{00774\ \ \ \ \ x\ =\ (fix16\_mul(params-\/>m\_Sigmoid\_Scaled\_\_K,}
+\DoxyCodeLine{00775\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (sample\ -\/\ params-\/>m\_Sigmoid\_Scaled\_\_X0)));}
+\DoxyCodeLine{00776\ \ \ \ \ \textcolor{keywordflow}{if}\ ((x\ <\ F16(-\/50.)))\ \{}
+\DoxyCodeLine{00777\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ F16(GasIndexAlgorithm\_SIGMOID\_L);}
+\DoxyCodeLine{00778\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ ((x\ >\ F16(50.)))\ \{}
+\DoxyCodeLine{00779\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ F16(0.);}
+\DoxyCodeLine{00780\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00781\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((sample\ >=\ F16(0.)))\ \{}
+\DoxyCodeLine{00782\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Sigmoid\_Scaled\_\_Offset\_Default\ ==\ F16(1.)))\ \{}
+\DoxyCodeLine{00783\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shift\ =\ (fix16\_mul(F16((500.\ /\ 499.)),}
+\DoxyCodeLine{00784\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(1.)\ -\/\ params-\/>mIndex\_Offset)));}
+\DoxyCodeLine{00785\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00786\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shift\ =}
+\DoxyCodeLine{00787\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div((F16(GasIndexAlgorithm\_SIGMOID\_L)\ -\/}
+\DoxyCodeLine{00788\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_mul(F16(5.),\ params-\/>mIndex\_Offset))),}
+\DoxyCodeLine{00789\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(4.)));}
+\DoxyCodeLine{00790\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00791\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ ((fix16\_div((F16(GasIndexAlgorithm\_SIGMOID\_L)\ +\ shift),}
+\DoxyCodeLine{00792\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(1.)\ +\ fix16\_exp(x))))\ -\/}
+\DoxyCodeLine{00793\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ shift);}
+\DoxyCodeLine{00794\ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00795\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (}
+\DoxyCodeLine{00796\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_mul((fix16\_div(params-\/>mIndex\_Offset,}
+\DoxyCodeLine{00797\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Sigmoid\_Scaled\_\_Offset\_Default)),}
+\DoxyCodeLine{00798\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (fix16\_div(F16(GasIndexAlgorithm\_SIGMOID\_L),}
+\DoxyCodeLine{00799\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(1.)\ +\ fix16\_exp(x))))));}
+\DoxyCodeLine{00800\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00801\ \ \ \ \ \}}
+\DoxyCodeLine{00802\ \}}
+\DoxyCodeLine{00803\ }
+\DoxyCodeLine{00804\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_set\_parameters(}
+\DoxyCodeLine{00805\ \ \ \ \ GasIndexAlgorithmParams*\ params)\ \{}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_A1\ =\ F16((}
+\DoxyCodeLine{00808\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /}
+\DoxyCodeLine{00809\ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_LP\_TAU\_FAST\ +\ GasIndexAlgorithm\_SAMPLING\_INTERVAL)));}
+\DoxyCodeLine{00810\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_A2\ =\ F16((}
+\DoxyCodeLine{00811\ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_SAMPLING\_INTERVAL\ /}
+\DoxyCodeLine{00812\ \ \ \ \ \ \ \ \ (GasIndexAlgorithm\_LP\_TAU\_SLOW\ +\ GasIndexAlgorithm\_SAMPLING\_INTERVAL)));}
+\DoxyCodeLine{00813\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_Initialized\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00814\ \}}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \textcolor{keyword}{static}\ fix16\_t}
+\DoxyCodeLine{00817\ GasIndexAlgorithm\_\_adaptive\_lowpass\_\_process(GasIndexAlgorithmParams*\ params,}
+\DoxyCodeLine{00818\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fix16\_t\ sample)\ \{}
+\DoxyCodeLine{00819\ }
+\DoxyCodeLine{00820\ \ \ \ \ fix16\_t\ abs\_delta;}
+\DoxyCodeLine{00821\ \ \ \ \ fix16\_t\ F1;}
+\DoxyCodeLine{00822\ \ \ \ \ fix16\_t\ tau\_a;}
+\DoxyCodeLine{00823\ \ \ \ \ fix16\_t\ a3;}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \ \ \ \ \textcolor{keywordflow}{if}\ ((params-\/>m\_Adaptive\_Lowpass\_\_\_Initialized\ ==\ \textcolor{keyword}{false}))\ \{}
+\DoxyCodeLine{00826\ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X1\ =\ sample;}
+\DoxyCodeLine{00827\ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X2\ =\ sample;}
+\DoxyCodeLine{00828\ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X3\ =\ sample;}
+\DoxyCodeLine{00829\ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_Initialized\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00830\ \ \ \ \ \}}
+\DoxyCodeLine{00831\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X1\ =}
+\DoxyCodeLine{00832\ \ \ \ \ \ \ \ \ ((fix16\_mul((F16(1.)\ -\/\ params-\/>m\_Adaptive\_Lowpass\_\_A1),}
+\DoxyCodeLine{00833\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X1))\ +}
+\DoxyCodeLine{00834\ \ \ \ \ \ \ \ \ \ (fix16\_mul(params-\/>m\_Adaptive\_Lowpass\_\_A1,\ sample)));}
+\DoxyCodeLine{00835\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X2\ =}
+\DoxyCodeLine{00836\ \ \ \ \ \ \ \ \ ((fix16\_mul((F16(1.)\ -\/\ params-\/>m\_Adaptive\_Lowpass\_\_A2),}
+\DoxyCodeLine{00837\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X2))\ +}
+\DoxyCodeLine{00838\ \ \ \ \ \ \ \ \ \ (fix16\_mul(params-\/>m\_Adaptive\_Lowpass\_\_A2,\ sample)));}
+\DoxyCodeLine{00839\ \ \ \ \ abs\_delta\ =}
+\DoxyCodeLine{00840\ \ \ \ \ \ \ \ \ (params-\/>m\_Adaptive\_Lowpass\_\_\_X1\ -\/\ params-\/>m\_Adaptive\_Lowpass\_\_\_X2);}
+\DoxyCodeLine{00841\ \ \ \ \ \textcolor{keywordflow}{if}\ ((abs\_delta\ <\ F16(0.)))\ \{}
+\DoxyCodeLine{00842\ \ \ \ \ \ \ \ \ abs\_delta\ =\ (-\/abs\_delta);}
+\DoxyCodeLine{00843\ \ \ \ \ \}}
+\DoxyCodeLine{00844\ \ \ \ \ F1\ =\ fix16\_exp((fix16\_mul(F16(GasIndexAlgorithm\_LP\_ALPHA),\ abs\_delta)));}
+\DoxyCodeLine{00845\ \ \ \ \ tau\_a\ =\ ((fix16\_mul(F16((GasIndexAlgorithm\_LP\_TAU\_SLOW\ -\/}
+\DoxyCodeLine{00846\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ GasIndexAlgorithm\_LP\_TAU\_FAST)),}
+\DoxyCodeLine{00847\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ F1))\ +}
+\DoxyCodeLine{00848\ \ \ \ \ \ \ \ \ \ \ \ \ \ F16(GasIndexAlgorithm\_LP\_TAU\_FAST));}
+\DoxyCodeLine{00849\ \ \ \ \ a3\ =\ (fix16\_div(F16(GasIndexAlgorithm\_SAMPLING\_INTERVAL),}
+\DoxyCodeLine{00850\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (F16(GasIndexAlgorithm\_SAMPLING\_INTERVAL)\ +\ tau\_a)));}
+\DoxyCodeLine{00851\ \ \ \ \ params-\/>m\_Adaptive\_Lowpass\_\_\_X3\ =}
+\DoxyCodeLine{00852\ \ \ \ \ \ \ \ \ ((fix16\_mul((F16(1.)\ -\/\ a3),\ params-\/>m\_Adaptive\_Lowpass\_\_\_X3))\ +}
+\DoxyCodeLine{00853\ \ \ \ \ \ \ \ \ \ (fix16\_mul(a3,\ sample)));}
+\DoxyCodeLine{00854\ \ \ \ \ \textcolor{keywordflow}{return}\ params-\/>m\_Adaptive\_Lowpass\_\_\_X3;}
+\DoxyCodeLine{00855\ \}}
+
+\end{DoxyCode}

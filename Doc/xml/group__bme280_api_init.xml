@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_init" kind="group">
+    <compoundname>bme280ApiInit</compoundname>
+    <title>Initialization</title>
+    <innerpage refid="group__bme280_api_init_bme280_api_bme280_init">bme280_init</innerpage>
+    <briefdescription>
+<para>Initialize the sensor and device structure. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>CPP guard </para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

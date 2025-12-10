@@ -1,0 +1,160 @@
+\doxysection{lib/\+FAT32/\+FAT32.c File Reference}
+\label{_f_a_t32_8c}\index{lib/FAT32/FAT32.c@{lib/FAT32/FAT32.c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include "{}FAT32.\+h"{}}\newline
+{\ttfamily \#include "{}uart.\+h"{}}\newline
+{\ttfamily \#include "{}sd\+\_\+routines.\+h"{}}\newline
+{\ttfamily \#include "{}rtc.\+h"{}}\newline
+{\ttfamily \#include "{}uart\+\_\+compat.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+unsigned char \textbf{ get\+Boot\+Sector\+Data} (void)
+\item 
+unsigned long \textbf{ get\+First\+Sector} (unsigned long cluster\+Number)
+\item 
+unsigned long \textbf{ get\+Set\+Next\+Cluster} (unsigned long cluster\+Number, unsigned char get\+\_\+set, unsigned long cluster\+Entry)
+\item 
+unsigned long \textbf{ get\+Set\+Free\+Cluster} (unsigned char tot\+Or\+Next, unsigned char get\+\_\+set, unsigned long FSEntry)
+\item 
+struct \textbf{ dir\+\_\+\+Structure} $\ast$ \textbf{ find\+Files} (unsigned char flag, unsigned char $\ast$file\+Name)
+\item 
+unsigned char \textbf{ read\+File} (unsigned char flag, unsigned char $\ast$file\+Name)
+\item 
+unsigned char \textbf{ convert\+File\+Name} (unsigned char $\ast$file\+Name)
+\item 
+unsigned char \textbf{ write\+File} (unsigned char $\ast$file\+Name)
+\item 
+unsigned long \textbf{ search\+Next\+Free\+Cluster} (unsigned long start\+Cluster)
+\item 
+void \textbf{ display\+Memory} (unsigned char flag, unsigned long memory)
+\item 
+void \textbf{ delete\+File} (unsigned char $\ast$file\+Name)
+\item 
+void \textbf{ free\+Memory\+Update} (unsigned char flag, unsigned long size)
+\end{DoxyCompactItemize}
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{FAT32.c@{FAT32.c}!convertFileName@{convertFileName}}
+\index{convertFileName@{convertFileName}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{convertFileName()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a126f62cbfb84a23224d07d7eebb1f377} 
+unsigned char convert\+File\+Name (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 383} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!deleteFile@{deleteFile}}
+\index{deleteFile@{deleteFile}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{deleteFile()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_aae257afc618304098844252c3d71b788} 
+void delete\+File (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 726} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!displayMemory@{displayMemory}}
+\index{displayMemory@{displayMemory}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{displayMemory()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_ac038c8795e541cbd5a33eda705b01934} 
+void display\+Memory (\begin{DoxyParamCaption}\item[{unsigned char}]{flag}{, }\item[{unsigned long}]{memory}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 702} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!findFiles@{findFiles}}
+\index{findFiles@{findFiles}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{findFiles()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_aa35e16da2fe720a2f1acb332deb7ae5c} 
+struct \textbf{ dir\+\_\+\+Structure} $\ast$ find\+Files (\begin{DoxyParamCaption}\item[{unsigned char}]{flag}{, }\item[{unsigned char $\ast$}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 169} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!freeMemoryUpdate@{freeMemoryUpdate}}
+\index{freeMemoryUpdate@{freeMemoryUpdate}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{freeMemoryUpdate()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a546d211c1f6659e26fc0eae87393bff0} 
+void free\+Memory\+Update (\begin{DoxyParamCaption}\item[{unsigned char}]{flag}{, }\item[{unsigned long}]{size}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 743} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!getBootSectorData@{getBootSectorData}}
+\index{getBootSectorData@{getBootSectorData}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{getBootSectorData()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a1a404adb1477372c136ee3d8ec370bef} 
+unsigned char get\+Boot\+Sector\+Data (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 28} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!getFirstSector@{getFirstSector}}
+\index{getFirstSector@{getFirstSector}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{getFirstSector()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a7e2988f898a6b56ba385ae2c34128a86} 
+unsigned long get\+First\+Sector (\begin{DoxyParamCaption}\item[{unsigned long}]{cluster\+Number}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 80} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!getSetFreeCluster@{getSetFreeCluster}}
+\index{getSetFreeCluster@{getSetFreeCluster}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{getSetFreeCluster()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a44efd4747cb07a0a1cf3784c838b6a6e} 
+unsigned long get\+Set\+Free\+Cluster (\begin{DoxyParamCaption}\item[{unsigned char}]{tot\+Or\+Next}{, }\item[{unsigned char}]{get\+\_\+set}{, }\item[{unsigned long}]{FSEntry}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 134} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!getSetNextCluster@{getSetNextCluster}}
+\index{getSetNextCluster@{getSetNextCluster}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{getSetNextCluster()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_ab0d24683088974e34e652dcf46037c9f} 
+unsigned long get\+Set\+Next\+Cluster (\begin{DoxyParamCaption}\item[{unsigned long}]{cluster\+Number}{, }\item[{unsigned char}]{get\+\_\+set}{, }\item[{unsigned long}]{cluster\+Entry}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 92} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!readFile@{readFile}}
+\index{readFile@{readFile}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{readFile()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_ab213e22a70270c138864e3075aa51fb8} 
+unsigned char read\+File (\begin{DoxyParamCaption}\item[{unsigned char}]{flag}{, }\item[{unsigned char $\ast$}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 319} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!searchNextFreeCluster@{searchNextFreeCluster}}
+\index{searchNextFreeCluster@{searchNextFreeCluster}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{searchNextFreeCluster()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a92d056bee6b45c23b0b06fd4390daaba} 
+unsigned long search\+Next\+Free\+Cluster (\begin{DoxyParamCaption}\item[{unsigned long}]{start\+Cluster}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 674} of file \textbf{ FAT32.\+c}.
+
+\index{FAT32.c@{FAT32.c}!writeFile@{writeFile}}
+\index{writeFile@{writeFile}!FAT32.c@{FAT32.c}}
+\doxysubsubsection{writeFile()}
+{\footnotesize\ttfamily \label{_f_a_t32_8c_a94b370a9a30661006d819c7d5f69a0ff} 
+unsigned char write\+File (\begin{DoxyParamCaption}\item[{unsigned char $\ast$}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 442} of file \textbf{ FAT32.\+c}.
+

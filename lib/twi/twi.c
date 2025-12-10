@@ -6,16 +6,17 @@
  * Tested on Arduino Uno board and ATmega328P, 16 MHz.
  */
 
+
 // -- Includes ---------------------------------------------
 #include <twi.h>
 
 
+
 // -- Functions --------------------------------------------
-/*
- * Function: twi_init()
- * Purpose:  Initialize TWI unit, enable internal pull-ups, and set SCL
- *           frequency.
- * Returns:  none
+
+/**
+ * @brief  Initialize TWI unit, enable internal pull-ups, and set SCL frequency.
+ * @return none
  */
 void twi_init(void)
 {
@@ -23,16 +24,17 @@ void twi_init(void)
     DDR(TWI_PORT) &= ~((1<<TWI_SDA_PIN) | (1<<TWI_SCL_PIN));
     TWI_PORT |= (1<<TWI_SDA_PIN) | (1<<TWI_SCL_PIN);
 
+
     /* Set SCL frequency */
     TWSR &= ~((1<<TWPS1) | (1<<TWPS0));
     TWBR = TWI_BIT_RATE_REG;
 }
 
 
-/*
- * Function: twi_start()
- * Purpose:  Start communication on I2C/TWI bus.
- * Returns:  none
+
+/**
+ * @brief  Start communication on I2C/TWI bus.
+ * @return none
  */
 void twi_start(void)
 {
@@ -42,23 +44,26 @@ void twi_start(void)
 }
 
 
-/*
- * Function: twi_write()
- * Purpose:  Write one byte to the I2C/TWI bus.
- * Input:    data Byte to be transmitted
- * Returns:  ACK/NACK received value
+
+/**
+ * @brief  Write one byte to the I2C/TWI bus.
+ * @param  data Byte to be transmitted.
+ * @return 0 if ACK received, 1 if NACK received.
  */
 uint8_t twi_write(uint8_t data)
 {
     uint8_t twi_status;
+
 
     /* Send SLA+R, SLA+W, or data byte on I2C/TWI bus */
     TWDR = data;
     TWCR = (1<<TWINT) | (1<<TWEN);
     while ((TWCR & (1<<TWINT)) == 0);
 
+
     /* Check value of TWI status register */
     twi_status = TWSR & 0xf8;
+
 
     /* Status Code:
          - 0x18: SLA+W has been transmitted and ACK received
@@ -72,12 +77,11 @@ uint8_t twi_write(uint8_t data)
 }
 
 
-/*
- * Function: twi_read()
- * Purpose:  Read one byte from the I2C/TWI bus and acknowledge
- *           it by ACK or NACK.
- * Input:    ack ACK/NACK value to be transmitted
- * Returns:  Received data byte
+
+/**
+ * @brief  Read one byte from the I2C/TWI bus.
+ * @param  ack TWI_ACK to acknowledge receipt, TWI_NACK to stop.
+ * @return Received data byte.
  */
 uint8_t twi_read(uint8_t ack)
 {
@@ -87,14 +91,15 @@ uint8_t twi_read(uint8_t ack)
         TWCR = (1<<TWINT) | (1<<TWEN);
     while ((TWCR & (1<<TWINT)) == 0);
 
+
     return (TWDR);
 }
 
 
-/*
- * Function: twi_stop()
- * Purpose:  Generates Stop condition on I2C/TWI bus.
- * Returns:  none
+
+/**
+ * @brief  Generate Stop condition on I2C/TWI bus.
+ * @return none
  */
 void twi_stop(void)
 {
@@ -102,32 +107,34 @@ void twi_stop(void)
 }
 
 
-/*
- * Function: twi_test_address()
- * Purpose:  Test presence of one I2C device on the bus.
- * Input:    addr Slave address
- * Returns:  ACK/NACK received value
+
+/**
+ * @brief  Test presence of one I2C device on the bus.
+ * @param  addr Slave address (7-bit).
+ * @return 0 if device present (ACK), 1 otherwise.
  */
 uint8_t twi_test_address(uint8_t addr)
 {
     uint8_t ack;  // ACK response from Slave
 
+
     twi_start();
     ack = twi_write((addr<<1) | TWI_WRITE);
     twi_stop();
+
 
     return ack;
 }
 
 
-/*
- * Function: twi_readfrom_mem_into()
- * Purpose:  Read into buf from the peripheral starting from the memory address.
- * Input:    addr Slave address
- *           memaddr Starting address
- *           buf Buffer to be read into
- *           nbytes Number of bytes
- * Returns:  None
+
+/**
+ * @brief  Read data from specific memory address of a peripheral.
+ * @param  addr    Slave address (7-bit).
+ * @param  memaddr Internal memory address to start reading from.
+ * @param  buf     Pointer to buffer for received data.
+ * @param  nbytes  Number of bytes to read.
+ * @return none
  */
 void twi_readfrom_mem_into(uint8_t addr, uint8_t memaddr, volatile uint8_t *buf, uint8_t nbytes)
 {
@@ -137,6 +144,7 @@ void twi_readfrom_mem_into(uint8_t addr, uint8_t memaddr, volatile uint8_t *buf,
         // Set starting address
         twi_write(memaddr);
         twi_stop();
+
 
         // Read data into the buffer
         twi_start();
@@ -157,6 +165,15 @@ void twi_readfrom_mem_into(uint8_t addr, uint8_t memaddr, volatile uint8_t *buf,
     }
     
 }
+
+
+/**
+ * @brief  Write one byte to specific memory address of a peripheral.
+ * @param  addr    Slave address (7-bit).
+ * @param  memaddr Internal memory address to write to.
+ * @param  data    Data byte to write.
+ * @return 0 on success (ACK), 1 on failure.
+ */
 uint8_t twi_writeto_mem(uint8_t addr, uint8_t memaddr, uint8_t data)
 {
     twi_start();
@@ -178,6 +195,15 @@ uint8_t twi_writeto_mem(uint8_t addr, uint8_t memaddr, uint8_t data)
     return 1; /* failure (NACK or other error) */
 }
 
+
+/**
+ * @brief  Write two bytes (16-bit) to specific memory address.
+ * @param  addr          Slave address (7-bit).
+ * @param  memaddr       Internal memory address to write to.
+ * @param  dataUpperHalf MSB of data.
+ * @param  dataLowerHalf LSB of data.
+ * @return 0 on success (ACK), 1 on failure.
+ */
 uint8_t twi_writeto_mem_16b(uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf,uint8_t dataLowerHalf)
 {
     twi_start();

@@ -1,0 +1,168 @@
+.TH "include/timer.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/timer.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+
+.SS "Macros"
+
+.PP
+.RI "\fBDefinitions for 16-bit Timer/Counter1\fP"
+.br
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 16, F_CPU = 16 MHz 
+.RE
+.PP
+
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBtim1_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_4ms\fP()"
+.br
+.RI "Set overflow 4ms, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_33ms\fP()"
+.br
+.RI "Set overflow 33ms, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_262ms\fP()"
+.br
+.RI "Set overflow 262ms, prescaler 011 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_1sec\fP()"
+.br
+.RI "Set overflow 1s, prescaler 100 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_4sec\fP()"
+.br
+.RI "Set overflow 4s, prescaler // 101 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBDefinitions for 8-bit Timer/Counter0\fP"
+.br
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz 
+.RE
+.PP
+
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBtim0_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_16us\fP()"
+.br
+.RI "Set overflow 16us, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_128us\fP()"
+.br
+.RI "Set overflow 128us, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_1024us\fP()"
+.br
+.RI "Set overflow 1024us, prescaler 011 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_4096us\fP()"
+.br
+.RI "Set overflow 4096us, prescaler 100 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_16384us\fP()"
+.br
+.RI "Set overflow 16384us, prescaler // 101 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBDefinitions for 8-bit Timer/Counter2\fP"
+.br
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz 
+.RE
+.PP
+
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBtim2_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_16us\fP()"
+.br
+.RI "Set overflow 16us, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_128us\fP()"
+.br
+.RI "Set overflow 128us, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_512us\fP()"
+.br
+.RI "Set overflow 512us, prescaler 011 --> 32\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_1024us\fP()"
+.br
+.RI "Set overflow 1024us, prescaler 100 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_2048us\fP()"
+.br
+.RI "Set overflow 2048us, prescaler 101 --> 128\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_4096us\fP()"
+.br
+.RI "Set overflow 4096us, prescaler 110 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_16ms\fP()"
+.br
+.RI "Set overflow 16384us, prescaler 111 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

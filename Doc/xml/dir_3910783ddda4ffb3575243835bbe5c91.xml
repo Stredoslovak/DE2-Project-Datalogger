@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_3910783ddda4ffb3575243835bbe5c91" kind="dir">
+    <compoundname>lib/bme280</compoundname>
+    <innerfile refid="bme280_8c">bme280.c</innerfile>
+    <innerfile refid="bme280_8h">bme280.h</innerfile>
+    <innerfile refid="bme280__defs_8h">bme280_defs.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/bme280/"/>
+  </compounddef>
+</doxygen>

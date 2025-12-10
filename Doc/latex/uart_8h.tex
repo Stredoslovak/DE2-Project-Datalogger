@@ -1,0 +1,51 @@
+\doxysection{lib/uart/uart.h File Reference}
+\label{uart_8h}\index{lib/uart/uart.h@{lib/uart/uart.h}}
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ UART\+\_\+\+BAUD\+\_\+\+SELECT}(baud\+Rate,  xtal\+Cpu)
+\begin{DoxyCompactList}\small\item\em UART Baudrate Expression. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+BAUD\+\_\+\+SELECT\+\_\+\+DOUBLE\+\_\+\+SPEED}(baud\+Rate,  xtal\+Cpu)
+\begin{DoxyCompactList}\small\item\em UART Baudrate Expression for ATmega double speed mode. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\begin{DoxyCompactList}\small\item\em Size of the circular receive buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\begin{DoxyCompactList}\small\item\em Size of the circular transmit buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+FRAME\+\_\+\+ERROR}~0x1000
+\begin{DoxyCompactList}\small\item\em Framing Error by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+OVERRUN\+\_\+\+ERROR}~0x0800
+\begin{DoxyCompactList}\small\item\em Overrun condition by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+PARITY\+\_\+\+ERROR}~0x0400
+\begin{DoxyCompactList}\small\item\em Parity Error by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+BUFFER\+\_\+\+OVERFLOW}~0x0200
+\begin{DoxyCompactList}\small\item\em receive ringbuffer overflow \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+NO\+\_\+\+DATA}~0x0100
+\begin{DoxyCompactList}\small\item\em no receive data available \end{DoxyCompactList}\item 
+\#define \textbf{ uart\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\item 
+\#define \textbf{ uart1\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ uart\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize UART and set baudrate. \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte from ringbuffer. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+putc} (unsigned char \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize USART1 (only available on selected ATmegas). \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart1\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte of USART1 from ringbuffer. (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+putc} (unsigned char \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\end{DoxyCompactItemize}

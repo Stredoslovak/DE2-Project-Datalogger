@@ -1,0 +1,466 @@
+.TH "fryza_timer" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fryza_timer \- Timer Library <timer\&.h>
+.PP
+ \- Timer library for AVR-GCC\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Definitions for 16-bit Timer/Counter1"
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 16, F_CPU = 16 MHz 
+.RE
+.PP
+
+.in +1c
+.ti -1c
+.RI "#define \fBtim1_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_4ms\fP()"
+.br
+.RI "Set overflow 4ms, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_33ms\fP()"
+.br
+.RI "Set overflow 33ms, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_262ms\fP()"
+.br
+.RI "Set overflow 262ms, prescaler 011 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_1sec\fP()"
+.br
+.RI "Set overflow 1s, prescaler 100 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_4sec\fP()"
+.br
+.RI "Set overflow 4s, prescaler // 101 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim1_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.SS "Definitions for 8-bit Timer/Counter0"
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz 
+.RE
+.PP
+
+.in +1c
+.ti -1c
+.RI "#define \fBtim0_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_16us\fP()"
+.br
+.RI "Set overflow 16us, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_128us\fP()"
+.br
+.RI "Set overflow 128us, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_1024us\fP()"
+.br
+.RI "Set overflow 1024us, prescaler 011 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_4096us\fP()"
+.br
+.RI "Set overflow 4096us, prescaler 100 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_16384us\fP()"
+.br
+.RI "Set overflow 16384us, prescaler // 101 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim0_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.SS "Definitions for 8-bit Timer/Counter2"
+
+.PP
+\fBNote\fP
+.RS 4
+t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz 
+.RE
+.PP
+
+.in +1c
+.ti -1c
+.RI "#define \fBtim2_stop\fP()"
+.br
+.RI "Stop timer, prescaler 000 --> STOP\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_16us\fP()"
+.br
+.RI "Set overflow 16us, prescaler 001 --> 1\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_128us\fP()"
+.br
+.RI "Set overflow 128us, prescaler 010 --> 8\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_512us\fP()"
+.br
+.RI "Set overflow 512us, prescaler 011 --> 32\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_1024us\fP()"
+.br
+.RI "Set overflow 1024us, prescaler 100 --> 64\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_2048us\fP()"
+.br
+.RI "Set overflow 2048us, prescaler 101 --> 128\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_4096us\fP()"
+.br
+.RI "Set overflow 4096us, prescaler 110 --> 256\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_16ms\fP()"
+.br
+.RI "Set overflow 16384us, prescaler 111 --> 1024\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_enable\fP()"
+.br
+.RI "Enable overflow interrupt, 1 --> enable\&. "
+.ti -1c
+.RI "#define \fBtim2_ovf_disable\fP()"
+.br
+.RI "Disable overflow interrupt, 0 --> disable\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Timer library for AVR-GCC\&. 
+
+
+.PP
+.nf
+#include <timer\&.h> 
+
+.fi
+.PP
+
+.PP
+The library contains macros for controlling the timer modules\&.
+
+.PP
+\fBNote\fP
+.RS 4
+Based on Microchip Atmel ATmega328P manual and no source file is needed for the library\&. 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+(c) 2019-2025 Tomas Fryza, MIT license 
+.RE
+.PP
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define tim0_ovf_1024us()"
+\fBValue:\fP
+.nf
+TCCR0B &= ~(1<<CS02); TCCR0B |= (1<<CS01) | (1<<CS00);
+.PP
+.fi
+
+.PP
+Set overflow 1024us, prescaler 011 --> 64\&. 
+.PP
+Definition at line \fB77\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_128us()"
+\fBValue:\fP
+.nf
+TCCR0B &= ~((1<<CS02) | (1<<CS00)); TCCR0B |= (1<<CS01);
+.PP
+.fi
+
+.PP
+Set overflow 128us, prescaler 010 --> 8\&. 
+.PP
+Definition at line \fB74\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_16384us()"
+\fBValue:\fP
+.nf
+TCCR0B &= ~(1<<CS01); TCCR0B |= (1<<CS02) | (1<<CS00);
+.PP
+.fi
+
+.PP
+Set overflow 16384us, prescaler // 101 --> 1024\&. 
+.PP
+Definition at line \fB83\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_16us()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~((1<<CS02) | (1<<CS01)); TCCR0B |= (1<<CS00);
+.PP
+.fi
+
+.PP
+Set overflow 16us, prescaler 001 --> 1\&. 
+.PP
+Definition at line \fB71\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_4096us()"
+\fBValue:\fP
+.nf
+TCCR0B &= ~((1<<CS01) | (1<<CS00)); TCCR0B |= (1<<CS02);
+.PP
+.fi
+
+.PP
+Set overflow 4096us, prescaler 100 --> 256\&. 
+.PP
+Definition at line \fB80\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_disable()"
+\fBValue:\fP
+.nf
+TIMSK0 &= ~(1<<TOIE0);
+.PP
+.fi
+
+.PP
+Disable overflow interrupt, 0 --> disable\&. 
+.PP
+Definition at line \fB89\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_ovf_enable()"
+\fBValue:\fP
+.nf
+TIMSK0 |= (1<<TOIE0);
+.PP
+.fi
+
+.PP
+Enable overflow interrupt, 1 --> enable\&. 
+.PP
+Definition at line \fB86\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim0_stop()"
+\fBValue:\fP
+.nf
+TCCR0B &= ~((1<<CS02) | (1<<CS01) | (1<<CS00));
+.PP
+.fi
+
+.PP
+Stop timer, prescaler 000 --> STOP\&. 
+.PP
+Definition at line \fB68\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_1sec()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~((1<<CS11) | (1<<CS10)); TCCR1B |= (1<<CS12);
+.PP
+.fi
+
+.PP
+Set overflow 1s, prescaler 100 --> 256\&. 
+.PP
+Definition at line \fB50\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_262ms()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~(1<<CS12); TCCR1B |= (1<<CS11) | (1<<CS10);
+.PP
+.fi
+
+.PP
+Set overflow 262ms, prescaler 011 --> 64\&. 
+.PP
+Definition at line \fB47\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_33ms()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~((1<<CS12) | (1<<CS10)); TCCR1B |= (1<<CS11);
+.PP
+.fi
+
+.PP
+Set overflow 33ms, prescaler 010 --> 8\&. 
+.PP
+Definition at line \fB44\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_4ms()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~((1<<CS12) | (1<<CS11)); TCCR1B |= (1<<CS10);
+.PP
+.fi
+
+.PP
+Set overflow 4ms, prescaler 001 --> 1\&. 
+.PP
+Definition at line \fB41\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_4sec()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~(1<<CS11); TCCR1B |= (1<<CS12) | (1<<CS10);
+.PP
+.fi
+
+.PP
+Set overflow 4s, prescaler // 101 --> 1024\&. 
+.PP
+Definition at line \fB53\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_disable()"
+\fBValue:\fP
+.nf
+TIMSK1 &= ~(1<<TOIE1);
+.PP
+.fi
+
+.PP
+Disable overflow interrupt, 0 --> disable\&. 
+.PP
+Definition at line \fB59\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_ovf_enable()"
+\fBValue:\fP
+.nf
+TIMSK1 |= (1<<TOIE1);
+.PP
+.fi
+
+.PP
+Enable overflow interrupt, 1 --> enable\&. 
+.PP
+Definition at line \fB56\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim1_stop()"
+\fBValue:\fP
+.nf
+TCCR1B &= ~((1<<CS12) | (1<<CS11) | (1<<CS10));
+.PP
+.fi
+
+.PP
+Stop timer, prescaler 000 --> STOP\&. 
+.PP
+Definition at line \fB38\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_1024us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~((1<<CS21) | (1<<CS20)); TCCR2B |= (1<<CS22);
+.PP
+.fi
+
+.PP
+Set overflow 1024us, prescaler 100 --> 64\&. 
+.PP
+Definition at line \fB109\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_128us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~((1<<CS22) | (1<<CS20)); TCCR2B |= (1<<CS21);
+.PP
+.fi
+
+.PP
+Set overflow 128us, prescaler 010 --> 8\&. 
+.PP
+Definition at line \fB103\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_16ms()"
+\fBValue:\fP
+.nf
+TCCR2B |= (1<<CS22) | (1<<CS21) | (1<<CS20);
+.PP
+.fi
+
+.PP
+Set overflow 16384us, prescaler 111 --> 1024\&. 
+.PP
+Definition at line \fB118\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_16us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~((1<<CS22) | (1<<CS21)); TCCR2B |= (1<<CS20);
+.PP
+.fi
+
+.PP
+Set overflow 16us, prescaler 001 --> 1\&. 
+.PP
+Definition at line \fB100\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_2048us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~(1<<CS21); TCCR2B |= (1<<CS22) | (1<<CS20);
+.PP
+.fi
+
+.PP
+Set overflow 2048us, prescaler 101 --> 128\&. 
+.PP
+Definition at line \fB112\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_4096us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~(1<<CS20); TCCR2B |= (1<<CS22) | (1<<CS21);
+.PP
+.fi
+
+.PP
+Set overflow 4096us, prescaler 110 --> 256\&. 
+.PP
+Definition at line \fB115\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_512us()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~(1<<CS22); TCCR2B |= (1<<CS21) | (1<<CS20);
+.PP
+.fi
+
+.PP
+Set overflow 512us, prescaler 011 --> 32\&. 
+.PP
+Definition at line \fB106\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_disable()"
+\fBValue:\fP
+.nf
+TIMSK2 &= ~(1<<TOIE2);
+.PP
+.fi
+
+.PP
+Disable overflow interrupt, 0 --> disable\&. 
+.PP
+Definition at line \fB124\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_ovf_enable()"
+\fBValue:\fP
+.nf
+TIMSK2 |= (1<<TOIE2);
+.PP
+.fi
+
+.PP
+Enable overflow interrupt, 1 --> enable\&. 
+.PP
+Definition at line \fB121\fP of file \fBtimer\&.h\fP\&.
+.SS "#define tim2_stop()"
+\fBValue:\fP
+.nf
+TCCR2B &= ~((1<<CS22) | (1<<CS21) | (1<<CS20));
+.PP
+.fi
+
+.PP
+Stop timer, prescaler 000 --> STOP\&. 
+.PP
+Definition at line \fB97\fP of file \fBtimer\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

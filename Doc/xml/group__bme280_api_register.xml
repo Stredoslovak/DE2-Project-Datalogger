@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_register" kind="group">
+    <compoundname>bme280ApiRegister</compoundname>
+    <title>Registers</title>
+    <innerpage refid="group__bme280_api_register_bme280_api_bme280_set_regs">bme280_set_regs</innerpage>
+    <innerpage refid="group__bme280_api_register_bme280_api_bme280_get_regs">bme280_get_regs</innerpage>
+    <briefdescription>
+<para>Generic API for accessing sensor registers. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+  </compounddef>
+</doxygen>

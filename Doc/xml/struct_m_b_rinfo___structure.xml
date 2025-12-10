@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="struct_m_b_rinfo___structure" kind="struct" language="C++" prot="public">
+    <compoundname>MBRinfo_Structure</compoundname>
+    <includes refid="_f_a_t32_8h" local="no">FAT32.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_m_b_rinfo___structure_1a30656d47a40dc86f11e4da2b9d16fe25" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char MBRinfo_Structure::nothing[446]</definition>
+        <argsstring>[446]</argsstring>
+        <name>nothing</name>
+        <qualifiedname>MBRinfo_Structure::nothing</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="17" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_b_rinfo___structure_1af7d7bbc2788745605ffc10f8c2ce6f8c" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char MBRinfo_Structure::partitionData[64]</definition>
+        <argsstring>[64]</argsstring>
+        <name>partitionData</name>
+        <qualifiedname>MBRinfo_Structure::partitionData</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="18" column="14" bodyfile="lib/FAT32/FAT32.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_m_b_rinfo___structure_1a70340f742796d7a399ee04d8103f0648" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int MBRinfo_Structure::signature</definition>
+        <argsstring></argsstring>
+        <name>signature</name>
+        <qualifiedname>MBRinfo_Structure::signature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="19" column="13" bodyfile="lib/FAT32/FAT32.h" bodystart="19" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/FAT32/FAT32.h" line="16" column="1" bodyfile="lib/FAT32/FAT32.h" bodystart="16" bodyend="20"/>
+    <listofallmembers>
+      <member refid="struct_m_b_rinfo___structure_1a30656d47a40dc86f11e4da2b9d16fe25" prot="public" virt="non-virtual"><scope>MBRinfo_Structure</scope><name>nothing</name></member>
+      <member refid="struct_m_b_rinfo___structure_1af7d7bbc2788745605ffc10f8c2ce6f8c" prot="public" virt="non-virtual"><scope>MBRinfo_Structure</scope><name>partitionData</name></member>
+      <member refid="struct_m_b_rinfo___structure_1a70340f742796d7a399ee04d8103f0648" prot="public" virt="non-virtual"><scope>MBRinfo_Structure</scope><name>signature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

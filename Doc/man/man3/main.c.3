@@ -1,0 +1,253 @@
+.TH "src/main.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/main.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+\fR#include <avr/interrupt\&.h>\fP
+.br
+\fR#include 'timer\&.h'\fP
+.br
+\fR#include <uart\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include 'SPI_routines\&.h'\fP
+.br
+\fR#include 'sd_routines\&.h'\fP
+.br
+\fR#include 'FAT32\&.h'\fP
+.br
+\fR#include 'gpio\&.h'\fP
+.br
+\fR#include 'rtc\&.h'\fP
+.br
+\fR#include <twi\&.h>\fP
+.br
+\fR#include 'bme280\&.h'\fP
+.br
+\fR#include 'SensirionI2CSgp41\&.h'\fP
+.br
+\fR#include <math\&.h>\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+\fR#include <util/delay\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUART_ON\fP"
+.br
+.ti -1c
+.RI "#define \fBSD_write\fP"
+.br
+.ti -1c
+.RI "#define \fBACTIVITY_LED_PORT\fP   PORTC"
+.br
+.ti -1c
+.RI "#define \fBL_ACT\fP   2"
+.br
+.ti -1c
+.RI "#define \fBSTATUS_LED_PORT\fP   PORTC"
+.br
+.ti -1c
+.RI "#define \fBL_STATUS\fP   1"
+.br
+.ti -1c
+.RI "#define \fBERROR_LED_PORT\fP   PORTC"
+.br
+.ti -1c
+.RI "#define \fBL_ERROR\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBbme_init_simple\fP (struct \fBbme280_dev\fP *dev, uint8_t *dev_addr_ptr)"
+.br
+.ti -1c
+.RI "int \fBbme_read_once\fP (struct \fBbme280_dev\fP *dev, int32_t *t100, uint32_t *press_pa, uint32_t *hum_x1024)"
+.br
+.ti -1c
+.RI "int \fBsgp41_init_simple\fP (void)"
+.br
+.ti -1c
+.RI "int \fBsgp41_measure_once\fP (int32_t *voc_index, int32_t *nox_index)"
+.br
+.ti -1c
+.RI "uint8_t \fBget_month_from_ascii_sum\fP (uint16_t sum)"
+.br
+.ti -1c
+.RI "void \fBset_interrupt_source\fP (void)"
+.br
+.ti -1c
+.RI "void \fBset_time_uart\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.ti -1c
+.RI "\fBISR\fP (TIMER1_OVF_vect)"
+.br
+.ti -1c
+.RI "\fBISR\fP (INT0_vect)"
+.br
+.ti -1c
+.RI "\fBISR\fP (INT1_vect)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "volatile uint8_t \fBprintRTC\fP = 0"
+.br
+.ti -1c
+.RI "volatile uint8_t \fBcounterTim1\fP = 0"
+.br
+.ti -1c
+.RI "uint8_t \fBSD_OK\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBFS_OK\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBBM_OK\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBSGP_OK\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBRTC_OK\fP = 0"
+.br
+.ti -1c
+.RI "volatile uint8_t \fBmeasurement_flag\fP = 0"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ACTIVITY_LED_PORT   PORTC"
+
+.PP
+Definition at line \fB30\fP of file \fBmain\&.c\fP\&.
+.SS "#define ERROR_LED_PORT   PORTC"
+
+.PP
+Definition at line \fB34\fP of file \fBmain\&.c\fP\&.
+.SS "#define L_ACT   2"
+
+.PP
+Definition at line \fB31\fP of file \fBmain\&.c\fP\&.
+.SS "#define L_ERROR   0"
+
+.PP
+Definition at line \fB35\fP of file \fBmain\&.c\fP\&.
+.SS "#define L_STATUS   1"
+
+.PP
+Definition at line \fB33\fP of file \fBmain\&.c\fP\&.
+.SS "#define SD_write"
+
+.PP
+Definition at line \fB29\fP of file \fBmain\&.c\fP\&.
+.SS "#define STATUS_LED_PORT   PORTC"
+
+.PP
+Definition at line \fB32\fP of file \fBmain\&.c\fP\&.
+.SS "#define UART_ON"
+
+.PP
+Definition at line \fB28\fP of file \fBmain\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int bme_init_simple (struct \fBbme280_dev\fP * dev, uint8_t * dev_addr_ptr)"
+
+.PP
+Definition at line \fB111\fP of file \fBbme\&.c\fP\&.
+.SS "int bme_read_once (struct \fBbme280_dev\fP * dev, int32_t * t100, uint32_t * press_pa, uint32_t * hum_x1024)"
+
+.PP
+Definition at line \fB147\fP of file \fBbme\&.c\fP\&.
+.SS "uint8_t get_month_from_ascii_sum (uint16_t sum)"
+
+.PP
+Definition at line \fB47\fP of file \fBmain\&.c\fP\&.
+.SS "ISR (INT0_vect )"
+
+.PP
+Definition at line \fB499\fP of file \fBmain\&.c\fP\&.
+.SS "ISR (INT1_vect )"
+
+.PP
+Definition at line \fB521\fP of file \fBmain\&.c\fP\&.
+.SS "ISR (TIMER1_OVF_vect )"
+
+.PP
+Definition at line \fB469\fP of file \fBmain\&.c\fP\&.
+.SS "int main (void )"
+
+.PP
+Definition at line \fB131\fP of file \fBmain\&.c\fP\&.
+.SS "void set_interrupt_source (void )"
+
+.PP
+Definition at line \fB78\fP of file \fBmain\&.c\fP\&.
+.SS "void set_time_uart (void )"
+
+.PP
+Definition at line \fB94\fP of file \fBmain\&.c\fP\&.
+.SS "int sgp41_init_simple (void )"
+
+.PP
+Definition at line \fB64\fP of file \fBsgp41\&.c\fP\&.
+.SS "int sgp41_measure_once (int32_t * voc_index, int32_t * nox_index)"
+
+.PP
+Definition at line \fB87\fP of file \fBsgp41\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "uint8_t BM_OK"
+
+.PP
+Definition at line \fB39\fP of file \fBmain\&.c\fP\&.
+.SS "volatile uint8_t counterTim1 = 0"
+
+.PP
+Definition at line \fB37\fP of file \fBmain\&.c\fP\&.
+.SS "uint8_t FS_OK"
+
+.PP
+Definition at line \fB39\fP of file \fBmain\&.c\fP\&.
+.SS "volatile uint8_t measurement_flag = 0"
+
+.PP
+Definition at line \fB46\fP of file \fBmain\&.c\fP\&.
+.SS "volatile uint8_t printRTC = 0"
+
+.PP
+Definition at line \fB36\fP of file \fBmain\&.c\fP\&.
+.SS "uint8_t RTC_OK = 0"
+
+.PP
+Definition at line \fB39\fP of file \fBmain\&.c\fP\&.
+.SS "uint8_t SD_OK"
+
+.PP
+Definition at line \fB39\fP of file \fBmain\&.c\fP\&.
+.SS "uint8_t SGP_OK"
+
+.PP
+Definition at line \fB39\fP of file \fBmain\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

@@ -1,0 +1,44 @@
+.TH "src/bme.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/bme.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <math\&.h>\fP
+.br
+\fR#include <util/delay\&.h>\fP
+.br
+\fR#include 'twi\&.h'\fP
+.br
+\fR#include 'bme280\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBbme_init_simple\fP (struct \fBbme280_dev\fP *dev, uint8_t *dev_addr_ptr)"
+.br
+.ti -1c
+.RI "int \fBbme_read_once\fP (struct \fBbme280_dev\fP *dev, int32_t *t100, uint32_t *press_pa, uint32_t *hum_x1024)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int bme_init_simple (struct \fBbme280_dev\fP * dev, uint8_t * dev_addr_ptr)"
+
+.PP
+Definition at line \fB111\fP of file \fBbme\&.c\fP\&.
+.SS "int bme_read_once (struct \fBbme280_dev\fP * dev, int32_t * t100, uint32_t * press_pa, uint32_t * hum_x1024)"
+
+.PP
+Definition at line \fB147\fP of file \fBbme\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

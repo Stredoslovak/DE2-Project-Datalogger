@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_delay_bme280_api_bme280_cal_meas_delay" kind="page">
+    <compoundname>bme280_api_bme280_cal_meas_delay</compoundname>
+    <title>bme280_cal_meas_delay</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">uint32_t<sp/><ref refid="bme280_8c_1a8cd94409bc278b9a0cdd11206d0652ca" kindref="member">bme280_cal_meas_delay</ref>(uint32_t<sp/>*max_delay,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>*settings);</highlight></codeline>
+</programlisting></para>
+<para>This API is used to calculate the maximum delay in microseconds required for the temperature/pressure/humidity(whichever are enabled) measurement to complete. The delay depends upon the number of sensors enabled and their oversampling configuration.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">max_delay</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Delay required in microseconds. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">settings</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Contains the oversampling configurations.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of API execution status.</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

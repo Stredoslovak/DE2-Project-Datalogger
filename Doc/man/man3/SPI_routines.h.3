@@ -1,0 +1,58 @@
+.TH "lib/SPI/SPI_routines.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/SPI/SPI_routines.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSPI_SD\fP   SPCR = 0x52"
+.br
+.ti -1c
+.RI "#define \fBSPI_HIGH_SPEED\fP   SPCR = 0x50; SPSR |= (1<<SPI2X)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBspi_init\fP (void)"
+.br
+.ti -1c
+.RI "unsigned char \fBSPI_transmit\fP (unsigned char)"
+.br
+.ti -1c
+.RI "unsigned char \fBSPI_receive\fP (void)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define SPI_HIGH_SPEED   SPCR = 0x50; SPSR |= (1<<SPI2X)"
+
+.PP
+Definition at line \fB16\fP of file \fBSPI_routines\&.h\fP\&.
+.SS "#define SPI_SD   SPCR = 0x52"
+
+.PP
+Definition at line \fB15\fP of file \fBSPI_routines\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void spi_init (void )"
+
+.PP
+Definition at line \fB17\fP of file \fBSPI_routines\&.c\fP\&.
+.SS "unsigned char SPI_receive (void )"
+
+.PP
+Definition at line \fB42\fP of file \fBSPI_routines\&.c\fP\&.
+.SS "unsigned char SPI_transmit (unsigned char data)"
+
+.PP
+Definition at line \fB29\fP of file \fBSPI_routines\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

@@ -1,0 +1,83 @@
+\doxysubsection{Sensor Mode }
+\label{group__bme280_api_sensor_mode}\index{Sensor Mode@{Sensor Mode}}
+
+
+Generic API for configuring sensor power mode.  
+
+
+Generic API for configuring sensor power mode. 
+
+\doxysubsubsection{bme280\+\_\+set\+\_\+sensor\+\_\+mode}\label{bme280_api_bme280_set_sensor_mode}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ bme280\_set\_sensor\_mode(uint8\_t\ sensor\_mode,\ \textcolor{keyword}{const}\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+
+\end{DoxyCode}
+
+
+This API sets the power mode of the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in}}  & {\em sensor\+\_\+mode} & \+: Variable which contains the power mode to be set. \\
+\hline
+\mbox{\texttt{in}}  & {\em dev} & \+: Structure instance of \doxyref{bme280\+\_\+dev}{p.}{structbme280__dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}*    sensor_mode       |      Macros
+* ---------------------|-------------------------
+*     0                | BME280_POWERMODE_SLEEP
+*     1                | BME280_POWERMODE_FORCED
+*     3                | BME280_POWERMODE_NORMAL
+*\end{DoxyVerb}
+
+
+\begin{DoxyReturn}{Returns}
+Result of API execution status
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}
+\doxysubsubsection{bme280\+\_\+get\+\_\+sensor\+\_\+mode}\label{bme280_api_bme280_get_sensor_mode}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ bme280\_get\_sensor\_mode(uint8\_t\ *sensor\_mode,\ \textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+
+\end{DoxyCode}
+
+
+This API gets the power mode of the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{out}}  & {\em sensor\+\_\+mode} & \+: Pointer variable to store the power mode. \\
+\hline
+\mbox{\texttt{in}}  & {\em dev} & \+: Structure instance of \doxyref{bme280\+\_\+dev}{p.}{structbme280__dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyVerb}*    sensor_mode       |      Macros
+* ---------------------|-------------------------
+*     0                | BME280_POWERMODE_SLEEP
+*     1                | BME280_POWERMODE_FORCED
+*     3                | BME280_POWERMODE_NORMAL
+*\end{DoxyVerb}
+
+
+\begin{DoxyReturn}{Returns}
+Result of API execution status
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}

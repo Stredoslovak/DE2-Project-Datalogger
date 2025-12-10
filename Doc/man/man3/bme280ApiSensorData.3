@@ -1,0 +1,113 @@
+.TH "bme280ApiSensorData" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280ApiSensorData \- Sensor Data
+.PP
+ \- Data processing of sensor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SH "Detailed Description"
+.PP 
+Data processing of sensor\&. 
+
+bme280_get_sensor_data
+.PP
+
+.PP
+.nf
+int8_t bme280_get_sensor_data(uint8_t sensor_comp, struct bme280_data *comp_data, struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API reads the pressure, temperature and humidity data from the sensor, compensates the data and store it in the \fBbme280_data\fP structure instance passed by the user\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsensor_comp\fP : Variable which selects which data to be read from the sensor\&.
+.RE
+.PP
+.PP
+.nf
+* sensor_comp |   Macros
+* ------------|-------------------
+*     1       | BME280_PRESS
+*     2       | BME280_TEMP
+*     4       | BME280_HUM
+*     7       | BME280_ALL
+*.fi
+.PP
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIcomp_data\fP : Structure instance of \fBbme280_data\fP\&. 
+.br
+\fIdev\fP : Structure instance of \fBbme280_dev\fP\&.
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SS "bme280_compensate_data"
+
+.PP
+.nf
+int8_t bme280_compensate_data(uint8_t sensor_comp,
+                            const struct bme280_uncomp_data *uncomp_data,
+                            struct bme280_data *comp_data,
+                            struct bme280_calib_data *calib_data);
+
+.fi
+.PP
+
+.PP
+This API is used to compensate the pressure and/or temperature and/or humidity data according to the component selected by the user\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsensor_comp\fP : Used to select pressure and/or temperature and/or humidity\&. 
+.br
+\fIuncomp_data\fP : Contains the uncompensated pressure, temperature and humidity data\&. 
+.br
+\fIcomp_data\fP : Contains the compensated pressure and/or temperature and/or humidity data\&. 
+.br
+\fIcalib_data\fP : Pointer to \fBbme280_calib_data\fP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

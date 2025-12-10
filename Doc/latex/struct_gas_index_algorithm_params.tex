@@ -1,0 +1,505 @@
+\doxysection{Gas\+Index\+Algorithm\+Params Struct Reference}
+\label{struct_gas_index_algorithm_params}\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+
+
+{\ttfamily \#include $<$sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h$>$}
+
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int32\+\_\+t \textbf{ m\+Algorithm\+\_\+\+Type}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Index\+\_\+\+Offset}
+\item 
+int32\+\_\+t \textbf{ m\+Sraw\+\_\+\+Minimum}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Gating\+\_\+\+Max\+\_\+\+Duration\+\_\+\+Minutes}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Init\+\_\+\+Duration\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Init\+\_\+\+Duration\+\_\+\+Variance}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Gating\+\_\+\+Threshold}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Index\+\_\+\+Gain}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Tau\+\_\+\+Mean\+\_\+\+Hours}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Tau\+\_\+\+Variance\+\_\+\+Hours}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Sraw\+\_\+\+Std\+\_\+\+Initial}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Uptime}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Sraw}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+Gas\+\_\+\+Index}
+\item 
+\textbf{ bool} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Initialized}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sraw\+\_\+\+Offset}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Std}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Variance}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Initial\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Initial\+\_\+\+Variance}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+Gamma\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+Gamma\+\_\+\+Variance}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Uptime\+\_\+\+Gamma}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Uptime\+\_\+\+Gating}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gating\+\_\+\+Duration\+\_\+\+Minutes}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sigmoid\+\_\+\+\_\+K}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sigmoid\+\_\+\+\_\+\+X0}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mox\+\_\+\+Model\+\_\+\+\_\+\+Sraw\+\_\+\+Std}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Mox\+\_\+\+Model\+\_\+\+\_\+\+Sraw\+\_\+\+Mean}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+K}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+\+X0}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+\+Offset\+\_\+\+Default}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+A1}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+A2}
+\item 
+\textbf{ bool} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+Initialized}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X1}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X2}
+\item 
+\textbf{ fix16\+\_\+t} \textbf{ m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X3}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Struct to hold all parameters and states of the gas algorithm. 
+
+Definition at line \textbf{ 129} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+
+
+\label{doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_\_Initialized@{m\_Adaptive\_Lowpass\_\_\_Initialized}}
+\index{m\_Adaptive\_Lowpass\_\_\_Initialized@{m\_Adaptive\_Lowpass\_\_\_Initialized}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_\_Initialized}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_ae9f3681fc40be5c2224fa23fa04e39fc} 
+\textbf{ bool} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+Initialized}
+
+
+
+Definition at line \textbf{ 166} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_\_X1@{m\_Adaptive\_Lowpass\_\_\_X1}}
+\index{m\_Adaptive\_Lowpass\_\_\_X1@{m\_Adaptive\_Lowpass\_\_\_X1}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_\_X1}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_ad82847471ac5f24ca0cb3847bc380c5b} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X1}
+
+
+
+Definition at line \textbf{ 167} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_\_X2@{m\_Adaptive\_Lowpass\_\_\_X2}}
+\index{m\_Adaptive\_Lowpass\_\_\_X2@{m\_Adaptive\_Lowpass\_\_\_X2}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_\_X2}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a63de2e9c5dde2aeebfc66d3b498d8e75} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X2}
+
+
+
+Definition at line \textbf{ 168} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_\_X3@{m\_Adaptive\_Lowpass\_\_\_X3}}
+\index{m\_Adaptive\_Lowpass\_\_\_X3@{m\_Adaptive\_Lowpass\_\_\_X3}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_\_X3}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aa1581cf1506e4563a819fd0a2e373089} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+\_\+\+X3}
+
+
+
+Definition at line \textbf{ 169} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_A1@{m\_Adaptive\_Lowpass\_\_A1}}
+\index{m\_Adaptive\_Lowpass\_\_A1@{m\_Adaptive\_Lowpass\_\_A1}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_A1}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a324a58eb9e2a10d05b94f26026e3bacd} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+A1}
+
+
+
+Definition at line \textbf{ 164} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Adaptive\_Lowpass\_\_A2@{m\_Adaptive\_Lowpass\_\_A2}}
+\index{m\_Adaptive\_Lowpass\_\_A2@{m\_Adaptive\_Lowpass\_\_A2}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Adaptive\_Lowpass\_\_A2}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a81aacbb14a8799f275feeb3b986c318a} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Adaptive\+\_\+\+Lowpass\+\_\+\+\_\+\+A2}
+
+
+
+Definition at line \textbf{ 165} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_abb0d4facedb3209d2f758e9fc54c6e6d} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Initial\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 150} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Initial\_Variance}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_ae87101b154d3dcc37d346607fdbaac14} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Initial\+\_\+\+Variance}
+
+
+
+Definition at line \textbf{ 151} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a56666ef972833a7f3f8e508d1417c49b} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 148} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance@{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Gamma\_Variance}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a9a144c67b584c74360ef444e09a08cb2} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gamma\+\_\+\+Variance}
+
+
+
+Definition at line \textbf{ 149} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes@{m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes@{m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Gating\_Duration\_Minutes}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_ab642a9e904bcd700161a1aa2394d2ecf} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Gating\+\_\+\+Duration\+\_\+\+Minutes}
+
+
+
+Definition at line \textbf{ 156} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Initialized@{m\_Mean\_Variance\_Estimator\_\_\_Initialized}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Initialized@{m\_Mean\_Variance\_Estimator\_\_\_Initialized}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Initialized}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a30caee8b3331675119966654b0ed3421} 
+\textbf{ bool} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Initialized}
+
+
+
+Definition at line \textbf{ 144} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Mean}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Mean@{m\_Mean\_Variance\_Estimator\_\_\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a302d7260327d0d34aa53aa23b334fb2c} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 145} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K@{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K@{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_K}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a52678ba8a381801f775b588dfdf29a5d} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sigmoid\+\_\+\+\_\+K}
+
+
+
+Definition at line \textbf{ 157} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0@{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0@{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Sigmoid\_\_X0}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a3b70ce67b2fb1419281318b574a6896b} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sigmoid\+\_\+\+\_\+\+X0}
+
+
+
+Definition at line \textbf{ 158} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset@{m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset@{m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Sraw\_Offset}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a0b5364ddd60c76185afa756521f520c5} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Sraw\+\_\+\+Offset}
+
+
+
+Definition at line \textbf{ 146} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Std@{m\_Mean\_Variance\_Estimator\_\_\_Std}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Std@{m\_Mean\_Variance\_Estimator\_\_\_Std}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Std}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a83d199bee7bb53f6be6a71444418877c} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Std}
+
+
+
+Definition at line \textbf{ 147} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma@{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma@{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gamma}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aeec1c03d622166dc19ca68ede1ff5979} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Uptime\+\_\+\+Gamma}
+
+
+
+Definition at line \textbf{ 154} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating@{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating}}
+\index{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating@{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_\_Uptime\_Gating}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a59f505ba655f46732fac7a9835cd2653} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+\_\+\+Uptime\+\_\+\+Gating}
+
+
+
+Definition at line \textbf{ 155} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean@{m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean}}
+\index{m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean@{m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_Gamma\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aabf390221d75f9a85bf67a380e8ef05c} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+Gamma\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 152} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance@{m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance}}
+\index{m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance@{m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mean\_Variance\_Estimator\_\_Gamma\_Variance}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_ab5009b7c88434f93d9a31f3ea226d7e5} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mean\+\_\+\+Variance\+\_\+\+Estimator\+\_\+\+\_\+\+Gamma\+\_\+\+Variance}
+
+
+
+Definition at line \textbf{ 153} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mox\_Model\_\_Sraw\_Mean@{m\_Mox\_Model\_\_Sraw\_Mean}}
+\index{m\_Mox\_Model\_\_Sraw\_Mean@{m\_Mox\_Model\_\_Sraw\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mox\_Model\_\_Sraw\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a391014f383ab8aa8b7a6d06fa0d0e112} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mox\+\_\+\+Model\+\_\+\+\_\+\+Sraw\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 160} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Mox\_Model\_\_Sraw\_Std@{m\_Mox\_Model\_\_Sraw\_Std}}
+\index{m\_Mox\_Model\_\_Sraw\_Std@{m\_Mox\_Model\_\_Sraw\_Std}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Mox\_Model\_\_Sraw\_Std}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a81d9e3deacb3ac2c819282d4dfc9f03d} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Mox\+\_\+\+Model\+\_\+\+\_\+\+Sraw\+\_\+\+Std}
+
+
+
+Definition at line \textbf{ 159} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Sigmoid\_Scaled\_\_K@{m\_Sigmoid\_Scaled\_\_K}}
+\index{m\_Sigmoid\_Scaled\_\_K@{m\_Sigmoid\_Scaled\_\_K}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Sigmoid\_Scaled\_\_K}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a28f019a0cbf484473c37d364672640ad} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+K}
+
+
+
+Definition at line \textbf{ 161} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Sigmoid\_Scaled\_\_Offset\_Default@{m\_Sigmoid\_Scaled\_\_Offset\_Default}}
+\index{m\_Sigmoid\_Scaled\_\_Offset\_Default@{m\_Sigmoid\_Scaled\_\_Offset\_Default}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Sigmoid\_Scaled\_\_Offset\_Default}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aa15d180da3def6094bf721ca29fafcf7} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+\+Offset\+\_\+\+Default}
+
+
+
+Definition at line \textbf{ 163} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!m\_Sigmoid\_Scaled\_\_X0@{m\_Sigmoid\_Scaled\_\_X0}}
+\index{m\_Sigmoid\_Scaled\_\_X0@{m\_Sigmoid\_Scaled\_\_X0}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{m\_Sigmoid\_Scaled\_\_X0}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a19157a12d574ae78a96bddc4e0469189} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+\_\+\+Sigmoid\+\_\+\+Scaled\+\_\+\+\_\+\+X0}
+
+
+
+Definition at line \textbf{ 162} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mAlgorithm\_Type@{mAlgorithm\_Type}}
+\index{mAlgorithm\_Type@{mAlgorithm\_Type}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mAlgorithm\_Type}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a44159ed288e8fb4a9a9582f611bddb37} 
+int32\+\_\+t Gas\+Index\+Algorithm\+Params\+::m\+Algorithm\+\_\+\+Type}
+
+
+
+Definition at line \textbf{ 130} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mGas\_Index@{mGas\_Index}}
+\index{mGas\_Index@{mGas\_Index}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mGas\_Index}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a2acae073c58e6f3edc152a6f754138cf} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Gas\+\_\+\+Index}
+
+
+
+Definition at line \textbf{ 143} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mGating\_Max\_Duration\_Minutes@{mGating\_Max\_Duration\_Minutes}}
+\index{mGating\_Max\_Duration\_Minutes@{mGating\_Max\_Duration\_Minutes}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mGating\_Max\_Duration\_Minutes}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aed68662aca7ac4eeb35fa55f8b29aecd} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Gating\+\_\+\+Max\+\_\+\+Duration\+\_\+\+Minutes}
+
+
+
+Definition at line \textbf{ 133} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mGating\_Threshold@{mGating\_Threshold}}
+\index{mGating\_Threshold@{mGating\_Threshold}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mGating\_Threshold}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a9d7792ff4e2f781793bf51f29aae03b2} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Gating\+\_\+\+Threshold}
+
+
+
+Definition at line \textbf{ 136} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mIndex\_Gain@{mIndex\_Gain}}
+\index{mIndex\_Gain@{mIndex\_Gain}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mIndex\_Gain}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a45a856a547bebaf4f023e7f5e1d44b9a} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Index\+\_\+\+Gain}
+
+
+
+Definition at line \textbf{ 137} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mIndex\_Offset@{mIndex\_Offset}}
+\index{mIndex\_Offset@{mIndex\_Offset}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mIndex\_Offset}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a7961634d1248d81cfc4a8eb6cfd264fc} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Index\+\_\+\+Offset}
+
+
+
+Definition at line \textbf{ 131} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mInit\_Duration\_Mean@{mInit\_Duration\_Mean}}
+\index{mInit\_Duration\_Mean@{mInit\_Duration\_Mean}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mInit\_Duration\_Mean}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a970888740603585689a77c6bb3824cba} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Init\+\_\+\+Duration\+\_\+\+Mean}
+
+
+
+Definition at line \textbf{ 134} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mInit\_Duration\_Variance@{mInit\_Duration\_Variance}}
+\index{mInit\_Duration\_Variance@{mInit\_Duration\_Variance}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mInit\_Duration\_Variance}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_aee9d4a68c8188fbb671288744a57b58d} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Init\+\_\+\+Duration\+\_\+\+Variance}
+
+
+
+Definition at line \textbf{ 135} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mSraw@{mSraw}}
+\index{mSraw@{mSraw}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mSraw}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a1d7c6e19c90cea4884f8a15a4f36aaea} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Sraw}
+
+
+
+Definition at line \textbf{ 142} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mSraw\_Minimum@{mSraw\_Minimum}}
+\index{mSraw\_Minimum@{mSraw\_Minimum}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mSraw\_Minimum}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_af200d3e670ff97ec3ebcffa58df18c8d} 
+int32\+\_\+t Gas\+Index\+Algorithm\+Params\+::m\+Sraw\+\_\+\+Minimum}
+
+
+
+Definition at line \textbf{ 132} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mSraw\_Std\_Initial@{mSraw\_Std\_Initial}}
+\index{mSraw\_Std\_Initial@{mSraw\_Std\_Initial}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mSraw\_Std\_Initial}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a72855d4f653c0f99b6810cf82c3ccfb0} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Sraw\+\_\+\+Std\+\_\+\+Initial}
+
+
+
+Definition at line \textbf{ 140} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mTau\_Mean\_Hours@{mTau\_Mean\_Hours}}
+\index{mTau\_Mean\_Hours@{mTau\_Mean\_Hours}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mTau\_Mean\_Hours}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a573adcccabd98b982b70ef875dc1cf7e} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Tau\+\_\+\+Mean\+\_\+\+Hours}
+
+
+
+Definition at line \textbf{ 138} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mTau\_Variance\_Hours@{mTau\_Variance\_Hours}}
+\index{mTau\_Variance\_Hours@{mTau\_Variance\_Hours}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mTau\_Variance\_Hours}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a54a757b432945670d35a5899354ae4d9} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Tau\+\_\+\+Variance\+\_\+\+Hours}
+
+
+
+Definition at line \textbf{ 139} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{GasIndexAlgorithmParams@{GasIndexAlgorithmParams}!mUptime@{mUptime}}
+\index{mUptime@{mUptime}!GasIndexAlgorithmParams@{GasIndexAlgorithmParams}}
+\doxysubsubsection{mUptime}
+{\footnotesize\ttfamily \label{struct_gas_index_algorithm_params_a5638004748a844d62c25a3d7abbeee75} 
+\textbf{ fix16\+\_\+t} Gas\+Index\+Algorithm\+Params\+::m\+Uptime}
+
+
+
+Definition at line \textbf{ 141} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+lib/gas\+\_\+index\+\_\+algorithm/\textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}\end{DoxyCompactItemize}

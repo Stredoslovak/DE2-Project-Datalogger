@@ -1,0 +1,64 @@
+\doxysection{uart\+\_\+compat.\+h}
+\label{uart__compat_8h_source}\index{lib/uart/uart\_compat.h@{lib/uart/uart\_compat.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ UART\_COMPAT\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ UART\_COMPAT\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <avr/pgmspace.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <uart.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//\ Single\ byte\ transmission}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ transmitByte(data)\ uart\_putc(data)}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ String\ transmission\ from\ RAM}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ transmitString(str)\ uart\_puts((char*)(str))}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{//\ Newline\ transmission}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ TX\_NEWLINE\ uart\_puts("{}\(\backslash\)r\(\backslash\)n"{})}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ transmitString\_P(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ \textcolor{keywordtype}{string})}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keywordflow}{while}\ ((c\ =\ pgm\_read\_byte(\textcolor{keywordtype}{string}++)))}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ uart\_putc(c);}
+\DoxyCodeLine{00030\ \}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{static}\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{void}\ transmitHex(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ type,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ value)}
+\DoxyCodeLine{00037\ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \textcolor{keywordtype}{char}\ hex\_string[12];}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{keywordtype}{char}\ *ptr\ =\ hex\_string;}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ nibble;}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ i;}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ digits;}
+\DoxyCodeLine{00043\ \ \ \ \ }
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//\ Determine\ number\ of\ digits\ based\ on\ type}}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keywordflow}{if}(type\ ==\ 0)\ \textcolor{comment}{//\ BYTE}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ digits\ =\ 2;}
+\DoxyCodeLine{00047\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(type\ ==\ 1)\ \textcolor{comment}{//\ INT/WORD}}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ digits\ =\ 4;}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ LONG}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ digits\ =\ 8;}
+\DoxyCodeLine{00051\ \ \ \ \ }
+\DoxyCodeLine{00052\ \ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}0x"{}});}
+\DoxyCodeLine{00053\ \ \ \ \ }
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{comment}{//\ Convert\ to\ hex\ string}}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}(i\ =\ 0;\ i\ <\ digits;\ i++)}
+\DoxyCodeLine{00056\ \ \ \ \ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ nibble\ =\ (value\ >>\ ((digits\ -\/\ 1\ -\/\ i)\ *\ 4))\ \&\ 0x0F;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nibble\ <\ 10)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_putc(\textcolor{charliteral}{'0'}\ +\ nibble);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_putc(\textcolor{charliteral}{'A'}\ +\ nibble\ -\/\ 10);}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ Type\ definitions\ for\ transmitHex}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ BYTE\ 0}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ INT\ \ 1}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ LONG\ 2}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ UART\_COMPAT\_H}}
+
+\end{DoxyCode}

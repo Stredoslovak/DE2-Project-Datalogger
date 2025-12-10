@@ -1,0 +1,403 @@
+.TH "lib/FAT32/FAT32.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/FAT32/FAT32.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBMBRinfo_Structure\fP"
+.br
+.ti -1c
+.RI "struct \fBpartitionInfo_Structure\fP"
+.br
+.ti -1c
+.RI "struct \fBBS_Structure\fP"
+.br
+.ti -1c
+.RI "struct \fBFSInfo_Structure\fP"
+.br
+.ti -1c
+.RI "struct \fBdir_Structure\fP"
+.br
+.in -1c
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBATTR_READ_ONLY\fP   0x01"
+.br
+.ti -1c
+.RI "#define \fBATTR_HIDDEN\fP   0x02"
+.br
+.ti -1c
+.RI "#define \fBATTR_SYSTEM\fP   0x04"
+.br
+.ti -1c
+.RI "#define \fBATTR_VOLUME_ID\fP   0x08"
+.br
+.ti -1c
+.RI "#define \fBATTR_DIRECTORY\fP   0x10"
+.br
+.ti -1c
+.RI "#define \fBATTR_ARCHIVE\fP   0x20"
+.br
+.ti -1c
+.RI "#define \fBATTR_LONG_NAME\fP   0x0f"
+.br
+.ti -1c
+.RI "#define \fBDIR_ENTRY_SIZE\fP   0x32"
+.br
+.ti -1c
+.RI "#define \fBEMPTY\fP   0x00"
+.br
+.ti -1c
+.RI "#define \fBDELETED\fP   0xe5"
+.br
+.ti -1c
+.RI "#define \fBGET\fP   0"
+.br
+.ti -1c
+.RI "#define \fBSET\fP   1"
+.br
+.ti -1c
+.RI "#define \fBREAD\fP   0"
+.br
+.ti -1c
+.RI "#define \fBVERIFY\fP   1"
+.br
+.ti -1c
+.RI "#define \fBADD\fP   0"
+.br
+.ti -1c
+.RI "#define \fBREMOVE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBLOW\fP   0"
+.br
+.ti -1c
+.RI "#define \fBHIGH\fP   1"
+.br
+.ti -1c
+.RI "#define \fBTOTAL_FREE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBNEXT_FREE\fP   2"
+.br
+.ti -1c
+.RI "#define \fBGET_LIST\fP   0"
+.br
+.ti -1c
+.RI "#define \fBGET_FILE\fP   1"
+.br
+.ti -1c
+.RI "#define \fBDELETE\fP   2"
+.br
+.ti -1c
+.RI "#define \fBEOF\fP   0x0fffffff"
+.br
+.ti -1c
+.RI "#define \fBMAX_STRING_SIZE\fP   100"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBgetBootSectorData\fP (void)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetFirstSector\fP (unsigned long clusterNumber)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetSetFreeCluster\fP (unsigned char totOrNext, unsigned char get_set, unsigned long FSEntry)"
+.br
+.ti -1c
+.RI "struct \fBdir_Structure\fP * \fBfindFiles\fP (unsigned char flag, unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetSetNextCluster\fP (unsigned long clusterNumber, unsigned char get_set, unsigned long clusterEntry)"
+.br
+.ti -1c
+.RI "unsigned char \fBreadFile\fP (unsigned char flag, unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned char \fBconvertFileName\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned char \fBwriteFile\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "void \fBappendFile\fP (void)"
+.br
+.ti -1c
+.RI "unsigned long \fBsearchNextFreeCluster\fP (unsigned long startCluster)"
+.br
+.ti -1c
+.RI "void \fBdisplayMemory\fP (unsigned char flag, unsigned long memory)"
+.br
+.ti -1c
+.RI "void \fBdeleteFile\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "void \fBfreeMemoryUpdate\fP (unsigned char flag, unsigned long size)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "volatile unsigned long \fBfirstDataSector\fP"
+.br
+.ti -1c
+.RI "volatile unsigned long \fBrootCluster\fP"
+.br
+.ti -1c
+.RI "volatile unsigned long \fBtotalClusters\fP"
+.br
+.ti -1c
+.RI "volatile unsigned int \fBbytesPerSector\fP"
+.br
+.ti -1c
+.RI "volatile unsigned int \fBsectorPerCluster\fP"
+.br
+.ti -1c
+.RI "volatile unsigned int \fBreservedSectorCount\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBunusedSectors\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBappendFileSector\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBappendFileLocation\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBfileSize\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBappendStartCluster\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBfreeClusterCountUpdated\fP"
+.br
+.ti -1c
+.RI "volatile unsigned char \fBdataString\fP [\fBMAX_STRING_SIZE\fP]"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define ADD   0"
+
+.PP
+Definition at line \fB113\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_ARCHIVE   0x20"
+
+.PP
+Definition at line \fB102\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_DIRECTORY   0x10"
+
+.PP
+Definition at line \fB101\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_HIDDEN   0x02"
+
+.PP
+Definition at line \fB98\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_LONG_NAME   0x0f"
+
+.PP
+Definition at line \fB103\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_READ_ONLY   0x01"
+
+.PP
+Definition at line \fB97\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_SYSTEM   0x04"
+
+.PP
+Definition at line \fB99\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define ATTR_VOLUME_ID   0x08"
+
+.PP
+Definition at line \fB100\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define DELETE   2"
+
+.PP
+Definition at line \fB121\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define DELETED   0xe5"
+
+.PP
+Definition at line \fB108\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define DIR_ENTRY_SIZE   0x32"
+
+.PP
+Definition at line \fB106\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define EMPTY   0x00"
+
+.PP
+Definition at line \fB107\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define EOF   0x0fffffff"
+
+.PP
+Definition at line \fB122\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define GET   0"
+
+.PP
+Definition at line \fB109\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define GET_FILE   1"
+
+.PP
+Definition at line \fB120\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define GET_LIST   0"
+
+.PP
+Definition at line \fB119\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define HIGH   1"
+
+.PP
+Definition at line \fB116\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define LOW   0"
+
+.PP
+Definition at line \fB115\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define MAX_STRING_SIZE   100"
+
+.PP
+Definition at line \fB125\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define NEXT_FREE   2"
+
+.PP
+Definition at line \fB118\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define READ   0"
+
+.PP
+Definition at line \fB111\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define REMOVE   1"
+
+.PP
+Definition at line \fB114\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define SET   1"
+
+.PP
+Definition at line \fB110\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define TOTAL_FREE   1"
+
+.PP
+Definition at line \fB117\fP of file \fBFAT32\&.h\fP\&.
+.SS "#define VERIFY   1"
+
+.PP
+Definition at line \fB112\fP of file \fBFAT32\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void appendFile (void )"
+
+.SS "unsigned char convertFileName (unsigned char * fileName)"
+
+.PP
+Definition at line \fB383\fP of file \fBFAT32\&.c\fP\&.
+.SS "void deleteFile (unsigned char * fileName)"
+
+.PP
+Definition at line \fB726\fP of file \fBFAT32\&.c\fP\&.
+.SS "void displayMemory (unsigned char flag, unsigned long memory)"
+
+.PP
+Definition at line \fB702\fP of file \fBFAT32\&.c\fP\&.
+.SS "struct \fBdir_Structure\fP * findFiles (unsigned char flag, unsigned char * fileName)"
+
+.PP
+Definition at line \fB169\fP of file \fBFAT32\&.c\fP\&.
+.SS "void freeMemoryUpdate (unsigned char flag, unsigned long size)"
+
+.PP
+Definition at line \fB743\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char getBootSectorData (void )"
+
+.PP
+Definition at line \fB28\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getFirstSector (unsigned long clusterNumber)"
+
+.PP
+Definition at line \fB80\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getSetFreeCluster (unsigned char totOrNext, unsigned char get_set, unsigned long FSEntry)"
+
+.PP
+Definition at line \fB134\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getSetNextCluster (unsigned long clusterNumber, unsigned char get_set, unsigned long clusterEntry)"
+
+.PP
+Definition at line \fB92\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char readFile (unsigned char flag, unsigned char * fileName)"
+
+.PP
+Definition at line \fB319\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long searchNextFreeCluster (unsigned long startCluster)"
+
+.PP
+Definition at line \fB674\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char writeFile (unsigned char * fileName)"
+
+.PP
+Definition at line \fB442\fP of file \fBFAT32\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "unsigned long appendFileLocation"
+
+.PP
+Definition at line \fB131\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long appendFileSector"
+
+.PP
+Definition at line \fB131\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long appendStartCluster"
+
+.PP
+Definition at line \fB131\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned int bytesPerSector"
+
+.PP
+Definition at line \fB130\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned char dataString[\fBMAX_STRING_SIZE\fP]"
+
+.PP
+Definition at line \fB137\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long fileSize"
+
+.PP
+Definition at line \fB131\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned long firstDataSector"
+
+.PP
+Definition at line \fB129\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char freeClusterCountUpdated"
+
+.PP
+Definition at line \fB134\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned int reservedSectorCount"
+
+.PP
+Definition at line \fB130\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned long rootCluster"
+
+.PP
+Definition at line \fB129\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned int sectorPerCluster"
+
+.PP
+Definition at line \fB130\fP of file \fBFAT32\&.h\fP\&.
+.SS "volatile unsigned long totalClusters"
+
+.PP
+Definition at line \fB129\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long unusedSectors"
+
+.PP
+Definition at line \fB131\fP of file \fBFAT32\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

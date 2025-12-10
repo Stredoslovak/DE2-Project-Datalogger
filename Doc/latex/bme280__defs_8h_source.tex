@@ -1,0 +1,319 @@
+\doxysection{bme280\+\_\+defs.\+h}
+\label{bme280__defs_8h_source}\index{lib/bme280/bme280\_defs.h@{lib/bme280/bme280\_defs.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#ifndef\ \_BME280\_DEFS\_H}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ \_BME280\_DEFS\_H}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/********************************************************/}}
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ header\ includes\ */}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#ifdef\ \_\_KERNEL\_\_}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <linux/types.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <linux/kernel.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{/********************************************************/}}
+\DoxyCodeLine{00054\ \textcolor{comment}{/********************************************************/}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ !defined(UINT8\_C)\ \&\&\ !defined(INT8\_C)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ INT8\_C(x)\ \ \ \ S8\_C(x)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ UINT8\_C(x)\ \ \ U8\_C(x)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#if\ !defined(UINT16\_C)\ \&\&\ !defined(INT16\_C)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ INT16\_C(x)\ \ \ S16\_C(x)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ UINT16\_C(x)\ \ U16\_C(x)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#if\ !defined(INT32\_C)\ \&\&\ !defined(UINT32\_C)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ INT32\_C(x)\ \ \ S32\_C(x)}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#define\ UINT32\_C(x)\ \ U32\_C(x)}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#if\ !defined(INT64\_C)\ \&\&\ !defined(UINT64\_C)}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#define\ INT64\_C(x)\ \ \ S64\_C(x)}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ UINT64\_C(x)\ \ U64\_C(x)}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#ifndef\ NULL}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ NULL\ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#define\ NULL\ \ \ \ \ \ \ \ \ ((void\ *)\ 0)}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00088\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#ifndef\ BME280\_64BIT\_ENABLE\ }\textcolor{comment}{/*<\ Check\ if\ 64-\/bit\ integer\ (using\ BME280\_64BIT\_ENABLE)\ is\ enabled\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00090\ \textcolor{preprocessor}{\#ifndef\ BME280\_32BIT\_ENABLE\ }\textcolor{comment}{/*<\ Check\ if\ 32-\/bit\ integer\ (using\ BME280\_32BIT\_ENABLE)\ is\ enabled\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#ifndef\ BME280\_DOUBLE\_ENABLE\ }\textcolor{comment}{/*<\ If\ any\ of\ the\ integer\ data\ types\ not\ enabled\ then\ enable\ BME280\_DOUBLE\_ENABLE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#define\ BME280\_DOUBLE\_ENABLE}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00099\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#ifndef\ TRUE}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#define\ TRUE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1)}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#ifndef\ FALSE}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#define\ FALSE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0)}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#ifndef\ BME280\_INTF\_RET\_TYPE}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#define\ BME280\_INTF\_RET\_TYPE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int8\_t}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#ifndef\ BME280\_INTF\_RET\_SUCCESS}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#define\ BME280\_INTF\_RET\_SUCCESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(0)}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#define\ BME280\_OK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(0)}}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ BME280\_E\_NULL\_PTR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/1)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#define\ BME280\_E\_COMM\_FAIL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/2)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#define\ BME280\_E\_INVALID\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/3)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#define\ BME280\_E\_DEV\_NOT\_FOUND\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/4)}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#define\ BME280\_E\_SLEEP\_MODE\_FAIL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/5)}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#define\ BME280\_E\_NVM\_COPY\_FAILED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(-\/6)}}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#define\ BME280\_W\_INVALID\_OSR\_MACRO\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ INT8\_C(1)}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#define\ BME280\_CHIP\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x60)}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#define\ BME280\_I2C\_ADDR\_PRIM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x76)}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ BME280\_I2C\_ADDR\_SEC\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x77)}}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#define\ BME280\_REG\_CHIP\_ID\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xD0)}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#define\ BME280\_REG\_RESET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xE0)}}
+\DoxyCodeLine{00145\ \textcolor{preprocessor}{\#define\ BME280\_REG\_TEMP\_PRESS\_CALIB\_DATA\ \ \ \ \ \ \ \ \ \ UINT8\_C(0x88)}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#define\ BME280\_REG\_HUMIDITY\_CALIB\_DATA\ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xE1)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#define\ BME280\_REG\_CTRL\_HUM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF2)}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#define\ BME280\_REG\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF3)}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#define\ BME280\_REG\_PWR\_CTRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF4)}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#define\ BME280\_REG\_CTRL\_MEAS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF4)}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#define\ BME280\_REG\_CONFIG\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF5)}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ BME280\_REG\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xF7)}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#define\ BME280\_LEN\_TEMP\_PRESS\_CALIB\_DATA\ \ \ \ \ \ \ \ \ \ UINT8\_C(26)}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#define\ BME280\_LEN\_HUMIDITY\_CALIB\_DATA\ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(7)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#define\ BME280\_LEN\_P\_T\_H\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(8)}}
+\DoxyCodeLine{00158\ }
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#define\ BME280\_POWERMODE\_SLEEP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x00)}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#define\ BME280\_POWERMODE\_FORCED\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x01)}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#define\ BME280\_POWERMODE\_NORMAL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x03)}}
+\DoxyCodeLine{00163\ }
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#define\ BME280\_SENSOR\_MODE\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x03)}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#define\ BME280\_SENSOR\_MODE\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x00)}}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#define\ BME280\_SOFT\_RESET\_COMMAND\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xB6)}}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#define\ BME280\_STATUS\_IM\_UPDATE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x01)}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#define\ BME280\_STATUS\_MEAS\_DONE\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x08)}}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#define\ BME280\_PRESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1)}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#define\ BME280\_TEMP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 1)}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#define\ BME280\_HUM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 2)}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ BME280\_ALL\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x07)}}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_OSR\_PRESS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1)}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_OSR\_TEMP\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 1)}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_OSR\_HUM\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 2)}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_FILTER\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 3)}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_STANDBY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(1\ <<\ 4)}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#define\ BME280\_SEL\_ALL\_SETTINGS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x1F)}}
+\DoxyCodeLine{00189\ }
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#define\ BME280\_NO\_OVERSAMPLING\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x00)}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_1X\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x01)}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_2X\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x02)}}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_4X\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x03)}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_8X\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x04)}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_16X\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x05)}}
+\DoxyCodeLine{00197\ \textcolor{preprocessor}{\#define\ BME280\_OVERSAMPLING\_MAX\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(16)}}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_HUM\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x07)}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_HUM\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x00)}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_PRESS\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x1C)}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_PRESS\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x02)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_TEMP\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xE0)}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#define\ BME280\_CTRL\_TEMP\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x05)}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ BME280\_MEAS\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_C(1250)}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ BME280\_MEAS\_DUR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_C(2300)}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ BME280\_PRES\_HUM\_MEAS\_OFFSET\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_C(575)}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#define\ BME280\_MEAS\_SCALING\_FACTOR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_C(1000)}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ BME280\_STARTUP\_DELAY\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT16\_C(2000)}}
+\DoxyCodeLine{00212\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ BME280\_MAX\_LEN\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(10)}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_0\_5\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00)}}
+\DoxyCodeLine{00218\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_62\_5\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x01)}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_125\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x02)}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_250\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x03)}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_500\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x04)}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_1000\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x05)}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_10\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x06)}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_TIME\_20\_MS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x07)}}
+\DoxyCodeLine{00225\ }
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0xE0)}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#define\ BME280\_STANDBY\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x05)}}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#define\ BME280\_12\_BIT\_SHIFT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(12)}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#define\ BME280\_8\_BIT\_SHIFT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(8)}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#define\ BME280\_4\_BIT\_SHIFT\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(4)}}
+\DoxyCodeLine{00233\ }
+\DoxyCodeLine{00235\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_COEFF\_OFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x00)}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_COEFF\_2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x01)}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_COEFF\_4\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x02)}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_COEFF\_8\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x03)}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_COEFF\_16\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0x04)}}
+\DoxyCodeLine{00240\ }
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_MSK\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x1C)}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#define\ BME280\_FILTER\_POS\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UINT8\_C(0x02)}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ BME280\_CONCAT\_BYTES(msb,\ lsb)\ \ \ \ \ \ \ \ \ \ \ \ \ (((uint16\_t)msb\ <<\ 8)\ |\ (uint16\_t)lsb)}}
+\DoxyCodeLine{00246\ }
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#define\ BME280\_SET\_BITS(reg\_data,\ bitname,\ data)\ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ ((reg\_data\ \&\ \string~(bitname\#\#\_MSK))\ |\ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ ((data\ <<\ bitname\#\#\_POS)\ \&\ bitname\#\#\_MSK))}}
+\DoxyCodeLine{00251\ }
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\#define\ BME280\_SET\_BITS\_POS\_0(reg\_data,\ bitname,\ data)\ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ ((reg\_data\ \&\ \string~(bitname\#\#\_MSK))\ |\ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ \ (data\ \&\ bitname\#\#\_MSK))}}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\#define\ BME280\_GET\_BITS(reg\_data,\ bitname)\ \ \ \ \ \ \ \ ((reg\_data\ \&\ (bitname\#\#\_MSK))\ >>\ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (bitname\#\#\_POS))}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\#define\ BME280\_GET\_BITS\_POS\_0(reg\_data,\ bitname)\ \ (reg\_data\ \&\ (bitname\#\#\_MSK))}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ \textcolor{comment}{/********************************************************/}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00265\ \textcolor{keyword}{enum}\ bme280\_intf\ \{}
+\DoxyCodeLine{00267\ \ \ \ \ BME280\_SPI\_INTF,}
+\DoxyCodeLine{00269\ \ \ \ \ BME280\_I2C\_INTF}
+\DoxyCodeLine{00270\ \};}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00274\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00290\ \textcolor{keyword}{typedef}\ BME280\_INTF\_RET\_TYPE\ (*bme280\_read\_fptr\_t)(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keywordtype}{void}\ *intf\_ptr);}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00307\ \textcolor{keyword}{typedef}\ BME280\_INTF\_RET\_TYPE\ (*bme280\_write\_fptr\_t)(uint8\_t\ reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len,}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ *intf\_ptr);}
+\DoxyCodeLine{00309\ }
+\DoxyCodeLine{00319\ \textcolor{keyword}{typedef}\ void\ (*bme280\_delay\_us\_fptr\_t)(uint32\_t\ period,\ \textcolor{keywordtype}{void}\ *intf\_ptr);}
+\DoxyCodeLine{00320\ }
+\DoxyCodeLine{00321\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00323\ \textcolor{comment}{/******************************************************************************/}}
+\DoxyCodeLine{00324\ }
+\DoxyCodeLine{00328\ \textcolor{keyword}{struct\ }bme280\_calib\_data}
+\DoxyCodeLine{00329\ \{}
+\DoxyCodeLine{00331\ \ \ \ \ uint16\_t\ dig\_t1;}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00334\ \ \ \ \ int16\_t\ dig\_t2;}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00337\ \ \ \ \ int16\_t\ dig\_t3;}
+\DoxyCodeLine{00338\ }
+\DoxyCodeLine{00340\ \ \ \ \ uint16\_t\ dig\_p1;}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00343\ \ \ \ \ int16\_t\ dig\_p2;}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00346\ \ \ \ \ int16\_t\ dig\_p3;}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00349\ \ \ \ \ int16\_t\ dig\_p4;}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00352\ \ \ \ \ int16\_t\ dig\_p5;}
+\DoxyCodeLine{00353\ }
+\DoxyCodeLine{00355\ \ \ \ \ int16\_t\ dig\_p6;}
+\DoxyCodeLine{00356\ }
+\DoxyCodeLine{00358\ \ \ \ \ int16\_t\ dig\_p7;}
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00361\ \ \ \ \ int16\_t\ dig\_p8;}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00364\ \ \ \ \ int16\_t\ dig\_p9;}
+\DoxyCodeLine{00365\ }
+\DoxyCodeLine{00367\ \ \ \ \ uint8\_t\ dig\_h1;}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00370\ \ \ \ \ int16\_t\ dig\_h2;}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00373\ \ \ \ \ uint8\_t\ dig\_h3;}
+\DoxyCodeLine{00374\ }
+\DoxyCodeLine{00376\ \ \ \ \ int16\_t\ dig\_h4;}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00379\ \ \ \ \ int16\_t\ dig\_h5;}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00382\ \ \ \ \ int8\_t\ dig\_h6;}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00385\ \ \ \ \ int32\_t\ t\_fine;}
+\DoxyCodeLine{00386\ \};}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00392\ \textcolor{preprocessor}{\#ifdef\ BME280\_DOUBLE\_ENABLE}}
+\DoxyCodeLine{00393\ \textcolor{keyword}{struct\ }bme280\_data}
+\DoxyCodeLine{00394\ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordtype}{double}\ pressure;}
+\DoxyCodeLine{00397\ }
+\DoxyCodeLine{00399\ \ \ \ \ \textcolor{keywordtype}{double}\ temperature;}
+\DoxyCodeLine{00400\ }
+\DoxyCodeLine{00402\ \ \ \ \ \textcolor{keywordtype}{double}\ humidity;}
+\DoxyCodeLine{00403\ \};}
+\DoxyCodeLine{00404\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00405\ \textcolor{keyword}{struct\ }bme280\_data}
+\DoxyCodeLine{00406\ \{}
+\DoxyCodeLine{00408\ \ \ \ \ uint32\_t\ pressure;}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00411\ \ \ \ \ int32\_t\ temperature;}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00414\ \ \ \ \ uint32\_t\ humidity;}
+\DoxyCodeLine{00415\ \};}
+\DoxyCodeLine{00416\ \textcolor{preprocessor}{\#endif\ }\textcolor{preprocessor}{}}
+\DoxyCodeLine{00417\ }
+\DoxyCodeLine{00422\ \textcolor{keyword}{struct\ }bme280\_uncomp\_data}
+\DoxyCodeLine{00423\ \{}
+\DoxyCodeLine{00425\ \ \ \ \ uint32\_t\ pressure;}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00428\ \ \ \ \ uint32\_t\ temperature;}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00431\ \ \ \ \ uint32\_t\ humidity;}
+\DoxyCodeLine{00432\ \};}
+\DoxyCodeLine{00433\ }
+\DoxyCodeLine{00438\ \textcolor{keyword}{struct\ }bme280\_settings}
+\DoxyCodeLine{00439\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ uint8\_t\ osr\_p;}
+\DoxyCodeLine{00442\ }
+\DoxyCodeLine{00444\ \ \ \ \ uint8\_t\ osr\_t;}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00447\ \ \ \ \ uint8\_t\ osr\_h;}
+\DoxyCodeLine{00448\ }
+\DoxyCodeLine{00450\ \ \ \ \ uint8\_t\ filter;}
+\DoxyCodeLine{00451\ }
+\DoxyCodeLine{00453\ \ \ \ \ uint8\_t\ standby\_time;}
+\DoxyCodeLine{00454\ \};}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00459\ \textcolor{keyword}{struct\ }bme280\_dev}
+\DoxyCodeLine{00460\ \{}
+\DoxyCodeLine{00462\ \ \ \ \ uint8\_t\ chip\_id;}
+\DoxyCodeLine{00463\ }
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keyword}{enum}\ bme280\_intf\ intf;}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00476\ \ \ \ \ \textcolor{keywordtype}{void}\ *intf\_ptr;}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00479\ \ \ \ \ BME280\_INTF\_RET\_TYPE\ intf\_rslt;}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00482\ \ \ \ \ bme280\_read\_fptr\_t\ read;}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00485\ \ \ \ \ bme280\_write\_fptr\_t\ write;}
+\DoxyCodeLine{00486\ }
+\DoxyCodeLine{00488\ \ \ \ \ bme280\_delay\_us\_fptr\_t\ delay\_us;}
+\DoxyCodeLine{00489\ }
+\DoxyCodeLine{00491\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_calib\_data\ calib\_data;}
+\DoxyCodeLine{00492\ \};}
+\DoxyCodeLine{00493\ }
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_BME280\_DEFS\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

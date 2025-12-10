@@ -1,0 +1,36 @@
+\doxysubsection{System }
+\label{group__bme280_api_system}\index{System@{System}}
+
+
+API that performs system-\/level operations.  
+
+
+API that performs system-\/level operations. 
+
+\doxysubsubsection{bme280\+\_\+soft\+\_\+reset}\label{bme280_api_bme280_soft_reset}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{int8\_t\ bme280\_soft\_reset(\textcolor{keyword}{struct}\ bme280\_dev\ *dev);}
+
+\end{DoxyCode}
+
+
+This API soft-\/resets the sensor.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{in,out}}  & {\em dev} & \+: Structure instance of \doxyref{bme280\+\_\+dev}{p.}{structbme280__dev}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Result of API execution status.
+\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em 0} & -\/$>$ Success. \\
+\hline
+{\em $>$} & 0 -\/$>$ Warning. \\
+\hline
+{\em $<$} & 0 -\/$>$ Fail. \\
+\hline
+\end{DoxyRetVals}

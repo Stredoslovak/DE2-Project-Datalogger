@@ -1,0 +1,422 @@
+.TH "pfleury_uart" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+pfleury_uart \- UART Library <uart\&.h>
+.PP
+ \- Interrupt UART library using the built-in UART with transmit and receive circular buffers\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUART_BAUD_SELECT\fP(baudRate,  xtalCpu)"
+.br
+.RI "UART Baudrate Expression\&. "
+.ti -1c
+.RI "#define \fBUART_BAUD_SELECT_DOUBLE_SPEED\fP(baudRate,  xtalCpu)"
+.br
+.RI "UART Baudrate Expression for ATmega double speed mode\&. "
+.ti -1c
+.RI "#define \fBUART_RX_BUFFER_SIZE\fP   128"
+.br
+.RI "Size of the circular receive buffer, must be power of 2\&. "
+.ti -1c
+.RI "#define \fBUART_TX_BUFFER_SIZE\fP   128"
+.br
+.RI "Size of the circular transmit buffer, must be power of 2\&. "
+.ti -1c
+.RI "#define \fBUART_FRAME_ERROR\fP   0x1000"
+.br
+.RI "Framing Error by UART\&. "
+.ti -1c
+.RI "#define \fBUART_OVERRUN_ERROR\fP   0x0800"
+.br
+.RI "Overrun condition by UART\&. "
+.ti -1c
+.RI "#define \fBUART_PARITY_ERROR\fP   0x0400"
+.br
+.RI "Parity Error by UART\&. "
+.ti -1c
+.RI "#define \fBUART_BUFFER_OVERFLOW\fP   0x0200"
+.br
+.RI "receive ringbuffer overflow "
+.ti -1c
+.RI "#define \fBUART_NO_DATA\fP   0x0100"
+.br
+.RI "no receive data available "
+.ti -1c
+.RI "#define \fBuart_puts_P\fP(__s)"
+.br
+.RI "Macro to automatically put a string constant into program memory\&. "
+.ti -1c
+.RI "#define \fBuart1_puts_P\fP(__s)"
+.br
+.RI "Macro to automatically put a string constant into program memory\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBuart_init\fP (unsigned int baudrate)"
+.br
+.RI "Initialize UART and set baudrate\&. "
+.ti -1c
+.RI "unsigned int \fBuart_getc\fP (void)"
+.br
+.RI "Get received byte from ringbuffer\&. "
+.ti -1c
+.RI "void \fBuart_putc\fP (unsigned char \fBdata\fP)"
+.br
+.RI "Put byte to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts\fP (const char *s)"
+.br
+.RI "Put string to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts_p\fP (const char *s)"
+.br
+.RI "Put string from program memory to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart1_init\fP (unsigned int baudrate)"
+.br
+.RI "Initialize USART1 (only available on selected ATmegas)\&. "
+.ti -1c
+.RI "unsigned int \fBuart1_getc\fP (void)"
+.br
+.RI "Get received byte of USART1 from ringbuffer\&. (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_putc\fP (unsigned char \fBdata\fP)"
+.br
+.RI "Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_puts\fP (const char *s)"
+.br
+.RI "Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_puts_p\fP (const char *s)"
+.br
+.RI "Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Interrupt UART library using the built-in UART with transmit and receive circular buffers\&. 
+
+
+.PP
+.nf
+#include <uart\&.h> 
+
+.fi
+.PP
+
+.PP
+This library can be used to transmit and receive data through the built in UART\&.
+
+.PP
+An interrupt is generated when the UART has finished transmitting or receiving a byte\&. The interrupt handling routines use circular buffers for buffering received and transmitted data\&.
+
+.PP
+The UART_RX_BUFFER_SIZE and UART_TX_BUFFER_SIZE constants define the size of the circular buffers in bytes\&. Note that these constants must be a power of 2\&. You may need to adapt these constants to your target and your application by adding CDEFS += -DUART_RX_BUFFER_SIZE=nn -DUART_TX_BUFFER_SIZE=nn to your Makefile\&.
+
+.PP
+\fBNote\fP
+.RS 4
+Based on Atmel Application Note AVR306 
+.RE
+.PP
+\fBAuthor\fP
+.RS 4
+Peter Fleury pfleury@gmx.ch http://tinyurl.com/peterfleury 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+(C) 2015 Peter Fleury, GNU General Public License Version 3 
+.RE
+.PP
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define uart1_puts_P( __s)"
+\fBValue:\fP
+.nf
+uart1_puts_p(PSTR(__s))
+.PP
+.fi
+
+.PP
+Macro to automatically put a string constant into program memory\&. 
+.PP
+Definition at line \fB201\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_BAUD_SELECT( baudRate,  xtalCpu)"
+\fBValue:\fP
+.nf
+(((xtalCpu) + 8UL * (baudRate)) / (16UL * (baudRate)) \- 1UL)
+.PP
+.fi
+
+.PP
+UART Baudrate Expression\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIxtalCpu\fP system clock in Mhz, e\&.g\&. 4000000UL for 4Mhz 
+.br
+\fIbaudRate\fP baudrate in bps, e\&.g\&. 1200, 2400, 9600 
+.RE
+.PP
+
+.PP
+Definition at line \fB70\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_BAUD_SELECT_DOUBLE_SPEED( baudRate,  xtalCpu)"
+\fBValue:\fP
+.nf
+( ((((xtalCpu) + 4UL * (baudRate)) / (8UL * (baudRate)) \- 1UL)) | 0x8000)
+.PP
+.fi
+
+.PP
+UART Baudrate Expression for ATmega double speed mode\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIxtalCpu\fP system clock in Mhz, e\&.g\&. 4000000UL for 4Mhz 
+.br
+\fIbaudRate\fP baudrate in bps, e\&.g\&. 1200, 2400, 9600 
+.RE
+.PP
+
+.PP
+Definition at line \fB76\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_BUFFER_OVERFLOW   0x0200"
+
+.PP
+receive ringbuffer overflow 
+.PP
+Definition at line \fB107\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_FRAME_ERROR   0x1000"
+
+.PP
+Framing Error by UART\&. 
+.PP
+Definition at line \fB104\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_NO_DATA   0x0100"
+
+.PP
+no receive data available 
+.PP
+Definition at line \fB108\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_OVERRUN_ERROR   0x0800"
+
+.PP
+Overrun condition by UART\&. 
+.PP
+Definition at line \fB105\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_PARITY_ERROR   0x0400"
+
+.PP
+Parity Error by UART\&. 
+.PP
+Definition at line \fB106\fP of file \fBuart\&.h\fP\&.
+.SS "#define uart_puts_P( __s)"
+\fBValue:\fP
+.nf
+uart_puts_p(PSTR(__s))
+.PP
+.fi
+
+.PP
+Macro to automatically put a string constant into program memory\&. 
+.PP
+Definition at line \fB187\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_RX_BUFFER_SIZE   128"
+
+.PP
+Size of the circular receive buffer, must be power of 2\&. You may need to adapt this constant to your target and your application by adding CDEFS += -DUART_RX_BUFFER_SIZE=nn to your Makefile\&. 
+.PP
+Definition at line \fB84\fP of file \fBuart\&.h\fP\&.
+.SS "#define UART_TX_BUFFER_SIZE   128"
+
+.PP
+Size of the circular transmit buffer, must be power of 2\&. You may need to adapt this constant to your target and your application by adding CDEFS += -DUART_TX_BUFFER_SIZE=nn to your Makefile\&. 
+.PP
+Definition at line \fB93\fP of file \fBuart\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "unsigned int uart1_getc (void )\fR [extern]\fP"
+
+.PP
+Get received byte of USART1 from ringbuffer\&. (only available on selected ATmega)\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_getc\fP 
+.RE
+.PP
+
+.SS "void uart1_init (unsigned int baudrate)\fR [extern]\fP"
+
+.PP
+Initialize USART1 (only available on selected ATmegas)\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_init\fP 
+.RE
+.PP
+
+.SS "void uart1_putc (unsigned char data)\fR [extern]\fP"
+
+.PP
+Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_putc\fP 
+.RE
+.PP
+
+.SS "void uart1_puts (const char * s)\fR [extern]\fP"
+
+.PP
+Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_puts\fP 
+.RE
+.PP
+
+.SS "void uart1_puts_p (const char * s)\fR [extern]\fP"
+
+.PP
+Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. 
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_puts_p\fP 
+.RE
+.PP
+
+.SS "unsigned int uart_getc (void )\fR [extern]\fP"
+
+.PP
+Get received byte from ringbuffer\&. Returns in the lower byte the received character and in the higher byte the last receive error\&. UART_NO_DATA is returned when no data is available\&.
+
+.PP
+\fBReturns\fP
+.RS 4
+lower byte: received byte from ringbuffer 
+
+.PP
+higher byte: last receive status
+.IP "\(bu" 2
+\fB0\fP successfully received data from UART
+.IP "\(bu" 2
+\fBUART_NO_DATA\fP 
+.br
+no receive data available
+.IP "\(bu" 2
+\fBUART_BUFFER_OVERFLOW\fP 
+.br
+Receive ringbuffer overflow\&. We are not reading the receive buffer fast enough, one or more received character have been dropped
+.IP "\(bu" 2
+\fBUART_OVERRUN_ERROR\fP 
+.br
+Overrun condition by UART\&. A character already present in the UART UDR register was not read by the interrupt handler before the next character arrived, one or more received characters have been dropped\&.
+.IP "\(bu" 2
+\fBUART_FRAME_ERROR\fP 
+.br
+Framing Error by UART 
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB494\fP of file \fBuart\&.c\fP\&.
+.SS "void uart_init (unsigned int baudrate)\fR [extern]\fP"
+
+.PP
+Initialize UART and set baudrate\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIbaudrate\fP Specify baudrate using macro \fBUART_BAUD_SELECT()\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB439\fP of file \fBuart\&.c\fP\&.
+.SS "void uart_putc (unsigned char data)\fR [extern]\fP"
+
+.PP
+Put byte to ringbuffer for transmitting via UART\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP byte to be transmitted 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB526\fP of file \fBuart\&.c\fP\&.
+.SS "void uart_puts (const char * s)\fR [extern]\fP"
+
+.PP
+Put string to ringbuffer for transmitting via UART\&. The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts\&. Blocks if it can not write the whole string into the circular buffer\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIs\fP string to be transmitted 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB551\fP of file \fBuart\&.c\fP\&.
+.SS "void uart_puts_p (const char * s)\fR [extern]\fP"
+
+.PP
+Put string from program memory to ringbuffer for transmitting via UART\&. The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts\&. Blocks if it can not write the whole string into the circular buffer\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIs\fP program memory string to be transmitted 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+\fBSee also\fP
+.RS 4
+\fBuart_puts_P\fP 
+.RE
+.PP
+
+.PP
+Definition at line \fB563\fP of file \fBuart\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

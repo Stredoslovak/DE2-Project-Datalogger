@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_9edec02ba212d7e4cc0043d9925a81af" kind="dir">
+    <compoundname>lib/sd</compoundname>
+    <innerfile refid="_s_d__routines_8c">SD_routines.c</innerfile>
+    <innerfile refid="sd__routines_8h">sd_routines.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/sd/"/>
+  </compounddef>
+</doxygen>

@@ -81,7 +81,7 @@
  *  CDEFS += -DUART_RX_BUFFER_SIZE=nn to your Makefile.
  */
 #ifndef UART_RX_BUFFER_SIZE
-# define UART_RX_BUFFER_SIZE 64
+# define UART_RX_BUFFER_SIZE 128
 #endif
 
 /** @brief  Size of the circular transmit buffer, must be power of 2
@@ -90,9 +90,9 @@
  *  CDEFS += -DUART_TX_BUFFER_SIZE=nn to your Makefile.
  */
 #ifndef UART_TX_BUFFER_SIZE
-# define UART_TX_BUFFER_SIZE 64
+# define UART_TX_BUFFER_SIZE 128
 #endif
-
+// #define TX_NEWLINE {transmitByte(0x0d); transmitByte(0x0a);}
 /* test if the size of the circular buffers fits into SRAM */
 #if ( (UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE) >= (RAMEND - 0x60 ) )
 # error "size of UART_RX_BUFFER_SIZE + UART_TX_BUFFER_SIZE larger than size of SRAM"

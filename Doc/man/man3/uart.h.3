@@ -1,0 +1,106 @@
+.TH "lib/uart/uart.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/uart/uart.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/pgmspace\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUART_BAUD_SELECT\fP(baudRate,  xtalCpu)"
+.br
+.RI "UART Baudrate Expression\&. "
+.ti -1c
+.RI "#define \fBUART_BAUD_SELECT_DOUBLE_SPEED\fP(baudRate,  xtalCpu)"
+.br
+.RI "UART Baudrate Expression for ATmega double speed mode\&. "
+.ti -1c
+.RI "#define \fBUART_RX_BUFFER_SIZE\fP   128"
+.br
+.RI "Size of the circular receive buffer, must be power of 2\&. "
+.ti -1c
+.RI "#define \fBUART_TX_BUFFER_SIZE\fP   128"
+.br
+.RI "Size of the circular transmit buffer, must be power of 2\&. "
+.ti -1c
+.RI "#define \fBUART_FRAME_ERROR\fP   0x1000"
+.br
+.RI "Framing Error by UART\&. "
+.ti -1c
+.RI "#define \fBUART_OVERRUN_ERROR\fP   0x0800"
+.br
+.RI "Overrun condition by UART\&. "
+.ti -1c
+.RI "#define \fBUART_PARITY_ERROR\fP   0x0400"
+.br
+.RI "Parity Error by UART\&. "
+.ti -1c
+.RI "#define \fBUART_BUFFER_OVERFLOW\fP   0x0200"
+.br
+.RI "receive ringbuffer overflow "
+.ti -1c
+.RI "#define \fBUART_NO_DATA\fP   0x0100"
+.br
+.RI "no receive data available "
+.ti -1c
+.RI "#define \fBuart_puts_P\fP(__s)"
+.br
+.RI "Macro to automatically put a string constant into program memory\&. "
+.ti -1c
+.RI "#define \fBuart1_puts_P\fP(__s)"
+.br
+.RI "Macro to automatically put a string constant into program memory\&. "
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBuart_init\fP (unsigned int baudrate)"
+.br
+.RI "Initialize UART and set baudrate\&. "
+.ti -1c
+.RI "unsigned int \fBuart_getc\fP (void)"
+.br
+.RI "Get received byte from ringbuffer\&. "
+.ti -1c
+.RI "void \fBuart_putc\fP (unsigned char \fBdata\fP)"
+.br
+.RI "Put byte to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts\fP (const char *s)"
+.br
+.RI "Put string to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts_p\fP (const char *s)"
+.br
+.RI "Put string from program memory to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart1_init\fP (unsigned int baudrate)"
+.br
+.RI "Initialize USART1 (only available on selected ATmegas)\&. "
+.ti -1c
+.RI "unsigned int \fBuart1_getc\fP (void)"
+.br
+.RI "Get received byte of USART1 from ringbuffer\&. (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_putc\fP (unsigned char \fBdata\fP)"
+.br
+.RI "Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_puts\fP (const char *s)"
+.br
+.RI "Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.ti -1c
+.RI "void \fBuart1_puts_p\fP (const char *s)"
+.br
+.RI "Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega)\&. "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

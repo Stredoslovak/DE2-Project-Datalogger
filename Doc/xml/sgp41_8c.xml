@@ -1,0 +1,303 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="sgp41_8c" kind="file" language="C++">
+    <compoundname>sgp41.c</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">util/delay.h</includes>
+    <includes refid="twi_8h" local="yes">twi.h</includes>
+    <includes refid="uart_8h" local="yes">uart.h</includes>
+    <includes refid="_sensirion_i2_c_sgp41_8h" local="yes">SensirionI2CSgp41.h</includes>
+    <includes local="no">avr/interrupt.h</includes>
+    <includes refid="timer_8h" local="yes">timer.h</includes>
+    <includes refid="sensirion__gas__index__algorithm_8h" local="yes">sensirion_gas_index_algorithm.h</includes>
+    <incdepgraph>
+      <node id="11">
+        <label>timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="12">
+        <label>sensirion_gas_index_algorithm.h</label>
+        <link refid="sensirion__gas__index__algorithm_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="9">
+        <label>SensirionI2CSgp41.h</label>
+        <link refid="_sensirion_i2_c_sgp41_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>twi.h</label>
+        <link refid="twi_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>uart.h</label>
+        <link refid="uart_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/sgp41.c</label>
+        <link refid="sgp41_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>avr/interrupt.h</label>
+      </node>
+      <node id="6">
+        <label>avr/io.h</label>
+      </node>
+      <node id="8">
+        <label>avr/pgmspace.h</label>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+      <node id="3">
+        <label>stdio.h</label>
+      </node>
+      <node id="4">
+        <label>util/delay.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="sgp41_8c_1a409fbbdfdf3cab0110546db5c704dd27" prot="public" static="yes" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t conditioning_s</definition>
+        <argsstring></argsstring>
+        <name>conditioning_s</name>
+        <initializer>= 10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="54" column="17" bodyfile="src/sgp41.c" bodystart="54" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sgp41_8c_1a37e40cbd127941999dc107958c3065e5" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref></type>
+        <definition>GasIndexAlgorithmParams voc_params</definition>
+        <argsstring></argsstring>
+        <name>voc_params</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="56" column="32" bodyfile="src/sgp41.c" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sgp41_8c_1a30681d56b544a4f8293f291680aadae6" prot="public" static="yes" mutable="no">
+        <type><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref></type>
+        <definition>GasIndexAlgorithmParams nox_params</definition>
+        <argsstring></argsstring>
+        <name>nox_params</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="57" column="32" bodyfile="src/sgp41.c" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sgp41_8c_1ad06983e7f6e71b233ea7ff3dee1952f2" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int initialized</definition>
+        <argsstring></argsstring>
+        <name>initialized</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="58" column="12" bodyfile="src/sgp41.c" bodystart="58" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="sgp41_8c_1ad82d82c1e0522151ea6921266e848e3f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sgp41_init_simple</definition>
+        <argsstring>(void)</argsstring>
+        <name>sgp41_init_simple</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="64" column="5" bodyfile="src/sgp41.c" bodystart="64" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="sgp41_8c_1a90b58f4e4bdd065c1492a5e677681aab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int sgp41_measure_once</definition>
+        <argsstring>(int32_t *voc_index, int32_t *nox_index)</argsstring>
+        <name>sgp41_measure_once</name>
+        <param>
+          <type>int32_t *</type>
+          <declname>voc_index</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>nox_index</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/sgp41.c" line="87" column="5" bodyfile="src/sgp41.c" bodystart="87" bodyend="114"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>I2C-Generator:<sp/>0.3.0</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>Yaml<sp/>Version:<sp/>0.1.0</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*<sp/>Template<sp/>Version:<sp/>0.7.0-62-g3d691f9</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*<sp/>Copyright<sp/>(c)<sp/>2021,<sp/>Sensirion<sp/>AG</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>All<sp/>rights<sp/>reserved.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/>Redistribution<sp/>and<sp/>use<sp/>in<sp/>source<sp/>and<sp/>binary<sp/>forms,<sp/>with<sp/>or<sp/>without</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/>modification,<sp/>are<sp/>permitted<sp/>provided<sp/>that<sp/>the<sp/>following<sp/>conditions<sp/>are<sp/>met:</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>*<sp/>Redistributions<sp/>of<sp/>source<sp/>code<sp/>must<sp/>retain<sp/>the<sp/>above<sp/>copyright<sp/>notice,<sp/>this</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/><sp/><sp/>list<sp/>of<sp/>conditions<sp/>and<sp/>the<sp/>following<sp/>disclaimer.</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>*<sp/>Redistributions<sp/>in<sp/>binary<sp/>form<sp/>must<sp/>reproduce<sp/>the<sp/>above<sp/>copyright<sp/>notice,</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/><sp/><sp/>this<sp/>list<sp/>of<sp/>conditions<sp/>and<sp/>the<sp/>following<sp/>disclaimer<sp/>in<sp/>the<sp/>documentation</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/><sp/><sp/>and/or<sp/>other<sp/>materials<sp/>provided<sp/>with<sp/>the<sp/>distribution.</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/>*<sp/>Neither<sp/>the<sp/>name<sp/>of<sp/>Sensirion<sp/>AG<sp/>nor<sp/>the<sp/>names<sp/>of<sp/>its</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/><sp/><sp/>contributors<sp/>may<sp/>be<sp/>used<sp/>to<sp/>endorse<sp/>or<sp/>promote<sp/>products<sp/>derived<sp/>from</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*<sp/><sp/><sp/>this<sp/>software<sp/>without<sp/>specific<sp/>prior<sp/>written<sp/>permission.</highlight></codeline>
+<codeline lineno="23"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="24"><highlight class="comment"><sp/>*<sp/>THIS<sp/>SOFTWARE<sp/>IS<sp/>PROVIDED<sp/>BY<sp/>THE<sp/>COPYRIGHT<sp/>HOLDERS<sp/>AND<sp/>CONTRIBUTORS<sp/>&quot;AS<sp/>IS&quot;</highlight></codeline>
+<codeline lineno="25"><highlight class="comment"><sp/>*<sp/>AND<sp/>ANY<sp/>EXPRESS<sp/>OR<sp/>IMPLIED<sp/>WARRANTIES,<sp/>INCLUDING,<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO,<sp/>THE</highlight></codeline>
+<codeline lineno="26"><highlight class="comment"><sp/>*<sp/>IMPLIED<sp/>WARRANTIES<sp/>OF<sp/>MERCHANTABILITY<sp/>AND<sp/>FITNESS<sp/>FOR<sp/>A<sp/>PARTICULAR<sp/>PURPOSE</highlight></codeline>
+<codeline lineno="27"><highlight class="comment"><sp/>*<sp/>ARE<sp/>DISCLAIMED.<sp/>IN<sp/>NO<sp/>EVENT<sp/>SHALL<sp/>THE<sp/>COPYRIGHT<sp/>HOLDER<sp/>OR<sp/>CONTRIBUTORS<sp/>BE</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>LIABLE<sp/>FOR<sp/>ANY<sp/>DIRECT,<sp/>INDIRECT,<sp/>INCIDENTAL,<sp/>SPECIAL,<sp/>EXEMPLARY,<sp/>OR</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>CONSEQUENTIAL<sp/>DAMAGES<sp/>(INCLUDING,<sp/>BUT<sp/>NOT<sp/>LIMITED<sp/>TO,<sp/>PROCUREMENT<sp/>OF</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/>SUBSTITUTE<sp/>GOODS<sp/>OR<sp/>SERVICES;<sp/>LOSS<sp/>OF<sp/>USE,<sp/>DATA,<sp/>OR<sp/>PROFITS;<sp/>OR<sp/>BUSINESS</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*<sp/>INTERRUPTION)<sp/>HOWEVER<sp/>CAUSED<sp/>AND<sp/>ON<sp/>ANY<sp/>THEORY<sp/>OF<sp/>LIABILITY,<sp/>WHETHER<sp/>IN</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>CONTRACT,<sp/>STRICT<sp/>LIABILITY,<sp/>OR<sp/>TORT<sp/>(INCLUDING<sp/>NEGLIGENCE<sp/>OR<sp/>OTHERWISE)</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>ARISING<sp/>IN<sp/>ANY<sp/>WAY<sp/>OUT<sp/>OF<sp/>THE<sp/>USE<sp/>OF<sp/>THIS<sp/>SOFTWARE,<sp/>EVEN<sp/>IF<sp/>ADVISED<sp/>OF<sp/>THE</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/>POSSIBILITY<sp/>OF<sp/>SUCH<sp/>DAMAGE.</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Use<sp/>project&apos;s<sp/>TWI<sp/>and<sp/>UART<sp/>libraries<sp/>(no<sp/>Arduino)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;util/delay.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="twi_8h" kindref="compound">twi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="uart_8h" kindref="compound">uart.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_sensirion_i2_c_sgp41_8h" kindref="compound">SensirionI2CSgp41.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;avr/interrupt.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8h" kindref="compound">timer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="sensirion__gas__index__algorithm_8h" kindref="compound">sensirion_gas_index_algorithm.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Refactored<sp/>SGP41<sp/>wrapper:<sp/>provide<sp/>init<sp/>+<sp/>single-measure<sp/>interface<sp/>so<sp/>main.c</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>can<sp/>control<sp/>timing<sp/>and<sp/>UART<sp/>output.<sp/>The<sp/>module<sp/>keeps<sp/>internal<sp/>state<sp/>for<sp/>the</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>gas<sp/>index<sp/>algorithms<sp/>between<sp/>measurements.</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Time<sp/>in<sp/>seconds<sp/>needed<sp/>for<sp/>NOx<sp/>conditioning<sp/>(do<sp/>not<sp/>exceed<sp/>10s)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint16_t<sp/>conditioning_s<sp/>=<sp/>10;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref><sp/>voc_params;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="struct_gas_index_algorithm_params" kindref="compound">GasIndexAlgorithmParams</ref><sp/>nox_params;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>initialized<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialize<sp/>SGP41<sp/>algorithm<sp/>state<sp/>and<sp/>perform<sp/>optional<sp/>self-test.</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/>Caller<sp/>must<sp/>call<sp/>`twi_init()`<sp/>before<sp/>this<sp/>function.</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/>Returns<sp/>0<sp/>on<sp/>success,<sp/>non-zero<sp/>on<sp/>error.</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64" refid="main_8c_1ad82d82c1e0522151ea6921266e848e3f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sgp41_8c_1ad82d82c1e0522151ea6921266e848e3f" kindref="member">sgp41_init_simple</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(initialized)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Get<sp/>serial<sp/>number<sp/>(optional,<sp/>non-fatal)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>serialNumber[3];</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)<ref refid="_sensirion_i2_c_sgp41_8c_1a6cce1c012608b10ecf4a24e3bc2df736" kindref="member">sgp41_getSerialNumber</ref>(serialNumber);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Run<sp/>self-test<sp/>once<sp/>(non-fatal)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>testResult<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)<ref refid="_sensirion_i2_c_sgp41_8c_1a3ef0f1072b7cd123ad60f03336eccb99" kindref="member">sgp41_executeSelfTest</ref>(&amp;testResult);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Initialize<sp/>gas<sp/>index<sp/>algorithms<sp/>for<sp/>VOC<sp/>and<sp/>NOx<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8c_1a39e8ff626b9de149244ea53418b97f47" kindref="member">GasIndexAlgorithm_init</ref>(&amp;voc_params,<sp/><ref refid="sensirion__gas__index__algorithm_8h_1a65553d56f3f8007d1768c662833ab294" kindref="member">GasIndexAlgorithm_ALGORITHM_TYPE_VOC</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8c_1a39e8ff626b9de149244ea53418b97f47" kindref="member">GasIndexAlgorithm_init</ref>(&amp;nox_params,<sp/><ref refid="sensirion__gas__index__algorithm_8h_1aefbc8af43c9df3537fe4545b86f3cd9b" kindref="member">GasIndexAlgorithm_ALGORITHM_TYPE_NOX</ref>);</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>initialized<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Perform<sp/>one<sp/>measurement<sp/>and<sp/>compute<sp/>VOC/NOx<sp/>indices.<sp/>Caller<sp/>provides<sp/>pointers</highlight></codeline>
+<codeline lineno="85"><highlight class="comment"><sp/>*<sp/>to<sp/>store<sp/>results.<sp/>Returns<sp/>0<sp/>on<sp/>success<sp/>or<sp/>non-zero<sp/>on<sp/>error.</highlight></codeline>
+<codeline lineno="86"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="main_8c_1a90b58f4e4bdd065c1492a5e677681aab" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="sgp41_8c_1a90b58f4e4bdd065c1492a5e677681aab" kindref="member">sgp41_measure_once</ref>(int32_t<sp/>*voc_index,<sp/>int32_t<sp/>*nox_index)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!initialized)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>defaultRh<sp/>=<sp/>0x8000;</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>defaultT<sp/>=<sp/>0x6666;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>srawVoc<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>srawNox<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/>err;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(conditioning_s<sp/>&gt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>run<sp/>conditioning<sp/>command<sp/>to<sp/>keep<sp/>sensor<sp/>heater<sp/>conditioned<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(void)<ref refid="_sensirion_i2_c_sgp41_8c_1a1f147faeab485213e9a86b18e3fbfc8f" kindref="member">sgp41_executeConditioning</ref>(defaultRh,<sp/>defaultT,<sp/>&amp;srawVoc);</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>always<sp/>perform<sp/>a<sp/>measurement<sp/>to<sp/>obtain<sp/>both<sp/>VOC<sp/>and<sp/>NOx<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err<sp/>=<sp/><ref refid="_sensirion_i2_c_sgp41_8c_1a6c91436bf1a691e0e5b628cd33443a35" kindref="member">sgp41_measureRawSignals</ref>(defaultRh,<sp/>defaultT,<sp/>&amp;srawVoc,<sp/>&amp;srawNox);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>conditioning_s--;</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>err<sp/>=<sp/><ref refid="_sensirion_i2_c_sgp41_8c_1a6c91436bf1a691e0e5b628cd33443a35" kindref="member">sgp41_measureRawSignals</ref>(defaultRh,<sp/>defaultT,<sp/>&amp;srawVoc,<sp/>&amp;srawNox);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(err)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">)err;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Process<sp/>raw<sp/>sraw<sp/>values<sp/>through<sp/>gas<sp/>index<sp/>algorithms<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8c_1a4be92e48685ba183966d2612ce33528c" kindref="member">GasIndexAlgorithm_process</ref>(&amp;voc_params,<sp/>(int32_t)srawVoc,<sp/>voc_index);</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="sensirion__gas__index__algorithm_8c_1a4be92e48685ba183966d2612ce33528c" kindref="member">GasIndexAlgorithm_process</ref>(&amp;nox_params,<sp/>(int32_t)srawNox,<sp/>nox_index);</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/sgp41.c"/>
+  </compounddef>
+</doxygen>

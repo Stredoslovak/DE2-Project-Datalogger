@@ -1,0 +1,93 @@
+\doxysection{rtc.\+h}
+\label{rtc_8h_source}\index{lib/rtc/rtc.h@{lib/rtc/rtc.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ RTC\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\ \ \ \ \#define\ RTC\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#endif\ \ }}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \#include\ <avr/io.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{/*\ I2C\ address\ of\ DS1307\ RTC\ */}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ RTC\_ADDRESS\ 0x68}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{comment}{/*\ RTC\ register\ addresses\ (DS1307)\ */}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ RTC\_SEC\ \ \ \ \ 0x00\ \ }\textcolor{comment}{/*\ Seconds\ (and\ CH\ bit)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ RTC\_MIN\ \ \ \ \ 0x01\ \ }\textcolor{comment}{/*\ Minutes\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ RTC\_HOUR\ \ \ \ 0x02\ \ }\textcolor{comment}{/*\ Hours\ (12/24\ bit)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ RTC\_DAY\ \ \ \ \ 0x03\ \ }\textcolor{comment}{/*\ Day\ of\ week\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ RTC\_DATE\ \ \ \ 0x04\ \ }\textcolor{comment}{/*\ Date\ (day\ of\ month)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ RTC\_MONTH\ \ \ 0x05\ \ }\textcolor{comment}{/*\ Month\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#define\ RTC\_YEAR\ \ \ \ 0x06\ \ }\textcolor{comment}{/*\ Year\ (00..99)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ RTC\_CONTROL\ 0x07\ \ }\textcolor{comment}{/*\ Control\ register\ (square-\/wave\ output)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ \ \ \ \ SECONDS\ \ \ \ \ \ \ \ \ rtc\_register[0]}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ \ \ \ \ MINUTES\ \ \ \ \ \ \ \ \ rtc\_register[1]}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#define\ \ \ \ \ HOURS\ \ \ \ \ \ \ \ \ \ \ rtc\_register[2]}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \ \ \ \ DAY\ \ \ \ \ \ \ \ \ \ \ \ \ rtc\_register[3]}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#define\ \ \ \ \ DATE\ \ \ \ \ \ \ \ \ \ \ \ rtc\_register[4]}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ \ \ \ \ MONTH\ \ \ \ \ \ \ \ \ \ \ rtc\_register[5]}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ \ \ \ \ YEAR\ \ \ \ \ \ \ \ \ \ \ \ rtc\_register[6]}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ rtc\_register[7];}
+\DoxyCodeLine{00030\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ dateFAT,\ timeFAT;}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ rtc\_setup}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ \ -\/\ Initialize\ RTC\ device\ state:\ start\ oscillator\ (clear\ CH\ bit),}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ \ \ \ select\ 24-\/hour\ mode\ (clear\ 12/24\ bit)\ and\ clear\ control\ register.}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ \ -\/\ No\ parameters,\ returns\ void.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{void}\ rtc\_setup(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ rtc\_read\_reg}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ *\ \ -\/\ Read\ single\ RTC\ register\ over\ I2C.}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ \ -\/\ reg\_addr\ :\ register\ address\ (use\ RTC\_*\ macros)}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ \ -\/\ returns\ \ :\ byte\ read\ from\ device}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00046\ uint8\_t\ rtc\_read\_reg(uint8\_t\ reg\_addr);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ rtc\_write\_reg}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ *\ \ -\/\ Write\ single\ RTC\ register\ over\ I2C.}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ *\ \ -\/\ reg\_addr\ :\ register\ address\ (use\ RTC\_*\ macros)}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ *\ \ -\/\ data\ \ \ \ \ :\ byte\ to\ write}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ *\ \ -\/\ returns\ \ :\ result\ code\ from\ underlying\ TWI\ write\ (0\ =\ success\ typically)}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00056\ uint8\_t\ rtc\_write\_reg(uint8\_t\ reg\_addr,\ uint8\_t\ data);}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ rtc\_set\_time}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ \ -\/\ Set\ RTC\ time\ (hours,\ minutes,\ seconds)\ in\ decimal\ (0..23,\ 0..59,\ 0..59).}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ \ -\/\ Values\ are\ converted\ to\ BCD\ before\ writing.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ \ -\/\ returns\ \ :\ 0\ on\ success\ (function\ currently\ always\ returns\ 0)}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ uint8\_t\ rtc\_set\_time(uint8\_t\ hours,\ uint8\_t\ minutes,\ uint8\_t\ seconds);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ *\ rtc\_get\_time}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\ *\ \ -\/\ Read\ current\ time\ from\ RTC\ and\ convert\ BCD\ -\/>\ decimal.}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ \ -\/\ hours,\ minutes,\ seconds\ :\ pointers\ to\ store\ values\ (non-\/NULL)}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ \ -\/\ returns\ :\ 0\ on\ success}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00072\ uint8\_t\ rtc\_get\_time(uint8\_t\ *hours,\ uint8\_t\ *minutes,\ uint8\_t\ *seconds);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00075\ \textcolor{comment}{\ *\ rtc\_set\_date}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ \ -\/\ Set\ RTC\ calendar\ date\ (day-\/of-\/week,\ date,\ month,\ year)\ in\ decimal.}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ \ -\/\ day\ \ \ :\ 1..7\ (day\ of\ week),\ date:\ 1..31,\ month:\ 1..12,\ year:\ 0..99}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ \ -\/\ Values\ are\ converted\ to\ BCD\ before\ writing.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ \ -\/\ returns\ :\ 0\ on\ success}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00081\ uint8\_t\ rtc\_set\_date(uint8\_t\ day,\ uint8\_t\ date,\ uint8\_t\ month,\ uint8\_t\ year);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ uint8\_t\ rtc\_get\_date(uint8\_t\ *date,\ uint8\_t\ *month,\ uint8\_t\ *year);}
+\DoxyCodeLine{00084\ uint8\_t\ rtc\_get\_day(uint8\_t\ *day);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ getDateTime\_FAT(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00087\ }
+
+\end{DoxyCode}

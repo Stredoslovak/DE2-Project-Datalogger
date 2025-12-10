@@ -1,0 +1,769 @@
+\doxysection{FAT32.\+c}
+\label{_f_a_t32_8c_source}\index{lib/FAT32/FAT32.c@{lib/FAT32/FAT32.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ ****\ ROUTINES\ FOR\ FAT32\ IMPLEMATATION\ OF\ SD\ CARD\ ****}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//Controller\ \ \ \ \ \ \ \ :\ ATmega32\ (Clock:\ 8\ Mhz-\/internal)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//Compiler\ \ \ \ \ \ \ \ \ \ :\ AVR-\/GCC\ (winAVR\ with\ AVRStudio-\/4)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//Project\ Version\ \ \ :\ DL\_1.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//Author\ \ \ \ \ \ \ \ \ \ \ \ :\ CC\ Dharmani,\ Chennai\ (India)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.dharmanitech.com}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//Date\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 10\ May\ 2011}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//************************************************************}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <avr/pgmspace.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ "{}FAT32.h"{}}}
+\DoxyCodeLine{00015\ \textcolor{comment}{//\ \#include\ "{}UART\_routines.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}uart.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}sd\_routines.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}rtc.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}uart\_compat.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{comment}{//\ \#include\ "{}RTC\_routines.h"{}\ \ }}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//Function:\ to\ read\ data\ from\ boot\ sector\ of\ SD\ card,\ to\ determine\ important}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//parameters\ like\ bytesPerSector,\ sectorsPerCluster\ etc.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//Arguments:\ none}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//return:\ none}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00028\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ getBootSectorData\ (\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00029\ \{}
+\DoxyCodeLine{00030\ \textcolor{keyword}{struct\ }BS\_Structure\ *bpb;\ \textcolor{comment}{//mapping\ the\ buffer\ onto\ the\ structure}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }MBRinfo\_Structure\ *mbr;}
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }partitionInfo\_Structure\ *partition;}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ dataSectors;}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ unusedSectors\ =\ 0;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ SD\_readSingleBlock(0);}
+\DoxyCodeLine{00038\ bpb\ =\ (\textcolor{keyword}{struct\ }BS\_Structure\ *)buffer;}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{keywordflow}{if}(bpb-\/>jumpBoot[0]!=0xE9\ \&\&\ bpb-\/>jumpBoot[0]!=0xEB)\ \ \ \textcolor{comment}{//check\ if\ it\ is\ boot\ sector}}
+\DoxyCodeLine{00041\ \{}
+\DoxyCodeLine{00042\ \ \ mbr\ =\ (\textcolor{keyword}{struct\ }MBRinfo\_Structure\ *)\ buffer;\ \ \ \ \ \ \ \textcolor{comment}{//if\ it\ is\ not\ boot\ sector,\ it\ must\ be\ MBR}}
+\DoxyCodeLine{00043\ \ \ }
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{if}(mbr-\/>signature\ !=\ 0xaa55)\ \textcolor{keywordflow}{return}\ 1;\ \ \ \ \ \ \ \textcolor{comment}{//if\ it\ is\ not\ even\ MBR\ then\ it's\ not\ FAT32}}
+\DoxyCodeLine{00045\ \ \ \ \ }
+\DoxyCodeLine{00046\ \ \ partition\ =\ (\textcolor{keyword}{struct\ }partitionInfo\_Structure\ *)(mbr-\/>partitionData);\textcolor{comment}{//first\ partition}}
+\DoxyCodeLine{00047\ \ \ unusedSectors\ =\ partition-\/>firstSector;\ \textcolor{comment}{//the\ unused\ sectors,\ hidden\ to\ the\ FAT}}
+\DoxyCodeLine{00048\ \ \ }
+\DoxyCodeLine{00049\ \ \ SD\_readSingleBlock(partition-\/>firstSector);\textcolor{comment}{//read\ the\ bpb\ sector}}
+\DoxyCodeLine{00050\ \ \ bpb\ =\ (\textcolor{keyword}{struct\ }BS\_Structure\ *)buffer;}
+\DoxyCodeLine{00051\ \ \ \textcolor{keywordflow}{if}(bpb-\/>jumpBoot[0]!=0xE9\ \&\&\ bpb-\/>jumpBoot[0]!=0xEB)\ \textcolor{keywordflow}{return}\ 1;\ }
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ bytesPerSector\ =\ bpb-\/>bytesPerSector;}
+\DoxyCodeLine{00055\ \textcolor{comment}{//transmitHex(INT,\ bytesPerSector);\ transmitByte('\ ');}}
+\DoxyCodeLine{00056\ sectorPerCluster\ =\ bpb-\/>sectorPerCluster;}
+\DoxyCodeLine{00057\ \textcolor{comment}{//transmitHex(INT,\ sectorPerCluster);\ transmitByte('\ ');}}
+\DoxyCodeLine{00058\ reservedSectorCount\ =\ bpb-\/>reservedSectorCount;}
+\DoxyCodeLine{00059\ rootCluster\ =\ bpb-\/>rootCluster;\textcolor{comment}{//\ +\ (sector\ /\ sectorPerCluster)\ +1;}}
+\DoxyCodeLine{00060\ firstDataSector\ =\ bpb-\/>hiddenSectors\ +\ reservedSectorCount\ +\ (bpb-\/>numberofFATs\ *\ bpb-\/>FATsize\_F32);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ dataSectors\ =\ bpb-\/>totalSectors\_F32}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ bpb-\/>reservedSectorCount}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ -\/\ (\ bpb-\/>numberofFATs\ *\ bpb-\/>FATsize\_F32);}
+\DoxyCodeLine{00065\ totalClusters\ =\ dataSectors\ /\ sectorPerCluster;}
+\DoxyCodeLine{00066\ \textcolor{comment}{//transmitHex(LONG,\ totalClusters);\ transmitByte('\ ');}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{keywordflow}{if}((getSetFreeCluster\ (TOTAL\_FREE,\ GET,\ 0))\ >\ totalClusters)\ \ \textcolor{comment}{//check\ if\ FSinfo\ free\ clusters\ count\ is\ valid}}
+\DoxyCodeLine{00069\ \ \ \ \ \ freeClusterCountUpdated\ =\ 0;}
+\DoxyCodeLine{00070\ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00071\ \ \ \ \ \ freeClusterCountUpdated\ =\ 1;}
+\DoxyCodeLine{00072\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00073\ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//Function:\ to\ calculate\ first\ sector\ address\ of\ any\ given\ cluster}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//Arguments:\ cluster\ number\ for\ which\ first\ sector\ is\ to\ be\ found}}
+\DoxyCodeLine{00078\ \textcolor{comment}{//return:\ first\ sector\ address}}
+\DoxyCodeLine{00079\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00080\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getFirstSector(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterNumber)}
+\DoxyCodeLine{00081\ \{}
+\DoxyCodeLine{00082\ \ \ \textcolor{keywordflow}{return}\ (((clusterNumber\ -\/\ 2)\ *\ sectorPerCluster)\ +\ firstDataSector);}
+\DoxyCodeLine{00083\ \}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00086\ \textcolor{comment}{//Function:\ get\ cluster\ entry\ value\ from\ FAT\ to\ find\ out\ the\ next\ cluster\ in\ the\ chain}}
+\DoxyCodeLine{00087\ \textcolor{comment}{//or\ set\ new\ cluster\ entry\ in\ FAT}}
+\DoxyCodeLine{00088\ \textcolor{comment}{//Arguments:\ 1.\ current\ cluster\ number,\ 2.\ get\_set\ (=GET,\ if\ next\ cluster\ is\ to\ be\ found\ or\ =\ SET,}}
+\DoxyCodeLine{00089\ \textcolor{comment}{//if\ next\ cluster\ is\ to\ be\ set\ 3.\ next\ cluster\ number,\ if\ argument\#2\ =\ SET,\ else\ 0}}
+\DoxyCodeLine{00090\ \textcolor{comment}{//return:\ next\ cluster\ number,\ if\ if\ argument\#2\ =\ GET,\ else\ 0}}
+\DoxyCodeLine{00091\ \textcolor{comment}{//****************************************************************************}}
+\DoxyCodeLine{00092\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getSetNextCluster\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterNumber,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ get\_set,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ clusterEntry)}
+\DoxyCodeLine{00095\ \{}
+\DoxyCodeLine{00096\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ FATEntryOffset;}
+\DoxyCodeLine{00097\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *FATEntryValue;}
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ FATEntrySector;}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ retry\ =\ 0;}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ \textcolor{comment}{//get\ sector\ number\ of\ the\ cluster\ entry\ in\ the\ FAT}}
+\DoxyCodeLine{00102\ FATEntrySector\ =\ unusedSectors\ +\ reservedSectorCount\ +\ ((clusterNumber\ *\ 4)\ /\ bytesPerSector)\ ;}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \textcolor{comment}{//get\ the\ offset\ address\ in\ that\ sector\ number}}
+\DoxyCodeLine{00105\ FATEntryOffset\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ ((clusterNumber\ *\ 4)\ \%\ bytesPerSector);}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{//read\ the\ sector\ into\ a\ buffer}}
+\DoxyCodeLine{00108\ \textcolor{keywordflow}{while}(retry\ <10)}
+\DoxyCodeLine{00109\ \{\ \textcolor{keywordflow}{if}(!SD\_readSingleBlock(FATEntrySector))\ \textcolor{keywordflow}{break};\ retry++;\}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//get\ the\ cluster\ address\ from\ the\ buffer}}
+\DoxyCodeLine{00112\ FATEntryValue\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *)\ \&buffer[FATEntryOffset];}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{keywordflow}{if}(get\_set\ ==\ GET)}
+\DoxyCodeLine{00115\ \ \ \textcolor{keywordflow}{return}\ ((*FATEntryValue)\ \&\ 0x0fffffff);}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ *FATEntryValue\ =\ clusterEntry;\ \ \ \textcolor{comment}{//for\ setting\ new\ value\ in\ cluster\ entry\ in\ FAT}}
+\DoxyCodeLine{00119\ }
+\DoxyCodeLine{00120\ SD\_writeSingleBlock(FATEntrySector);}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{keywordflow}{return}\ (0);}
+\DoxyCodeLine{00123\ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \textcolor{comment}{//********************************************************************************************}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//Function:\ to\ get\ or\ set\ next\ free\ cluster\ or\ total\ free\ clusters\ in\ FSinfo\ sector\ of\ SD\ card}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//Arguments:\ 1.flag:TOTAL\_FREE\ or\ NEXT\_FREE,\ }}
+\DoxyCodeLine{00128\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ 2.flag:\ GET\ or\ SET\ }}
+\DoxyCodeLine{00129\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ 3.new\ FS\ entry,\ when\ argument2\ is\ SET;\ or\ 0,\ when\ argument2\ is\ GET}}
+\DoxyCodeLine{00130\ \textcolor{comment}{//return:\ next\ free\ cluster,\ if\ arg1\ is\ NEXT\_FREE\ \&\ arg2\ is\ GET}}
+\DoxyCodeLine{00131\ \textcolor{comment}{//\ \ \ \ \ \ \ \ total\ number\ of\ free\ clusters,\ if\ arg1\ is\ TOTAL\_FREE\ \&\ arg2\ is\ GET}}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ \ \ \ \ \ \ \ 0xffffffff,\ if\ any\ error\ or\ if\ arg2\ is\ SET}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//********************************************************************************************}}
+\DoxyCodeLine{00134\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ getSetFreeCluster(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ totOrNext,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ get\_set,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ FSEntry)}
+\DoxyCodeLine{00135\ \{}
+\DoxyCodeLine{00136\ \textcolor{keyword}{struct\ }FSInfo\_Structure\ *FS\ =\ (\textcolor{keyword}{struct\ }FSInfo\_Structure\ *)\ \&buffer;}
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ error;}
+\DoxyCodeLine{00138\ SD\_readSingleBlock(unusedSectors\ +\ 1);}
+\DoxyCodeLine{00139\ }
+\DoxyCodeLine{00140\ \textcolor{keywordflow}{if}((FS-\/>leadSignature\ !=\ 0x41615252)\ ||\ (FS-\/>structureSignature\ !=\ 0x61417272)\ ||\ (FS-\/>trailSignature\ !=0xaa550000))}
+\DoxyCodeLine{00141\ \ \ \textcolor{keywordflow}{return}\ 0xffffffff;}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \ \textcolor{keywordflow}{if}(get\_set\ ==\ GET)}
+\DoxyCodeLine{00144\ \ \{}
+\DoxyCodeLine{00145\ \ \ \ \textcolor{keywordflow}{if}(totOrNext\ ==\ TOTAL\_FREE)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keywordflow}{return}(FS-\/>freeClusterCount);}
+\DoxyCodeLine{00147\ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ when\ totOrNext\ =\ NEXT\_FREE}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \textcolor{keywordflow}{return}(FS-\/>nextFreeCluster);}
+\DoxyCodeLine{00149\ \ \}}
+\DoxyCodeLine{00150\ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00151\ \ \{}
+\DoxyCodeLine{00152\ \ \ \ \textcolor{keywordflow}{if}(totOrNext\ ==\ TOTAL\_FREE)}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ FS-\/>freeClusterCount\ =\ FSEntry;}
+\DoxyCodeLine{00154\ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{comment}{//\ when\ totOrNext\ =\ NEXT\_FREE}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ FS-\/>nextFreeCluster\ =\ FSEntry;}
+\DoxyCodeLine{00156\ \ }
+\DoxyCodeLine{00157\ \ \ \ error\ =\ SD\_writeSingleBlock(unusedSectors\ +\ 1);\ \ \textcolor{comment}{//update\ FSinfo}}
+\DoxyCodeLine{00158\ \ \}}
+\DoxyCodeLine{00159\ \ \textcolor{keywordflow}{return}\ 0xffffffff;}
+\DoxyCodeLine{00160\ \}}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00163\ \textcolor{comment}{//Function:\ to\ get\ DIR/FILE\ list\ or\ a\ single\ file\ address\ (cluster\ number)\ or\ to\ delete\ a\ specified\ file}}
+\DoxyCodeLine{00164\ \textcolor{comment}{//Arguments:\ \#1\ -\/\ flag:\ GET\_LIST,\ GET\_FILE\ or\ DELETE\ \#2\ -\/\ pointer\ to\ file\ name\ (0\ if\ arg\#1\ is\ GET\_LIST)}}
+\DoxyCodeLine{00165\ \textcolor{comment}{//return:\ first\ cluster\ of\ the\ file,\ if\ flag\ =\ GET\_FILE}}
+\DoxyCodeLine{00166\ \textcolor{comment}{//\ \ \ \ \ \ \ \ print\ file/dir\ list\ of\ the\ root\ directory,\ if\ flag\ =\ GET\_LIST}}
+\DoxyCodeLine{00167\ \textcolor{comment}{//\ \ \ \ \ \ \ \ Delete\ the\ file\ mentioned\ in\ arg\#2,\ if\ flag\ =\ DELETE}}
+\DoxyCodeLine{00168\ \textcolor{comment}{//****************************************************************************}}
+\DoxyCodeLine{00169\ \textcolor{keyword}{struct\ }dir\_Structure*\ findFiles\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName)}
+\DoxyCodeLine{00170\ \{}
+\DoxyCodeLine{00171\ \textcolor{comment}{//\ uart\_puts\_P("{}findFiles:\ Started\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00172\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ cluster,\ sector,\ firstSector,\ firstCluster,\ nextCluster;}
+\DoxyCodeLine{00173\ \textcolor{keyword}{struct\ }dir\_Structure\ *dir;}
+\DoxyCodeLine{00174\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i;}
+\DoxyCodeLine{00175\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ j;}
+\DoxyCodeLine{00176\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ loopCount\ =\ 0;\ \ \textcolor{comment}{//\ ←\ Pridajte\ timeout\ counter}}
+\DoxyCodeLine{00177\ }
+\DoxyCodeLine{00178\ cluster\ =\ rootCluster;\ \textcolor{comment}{//root\ cluster}}
+\DoxyCodeLine{00179\ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Root\ cluster\ =\ "{}});}
+\DoxyCodeLine{00180\ transmitHex(LONG,\ cluster);}
+\DoxyCodeLine{00181\ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00183\ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \ \ \ loopCount++;}
+\DoxyCodeLine{00186\ \ \ \ \textcolor{keywordflow}{if}(loopCount\ >\ 100)\ \{\ \ \textcolor{comment}{//\ ←\ Pridajte\ timeout}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Loop\ timeout!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00189\ \ \ \ \}}
+\DoxyCodeLine{00190\ \ \ \ }
+\DoxyCodeLine{00191\ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Reading\ cluster\ "{}});}
+\DoxyCodeLine{00192\ \ \ \ transmitHex(LONG,\ cluster);}
+\DoxyCodeLine{00193\ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00194\ \ \ \ }
+\DoxyCodeLine{00195\ \ \ \ firstSector\ =\ getFirstSector\ (cluster);}
+\DoxyCodeLine{00196\ \ \ \ }
+\DoxyCodeLine{00197\ \ \ \ \textcolor{keywordflow}{for}(sector\ =\ 0;\ sector\ <\ sectorPerCluster;\ sector++)}
+\DoxyCodeLine{00198\ \ \ \ \{}
+\DoxyCodeLine{00199\ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Reading\ sector\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00200\ \ \ \ \ \ SD\_readSingleBlock\ (firstSector\ +\ sector);}
+\DoxyCodeLine{00201\ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Sector\ read\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<bytesPerSector;\ i+=32)}
+\DoxyCodeLine{00204\ \ \ \ \ \ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ \ \ dir\ =\ (\textcolor{keyword}{struct\ }dir\_Structure\ *)\ \&buffer[i];}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dir-\/>name[0]\ ==\ EMPTY)\ \textcolor{comment}{//indicates\ end\ of\ the\ file\ list}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00209\ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}findFiles:\ Empty\ entry\ found\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(flag\ ==\ DELETE)}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}File\ does\ not\ exist!"{}});}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \ \ }
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((dir-\/>name[0]\ !=\ DELETED)\ \&\&\ (dir-\/>attrib\ !=\ ATTR\_LONG\_NAME))}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((flag\ ==\ GET\_FILE)\ ||\ (flag\ ==\ DELETE))}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)}
+\DoxyCodeLine{00219\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(dir-\/>name[j]\ !=\ fileName[j])\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j\ ==\ 11)}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(flag\ ==\ GET\_FILE)}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00224\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ appendFileSector\ =\ firstSector\ +\ sector;}
+\DoxyCodeLine{00225\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ appendFileLocation\ =\ i;}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ appendStartCluster\ =\ (((\textcolor{keywordtype}{unsigned}\ long)\ dir-\/>firstClusterHI)\ <<\ 16)\ |\ dir-\/>firstClusterLO;}
+\DoxyCodeLine{00227\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fileSize\ =\ dir-\/>fileSize;}
+\DoxyCodeLine{00228\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (dir);}
+\DoxyCodeLine{00229\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \ \ \ \textcolor{comment}{//when\ flag\ =\ DELETE}}
+\DoxyCodeLine{00231\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TX\_NEWLINE;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P((\textcolor{stringliteral}{"{}Deleting.."{}}));}
+\DoxyCodeLine{00234\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TX\_NEWLINE;}
+\DoxyCodeLine{00235\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ TX\_NEWLINE;}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstCluster\ =\ (((\textcolor{keywordtype}{unsigned}\ long)\ dir-\/>firstClusterHI)\ <<\ 16)\ |\ dir-\/>firstClusterLO;}
+\DoxyCodeLine{00237\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//mark\ file\ as\ 'deleted'\ in\ FAT\ table}}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dir-\/>name[0]\ =\ DELETED;\ \ \ \ }
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SD\_writeSingleBlock\ (firstSector+sector);}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ freeMemoryUpdate\ (ADD,\ dir-\/>fileSize);}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//update\ next\ free\ cluster\ entry\ in\ FSinfo\ sector}}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\ =\ getSetFreeCluster\ (NEXT\_FREE,\ GET,\ 0);\ }
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(firstCluster\ <\ cluster)}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ getSetFreeCluster\ (NEXT\_FREE,\ SET,\ firstCluster);}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//mark\ all\ the\ clusters\ allocated\ to\ the\ file\ as\ 'free'}}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1)\ \ }
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ nextCluster\ =\ getSetNextCluster\ (firstCluster,\ GET,\ 0);}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ getSetNextCluster\ (firstCluster,\ SET,\ 0);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(nextCluster\ >\ 0x0ffffff6)\ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{uart\_puts\_P(\textcolor{stringliteral}{"{}File\ deleted!"{}});\textcolor{keywordflow}{return}\ 0;\}}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ firstCluster\ =\ nextCluster;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00261\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \ \textcolor{comment}{//when\ flag\ =\ GET\_LIST}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ TX\_NEWLINE;}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}JUST\ a\ TEST\ in\ listing\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00267\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(j\ ==\ 8)\ transmitByte(\textcolor{charliteral}{'\ '});}
+\DoxyCodeLine{00268\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ transmitByte\ (dir-\/>name[j]);}}
+\DoxyCodeLine{00269\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\ \ \ "{}});}
+\DoxyCodeLine{00271\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((dir-\/>attrib\ !=\ 0x10)\ \&\&\ (dir-\/>attrib\ !=\ 0x08))}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}FILE"{}}\ );}
+\DoxyCodeLine{00274\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\ \ \ "{}});}
+\DoxyCodeLine{00275\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ displayMemory(LOW,\ dir-\/>fileSize);}
+\DoxyCodeLine{00276\ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (dir-\/>attrib\ ==\ 0x10)}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts((\textcolor{stringliteral}{"{}DIR"{}}\ ));}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts((\textcolor{stringliteral}{"{}ROOT"{}}\ ));}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \}}
+\DoxyCodeLine{00291\ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \textcolor{comment}{//\ \ uart\_puts\_P("{}findFiles:\ Getting\ next\ cluster...\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00294\ \ \ \ cluster\ =\ (getSetNextCluster\ (cluster,\ GET,\ 0));}
+\DoxyCodeLine{00295\ \ \ \textcolor{comment}{//\ \ uart\_puts\_P("{}findFiles:\ Next\ cluster\ =\ "{});}}
+\DoxyCodeLine{00296\ \ \ \textcolor{comment}{//\ \ transmitHex(LONG,\ cluster);}}
+\DoxyCodeLine{00297\ \ \ \textcolor{comment}{//\ \ uart\_puts\_P("{}\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00298\ }
+\DoxyCodeLine{00299\ \ \ \ \textcolor{keywordflow}{if}(cluster\ >\ 0x0ffffff6)\ \{}
+\DoxyCodeLine{00300\ \ \ \ \ \ \ \textcolor{comment}{//\ \ uart\_puts\_P("{}findFiles:\ End\ of\ cluster\ chain\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00302\ \ \ \ \}}
+\DoxyCodeLine{00303\ \ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ 0)\ \{}
+\DoxyCodeLine{00304\ \ \ \ \ \ \ \textcolor{comment}{//\ \ uart\_puts\_P("{}Error\ in\ getting\ cluster"{});}}
+\DoxyCodeLine{00305\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00306\ \ \ \ \}}
+\DoxyCodeLine{00307\ \}}
+\DoxyCodeLine{00308\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00312\ \textcolor{comment}{//Function:\ if\ flag=READ\ then\ to\ read\ file\ from\ SD\ card\ and\ send\ contents\ to\ UART\ }}
+\DoxyCodeLine{00313\ \textcolor{comment}{//if\ flag=VERIFY\ then\ functions\ will\ verify\ whether\ a\ specified\ file\ is\ already\ existing}}
+\DoxyCodeLine{00314\ \textcolor{comment}{//Arguments:\ flag\ (READ\ or\ VERIFY)\ and\ pointer\ to\ the\ file\ name}}
+\DoxyCodeLine{00315\ \textcolor{comment}{//return:\ 0,\ if\ normal\ operation\ or\ flag\ is\ READ}}
+\DoxyCodeLine{00316\ \textcolor{comment}{//\ \ \ \ \ \ \ \ 1,\ if\ file\ is\ already\ existing\ and\ flag\ =\ VERIFY;\ or\ if\ flag=READ\ and\ file\ does\ not\ exist}}
+\DoxyCodeLine{00317\ \textcolor{comment}{//\ \ \ \ \ \ \ \ 2,\ if\ file\ name\ is\ incompatible}}
+\DoxyCodeLine{00318\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00319\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ readFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName)}
+\DoxyCodeLine{00320\ \{}
+\DoxyCodeLine{00321\ \textcolor{keyword}{struct\ }dir\_Structure\ *dir;}
+\DoxyCodeLine{00322\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ cluster,\ byteCounter\ =\ 0,\ fileSize,\ firstSector;}
+\DoxyCodeLine{00323\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ k;}
+\DoxyCodeLine{00324\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ j,\ error;}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ Converting\ filename...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00327\ error\ =\ convertFileName\ (fileName);\ \textcolor{comment}{//convert\ fileName\ into\ FAT\ format}}
+\DoxyCodeLine{00328\ \textcolor{keywordflow}{if}(error)\ \{}
+\DoxyCodeLine{00329\ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ Invalid\ filename!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00330\ \ \ \ \ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00331\ \}}
+\DoxyCodeLine{00332\ }
+\DoxyCodeLine{00333\ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ Filename\ converted:\ "{}});}
+\DoxyCodeLine{00334\ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)\ transmitByte(fileName[j]);}
+\DoxyCodeLine{00335\ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ Calling\ findFiles...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00338\ dir\ =\ findFiles\ (GET\_FILE,\ fileName);\ \textcolor{comment}{//get\ the\ file\ location}}
+\DoxyCodeLine{00339\ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ findFiles\ returned\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{keywordflow}{if}(dir\ ==\ 0)\ }
+\DoxyCodeLine{00342\ \{}
+\DoxyCodeLine{00343\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ File\ not\ found\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00344\ \ \ \textcolor{keywordflow}{if}(flag\ ==\ READ)\ \textcolor{keywordflow}{return}\ (1);}
+\DoxyCodeLine{00345\ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{return}\ (0);}
+\DoxyCodeLine{00346\ \}}
+\DoxyCodeLine{00347\ }
+\DoxyCodeLine{00348\ uart\_puts\_P(\textcolor{stringliteral}{"{}readFile:\ File\ found!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00349\ \textcolor{keywordflow}{if}(flag\ ==\ VERIFY)\ \textcolor{keywordflow}{return}\ (1);\ \ \textcolor{comment}{//specified\ file\ name\ is\ already\ existing}}
+\DoxyCodeLine{00350\ }
+\DoxyCodeLine{00351\ cluster\ =\ (((\textcolor{keywordtype}{unsigned}\ long)\ dir-\/>firstClusterHI)\ <<\ 16)\ |\ dir-\/>firstClusterLO;}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ fileSize\ =\ dir-\/>fileSize;}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00355\ TX\_NEWLINE;}
+\DoxyCodeLine{00356\ TX\_NEWLINE;}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{00359\ \{}
+\DoxyCodeLine{00360\ \ \ firstSector\ =\ getFirstSector\ (cluster);}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \ \ \textcolor{keywordflow}{for}(j=0;\ j<sectorPerCluster;\ j++)}
+\DoxyCodeLine{00363\ \ \ \{}
+\DoxyCodeLine{00364\ \ \ \ \ SD\_readSingleBlock(firstSector\ +\ j);}
+\DoxyCodeLine{00365\ \ \ \ \ }
+\DoxyCodeLine{00366\ \ \ \ \ \textcolor{keywordflow}{for}(k=0;\ k<512;\ k++)}
+\DoxyCodeLine{00367\ \ \ \ \ \{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \textcolor{comment}{//\ transmitByte(buffer[k]);}}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ ((byteCounter++)\ >=\ fileSize\ )\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00370\ \ \ \ \ \}}
+\DoxyCodeLine{00371\ \ \ \}}
+\DoxyCodeLine{00372\ \ \ cluster\ =\ getSetNextCluster\ (cluster,\ GET,\ 0);}
+\DoxyCodeLine{00373\ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ 0)\ \{uart\_puts\_P(\textcolor{stringliteral}{"{}Error\ in\ getting\ cluster"{}});\ \textcolor{keywordflow}{return}\ 0;\}}
+\DoxyCodeLine{00374\ \}}
+\DoxyCodeLine{00375\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00376\ \}}
+\DoxyCodeLine{00377\ }
+\DoxyCodeLine{00378\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00379\ \textcolor{comment}{//Function:\ to\ convert\ normal\ short\ file\ name\ into\ FAT\ format}}
+\DoxyCodeLine{00380\ \textcolor{comment}{//Arguments:\ pointer\ to\ the\ file\ name}}
+\DoxyCodeLine{00381\ \textcolor{comment}{//return:\ 0,\ if\ successful\ else\ 1.}}
+\DoxyCodeLine{00382\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00383\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ convertFileName\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName)}
+\DoxyCodeLine{00384\ \{}
+\DoxyCodeLine{00385\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ fileNameFAT[11];}
+\DoxyCodeLine{00386\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ j,\ k;}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \textcolor{comment}{//\ uart\_puts\_P("{}cvt:\ start\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \textcolor{keywordflow}{for}(j=0;\ j<12;\ j++)}
+\DoxyCodeLine{00391\ \ \ \textcolor{keywordflow}{if}(fileName[j]\ ==\ \textcolor{charliteral}{'.'})\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \textcolor{comment}{//\ uart\_puts\_P("{}cvt:\ dot\ at\ "{});}}
+\DoxyCodeLine{00394\ \textcolor{comment}{//\ transmitByte(j\ +\ '0');}}
+\DoxyCodeLine{00395\ \textcolor{comment}{//\ uart\_puts\_P("{}\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00397\ \textcolor{keywordflow}{if}(j>8)\ \{}
+\DoxyCodeLine{00398\ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}cvt:\ name\ too\ long\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00399\ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00400\ \}}
+\DoxyCodeLine{00401\ }
+\DoxyCodeLine{00402\ \textcolor{keywordflow}{for}(k=0;\ k<j;\ k++)}
+\DoxyCodeLine{00403\ \ \ fileNameFAT[k]\ =\ fileName[k];}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{keywordflow}{for}(k=j;\ k<=7;\ k++)}
+\DoxyCodeLine{00406\ \ \ fileNameFAT[k]\ =\ \textcolor{charliteral}{'\ '};}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ uart\_puts\_P(\textcolor{stringliteral}{"{}cvt:\ name\ done\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ j++;}
+\DoxyCodeLine{00411\ \textcolor{keywordflow}{for}(k=8;\ k<11;\ k++)}
+\DoxyCodeLine{00412\ \{}
+\DoxyCodeLine{00413\ \ \ \textcolor{keywordflow}{if}(fileName[j]\ !=\ 0)}
+\DoxyCodeLine{00414\ \ \ \ \ fileNameFAT[k]\ =\ fileName[j++];}
+\DoxyCodeLine{00415\ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keywordflow}{while}(k<11)}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ fileNameFAT[k++]\ =\ \textcolor{charliteral}{'\ '};}
+\DoxyCodeLine{00418\ \}}
+\DoxyCodeLine{00419\ }
+\DoxyCodeLine{00420\ uart\_puts\_P(\textcolor{stringliteral}{"{}cvt:\ ext\ done\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00421\ }
+\DoxyCodeLine{00422\ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)}
+\DoxyCodeLine{00423\ \ \ \textcolor{keywordflow}{if}((fileNameFAT[j]\ >=\ 0x61)\ \&\&\ (fileNameFAT[j]\ <=\ 0x7a))}
+\DoxyCodeLine{00424\ \ \ \ \ fileNameFAT[j]\ -\/=\ 0x20;}
+\DoxyCodeLine{00425\ }
+\DoxyCodeLine{00426\ uart\_puts\_P(\textcolor{stringliteral}{"{}cvt:\ caps\ done\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00427\ }
+\DoxyCodeLine{00428\ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)}
+\DoxyCodeLine{00429\ \ \ fileName[j]\ =\ fileNameFAT[j];}
+\DoxyCodeLine{00430\ }
+\DoxyCodeLine{00431\ uart\_puts\_P(\textcolor{stringliteral}{"{}cvt:\ OK\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00434\ \}}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00436\ \textcolor{comment}{//************************************************************************************}}
+\DoxyCodeLine{00437\ \textcolor{comment}{//Function:\ to\ create\ a\ file\ in\ FAT32\ format\ in\ the\ root\ directory\ if\ given\ }}
+\DoxyCodeLine{00438\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ file\ name\ does\ not\ exist;\ if\ the\ file\ already\ exists\ then\ append\ the\ data}}
+\DoxyCodeLine{00439\ \textcolor{comment}{//Arguments:\ pointer\ to\ the\ file\ name}}
+\DoxyCodeLine{00440\ \textcolor{comment}{//return:\ none}}
+\DoxyCodeLine{00441\ \textcolor{comment}{//************************************************************************************}}
+\DoxyCodeLine{00442\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ writeFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName)}
+\DoxyCodeLine{00443\ \{}
+\DoxyCodeLine{00444\ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Started\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00445\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ j,k,\ data,\ error,\ fileCreatedFlag\ =\ 0,\ start\ =\ 0,\ appendFile\ =\ 0,\ sector=0;}
+\DoxyCodeLine{00446\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ firstClusterHigh=0,\ firstClusterLow=0;}
+\DoxyCodeLine{00447\ \textcolor{keyword}{struct\ }dir\_Structure\ *dir;}
+\DoxyCodeLine{00448\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ cluster,\ nextCluster,\ prevCluster,\ firstSector,\ clusterCount,\ extraMemory;}
+\DoxyCodeLine{00449\ }
+\DoxyCodeLine{00450\ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Verifying\ file...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00451\ j\ =\ readFile\ (VERIFY,\ fileName);}
+\DoxyCodeLine{00452\ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Verify\ result\ =\ "{}});}
+\DoxyCodeLine{00453\ transmitByte(j\ +\ \textcolor{charliteral}{'0'});}
+\DoxyCodeLine{00454\ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00455\ }
+\DoxyCodeLine{00456\ \textcolor{keywordflow}{if}(j\ ==\ 1)\ }
+\DoxyCodeLine{00457\ \{}
+\DoxyCodeLine{00458\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ File\ exists,\ appending...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00459\ \ \ appendFile\ =\ 1;}
+\DoxyCodeLine{00460\ \ \ cluster\ =\ appendStartCluster;}
+\DoxyCodeLine{00461\ \ \ clusterCount=0;}
+\DoxyCodeLine{00462\ \ \ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{00463\ \ \ \{}
+\DoxyCodeLine{00464\ \ \ \ \ nextCluster\ =\ getSetNextCluster\ (cluster,\ GET,\ 0);}
+\DoxyCodeLine{00465\ \ \ \ \ \textcolor{keywordflow}{if}(nextCluster\ ==\ EOF)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00466\ \ \ cluster\ =\ nextCluster;}
+\DoxyCodeLine{00467\ \ \ clusterCount++;}
+\DoxyCodeLine{00468\ \ \ \}}
+\DoxyCodeLine{00469\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Cluster\ count\ =\ "{}});}
+\DoxyCodeLine{00470\ \ \ transmitHex(LONG,\ clusterCount);}
+\DoxyCodeLine{00471\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00472\ }
+\DoxyCodeLine{00473\ \ \ sector\ =\ (fileSize\ -\/\ (clusterCount\ *\ sectorPerCluster\ *\ bytesPerSector))\ /\ bytesPerSector;}
+\DoxyCodeLine{00474\ \ \ start\ =\ 1;}
+\DoxyCodeLine{00475\ \}}
+\DoxyCodeLine{00476\ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}(j\ ==\ 2)\ }
+\DoxyCodeLine{00477\ \{}
+\DoxyCodeLine{00478\ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Invalid\ filename\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00479\ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00480\ \}}
+\DoxyCodeLine{00481\ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00482\ \{}
+\DoxyCodeLine{00483\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Creating\ new\ file...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00484\ \ \ cluster\ =\ getSetFreeCluster\ (NEXT\_FREE,\ GET,\ 0);}
+\DoxyCodeLine{00485\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Next\ free\ cluster\ =\ "{}});}
+\DoxyCodeLine{00486\ \ \ transmitHex(LONG,\ cluster);}
+\DoxyCodeLine{00487\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00488\ \ \ }
+\DoxyCodeLine{00489\ \ \ \textcolor{keywordflow}{if}(cluster\ >\ totalClusters)}
+\DoxyCodeLine{00490\ \ \ \ \ \ cluster\ =\ rootCluster;}
+\DoxyCodeLine{00491\ }
+\DoxyCodeLine{00492\ \ \ cluster\ =\ searchNextFreeCluster(cluster);}
+\DoxyCodeLine{00493\ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ 0)}
+\DoxyCodeLine{00494\ \ \ \{}
+\DoxyCodeLine{00495\ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ No\ free\ cluster!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00497\ \ \ \}}
+\DoxyCodeLine{00498\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Using\ cluster\ =\ "{}});}
+\DoxyCodeLine{00499\ \ \ transmitHex(LONG,\ cluster);}
+\DoxyCodeLine{00500\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00501\ \ \ }
+\DoxyCodeLine{00502\ \ \ getSetNextCluster(cluster,\ SET,\ EOF);}
+\DoxyCodeLine{00503\ \ \ firstClusterHigh\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ ((cluster\ \&\ 0xffff0000)\ >>\ 16\ );}
+\DoxyCodeLine{00504\ \ \ firstClusterLow\ =\ (\textcolor{keywordtype}{unsigned}\ int)\ (\ cluster\ \&\ 0x0000ffff);}
+\DoxyCodeLine{00505\ \ \ fileSize\ =\ 0;}
+\DoxyCodeLine{00506\ \}}
+\DoxyCodeLine{00507\ }
+\DoxyCodeLine{00508\ k=0;}
+\DoxyCodeLine{00509\ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Writing\ data...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00510\ }
+\DoxyCodeLine{00511\ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{00512\ \{}
+\DoxyCodeLine{00513\ \ \ \ \textcolor{keywordflow}{if}(start)}
+\DoxyCodeLine{00514\ \ \ \ \{}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ start\ =\ 0;}
+\DoxyCodeLine{00516\ \ \ \ \ startBlock\ =\ getFirstSector\ (cluster)\ +\ sector;}
+\DoxyCodeLine{00517\ \ \ \ \ SD\_readSingleBlock\ (startBlock);}
+\DoxyCodeLine{00518\ \ \ \ \ i\ =\ fileSize\ \%\ bytesPerSector;}
+\DoxyCodeLine{00519\ \ \ \ \ j\ =\ sector;}
+\DoxyCodeLine{00520\ \ \ \ \}}
+\DoxyCodeLine{00521\ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00522\ \ \ \ \{}
+\DoxyCodeLine{00523\ \ \ \ \ \ \ startBlock\ =\ getFirstSector\ (cluster);}
+\DoxyCodeLine{00524\ \ \ \ \ i=0;}
+\DoxyCodeLine{00525\ \ \ \ \ j=0;}
+\DoxyCodeLine{00526\ \ \ \ \}}
+\DoxyCodeLine{00527\ \ \ \ }
+\DoxyCodeLine{00528\ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00529\ \ \ \ \{}
+\DoxyCodeLine{00530\ \ \ \ data\ =\ dataString[k++];}
+\DoxyCodeLine{00531\ \ \ \ \ \ buffer[i++]\ =\ data;}
+\DoxyCodeLine{00532\ \ \ \ fileSize++;}
+\DoxyCodeLine{00533\ \ \ \ \ \ }
+\DoxyCodeLine{00534\ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ >=\ 512)}
+\DoxyCodeLine{00535\ \ \ \ \{}
+\DoxyCodeLine{00536\ \ \ \ \ \ i=0;}
+\DoxyCodeLine{00537\ \ \ \ \ \ error\ =\ SD\_writeSingleBlock\ (startBlock);}
+\DoxyCodeLine{00538\ \ \ \ \ \ \ \ j++;}
+\DoxyCodeLine{00539\ \ \ \ \ \ \textcolor{keywordflow}{if}(j\ ==\ sectorPerCluster)\ \{j\ =\ 0;\ \textcolor{keywordflow}{break};\}}
+\DoxyCodeLine{00540\ \ \ \ \ \ startBlock++;\ }
+\DoxyCodeLine{00541\ \ \ \ \ \ \}}
+\DoxyCodeLine{00542\ \ \ \ \}\ \textcolor{keywordflow}{while}((data\ !=\ \textcolor{charliteral}{'\(\backslash\)n'})\ \&\&\ (k\ <\ MAX\_STRING\_SIZE));}
+\DoxyCodeLine{00543\ }
+\DoxyCodeLine{00544\ \ \ \ \textcolor{keywordflow}{if}((data\ ==\ \textcolor{charliteral}{'\(\backslash\)n'})\ ||\ (k\ >=\ MAX\_STRING\_SIZE))}
+\DoxyCodeLine{00545\ \ \ \ \{}
+\DoxyCodeLine{00546\ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ End\ of\ data\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00547\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(;i<512;i++)}
+\DoxyCodeLine{00548\ \ \ \ \ \ \ \ \ buffer[i]=\ 0x00;}
+\DoxyCodeLine{00549\ \ \ \ \ \ \ error\ =\ SD\_writeSingleBlock\ (startBlock);}
+\DoxyCodeLine{00550\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00551\ \ \ \ \}\ }
+\DoxyCodeLine{00552\ \ }
+\DoxyCodeLine{00553\ \ \ \ prevCluster\ =\ cluster;}
+\DoxyCodeLine{00554\ \ \ \ cluster\ =\ searchNextFreeCluster(prevCluster);}
+\DoxyCodeLine{00555\ }
+\DoxyCodeLine{00556\ \ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ 0)}
+\DoxyCodeLine{00557\ \ \ \ \{}
+\DoxyCodeLine{00558\ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ No\ free\ cluster\ during\ write!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00559\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00560\ \ \ \ \}}
+\DoxyCodeLine{00561\ }
+\DoxyCodeLine{00562\ \ \ \ getSetNextCluster(prevCluster,\ SET,\ cluster);}
+\DoxyCodeLine{00563\ \ \ \ getSetNextCluster(cluster,\ SET,\ EOF);}
+\DoxyCodeLine{00564\ \}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00565\ }
+\DoxyCodeLine{00566\ getSetFreeCluster\ (NEXT\_FREE,\ SET,\ cluster);}
+\DoxyCodeLine{00567\ }
+\DoxyCodeLine{00568\ error\ =\ getDateTime\_FAT();}
+\DoxyCodeLine{00569\ \textcolor{keywordflow}{if}(error)\ \{\ dateFAT\ =\ 0;\ timeFAT\ =\ 0;\}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \textcolor{keywordflow}{if}(appendFile)}
+\DoxyCodeLine{00572\ \{}
+\DoxyCodeLine{00573\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ Updating\ directory\ entry...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00574\ \ \ SD\_readSingleBlock\ (appendFileSector);\ \ \ \ }
+\DoxyCodeLine{00575\ \ \ dir\ =\ (\textcolor{keyword}{struct\ }dir\_Structure\ *)\ \&buffer[appendFileLocation];\ }
+\DoxyCodeLine{00576\ }
+\DoxyCodeLine{00577\ \ \ dir-\/>lastAccessDate\ =\ 0;}
+\DoxyCodeLine{00578\ \ \ dir-\/>writeTime\ =\ timeFAT;}
+\DoxyCodeLine{00579\ \ \ dir-\/>writeDate\ =\ dateFAT;}
+\DoxyCodeLine{00580\ \ \ extraMemory\ =\ fileSize\ -\/\ dir-\/>fileSize;}
+\DoxyCodeLine{00581\ \ \ dir-\/>fileSize\ =\ fileSize;}
+\DoxyCodeLine{00582\ \ \ SD\_writeSingleBlock\ (appendFileSector);}
+\DoxyCodeLine{00583\ \ \ freeMemoryUpdate\ (REMOVE,\ extraMemory);}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00585\ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}writeFile:\ File\ appended\ successfully\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00586\ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00587\ \}}
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \textcolor{comment}{//executes\ following\ portion\ when\ new\ file\ is\ created}}
+\DoxyCodeLine{00590\ }
+\DoxyCodeLine{00591\ prevCluster\ =\ rootCluster;\ \textcolor{comment}{//root\ cluster}}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \textcolor{keywordflow}{while}(1)}
+\DoxyCodeLine{00594\ \{}
+\DoxyCodeLine{00595\ \ \ \ firstSector\ =\ getFirstSector\ (prevCluster);}
+\DoxyCodeLine{00596\ }
+\DoxyCodeLine{00597\ \ \ \ \textcolor{keywordflow}{for}(sector\ =\ 0;\ sector\ <\ sectorPerCluster;\ sector++)}
+\DoxyCodeLine{00598\ \ \ \ \{}
+\DoxyCodeLine{00599\ \ \ \ \ \ SD\_readSingleBlock\ (firstSector\ +\ sector);}
+\DoxyCodeLine{00600\ \ \ \ \ }
+\DoxyCodeLine{00601\ }
+\DoxyCodeLine{00602\ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<bytesPerSector;\ i+=32)}
+\DoxyCodeLine{00603\ \ \ \ \ \ \{}
+\DoxyCodeLine{00604\ \ \ \ \ \ \ \ \ dir\ =\ (\textcolor{keyword}{struct\ }dir\_Structure\ *)\ \&buffer[i];}
+\DoxyCodeLine{00605\ }
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(fileCreatedFlag)\ \ \ \textcolor{comment}{//to\ mark\ last\ directory\ entry\ with\ 0x00\ (empty)\ mark}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//indicating\ end\ of\ the\ directory\ file\ list}}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//dir-\/>name[0]\ =\ EMPTY;}}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//SD\_writeSingleBlock\ (firstSector\ +\ sector);}}
+\DoxyCodeLine{00610\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00611\ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00612\ }
+\DoxyCodeLine{00613\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}((dir-\/>name[0]\ ==\ EMPTY)\ ||\ (dir-\/>name[0]\ ==\ DELETED))\ \ \textcolor{comment}{//looking\ for\ an\ empty\ slot\ to\ enter\ file\ info}}
+\DoxyCodeLine{00614\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00615\ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}(j=0;\ j<11;\ j++)}
+\DoxyCodeLine{00616\ \ \ \ \ \ \ \ \ \ \ \ \ dir-\/>name[j]\ =\ fileName[j];}
+\DoxyCodeLine{00617\ \ \ \ \ \ \ \ \ \ \ dir-\/>attrib\ =\ ATTR\_ARCHIVE;\ \ \ \textcolor{comment}{//settting\ file\ attribute\ as\ 'archive'}}
+\DoxyCodeLine{00618\ \ \ \ \ \ \ \ \ \ \ dir-\/>NTreserved\ =\ 0;\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//always\ set\ to\ 0}}
+\DoxyCodeLine{00619\ \ \ \ \ \ \ \ \ \ \ dir-\/>timeTenth\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//always\ set\ to\ 0}}
+\DoxyCodeLine{00620\ \ \ \ \ \ \ \ \ \ \ dir-\/>createTime\ =\ timeFAT;\ \ \ \ \textcolor{comment}{//setting\ time\ of\ file\ creation,\ obtained\ from\ RTC}}
+\DoxyCodeLine{00621\ \ \ \ \ \ \ \ \ \ \ dir-\/>createDate\ =\ dateFAT;\ \ \ \ \textcolor{comment}{//setting\ date\ of\ file\ creation,\ obtained\ from\ RTC}}
+\DoxyCodeLine{00622\ \ \ \ \ \ \ \ \ \ \ dir-\/>lastAccessDate\ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//date\ of\ last\ access\ ignored}}
+\DoxyCodeLine{00623\ \ \ \ \ \ \ \ \ \ \ dir-\/>writeTime\ =\ timeFAT;\ \ \ \ \ \textcolor{comment}{//setting\ new\ time\ of\ last\ write,\ obtained\ from\ RTC}}
+\DoxyCodeLine{00624\ \ \ \ \ \ \ \ \ \ \ dir-\/>writeDate\ =\ dateFAT;\ \ \ \ \ \textcolor{comment}{//setting\ new\ date\ of\ last\ write,\ obtained\ from\ RTC}}
+\DoxyCodeLine{00625\ \ \ \ \ \ \ \ \ \ \ dir-\/>firstClusterHI\ =\ firstClusterHigh;}
+\DoxyCodeLine{00626\ \ \ \ \ \ \ \ \ \ \ dir-\/>firstClusterLO\ =\ firstClusterLow;}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \ \ dir-\/>fileSize\ =\ fileSize;}
+\DoxyCodeLine{00628\ }
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ \ \ SD\_writeSingleBlock\ (firstSector\ +\ sector);}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \ \ fileCreatedFlag\ =\ 1;}
+\DoxyCodeLine{00631\ }
+\DoxyCodeLine{00632\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TX\_NEWLINE;}}
+\DoxyCodeLine{00633\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//TX\_NEWLINE;}}
+\DoxyCodeLine{00634\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//uart\_puts\_P(PSTR("{}\ File\ Created!\ "{}));}}
+\DoxyCodeLine{00635\ }
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ \ \ freeMemoryUpdate\ (REMOVE,\ fileSize);\ \textcolor{comment}{//updating\ free\ memory\ count\ in\ FSinfo\ sector}}
+\DoxyCodeLine{00637\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00638\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00639\ \ \ \ \ \ \}}
+\DoxyCodeLine{00640\ \ \ \ \}}
+\DoxyCodeLine{00641\ }
+\DoxyCodeLine{00642\ \ \ \ cluster\ =\ getSetNextCluster\ (prevCluster,\ GET,\ 0);}
+\DoxyCodeLine{00643\ }
+\DoxyCodeLine{00644\ \ \ \ \textcolor{keywordflow}{if}(cluster\ >\ 0x0ffffff6)}
+\DoxyCodeLine{00645\ \ \ \ \{}
+\DoxyCodeLine{00646\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ EOF)\ \ \ \textcolor{comment}{//this\ situation\ will\ come\ when\ total\ files\ in\ root\ is\ multiple\ of\ (32*sectorPerCluster)}}
+\DoxyCodeLine{00647\ \ \ \ \ \ \ \{\ \ }
+\DoxyCodeLine{00648\ \ \ \ \ \ \ \ \ cluster\ =\ searchNextFreeCluster(prevCluster);\ \textcolor{comment}{//find\ next\ cluster\ for\ root\ directory\ entries}}
+\DoxyCodeLine{00649\ \ \ \ \ \ \ \ \ getSetNextCluster(prevCluster,\ SET,\ cluster);\ \textcolor{comment}{//link\ the\ new\ cluster\ of\ root\ to\ the\ previous\ cluster}}
+\DoxyCodeLine{00650\ \ \ \ \ \ \ \ \ getSetNextCluster(cluster,\ SET,\ EOF);\ \ \textcolor{comment}{//set\ the\ new\ cluster\ as\ end\ of\ the\ root\ directory}}
+\DoxyCodeLine{00651\ \ \ \ \ \ \ \}\ }
+\DoxyCodeLine{00652\ }
+\DoxyCodeLine{00653\ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00654\ \ \ \ \ \ \ \{\ }
+\DoxyCodeLine{00655\ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}End\ of\ Cluster\ Chain"{}});\ }
+\DoxyCodeLine{00656\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00657\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00658\ \ \ \ \}}
+\DoxyCodeLine{00659\ \ \ \ \textcolor{keywordflow}{if}(cluster\ ==\ 0)\ \{uart\_puts\_P(\textcolor{stringliteral}{"{}Error\ in\ getting\ cluster"{}});\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00660\ \ \ \ }
+\DoxyCodeLine{00661\ \ \ \ prevCluster\ =\ cluster;}
+\DoxyCodeLine{00662\ \ \}}
+\DoxyCodeLine{00663\ \ }
+\DoxyCodeLine{00664\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00665\ \}}
+\DoxyCodeLine{00666\ }
+\DoxyCodeLine{00667\ }
+\DoxyCodeLine{00668\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00669\ \textcolor{comment}{//Function:\ to\ search\ for\ the\ next\ free\ cluster\ in\ the\ root\ directory}}
+\DoxyCodeLine{00670\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ starting\ from\ a\ specified\ cluster}}
+\DoxyCodeLine{00671\ \textcolor{comment}{//Arguments:\ Starting\ cluster}}
+\DoxyCodeLine{00672\ \textcolor{comment}{//return:\ the\ next\ free\ cluster}}
+\DoxyCodeLine{00673\ \textcolor{comment}{//****************************************************************}}
+\DoxyCodeLine{00674\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ searchNextFreeCluster\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startCluster)}
+\DoxyCodeLine{00675\ \{}
+\DoxyCodeLine{00676\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ cluster,\ *value,\ sector;}
+\DoxyCodeLine{00677\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ i;}
+\DoxyCodeLine{00678\ \ \ \ \ }
+\DoxyCodeLine{00679\ \ \ \ \ startCluster\ -\/=\ \ (startCluster\ \%\ 128);\ \ \ \textcolor{comment}{//to\ start\ with\ the\ first\ file\ in\ a\ FAT\ sector}}
+\DoxyCodeLine{00680\ \ \ \ \ \textcolor{keywordflow}{for}(cluster\ =startCluster;\ cluster\ <totalClusters;\ cluster+=128)\ }
+\DoxyCodeLine{00681\ \ \ \ \ \{}
+\DoxyCodeLine{00682\ \ \ \ \ \ \ sector\ =\ unusedSectors\ +\ reservedSectorCount\ +\ ((cluster\ *\ 4)\ /\ bytesPerSector);}
+\DoxyCodeLine{00683\ \ \ \ \ \ \ SD\_readSingleBlock(sector);}
+\DoxyCodeLine{00684\ \ \ \ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<128;\ i++)}
+\DoxyCodeLine{00685\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00686\ \ \ \ \ \ \ \ \ \ value\ =\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ *)\ \&buffer[i*4];}
+\DoxyCodeLine{00687\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(((*value)\ \&\ 0x0fffffff)\ ==\ 0)}
+\DoxyCodeLine{00688\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}(cluster+i);}
+\DoxyCodeLine{00689\ \ \ \ \ \ \ \}\ \ }
+\DoxyCodeLine{00690\ \ \ \ \ \}\ }
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00693\ \}}
+\DoxyCodeLine{00694\ }
+\DoxyCodeLine{00695\ \textcolor{comment}{//************************************************************}}
+\DoxyCodeLine{00696\ \textcolor{comment}{//Function:\ To\ convert\ the\ unsigned\ long\ value\ of\ memory\ into\ }}
+\DoxyCodeLine{00697\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ text\ string\ and\ send\ to\ UART}}
+\DoxyCodeLine{00698\ \textcolor{comment}{//Arguments:\ 1.\ unsigned\ char\ flag.\ If\ flag\ is\ HIGH,\ memory\ will\ be\ displayed\ in\ KBytes,\ else\ in\ Bytes.\ }}
+\DoxyCodeLine{00699\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ 2.\ unsigned\ long\ memory\ value}}
+\DoxyCodeLine{00700\ \textcolor{comment}{//return:\ none}}
+\DoxyCodeLine{00701\ \textcolor{comment}{//************************************************************}}
+\DoxyCodeLine{00702\ \textcolor{keywordtype}{void}\ displayMemory\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ memory)}
+\DoxyCodeLine{00703\ \{}
+\DoxyCodeLine{00704\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ memoryString[]\ =\ \textcolor{stringliteral}{"{}\ \ \ \ \ \ \ \ \ \ \ \ \ \ Bytes"{}};\ \textcolor{comment}{//19\ character\ long\ string\ for\ memory\ display}}
+\DoxyCodeLine{00705\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ i;}
+\DoxyCodeLine{00706\ \ \ \textcolor{keywordflow}{for}(i=12;\ i>0;\ i-\/-\/)\ \textcolor{comment}{//converting\ freeMemory\ into\ ASCII\ string}}
+\DoxyCodeLine{00707\ \ \ \{}
+\DoxyCodeLine{00708\ \ \ \ \ \textcolor{keywordflow}{if}(i==5\ ||\ i==9)\ }
+\DoxyCodeLine{00709\ \ \ \ \ \{}
+\DoxyCodeLine{00710\ \ \ \ \ \ \ \ memoryString[i-\/1]\ =\ \textcolor{charliteral}{','};\ \ }
+\DoxyCodeLine{00711\ \ \ \ \ \ \ \ i-\/-\/;}
+\DoxyCodeLine{00712\ \ \ \ \ \}}
+\DoxyCodeLine{00713\ \ \ \ \ memoryString[i-\/1]\ =\ (memory\ \%\ 10)\ |\ 0x30;}
+\DoxyCodeLine{00714\ \ \ \ \ memory\ /=\ 10;}
+\DoxyCodeLine{00715\ \ \ \ \ \textcolor{keywordflow}{if}(memory\ ==\ 0)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00716\ \ \ \}}
+\DoxyCodeLine{00717\ \ \ \textcolor{keywordflow}{if}(flag\ ==\ HIGH)\ \ memoryString[13]\ =\ \textcolor{charliteral}{'K'};}
+\DoxyCodeLine{00718\ \ \ transmitString(memoryString);}
+\DoxyCodeLine{00719\ \}}
+\DoxyCodeLine{00720\ }
+\DoxyCodeLine{00721\ \textcolor{comment}{//********************************************************************}}
+\DoxyCodeLine{00722\ \textcolor{comment}{//Function:\ to\ delete\ a\ specified\ file\ from\ the\ root\ directory}}
+\DoxyCodeLine{00723\ \textcolor{comment}{//Arguments:\ pointer\ to\ the\ file\ name}}
+\DoxyCodeLine{00724\ \textcolor{comment}{//return:\ none}}
+\DoxyCodeLine{00725\ \textcolor{comment}{//********************************************************************}}
+\DoxyCodeLine{00726\ \textcolor{keywordtype}{void}\ deleteFile\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ *fileName)}
+\DoxyCodeLine{00727\ \{}
+\DoxyCodeLine{00728\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ error;}
+\DoxyCodeLine{00729\ }
+\DoxyCodeLine{00730\ \ \ error\ =\ convertFileName\ (fileName);}
+\DoxyCodeLine{00731\ \ \ \textcolor{keywordflow}{if}(error)\ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00732\ }
+\DoxyCodeLine{00733\ \ \ findFiles\ (DELETE,\ fileName);}
+\DoxyCodeLine{00734\ \}}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \textcolor{comment}{//********************************************************************}}
+\DoxyCodeLine{00737\ \textcolor{comment}{//Function:\ update\ the\ free\ memory\ count\ in\ the\ FSinfo\ sector.\ }}
+\DoxyCodeLine{00738\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ Whenever\ a\ file\ is\ deleted\ or\ created,\ this\ function\ will\ be\ called}}
+\DoxyCodeLine{00739\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ to\ ADD\ or\ REMOVE\ clusters\ occupied\ by\ the\ file}}
+\DoxyCodeLine{00740\ \textcolor{comment}{//Arguments:\ \#1.flag\ ADD\ or\ REMOVE\ \#2.file\ size\ in\ Bytes}}
+\DoxyCodeLine{00741\ \textcolor{comment}{//return:\ none}}
+\DoxyCodeLine{00742\ \textcolor{comment}{//********************************************************************}}
+\DoxyCodeLine{00743\ \textcolor{keywordtype}{void}\ freeMemoryUpdate\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ flag,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ size)}
+\DoxyCodeLine{00744\ \{}
+\DoxyCodeLine{00745\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ freeClusters;}
+\DoxyCodeLine{00746\ \ \ \textcolor{comment}{//convert\ file\ size\ into\ number\ of\ clusters\ occupied}}
+\DoxyCodeLine{00747\ \ \ \textcolor{keywordflow}{if}((size\ \%\ 512)\ ==\ 0)\ size\ =\ size\ /\ 512;}
+\DoxyCodeLine{00748\ \ \ \textcolor{keywordflow}{else}\ size\ =\ (size\ /\ 512)\ +1;}
+\DoxyCodeLine{00749\ \ \ \textcolor{keywordflow}{if}((size\ \%\ 8)\ ==\ 0)\ size\ =\ size\ /\ 8;}
+\DoxyCodeLine{00750\ \ \ \textcolor{keywordflow}{else}\ size\ =\ (size\ /\ 8)\ +1;}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \ \ \textcolor{keywordflow}{if}(freeClusterCountUpdated)}
+\DoxyCodeLine{00753\ \ \ \{}
+\DoxyCodeLine{00754\ \ \ \ \ freeClusters\ =\ getSetFreeCluster\ (TOTAL\_FREE,\ GET,\ 0);}
+\DoxyCodeLine{00755\ \ \ \ \ \textcolor{keywordflow}{if}(flag\ ==\ ADD)}
+\DoxyCodeLine{00756\ \ \ \ \ \ \ \ freeClusters\ =\ freeClusters\ +\ size;}
+\DoxyCodeLine{00757\ \ \ \ \ \textcolor{keywordflow}{else}\ \ \textcolor{comment}{//when\ flag\ =\ REMOVE}}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ freeClusters\ =\ freeClusters\ -\/\ size;}
+\DoxyCodeLine{00759\ \ \ \ \ getSetFreeCluster\ (TOTAL\_FREE,\ SET,\ freeClusters);}
+\DoxyCodeLine{00760\ \ \ \}}
+\DoxyCodeLine{00761\ \}}
+\DoxyCodeLine{00762\ }
+\DoxyCodeLine{00763\ \textcolor{comment}{//********\ END\ ******\ www.dharmanitech.com\ *****}}
+
+\end{DoxyCode}

@@ -1,0 +1,1783 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="bme280__defs_8h" kind="file" language="C++">
+    <compoundname>bme280_defs.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includes local="no">stddef.h</includes>
+    <includedby refid="bme280_8h" local="yes">lib/bme280/bme280.h</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/bme280/bme280_defs.h</label>
+        <link refid="bme280__defs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>stddef.h</label>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>lib/bme280/bme280.c</label>
+        <link refid="bme280_8c"/>
+      </node>
+      <node id="2">
+        <label>lib/bme280/bme280.h</label>
+        <link refid="bme280_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>lib/bme280/bme280_defs.h</label>
+        <link refid="bme280__defs_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/bme.c</label>
+        <link refid="bme_8c"/>
+      </node>
+      <node id="5">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="structbme280__calib__data" prot="public">bme280_calib_data</innerclass>
+    <innerclass refid="structbme280__data" prot="public">bme280_data</innerclass>
+    <innerclass refid="structbme280__uncomp__data" prot="public">bme280_uncomp_data</innerclass>
+    <innerclass refid="structbme280__settings" prot="public">bme280_settings</innerclass>
+    <innerclass refid="structbme280__dev" prot="public">bme280_dev</innerclass>
+    <sectiondef kind="user-defined">
+      <header>Common macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" prot="public" static="no">
+        <name>INT8_C</name>
+        <param><defname>x</defname></param>
+        <initializer>S8_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="57" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" prot="public" static="no">
+        <name>UINT8_C</name>
+        <param><defname>x</defname></param>
+        <initializer>U8_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="58" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="58" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a838b261fec725cb0f5d5b6769d3521e7" prot="public" static="no">
+        <name>INT16_C</name>
+        <param><defname>x</defname></param>
+        <initializer>S16_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="62" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="62" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" prot="public" static="no">
+        <name>UINT16_C</name>
+        <param><defname>x</defname></param>
+        <initializer>U16_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="63" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="63" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ad78650fb7726f4e99205406569ef403d" prot="public" static="no">
+        <name>INT32_C</name>
+        <param><defname>x</defname></param>
+        <initializer>S32_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="67" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="67" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2451a7ede7ebd810357f1503e9898ea6" prot="public" static="no">
+        <name>UINT32_C</name>
+        <param><defname>x</defname></param>
+        <initializer>U32_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="68" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="68" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a93d102802b35d3b8abae9bbe7f0fed75" prot="public" static="no">
+        <name>INT64_C</name>
+        <param><defname>x</defname></param>
+        <initializer>S64_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="72" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a134ae84400d184ed2570e3270d5472c2" prot="public" static="no">
+        <name>UINT64_C</name>
+        <param><defname>x</defname></param>
+        <initializer>U64_C(x)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="73" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>C standard macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" prot="public" static="no">
+        <name>NULL</name>
+        <initializer>((void *) 0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="82" column="10" bodyfile="lib/bme280/bme280_defs.h" bodystart="82" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Compiler switch macros Definitions</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a694a5a14c5b004fd9c02630a34d1cd9b" prot="public" static="no">
+        <name>BME280_DOUBLE_ENABLE</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="92" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="92" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>General Macro Definitions</header>
+      <memberdef kind="define" id="bme280__defs_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" prot="public" static="no">
+        <name>TRUE</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="101" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa93f0eb578d23995850d61f7d61c55c1" prot="public" static="no">
+        <name>FALSE</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="104" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" prot="public" static="no">
+        <name>BME280_INTF_RET_TYPE</name>
+        <initializer>int8_t</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>BME280_INTF_RET_TYPE is the read/write interface return type which can be overwritten by the build system. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="111" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a029e7889430cabdd3fafc3831afe0962" prot="public" static="no">
+        <name>BME280_INTF_RET_SUCCESS</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>The last error code from read/write interface is stored in the device structure as intf_rslt. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="118" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>API success code</header>
+      <memberdef kind="define" id="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" prot="public" static="no">
+        <name>BME280_OK</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="122" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>API error codes</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a269f65e4816ca679d618175efefcb00d" prot="public" static="no">
+        <name>BME280_E_NULL_PTR</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="125" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2b47776b53e3167b0068bc6ef21f1523" prot="public" static="no">
+        <name>BME280_E_COMM_FAIL</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="126" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1afeb74eb5e3f125d1f03be173e40c89b0" prot="public" static="no">
+        <name>BME280_E_INVALID_LEN</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="127" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="127" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a0be1b2946c861fe3e3212e14bb9762a0" prot="public" static="no">
+        <name>BME280_E_DEV_NOT_FOUND</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="128" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="128" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2de574b1e957addef1056b59ec7502d5" prot="public" static="no">
+        <name>BME280_E_SLEEP_MODE_FAIL</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="129" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a8b703c72ef7cc265bc46282e807ab61d" prot="public" static="no">
+        <name>BME280_E_NVM_COPY_FAILED</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(-6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="130" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>API warning codes</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a14e40d625ed338734e57fbc434ca5723" prot="public" static="no">
+        <name>BME280_W_INVALID_OSR_MACRO</name>
+        <initializer><ref refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" kindref="member">INT8_C</ref>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="133" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="133" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>BME280 chip identifier</header>
+      <memberdef kind="define" id="bme280__defs_8h_1aa9471d8f9c99880c3b85360017908e6b" prot="public" static="no">
+        <name>BME280_CHIP_ID</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x60)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="136" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="136" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>I2C addresses</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a34f07b8a4a9b1f48641b131f3dff720c" prot="public" static="no">
+        <name>BME280_I2C_ADDR_PRIM</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x76)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="139" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="139" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ad8bc0d50730a48164ee3a882139e9959" prot="public" static="no">
+        <name>BME280_I2C_ADDR_SEC</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x77)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="140" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="140" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Register Address</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a04bd3af58d575ad80092d966039d7df7" prot="public" static="no">
+        <name>BME280_REG_CHIP_ID</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xD0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="143" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="143" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a4f3c6b448b8d4f841ad410821d953f06" prot="public" static="no">
+        <name>BME280_REG_RESET</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xE0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="144" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="144" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a71624af430a950ca92a4861ddd2d8be2" prot="public" static="no">
+        <name>BME280_REG_TEMP_PRESS_CALIB_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x88)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="145" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="145" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2057cd3c1abf6948e0b0ab2ac6167f8d" prot="public" static="no">
+        <name>BME280_REG_HUMIDITY_CALIB_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xE1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="146" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a944aed4da03a7b75765df7becde44a23" prot="public" static="no">
+        <name>BME280_REG_CTRL_HUM</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="147" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="147" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa6ee03aa0d6d5c9c0529eeac1e4035ba" prot="public" static="no">
+        <name>BME280_REG_STATUS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="148" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="148" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a0acc3a1f71a3d9e1ecc9392dcc2b37b6" prot="public" static="no">
+        <name>BME280_REG_PWR_CTRL</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="149" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="149" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ae302195af140b0b95aba069e47e5a0b0" prot="public" static="no">
+        <name>BME280_REG_CTRL_MEAS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="150" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a74148d55f85b04b5a496030144408f7c" prot="public" static="no">
+        <name>BME280_REG_CONFIG</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF5)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="151" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="151" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a1a7fcae451785c51d7b5fb76c3676a94" prot="public" static="no">
+        <name>BME280_REG_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xF7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="152" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="152" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Macros related to size</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a0a684a47d348f9ca425d72475edd3158" prot="public" static="no">
+        <name>BME280_LEN_TEMP_PRESS_CALIB_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(26)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="155" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="155" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a484eebe5abe3f3ec70b4622fa774f1be" prot="public" static="no">
+        <name>BME280_LEN_HUMIDITY_CALIB_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(7)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="156" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="156" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1afabbf69cd09a104a81c32d5000dfaacd" prot="public" static="no">
+        <name>BME280_LEN_P_T_H_DATA</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="157" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="157" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Sensor power modes</header>
+      <memberdef kind="define" id="bme280__defs_8h_1aa7154448c04b6ee9f644475a0784be71" prot="public" static="no">
+        <name>BME280_POWERMODE_SLEEP</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="160" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="160" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a549b26035e38c1dd91eadcfa0d287c3a" prot="public" static="no">
+        <name>BME280_POWERMODE_FORCED</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="161" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="161" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aee7b5305fac4b8df3d451e31aab68216" prot="public" static="no">
+        <name>BME280_POWERMODE_NORMAL</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x03)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="162" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa8dbb21db223923e34d32c285a2a6660" prot="public" static="no">
+        <name>BME280_SENSOR_MODE_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x03)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="164" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="164" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a20dfd35772ac7aff0f6ba4f0c7d8352e" prot="public" static="no">
+        <name>BME280_SENSOR_MODE_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="165" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="165" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Soft reset command</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a459aacfaccab02562d4aa0c7c8fc6632" prot="public" static="no">
+        <name>BME280_SOFT_RESET_COMMAND</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xB6)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="168" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="168" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a50d9c167bc634d4633919268f5b56100" prot="public" static="no">
+        <name>BME280_STATUS_IM_UPDATE</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="170" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a3312b89ed44805e6d891edb0bd2d3923" prot="public" static="no">
+        <name>BME280_STATUS_MEAS_DONE</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x08)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="171" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="171" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Sensor component selection macros</header>
+      <description><para>These values are internal for API implementation. Don&apos;t relate this to data sheet. </para>
+</description>
+      <memberdef kind="define" id="bme280__defs_8h_1adfbc93f23e81f44aeb31d6e1c3e29f59" prot="public" static="no">
+        <name>BME280_PRESS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="177" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="177" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa3ffc130a1db4dd1cdb4b11936a2becc" prot="public" static="no">
+        <name>BME280_TEMP</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="178" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a709c35c30ebfe237189e533dedbca264" prot="public" static="no">
+        <name>BME280_HUM</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="179" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="179" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a8b1cf23a873282113bb8218e615855e3" prot="public" static="no">
+        <name>BME280_ALL</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x07)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="180" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="180" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Settings selection macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a17020c3c603c51ac6173a19257aaf01f" prot="public" static="no">
+        <name>BME280_SEL_OSR_PRESS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="183" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="183" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ad8a64b0dcc92cb205599ee87168674b8" prot="public" static="no">
+        <name>BME280_SEL_OSR_TEMP</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 1)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="184" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="184" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a48bb00a4d93f42842bb594bf1a4341dd" prot="public" static="no">
+        <name>BME280_SEL_OSR_HUM</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 2)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="185" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="185" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a651c8afed4c503fddcae73e92f34e884" prot="public" static="no">
+        <name>BME280_SEL_FILTER</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 3)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="186" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aad7651f95300f804211fed6b02b836e3" prot="public" static="no">
+        <name>BME280_SEL_STANDBY</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(1 &lt;&lt; 4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="187" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ac9562a7db399000c5162c84e578380cf" prot="public" static="no">
+        <name>BME280_SEL_ALL_SETTINGS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x1F)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="188" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="188" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Oversampling macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a58004a62b46ed7bcdb8d73ad4fa8cbc1" prot="public" static="no">
+        <name>BME280_NO_OVERSAMPLING</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="191" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="191" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a701285fd2495e391411b694c9b50c08a" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_1X</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="192" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="192" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a59a76b60316ed9a11ac552085f33603c" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_2X</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x02)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="193" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="193" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a521eb8ad23776eee8faaf58b17191a76" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_4X</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x03)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="194" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a7b3d9cb65ee6dfef65bc1982865c5a90" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_8X</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x04)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="195" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="195" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ad8dc54a7a7d5bd1fd04d901561f7f646" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_16X</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x05)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="196" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="196" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a9e82544abe963f3f4b09c6149b2b6a2f" prot="public" static="no">
+        <name>BME280_OVERSAMPLING_MAX</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(16)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="197" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="197" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1af0b6595ecc184d00b061d06cc14b9a29" prot="public" static="no">
+        <name>BME280_CTRL_HUM_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x07)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="199" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="199" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a90412039a144a430b9e6aeff23b63665" prot="public" static="no">
+        <name>BME280_CTRL_HUM_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="200" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="200" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a579a2e3a1a74b90ccf28e50dae21d6e4" prot="public" static="no">
+        <name>BME280_CTRL_PRESS_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x1C)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="201" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aaed4e0278b7c828ed24100640a2d9a82" prot="public" static="no">
+        <name>BME280_CTRL_PRESS_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x02)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="202" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1af7371331e2fa7adb92322120ace956c2" prot="public" static="no">
+        <name>BME280_CTRL_TEMP_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xE0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="203" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="203" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ae8c4ff4ea9185b90c3bd26a9e51c9ad9" prot="public" static="no">
+        <name>BME280_CTRL_TEMP_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x05)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="204" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="204" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Measurement delay calculation macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1adc03ec271d45723cb5a10d28f1cf8bd4" prot="public" static="no">
+        <name>BME280_MEAS_OFFSET</name>
+        <initializer><ref refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" kindref="member">UINT16_C</ref>(1250)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="207" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="207" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a4a8ec019b392c6712b56ee0760958bdd" prot="public" static="no">
+        <name>BME280_MEAS_DUR</name>
+        <initializer><ref refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" kindref="member">UINT16_C</ref>(2300)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="208" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="208" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a490336b63c82d5e80493ba1a3e201b1e" prot="public" static="no">
+        <name>BME280_PRES_HUM_MEAS_OFFSET</name>
+        <initializer><ref refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" kindref="member">UINT16_C</ref>(575)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="209" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="209" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a1d68a125cb1658b8dd73e1875660be46" prot="public" static="no">
+        <name>BME280_MEAS_SCALING_FACTOR</name>
+        <initializer><ref refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" kindref="member">UINT16_C</ref>(1000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="210" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2113bce8b06b7be04e051e32580952f0" prot="public" static="no">
+        <name>BME280_STARTUP_DELAY</name>
+        <initializer><ref refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" kindref="member">UINT16_C</ref>(2000)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="211" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="211" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Length macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a47325a399da4717029606aeba517adb9" prot="public" static="no">
+        <name>BME280_MAX_LEN</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(10)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="214" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="214" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Standby duration selection macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a1a90cbd4d3c4d4bb4d3493c5b978d184" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_0_5_MS</name>
+        <initializer>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="217" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="217" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a08d610ade362b9a865fc126189110f96" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_62_5_MS</name>
+        <initializer>(0x01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="218" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="218" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1abda2854c877d0ab552b0d3a5e92ce06a" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_125_MS</name>
+        <initializer>(0x02)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="219" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a3c7744e622d09172d4c6fe19d5060901" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_250_MS</name>
+        <initializer>(0x03)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="220" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="220" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a822d215c13193c2e88010c2c911a1e7c" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_500_MS</name>
+        <initializer>(0x04)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="221" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="221" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1afe13ba4269e78b8a5b2463fbff88fdc9" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_1000_MS</name>
+        <initializer>(0x05)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="222" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="222" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2d9584d45556539af37055d1cee375df" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_10_MS</name>
+        <initializer>(0x06)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="223" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ae9926694b90ad9154a2c849a7bceb7f6" prot="public" static="no">
+        <name>BME280_STANDBY_TIME_20_MS</name>
+        <initializer>(0x07)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="224" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="224" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ad605c1d49d0c13cc7fd78148894c8be3" prot="public" static="no">
+        <name>BME280_STANDBY_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0xE0)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="226" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="226" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a95d6cbf0004b76308440a9b72d157508" prot="public" static="no">
+        <name>BME280_STANDBY_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x05)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="227" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="227" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Bit shift macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1ac95e877c7acc084a25fbd6ef22d7c706" prot="public" static="no">
+        <name>BME280_12_BIT_SHIFT</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(12)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="230" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="230" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a137364983d137133488d8fd3e650b02a" prot="public" static="no">
+        <name>BME280_8_BIT_SHIFT</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(8)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="231" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a43815af2cf6844cb8780227ed6e74539" prot="public" static="no">
+        <name>BME280_4_BIT_SHIFT</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(4)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="232" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="232" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Filter coefficient selection macros</header>
+      <memberdef kind="define" id="bme280__defs_8h_1ae61c58ec304b87f6f9726992af323dc3" prot="public" static="no">
+        <name>BME280_FILTER_COEFF_OFF</name>
+        <initializer>(0x00)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="235" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a225fa757613310b9dfd1cb83cfe71080" prot="public" static="no">
+        <name>BME280_FILTER_COEFF_2</name>
+        <initializer>(0x01)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="236" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="236" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a75df0ff360627c3efdd98ad38a92dab0" prot="public" static="no">
+        <name>BME280_FILTER_COEFF_4</name>
+        <initializer>(0x02)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="237" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="237" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1ae6f638d18f380c7e537c02c7bb1a6c22" prot="public" static="no">
+        <name>BME280_FILTER_COEFF_8</name>
+        <initializer>(0x03)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="238" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="238" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a73ced29de70a4fe0fa1f05676b2604e4" prot="public" static="no">
+        <name>BME280_FILTER_COEFF_16</name>
+        <initializer>(0x04)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="239" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2987fc2cac045851392c6be3adc97321" prot="public" static="no">
+        <name>BME280_FILTER_MSK</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x1C)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="241" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="241" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa1b84aa73f4208ec8bc348f0befd6218" prot="public" static="no">
+        <name>BME280_FILTER_POS</name>
+        <initializer><ref refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" kindref="member">UINT8_C</ref>(0x02)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="242" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="242" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Macro to combine two 8 bit data&apos;s to form a 16 bit data</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a0202d632129238d5f788e362c19ccf93" prot="public" static="no">
+        <name>BME280_CONCAT_BYTES</name>
+        <param><defname>msb</defname></param>
+        <param><defname>lsb</defname></param>
+        <initializer>(((uint16_t)msb &lt;&lt; 8) | (uint16_t)lsb)</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="245" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="245" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Macro to SET and GET BITS of a register</header>
+      <memberdef kind="define" id="bme280__defs_8h_1a78f60fe8571e15f6a21ba8fcaa12e0ce" prot="public" static="no">
+        <name>BME280_SET_BITS</name>
+        <param><defname>reg_data</defname></param>
+        <param><defname>bitname</defname></param>
+        <param><defname>data</defname></param>
+        <initializer>    ((reg_data &amp; ~(bitname##_MSK)) | \
+     ((<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref> &lt;&lt; bitname##_POS) &amp; bitname##_MSK))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="248" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="248" bodyend="250"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a72c20c06b3a42de7660bf1d8678cd645" prot="public" static="no">
+        <name>BME280_SET_BITS_POS_0</name>
+        <param><defname>reg_data</defname></param>
+        <param><defname>bitname</defname></param>
+        <param><defname>data</defname></param>
+        <initializer>    ((reg_data &amp; ~(bitname##_MSK)) | \
+     (<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref> &amp; bitname##_MSK))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="252" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="252" bodyend="254"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1aa28698af242be4e59a2812ebe4165982" prot="public" static="no">
+        <name>BME280_GET_BITS</name>
+        <param><defname>reg_data</defname></param>
+        <param><defname>bitname</defname></param>
+        <initializer>                                                   ((reg_data &amp; (bitname##_MSK)) &gt;&gt; \
+                                                   (bitname##_POS))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="256" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="256" bodyend="257"/>
+      </memberdef>
+      <memberdef kind="define" id="bme280__defs_8h_1a2c4248bc9b39a806aca49e34b1a5636c" prot="public" static="no">
+        <name>BME280_GET_BITS_POS_0</name>
+        <param><defname>reg_data</defname></param>
+        <param><defname>bitname</defname></param>
+        <initializer>(reg_data &amp; (bitname##_MSK))</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="258" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="258" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="enum" id="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766e" prot="public" static="no" strong="no">
+        <type></type>
+        <name>bme280_intf</name>
+        <enumvalue id="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eab5516f6eca9b94ae116261c33c388f4c" prot="public">
+          <name>BME280_SPI_INTF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>SPI interface </para>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eaae41ddfd32babefbce48e7b7671f46a2" prot="public">
+          <name>BME280_I2C_INTF</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+<para>I2C interface </para>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Interface selection Enums. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="265" column="1" bodyfile="lib/bme280/bme280_defs.h" bodystart="265" bodyend="270"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Function Pointers</header>
+      <memberdef kind="typedef" id="bme280__defs_8h_1a196a14c6101ddd1c640ddec1354095ef" prot="public" static="no">
+        <type><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref>(*</type>
+        <definition>typedef BME280_INTF_RET_TYPE(* bme280_read_fptr_t) (uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr)</definition>
+        <argsstring>)(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr)</argsstring>
+        <name>bme280_read_fptr_t</name>
+        <briefdescription>
+<para>Bus communication function pointer which should be mapped to the platform specific read functions of the user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">reg_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Register address from which data is read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="out">reg_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Pointer to data buffer where read data is stored. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Number of bytes of data to be read. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">intf_ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Void pointer that can enable the linking of descriptors for interface related call backs.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Non</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>zero value -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="290" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="290" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bme280__defs_8h_1aedc571d9f3e5a264838ea73e6a798ddd" prot="public" static="no">
+        <type><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref>(*</type>
+        <definition>typedef BME280_INTF_RET_TYPE(* bme280_write_fptr_t) (uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr)</definition>
+        <argsstring>)(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr)</argsstring>
+        <name>bme280_write_fptr_t</name>
+        <briefdescription>
+<para>Bus communication function pointer which should be mapped to the platform specific write functions of the user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">reg_addr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Register address to which the data is written. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">reg_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Pointer to data buffer in which data to be written is stored. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Number of bytes of data to be written. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">intf_ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Void pointer that can enable the linking of descriptors for interface related call backs</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>Non</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>zero value -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="307" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="307" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="typedef" id="bme280__defs_8h_1a779032ec51096ef4dd132b3a3d9c4944" prot="public" static="no">
+        <type>void(*</type>
+        <definition>typedef void(* bme280_delay_us_fptr_t) (uint32_t period, void *intf_ptr)</definition>
+        <argsstring>)(uint32_t period, void *intf_ptr)</argsstring>
+        <name>bme280_delay_us_fptr_t</name>
+        <briefdescription>
+<para>Delay function pointer which should be mapped to delay function of the user. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">period</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Delay in microseconds. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="inout">intf_ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Void pointer that can enable the linking of descriptors for interface related call backs </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="319" column="9" bodyfile="lib/bme280/bme280_defs.h" bodystart="319" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>Copyright (c) 2020 Bosch Sensortec GmbH. All rights reserved.</para>
+<para>BSD-3-Clause</para>
+<para>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</para>
+<para><orderedlist>
+<listitem><para>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</para>
+</listitem><listitem><para>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.</para>
+</listitem><listitem><para>Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</para>
+</listitem></orderedlist>
+</para>
+<para>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</para>
+<para><simplesect kind="date"><para>2020-12-17 </para>
+</simplesect>
+<simplesect kind="version"><para>v3.5.1 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_BME280_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_BME280_DEFS_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/********************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>header<sp/>includes<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__KERNEL__</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;linux/types.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;linux/kernel.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stddef.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">/********************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">/********************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(UINT8_C)<sp/>&amp;&amp;<sp/>!defined(INT8_C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57" refid="bme280__defs_8h_1a1eaa7db37089dcdfb60227725c9c1585" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INT8_C(x)<sp/><sp/><sp/><sp/>S8_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="bme280__defs_8h_1acd2aa09844a8a245cf7fdbb808e215e5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UINT8_C(x)<sp/><sp/><sp/>U8_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(UINT16_C)<sp/>&amp;&amp;<sp/>!defined(INT16_C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="bme280__defs_8h_1a838b261fec725cb0f5d5b6769d3521e7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INT16_C(x)<sp/><sp/><sp/>S16_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="bme280__defs_8h_1a1cb39a2cfaf899fd38730c7637807708" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UINT16_C(x)<sp/><sp/>U16_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(INT32_C)<sp/>&amp;&amp;<sp/>!defined(UINT32_C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67" refid="bme280__defs_8h_1ad78650fb7726f4e99205406569ef403d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INT32_C(x)<sp/><sp/><sp/>S32_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="bme280__defs_8h_1a2451a7ede7ebd810357f1503e9898ea6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UINT32_C(x)<sp/><sp/>U32_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="preprocessor">#if<sp/>!defined(INT64_C)<sp/>&amp;&amp;<sp/>!defined(UINT64_C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="bme280__defs_8h_1a93d102802b35d3b8abae9bbe7f0fed75" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>INT64_C(x)<sp/><sp/><sp/>S64_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="bme280__defs_8h_1a134ae84400d184ed2570e3270d5472c2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>UINT64_C(x)<sp/><sp/>U64_C(x)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>NULL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>__cplusplus</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="bme280__defs_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NULL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((void<sp/>*)<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BME280_64BIT_ENABLE<sp/></highlight><highlight class="comment">/*&lt;<sp/>Check<sp/>if<sp/>64-bit<sp/>integer<sp/>(using<sp/>BME280_64BIT_ENABLE)<sp/>is<sp/>enabled<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BME280_32BIT_ENABLE<sp/></highlight><highlight class="comment">/*&lt;<sp/>Check<sp/>if<sp/>32-bit<sp/>integer<sp/>(using<sp/>BME280_32BIT_ENABLE)<sp/>is<sp/>enabled<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BME280_DOUBLE_ENABLE<sp/></highlight><highlight class="comment">/*&lt;<sp/>If<sp/>any<sp/>of<sp/>the<sp/>integer<sp/>data<sp/>types<sp/>not<sp/>enabled<sp/>then<sp/>enable<sp/>BME280_DOUBLE_ENABLE<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="bme280__defs_8h_1a694a5a14c5b004fd9c02630a34d1cd9b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_DOUBLE_ENABLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>TRUE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="bme280__defs_8h_1aa8cecfc5c5c054d2875c03e77b7be15d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TRUE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>FALSE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104" refid="bme280__defs_8h_1aa93f0eb578d23995850d61f7d61c55c1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FALSE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BME280_INTF_RET_TYPE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_INTF_RET_TYPE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>int8_t</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>BME280_INTF_RET_SUCCESS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="bme280__defs_8h_1a029e7889430cabdd3fafc3831afe0962" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_INTF_RET_SUCCESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="bme280__defs_8h_1a269f65e4816ca679d618175efefcb00d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_NULL_PTR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126" refid="bme280__defs_8h_1a2b47776b53e3167b0068bc6ef21f1523" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_COMM_FAIL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127" refid="bme280__defs_8h_1afeb74eb5e3f125d1f03be173e40c89b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_INVALID_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128" refid="bme280__defs_8h_1a0be1b2946c861fe3e3212e14bb9762a0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_DEV_NOT_FOUND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="bme280__defs_8h_1a2de574b1e957addef1056b59ec7502d5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_SLEEP_MODE_FAIL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-5)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="130" refid="bme280__defs_8h_1a8b703c72ef7cc265bc46282e807ab61d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_E_NVM_COPY_FAILED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(-6)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133" refid="bme280__defs_8h_1a14e40d625ed338734e57fbc434ca5723" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_W_INVALID_OSR_MACRO<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>INT8_C(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136" refid="bme280__defs_8h_1aa9471d8f9c99880c3b85360017908e6b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CHIP_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x60)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139" refid="bme280__defs_8h_1a34f07b8a4a9b1f48641b131f3dff720c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_I2C_ADDR_PRIM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x76)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="140" refid="bme280__defs_8h_1ad8bc0d50730a48164ee3a882139e9959" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_I2C_ADDR_SEC<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x77)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143" refid="bme280__defs_8h_1a04bd3af58d575ad80092d966039d7df7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_CHIP_ID<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xD0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144" refid="bme280__defs_8h_1a4f3c6b448b8d4f841ad410821d953f06" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_RESET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xE0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145" refid="bme280__defs_8h_1a71624af430a950ca92a4861ddd2d8be2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_TEMP_PRESS_CALIB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x88)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="146" refid="bme280__defs_8h_1a2057cd3c1abf6948e0b0ab2ac6167f8d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_HUMIDITY_CALIB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xE1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="bme280__defs_8h_1a944aed4da03a7b75765df7becde44a23" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_CTRL_HUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="148" refid="bme280__defs_8h_1aa6ee03aa0d6d5c9c0529eeac1e4035ba" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="149" refid="bme280__defs_8h_1a0acc3a1f71a3d9e1ecc9392dcc2b37b6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_PWR_CTRL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150" refid="bme280__defs_8h_1ae302195af140b0b95aba069e47e5a0b0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_CTRL_MEAS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="151" refid="bme280__defs_8h_1a74148d55f85b04b5a496030144408f7c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_CONFIG<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF5)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="152" refid="bme280__defs_8h_1a1a7fcae451785c51d7b5fb76c3676a94" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_REG_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xF7)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="155" refid="bme280__defs_8h_1a0a684a47d348f9ca425d72475edd3158" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_LEN_TEMP_PRESS_CALIB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(26)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156" refid="bme280__defs_8h_1a484eebe5abe3f3ec70b4622fa774f1be" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_LEN_HUMIDITY_CALIB_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(7)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="157" refid="bme280__defs_8h_1afabbf69cd09a104a81c32d5000dfaacd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_LEN_P_T_H_DATA<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160" refid="bme280__defs_8h_1aa7154448c04b6ee9f644475a0784be71" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_POWERMODE_SLEEP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161" refid="bme280__defs_8h_1a549b26035e38c1dd91eadcfa0d287c3a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_POWERMODE_FORCED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="162" refid="bme280__defs_8h_1aee7b5305fac4b8df3d451e31aab68216" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_POWERMODE_NORMAL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x03)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164" refid="bme280__defs_8h_1aa8dbb21db223923e34d32c285a2a6660" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SENSOR_MODE_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x03)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="165" refid="bme280__defs_8h_1a20dfd35772ac7aff0f6ba4f0c7d8352e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SENSOR_MODE_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="168" refid="bme280__defs_8h_1a459aacfaccab02562d4aa0c7c8fc6632" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SOFT_RESET_COMMAND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xB6)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170" refid="bme280__defs_8h_1a50d9c167bc634d4633919268f5b56100" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STATUS_IM_UPDATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="171" refid="bme280__defs_8h_1a3312b89ed44805e6d891edb0bd2d3923" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STATUS_MEAS_DONE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x08)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177" refid="bme280__defs_8h_1adfbc93f23e81f44aeb31d6e1c3e29f59" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_PRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178" refid="bme280__defs_8h_1aa3ffc130a1db4dd1cdb4b11936a2becc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_TEMP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179" refid="bme280__defs_8h_1a709c35c30ebfe237189e533dedbca264" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_HUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180" refid="bme280__defs_8h_1a8b1cf23a873282113bb8218e615855e3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_ALL<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x07)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183" refid="bme280__defs_8h_1a17020c3c603c51ac6173a19257aaf01f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_OSR_PRESS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184" refid="bme280__defs_8h_1ad8a64b0dcc92cb205599ee87168674b8" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_OSR_TEMP<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185" refid="bme280__defs_8h_1a48bb00a4d93f42842bb594bf1a4341dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_OSR_HUM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186" refid="bme280__defs_8h_1a651c8afed4c503fddcae73e92f34e884" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_FILTER<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>3)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187" refid="bme280__defs_8h_1aad7651f95300f804211fed6b02b836e3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_STANDBY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(1<sp/>&lt;&lt;<sp/>4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188" refid="bme280__defs_8h_1ac9562a7db399000c5162c84e578380cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SEL_ALL_SETTINGS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x1F)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="191" refid="bme280__defs_8h_1a58004a62b46ed7bcdb8d73ad4fa8cbc1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_NO_OVERSAMPLING<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192" refid="bme280__defs_8h_1a701285fd2495e391411b694c9b50c08a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_1X<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193" refid="bme280__defs_8h_1a59a76b60316ed9a11ac552085f33603c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_2X<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x02)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194" refid="bme280__defs_8h_1a521eb8ad23776eee8faaf58b17191a76" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_4X<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x03)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195" refid="bme280__defs_8h_1a7b3d9cb65ee6dfef65bc1982865c5a90" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_8X<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x04)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196" refid="bme280__defs_8h_1ad8dc54a7a7d5bd1fd04d901561f7f646" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_16X<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x05)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197" refid="bme280__defs_8h_1a9e82544abe963f3f4b09c6149b2b6a2f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_OVERSAMPLING_MAX<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(16)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199" refid="bme280__defs_8h_1af0b6595ecc184d00b061d06cc14b9a29" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_HUM_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x07)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="200" refid="bme280__defs_8h_1a90412039a144a430b9e6aeff23b63665" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_HUM_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="201" refid="bme280__defs_8h_1a579a2e3a1a74b90ccf28e50dae21d6e4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_PRESS_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x1C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="202" refid="bme280__defs_8h_1aaed4e0278b7c828ed24100640a2d9a82" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_PRESS_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x02)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203" refid="bme280__defs_8h_1af7371331e2fa7adb92322120ace956c2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_TEMP_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xE0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204" refid="bme280__defs_8h_1ae8c4ff4ea9185b90c3bd26a9e51c9ad9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CTRL_TEMP_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x05)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207" refid="bme280__defs_8h_1adc03ec271d45723cb5a10d28f1cf8bd4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_MEAS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT16_C(1250)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="208" refid="bme280__defs_8h_1a4a8ec019b392c6712b56ee0760958bdd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_MEAS_DUR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT16_C(2300)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="209" refid="bme280__defs_8h_1a490336b63c82d5e80493ba1a3e201b1e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_PRES_HUM_MEAS_OFFSET<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT16_C(575)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="210" refid="bme280__defs_8h_1a1d68a125cb1658b8dd73e1875660be46" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_MEAS_SCALING_FACTOR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT16_C(1000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="211" refid="bme280__defs_8h_1a2113bce8b06b7be04e051e32580952f0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STARTUP_DELAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT16_C(2000)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"></highlight></codeline>
+<codeline lineno="214" refid="bme280__defs_8h_1a47325a399da4717029606aeba517adb9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_MAX_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(10)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="217" refid="bme280__defs_8h_1a1a90cbd4d3c4d4bb4d3493c5b978d184" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_0_5_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="218" refid="bme280__defs_8h_1a08d610ade362b9a865fc126189110f96" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_62_5_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="219" refid="bme280__defs_8h_1abda2854c877d0ab552b0d3a5e92ce06a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_125_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220" refid="bme280__defs_8h_1a3c7744e622d09172d4c6fe19d5060901" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_250_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="bme280__defs_8h_1a822d215c13193c2e88010c2c911a1e7c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_500_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="222" refid="bme280__defs_8h_1afe13ba4269e78b8a5b2463fbff88fdc9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_1000_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x05)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223" refid="bme280__defs_8h_1a2d9584d45556539af37055d1cee375df" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_10_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x06)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224" refid="bme280__defs_8h_1ae9926694b90ad9154a2c849a7bceb7f6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_TIME_20_MS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x07)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"></highlight></codeline>
+<codeline lineno="226" refid="bme280__defs_8h_1ad605c1d49d0c13cc7fd78148894c8be3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0xE0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="227" refid="bme280__defs_8h_1a95d6cbf0004b76308440a9b72d157508" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_STANDBY_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x05)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230" refid="bme280__defs_8h_1ac95e877c7acc084a25fbd6ef22d7c706" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_12_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(12)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231" refid="bme280__defs_8h_1a137364983d137133488d8fd3e650b02a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_8_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(8)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232" refid="bme280__defs_8h_1a43815af2cf6844cb8780227ed6e74539" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_4_BIT_SHIFT<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"></highlight></codeline>
+<codeline lineno="235" refid="bme280__defs_8h_1ae61c58ec304b87f6f9726992af323dc3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_COEFF_OFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x00)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236" refid="bme280__defs_8h_1a225fa757613310b9dfd1cb83cfe71080" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_COEFF_2<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x01)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="237" refid="bme280__defs_8h_1a75df0ff360627c3efdd98ad38a92dab0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_COEFF_4<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x02)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="238" refid="bme280__defs_8h_1ae6f638d18f380c7e537c02c7bb1a6c22" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_COEFF_8<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x03)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="239" refid="bme280__defs_8h_1a73ced29de70a4fe0fa1f05676b2604e4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_COEFF_16<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(0x04)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"></highlight></codeline>
+<codeline lineno="241" refid="bme280__defs_8h_1a2987fc2cac045851392c6be3adc97321" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_MSK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x1C)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="242" refid="bme280__defs_8h_1aa1b84aa73f4208ec8bc348f0befd6218" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_FILTER_POS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>UINT8_C(0x02)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"></highlight></codeline>
+<codeline lineno="245" refid="bme280__defs_8h_1a0202d632129238d5f788e362c19ccf93" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_CONCAT_BYTES(msb,<sp/>lsb)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((uint16_t)msb<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>(uint16_t)lsb)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="246"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248" refid="bme280__defs_8h_1a78f60fe8571e15f6a21ba8fcaa12e0ce" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SET_BITS(reg_data,<sp/>bitname,<sp/>data)<sp/>\</highlight></codeline>
+<codeline lineno="249"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((reg_data<sp/>&amp;<sp/>~(bitname##_MSK))<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="250"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/>((data<sp/>&lt;&lt;<sp/>bitname##_POS)<sp/>&amp;<sp/>bitname##_MSK))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="251"><highlight class="normal"></highlight></codeline>
+<codeline lineno="252" refid="bme280__defs_8h_1a72c20c06b3a42de7660bf1d8678cd645" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_SET_BITS_POS_0(reg_data,<sp/>bitname,<sp/>data)<sp/>\</highlight></codeline>
+<codeline lineno="253"><highlight class="preprocessor"><sp/><sp/><sp/><sp/>((reg_data<sp/>&amp;<sp/>~(bitname##_MSK))<sp/>|<sp/>\</highlight></codeline>
+<codeline lineno="254"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/>(data<sp/>&amp;<sp/>bitname##_MSK))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"></highlight></codeline>
+<codeline lineno="256" refid="bme280__defs_8h_1aa28698af242be4e59a2812ebe4165982" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_GET_BITS(reg_data,<sp/>bitname)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((reg_data<sp/>&amp;<sp/>(bitname##_MSK))<sp/>&gt;&gt;<sp/>\</highlight></codeline>
+<codeline lineno="257"><highlight class="preprocessor"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(bitname##_POS))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="258" refid="bme280__defs_8h_1a2c4248bc9b39a806aca49e34b1a5636c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>BME280_GET_BITS_POS_0(reg_data,<sp/>bitname)<sp/><sp/>(reg_data<sp/>&amp;<sp/>(bitname##_MSK))</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"></highlight><highlight class="comment">/********************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="265" refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766e" kindref="member">bme280_intf</ref><sp/>{</highlight></codeline>
+<codeline lineno="267" refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eab5516f6eca9b94ae116261c33c388f4c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eab5516f6eca9b94ae116261c33c388f4c" kindref="member">BME280_SPI_INTF</ref>,</highlight></codeline>
+<codeline lineno="269" refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eaae41ddfd32babefbce48e7b7671f46a2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eaae41ddfd32babefbce48e7b7671f46a2" kindref="member">BME280_I2C_INTF</ref></highlight></codeline>
+<codeline lineno="270"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"></highlight></codeline>
+<codeline lineno="272"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"></highlight></codeline>
+<codeline lineno="290" refid="bme280__defs_8h_1a196a14c6101ddd1c640ddec1354095ef" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref><sp/>(*<ref refid="bme280__defs_8h_1a196a14c6101ddd1c640ddec1354095ef" kindref="member">bme280_read_fptr_t</ref>)(uint8_t<sp/>reg_addr,<sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr);</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight></codeline>
+<codeline lineno="307" refid="bme280__defs_8h_1aedc571d9f3e5a264838ea73e6a798ddd" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref><sp/>(*<ref refid="bme280__defs_8h_1aedc571d9f3e5a264838ea73e6a798ddd" kindref="member">bme280_write_fptr_t</ref>)(uint8_t<sp/>reg_addr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr);</highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="319" refid="bme280__defs_8h_1a779032ec51096ef4dd132b3a3d9c4944" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/>void<sp/>(*<ref refid="bme280__defs_8h_1a779032ec51096ef4dd132b3a3d9c4944" kindref="member">bme280_delay_us_fptr_t</ref>)(uint32_t<sp/>period,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr);</highlight></codeline>
+<codeline lineno="320"><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"></highlight><highlight class="comment">/******************************************************************************/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="328" refid="structbme280__calib__data" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref></highlight></codeline>
+<codeline lineno="329"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="331" refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" kindref="member">dig_t1</ref>;</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="334" refid="structbme280__calib__data_1a26b994b7fd88b03183638f2f497c845f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a26b994b7fd88b03183638f2f497c845f" kindref="member">dig_t2</ref>;</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="337" refid="structbme280__calib__data_1a77666fb471ec4b45bc42aba33363f2b4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a77666fb471ec4b45bc42aba33363f2b4" kindref="member">dig_t3</ref>;</highlight></codeline>
+<codeline lineno="338"><highlight class="normal"></highlight></codeline>
+<codeline lineno="340" refid="structbme280__calib__data_1a000ddd00a81dbec3057b93b571b2e24a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint16_t<sp/><ref refid="structbme280__calib__data_1a000ddd00a81dbec3057b93b571b2e24a" kindref="member">dig_p1</ref>;</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"></highlight></codeline>
+<codeline lineno="343" refid="structbme280__calib__data_1a018c1ca3d09ce567ba052652979a2a12" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a018c1ca3d09ce567ba052652979a2a12" kindref="member">dig_p2</ref>;</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"></highlight></codeline>
+<codeline lineno="346" refid="structbme280__calib__data_1a7bd0427af8e724b1f02429017ad6ec4a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a7bd0427af8e724b1f02429017ad6ec4a" kindref="member">dig_p3</ref>;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"></highlight></codeline>
+<codeline lineno="349" refid="structbme280__calib__data_1aa483ef7dee6fb9562541ff0bfed8e537" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1aa483ef7dee6fb9562541ff0bfed8e537" kindref="member">dig_p4</ref>;</highlight></codeline>
+<codeline lineno="350"><highlight class="normal"></highlight></codeline>
+<codeline lineno="352" refid="structbme280__calib__data_1a2caefff25a1f115196689d7537038190" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a2caefff25a1f115196689d7537038190" kindref="member">dig_p5</ref>;</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"></highlight></codeline>
+<codeline lineno="355" refid="structbme280__calib__data_1a9fab3467ccfa07c049e7ecdd14f8a78e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a9fab3467ccfa07c049e7ecdd14f8a78e" kindref="member">dig_p6</ref>;</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="358" refid="structbme280__calib__data_1aecf711535c27f4f12e91b167d78ac44f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1aecf711535c27f4f12e91b167d78ac44f" kindref="member">dig_p7</ref>;</highlight></codeline>
+<codeline lineno="359"><highlight class="normal"></highlight></codeline>
+<codeline lineno="361" refid="structbme280__calib__data_1ac9e3a9878db54cc6000eda6d3b8ccfd0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1ac9e3a9878db54cc6000eda6d3b8ccfd0" kindref="member">dig_p8</ref>;</highlight></codeline>
+<codeline lineno="362"><highlight class="normal"></highlight></codeline>
+<codeline lineno="364" refid="structbme280__calib__data_1a5a17179f6a8e0c0cf0a5043943100c20" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a5a17179f6a8e0c0cf0a5043943100c20" kindref="member">dig_p9</ref>;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"></highlight></codeline>
+<codeline lineno="367" refid="structbme280__calib__data_1ad70641088815445b41d99d588f86227c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__calib__data_1ad70641088815445b41d99d588f86227c" kindref="member">dig_h1</ref>;</highlight></codeline>
+<codeline lineno="368"><highlight class="normal"></highlight></codeline>
+<codeline lineno="370" refid="structbme280__calib__data_1a71efa5c3d67be55820ee0816d053ed61" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a71efa5c3d67be55820ee0816d053ed61" kindref="member">dig_h2</ref>;</highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="373" refid="structbme280__calib__data_1af9353f8b4be0932fecf12c2f45a0692d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__calib__data_1af9353f8b4be0932fecf12c2f45a0692d" kindref="member">dig_h3</ref>;</highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="376" refid="structbme280__calib__data_1ac47663ef80cd3cd9aa7e9a8898d92057" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1ac47663ef80cd3cd9aa7e9a8898d92057" kindref="member">dig_h4</ref>;</highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="379" refid="structbme280__calib__data_1a4f448177a87fc986445dd39746fdb228" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int16_t<sp/><ref refid="structbme280__calib__data_1a4f448177a87fc986445dd39746fdb228" kindref="member">dig_h5</ref>;</highlight></codeline>
+<codeline lineno="380"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382" refid="structbme280__calib__data_1ab798dedfdd85e18eff5439391490b94c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/><ref refid="structbme280__calib__data_1ab798dedfdd85e18eff5439391490b94c" kindref="member">dig_h6</ref>;</highlight></codeline>
+<codeline lineno="383"><highlight class="normal"></highlight></codeline>
+<codeline lineno="385" refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" kindref="member">t_fine</ref>;</highlight></codeline>
+<codeline lineno="386"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="387"><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"></highlight><highlight class="preprocessor">#ifdef<sp/>BME280_DOUBLE_ENABLE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393" refid="structbme280__data" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__data" kindref="compound">bme280_data</ref></highlight></codeline>
+<codeline lineno="394"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="396" refid="structbme280__data_1a45f80ad1a10a6704bb6f8dec70976c72" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structbme280__data_1a45f80ad1a10a6704bb6f8dec70976c72" kindref="member">pressure</ref>;</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"></highlight></codeline>
+<codeline lineno="399" refid="structbme280__data_1a16a033ae72f60312e8528dde5a686154" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structbme280__data_1a16a033ae72f60312e8528dde5a686154" kindref="member">temperature</ref>;</highlight></codeline>
+<codeline lineno="400"><highlight class="normal"></highlight></codeline>
+<codeline lineno="402" refid="structbme280__data_1a0c38debcdec5946cccb553a970f9fa88" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/><ref refid="structbme280__data_1a0c38debcdec5946cccb553a970f9fa88" kindref="member">humidity</ref>;</highlight></codeline>
+<codeline lineno="403"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="404"><highlight class="normal"></highlight><highlight class="preprocessor">#else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="405"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__data" kindref="compound">bme280_data</ref></highlight></codeline>
+<codeline lineno="406"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbme280__data_1a45f80ad1a10a6704bb6f8dec70976c72" kindref="member">pressure</ref>;</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/><ref refid="structbme280__data_1a16a033ae72f60312e8528dde5a686154" kindref="member">temperature</ref>;</highlight></codeline>
+<codeline lineno="412"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbme280__data_1a0c38debcdec5946cccb553a970f9fa88" kindref="member">humidity</ref>;</highlight></codeline>
+<codeline lineno="415"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422" refid="structbme280__uncomp__data" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__uncomp__data" kindref="compound">bme280_uncomp_data</ref></highlight></codeline>
+<codeline lineno="423"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="425" refid="structbme280__uncomp__data_1afa4d1b43f8412d393dcc5fd41f4203ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbme280__uncomp__data_1afa4d1b43f8412d393dcc5fd41f4203ce" kindref="member">pressure</ref>;</highlight></codeline>
+<codeline lineno="426"><highlight class="normal"></highlight></codeline>
+<codeline lineno="428" refid="structbme280__uncomp__data_1a0ae24e11ffef8390b948b53ba4dbb652" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbme280__uncomp__data_1a0ae24e11ffef8390b948b53ba4dbb652" kindref="member">temperature</ref>;</highlight></codeline>
+<codeline lineno="429"><highlight class="normal"></highlight></codeline>
+<codeline lineno="431" refid="structbme280__uncomp__data_1a31e311e6fc9a49e8159a81017a7393a1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/><ref refid="structbme280__uncomp__data_1a31e311e6fc9a49e8159a81017a7393a1" kindref="member">humidity</ref>;</highlight></codeline>
+<codeline lineno="432"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438" refid="structbme280__settings" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref></highlight></codeline>
+<codeline lineno="439"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="441" refid="structbme280__settings_1a6359b35d9547f53dea01d893313c7dc3" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__settings_1a6359b35d9547f53dea01d893313c7dc3" kindref="member">osr_p</ref>;</highlight></codeline>
+<codeline lineno="442"><highlight class="normal"></highlight></codeline>
+<codeline lineno="444" refid="structbme280__settings_1a49bf8f73813386b4dc37a9676230c263" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__settings_1a49bf8f73813386b4dc37a9676230c263" kindref="member">osr_t</ref>;</highlight></codeline>
+<codeline lineno="445"><highlight class="normal"></highlight></codeline>
+<codeline lineno="447" refid="structbme280__settings_1ab09e8c0b2ff1ee7e7eb35540ad95acf5" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__settings_1ab09e8c0b2ff1ee7e7eb35540ad95acf5" kindref="member">osr_h</ref>;</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"></highlight></codeline>
+<codeline lineno="450" refid="structbme280__settings_1a46eae004d968b4fd9a89e5cb5748f1c1" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__settings_1a46eae004d968b4fd9a89e5cb5748f1c1" kindref="member">filter</ref>;</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453" refid="structbme280__settings_1a9c881ed1a45bfd9092260383f13c9fbc" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__settings_1a9c881ed1a45bfd9092260383f13c9fbc" kindref="member">standby_time</ref>;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="459" refid="structbme280__dev" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref></highlight></codeline>
+<codeline lineno="460"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="462" refid="structbme280__dev_1a6147bb3590bc7d1b02c41454d13c81c0" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="structbme280__dev_1a6147bb3590bc7d1b02c41454d13c81c0" kindref="member">chip_id</ref>;</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+<codeline lineno="468" refid="structbme280__dev_1a937b25397d1455117b64b1380368d30c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766e" kindref="member">bme280_intf</ref><sp/><ref refid="structbme280__dev_1a937b25397d1455117b64b1380368d30c" kindref="member">intf</ref>;</highlight></codeline>
+<codeline lineno="469"><highlight class="normal"></highlight></codeline>
+<codeline lineno="476" refid="structbme280__dev_1ac8640e40f4f3fd9c3495df4fc97e8f66" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="structbme280__dev_1ac8640e40f4f3fd9c3495df4fc97e8f66" kindref="member">intf_ptr</ref>;</highlight></codeline>
+<codeline lineno="477"><highlight class="normal"></highlight></codeline>
+<codeline lineno="479" refid="structbme280__dev_1a7300e995dae0d0fde0b68d3a1352e667" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref><sp/><ref refid="structbme280__dev_1a7300e995dae0d0fde0b68d3a1352e667" kindref="member">intf_rslt</ref>;</highlight></codeline>
+<codeline lineno="480"><highlight class="normal"></highlight></codeline>
+<codeline lineno="482" refid="structbme280__dev_1aadbc5248e2bc46660e10af07fe6504ef" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1a196a14c6101ddd1c640ddec1354095ef" kindref="member">bme280_read_fptr_t</ref><sp/><ref refid="structbme280__dev_1aadbc5248e2bc46660e10af07fe6504ef" kindref="member">read</ref>;</highlight></codeline>
+<codeline lineno="483"><highlight class="normal"></highlight></codeline>
+<codeline lineno="485" refid="structbme280__dev_1a3360596144afdd8476469cdef11beb3b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1aedc571d9f3e5a264838ea73e6a798ddd" kindref="member">bme280_write_fptr_t</ref><sp/><ref refid="structbme280__dev_1a3360596144afdd8476469cdef11beb3b" kindref="member">write</ref>;</highlight></codeline>
+<codeline lineno="486"><highlight class="normal"></highlight></codeline>
+<codeline lineno="488" refid="structbme280__dev_1a04c4f6d52685b73f3bb09eccf44374ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="bme280__defs_8h_1a779032ec51096ef4dd132b3a3d9c4944" kindref="member">bme280_delay_us_fptr_t</ref><sp/><ref refid="structbme280__dev_1a04c4f6d52685b73f3bb09eccf44374ab" kindref="member">delay_us</ref>;</highlight></codeline>
+<codeline lineno="489"><highlight class="normal"></highlight></codeline>
+<codeline lineno="491" refid="structbme280__dev_1a8a57e57db020663dc3a8f3438cd6b399" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/><ref refid="structbme280__dev_1a8a57e57db020663dc3a8f3438cd6b399" kindref="member">calib_data</ref>;</highlight></codeline>
+<codeline lineno="492"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="493"><highlight class="normal"></highlight></codeline>
+<codeline lineno="494"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">/*<sp/>_BME280_DEFS_H<sp/>*/</highlight><highlight class="preprocessor"></highlight></codeline>
+    </programlisting>
+    <location file="lib/bme280/bme280_defs.h"/>
+  </compounddef>
+</doxygen>

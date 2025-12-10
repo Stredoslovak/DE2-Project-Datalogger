@@ -1,0 +1,77 @@
+.TH "lib/uart/uart_compat.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/uart/uart_compat.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/pgmspace\&.h>\fP
+.br
+\fR#include <uart\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBtransmitByte\fP(\fBdata\fP)"
+.br
+.RI "Compatibility layer for old UART function names Maps transmitByte/transmitString to Peter Fleury UART library\&. "
+.ti -1c
+.RI "#define \fBtransmitString\fP(str)"
+.br
+.ti -1c
+.RI "#define \fBTX_NEWLINE\fP   \fBuart_puts\fP('\\r\\n')"
+.br
+.ti -1c
+.RI "#define \fBBYTE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBINT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBLONG\fP   2"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BYTE   0"
+
+.PP
+Definition at line \fB66\fP of file \fBuart_compat\&.h\fP\&.
+.SS "#define INT   1"
+
+.PP
+Definition at line \fB67\fP of file \fBuart_compat\&.h\fP\&.
+.SS "#define LONG   2"
+
+.PP
+Definition at line \fB68\fP of file \fBuart_compat\&.h\fP\&.
+.SS "#define transmitByte( \fBdata\fP)"
+\fBValue:\fP
+.nf
+uart_putc(data)
+.PP
+.fi
+
+.PP
+Compatibility layer for old UART function names Maps transmitByte/transmitString to Peter Fleury UART library\&. 
+.PP
+Definition at line \fB13\fP of file \fBuart_compat\&.h\fP\&.
+.SS "#define transmitString( str)"
+\fBValue:\fP
+.nf
+uart_puts((char*)(str))
+.PP
+.fi
+
+.PP
+Definition at line \fB16\fP of file \fBuart_compat\&.h\fP\&.
+.SS "#define TX_NEWLINE   \fBuart_puts\fP('\\r\\n')"
+
+.PP
+Definition at line \fB19\fP of file \fBuart_compat\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

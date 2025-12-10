@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_541432474389f3d0c2d8c34c147b933c" kind="dir">
+    <compoundname>lib/gpio</compoundname>
+    <innerfile refid="gpio_8c">gpio.c</innerfile>
+    <innerfile refid="gpio_8h">gpio.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/gpio/"/>
+  </compounddef>
+</doxygen>

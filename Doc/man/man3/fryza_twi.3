@@ -1,0 +1,433 @@
+.TH "fryza_twi" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fryza_twi \- TWI Library <twi\&.h>
+.PP
+ \- I2C/TWI library for AVR-GCC\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem_16b\fP (uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf, uint8_t dataLowerHalf)"
+.br
+.RI "Write 16bit into peripheral\&. "
+.in -1c
+.SS "Other definitions"
+
+.in +1c
+.ti -1c
+.RI "void \fBtwi_init\fP (void)"
+.br
+.RI "Initialize TWI unit, enable internal pull-ups, and set SCL frequency\&. "
+.ti -1c
+.RI "void \fBtwi_start\fP (void)"
+.br
+.RI "Start communication on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_write\fP (uint8_t \fBdata\fP)"
+.br
+.RI "Write one byte to the I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_read\fP (uint8_t ack)"
+.br
+.RI "Read one byte from the I2C/TWI bus and acknowledge it by ACK or NACK\&. "
+.ti -1c
+.RI "void \fBtwi_stop\fP (void)"
+.br
+.RI "Generates Stop condition on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_test_address\fP (uint8_t addr)"
+.br
+.RI "Test presence of one I2C device on the bus\&. "
+.ti -1c
+.RI "void \fBtwi_readfrom_mem_into\fP (uint8_t addr, uint8_t memaddr, volatile uint8_t *buf, uint8_t nbytes)"
+.br
+.RI "Read into buf from the peripheral, starting from the memory address\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem\fP (uint8_t addr, uint8_t memaddr, uint8_t \fBdata\fP)"
+.br
+.RI "Write into peripheral\&. "
+.ti -1c
+.RI "#define \fBTWI_WRITE\fP   0"
+.br
+.RI "Mode for writing to I2C/TWI device\&. "
+.ti -1c
+.RI "#define \fBTWI_READ\fP   1"
+.br
+.RI "Mode for reading from I2C/TWI device\&. "
+.ti -1c
+.RI "#define \fBTWI_ACK\fP   0"
+.br
+.RI "ACK value for writing to I2C/TWI bus\&. "
+.ti -1c
+.RI "#define \fBTWI_NACK\fP   1"
+.br
+.RI "NACK value for writing to I2C/TWI bus\&. "
+.ti -1c
+.RI "#define \fBDDR\fP(_x)"
+.br
+.RI "Address of Data Direction Register of port _x\&. "
+.ti -1c
+.RI "#define \fBPIN\fP(_x)"
+.br
+.RI "Address of input register of port _x\&. "
+.in -1c
+.SS "Definition of frequencies"
+
+.in +1c
+.ti -1c
+.RI "#define \fBF_CPU\fP   16000000"
+.br
+.RI "CPU frequency in Hz required TWI_BIT_RATE_REG\&. "
+.ti -1c
+.RI "#define \fBF_SCL\fP   100000"
+.br
+.RI "I2C/TWI bit rate\&. Must be greater than 31000\&. "
+.ti -1c
+.RI "#define \fBTWI_BIT_RATE_REG\fP   ((\fBF_CPU\fP/\fBF_SCL\fP \- 16) / 2)"
+.br
+.RI "TWI bit rate register value\&. "
+.in -1c
+.SS "Definition of ports and pins"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTWI_PORT\fP   PORTC"
+.br
+.RI "Port of TWI unit\&. "
+.ti -1c
+.RI "#define \fBTWI_SDA_PIN\fP   4"
+.br
+.RI "SDA pin of TWI unit\&. "
+.ti -1c
+.RI "#define \fBTWI_SCL_PIN\fP   5"
+.br
+.RI "SCL pin of TWI unit\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+I2C/TWI library for AVR-GCC\&. 
+
+
+.PP
+.nf
+#include <twi\&.h> 
+
+.fi
+.PP
+
+.PP
+This library defines functions for the TWI (I2C) communication between AVR and Slave device(s)\&. Functions use internal TWI module of AVR\&.
+
+.PP
+\fBNote\fP
+.RS 4
+Only Master transmitting and Master receiving modes are implemented\&. Based on Microchip Atmel ATmega16 and ATmega328P manuals\&. 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+(c) 2018-2025 Tomas Fryza, MIT license 
+.RE
+.PP
+
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define DDR( _x)"
+\fBValue:\fP
+.nf
+(*(&_x \- 1))
+.PP
+.fi
+
+.PP
+Address of Data Direction Register of port _x\&. 
+.PP
+Definition at line \fB57\fP of file \fBtwi\&.h\fP\&.
+.SS "#define F_CPU   16000000"
+
+.PP
+CPU frequency in Hz required TWI_BIT_RATE_REG\&. 
+.PP
+Definition at line \fB36\fP of file \fBtwi\&.h\fP\&.
+.SS "#define F_SCL   100000"
+
+.PP
+I2C/TWI bit rate\&. Must be greater than 31000\&. 
+.PP
+Definition at line \fB38\fP of file \fBtwi\&.h\fP\&.
+.SS "#define PIN( _x)"
+\fBValue:\fP
+.nf
+(*(&_x \- 2))
+.PP
+.fi
+
+.PP
+Address of input register of port _x\&. 
+.PP
+Definition at line \fB58\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_ACK   0"
+
+.PP
+ACK value for writing to I2C/TWI bus\&. 
+.PP
+Definition at line \fB55\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_BIT_RATE_REG   ((\fBF_CPU\fP/\fBF_SCL\fP \- 16) / 2)"
+
+.PP
+TWI bit rate register value\&. 
+.PP
+Definition at line \fB39\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_NACK   1"
+
+.PP
+NACK value for writing to I2C/TWI bus\&. 
+.PP
+Definition at line \fB56\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_PORT   PORTC"
+
+.PP
+Port of TWI unit\&. 
+.PP
+Definition at line \fB45\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_READ   1"
+
+.PP
+Mode for reading from I2C/TWI device\&. 
+.PP
+Definition at line \fB54\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_SCL_PIN   5"
+
+.PP
+SCL pin of TWI unit\&. 
+.PP
+Definition at line \fB47\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_SDA_PIN   4"
+
+.PP
+SDA pin of TWI unit\&. 
+.PP
+Definition at line \fB46\fP of file \fBtwi\&.h\fP\&.
+.SS "#define TWI_WRITE   0"
+
+.PP
+Mode for writing to I2C/TWI device\&. 
+.PP
+Definition at line \fB53\fP of file \fBtwi\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "void twi_init (void )"
+
+.PP
+Initialize TWI unit, enable internal pull-ups, and set SCL frequency\&. 
+.PP
+\fBImplementation notes:\fP
+.RS 4
+
+.IP "\(bu" 2
+AVR internal pull-up resistors at pins TWI_SDA_PIN and TWI_SCL_PIN are enabled
+.IP "\(bu" 2
+TWI bit rate register value is calculated as follows fscl = fcpu/(16 + 2*TWBR) 
+.PP
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB20\fP of file \fBtwi\&.c\fP\&.
+.SS "uint8_t twi_read (uint8_t ack)"
+
+.PP
+Read one byte from the I2C/TWI bus and acknowledge it by ACK or NACK\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIack\fP - ACK/NACK value to be transmitted 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Received data byte 
+.RE
+.PP
+
+.PP
+Definition at line \fB82\fP of file \fBtwi\&.c\fP\&.
+.SS "void twi_readfrom_mem_into (uint8_t addr, uint8_t memaddr, volatile uint8_t * buf, uint8_t nbytes)"
+
+.PP
+Read into buf from the peripheral, starting from the memory address\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIaddr\fP Slave address 
+.br
+\fImemaddr\fP Starting address 
+.br
+\fIbuf\fP Buffer to be read into 
+.br
+\fInbytes\fP Number of bytes 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB132\fP of file \fBtwi\&.c\fP\&.
+.SS "void twi_start (void )"
+
+.PP
+Start communication on I2C/TWI bus\&. 
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB37\fP of file \fBtwi\&.c\fP\&.
+.SS "void twi_stop (void )"
+
+.PP
+Generates Stop condition on I2C/TWI bus\&. 
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB99\fP of file \fBtwi\&.c\fP\&.
+.SS "uint8_t twi_test_address (uint8_t addr)"
+
+.PP
+Test presence of one I2C device on the bus\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIaddr\fP Slave address 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+ACK/NACK received value 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP - ACK has been received 
+.br
+\fI1\fP - NACK has been received 
+.RE
+.PP
+
+.PP
+Definition at line \fB111\fP of file \fBtwi\&.c\fP\&.
+.SS "uint8_t twi_write (uint8_t data)"
+
+.PP
+Write one byte to the I2C/TWI bus\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIdata\fP Byte to be transmitted 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+ACK/NACK received value 
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP - ACK has been received 
+.br
+\fI1\fP - NACK has been received 
+.RE
+.PP
+\fBNote\fP
+.RS 4
+Function returns 0 if 0x18, 0x28, or 0x40 status code is detected
+.br
+.IP "\(bu" 2
+0x18: SLA+W has been transmitted and ACK has been received
+.br
+
+.IP "\(bu" 2
+0x28: Data byte has been transmitted and ACK has been received
+.br
+
+.IP "\(bu" 2
+0x40: SLA+R has been transmitted and ACK has been received
+.br
+
+.PP
+.RE
+.PP
+
+.PP
+Definition at line \fB51\fP of file \fBtwi\&.c\fP\&.
+.SS "uint8_t twi_writeto_mem (uint8_t addr, uint8_t memaddr, uint8_t data)"
+
+.PP
+Write into peripheral\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIaddr\fP Slave address 
+.br
+\fImemaddr\fP Memory address 
+.br
+\fIdata\fP Data to be written 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB160\fP of file \fBtwi\&.c\fP\&.
+.SS "uint8_t twi_writeto_mem_16b (uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf, uint8_t dataLowerHalf)"
+
+.PP
+Write 16bit into peripheral\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIaddr\fP Slave address 
+.br
+\fImemaddr\fP Memory address 
+.br
+\fIdataUpperHalf\fP Data to be written 
+.br
+\fIdataLowerHalf\fP Data to be written 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB181\fP of file \fBtwi\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

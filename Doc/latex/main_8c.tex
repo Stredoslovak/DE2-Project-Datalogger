@@ -1,0 +1,364 @@
+\doxysection{src/main.c File Reference}
+\label{main_8c}\index{src/main.c@{src/main.c}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include "{}timer.\+h"{}}\newline
+{\ttfamily \#include $<$uart.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}SPI\+\_\+routines.\+h"{}}\newline
+{\ttfamily \#include "{}sd\+\_\+routines.\+h"{}}\newline
+{\ttfamily \#include "{}FAT32.\+h"{}}\newline
+{\ttfamily \#include "{}gpio.\+h"{}}\newline
+{\ttfamily \#include "{}rtc.\+h"{}}\newline
+{\ttfamily \#include $<$twi.\+h$>$}\newline
+{\ttfamily \#include "{}bme280.\+h"{}}\newline
+{\ttfamily \#include "{}Sensirion\+I2\+CSgp41.\+h"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ UART\+\_\+\+ON}
+\item 
+\#define \textbf{ SD\+\_\+write}
+\item 
+\#define \textbf{ ACTIVITY\+\_\+\+LED\+\_\+\+PORT}~PORTC
+\item 
+\#define \textbf{ L\+\_\+\+ACT}~2
+\item 
+\#define \textbf{ STATUS\+\_\+\+LED\+\_\+\+PORT}~PORTC
+\item 
+\#define \textbf{ L\+\_\+\+STATUS}~1
+\item 
+\#define \textbf{ ERROR\+\_\+\+LED\+\_\+\+PORT}~PORTC
+\item 
+\#define \textbf{ L\+\_\+\+ERROR}~0
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \textbf{ bme\+\_\+init\+\_\+simple} (struct \textbf{ bme280\+\_\+dev} $\ast$dev, uint8\+\_\+t $\ast$dev\+\_\+addr\+\_\+ptr)
+\item 
+int \textbf{ bme\+\_\+read\+\_\+once} (struct \textbf{ bme280\+\_\+dev} $\ast$dev, int32\+\_\+t $\ast$t100, uint32\+\_\+t $\ast$press\+\_\+pa, uint32\+\_\+t $\ast$hum\+\_\+x1024)
+\item 
+int \textbf{ sgp41\+\_\+init\+\_\+simple} (void)
+\item 
+int \textbf{ sgp41\+\_\+measure\+\_\+once} (int32\+\_\+t $\ast$voc\+\_\+index, int32\+\_\+t $\ast$nox\+\_\+index)
+\item 
+uint8\+\_\+t \textbf{ get\+\_\+month\+\_\+from\+\_\+ascii\+\_\+sum} (uint16\+\_\+t sum)
+\item 
+void \textbf{ set\+\_\+interrupt\+\_\+source} (void)
+\item 
+void \textbf{ set\+\_\+time\+\_\+uart} (void)
+\item 
+int \textbf{ main} (void)
+\item 
+\textbf{ ISR} (TIMER1\+\_\+\+OVF\+\_\+vect)
+\item 
+\textbf{ ISR} (INT0\+\_\+vect)
+\item 
+\textbf{ ISR} (INT1\+\_\+vect)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+volatile uint8\+\_\+t \textbf{ print\+RTC} = 0
+\item 
+volatile uint8\+\_\+t \textbf{ counter\+Tim1} = 0
+\item 
+uint8\+\_\+t \textbf{ SD\+\_\+\+OK}
+\item 
+uint8\+\_\+t \textbf{ FS\+\_\+\+OK}
+\item 
+uint8\+\_\+t \textbf{ BM\+\_\+\+OK}
+\item 
+uint8\+\_\+t \textbf{ SGP\+\_\+\+OK}
+\item 
+uint8\+\_\+t \textbf{ RTC\+\_\+\+OK} = 0
+\item 
+volatile uint8\+\_\+t \textbf{ measurement\+\_\+flag} = 0
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{main.c@{main.c}!ACTIVITY\_LED\_PORT@{ACTIVITY\_LED\_PORT}}
+\index{ACTIVITY\_LED\_PORT@{ACTIVITY\_LED\_PORT}!main.c@{main.c}}
+\doxysubsubsection{ACTIVITY\_LED\_PORT}
+{\footnotesize\ttfamily \label{main_8c_af433ceb08ae87bb451907668132c61f2} 
+\#define ACTIVITY\+\_\+\+LED\+\_\+\+PORT~PORTC}
+
+
+
+Definition at line \textbf{ 30} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!ERROR\_LED\_PORT@{ERROR\_LED\_PORT}}
+\index{ERROR\_LED\_PORT@{ERROR\_LED\_PORT}!main.c@{main.c}}
+\doxysubsubsection{ERROR\_LED\_PORT}
+{\footnotesize\ttfamily \label{main_8c_a84357dafca10c0bedd27ddf562ec038f} 
+\#define ERROR\+\_\+\+LED\+\_\+\+PORT~PORTC}
+
+
+
+Definition at line \textbf{ 34} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!L\_ACT@{L\_ACT}}
+\index{L\_ACT@{L\_ACT}!main.c@{main.c}}
+\doxysubsubsection{L\_ACT}
+{\footnotesize\ttfamily \label{main_8c_a36664be8b88a91e914e2dd947ad5e7c6} 
+\#define L\+\_\+\+ACT~2}
+
+
+
+Definition at line \textbf{ 31} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!L\_ERROR@{L\_ERROR}}
+\index{L\_ERROR@{L\_ERROR}!main.c@{main.c}}
+\doxysubsubsection{L\_ERROR}
+{\footnotesize\ttfamily \label{main_8c_a48538932682d4fe3cdf01547db361240} 
+\#define L\+\_\+\+ERROR~0}
+
+
+
+Definition at line \textbf{ 35} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!L\_STATUS@{L\_STATUS}}
+\index{L\_STATUS@{L\_STATUS}!main.c@{main.c}}
+\doxysubsubsection{L\_STATUS}
+{\footnotesize\ttfamily \label{main_8c_a18c9ad6bb41d5571232e1257e1de2e67} 
+\#define L\+\_\+\+STATUS~1}
+
+
+
+Definition at line \textbf{ 33} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!SD\_write@{SD\_write}}
+\index{SD\_write@{SD\_write}!main.c@{main.c}}
+\doxysubsubsection{SD\_write}
+{\footnotesize\ttfamily \label{main_8c_a741c5542c7709e08e6805603dc1c4747} 
+\#define SD\+\_\+write}
+
+
+
+Definition at line \textbf{ 29} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!STATUS\_LED\_PORT@{STATUS\_LED\_PORT}}
+\index{STATUS\_LED\_PORT@{STATUS\_LED\_PORT}!main.c@{main.c}}
+\doxysubsubsection{STATUS\_LED\_PORT}
+{\footnotesize\ttfamily \label{main_8c_a5b8353569a7ac1ec1f773fbd28495b43} 
+\#define STATUS\+\_\+\+LED\+\_\+\+PORT~PORTC}
+
+
+
+Definition at line \textbf{ 32} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!UART\_ON@{UART\_ON}}
+\index{UART\_ON@{UART\_ON}!main.c@{main.c}}
+\doxysubsubsection{UART\_ON}
+{\footnotesize\ttfamily \label{main_8c_a5aa83bec2a8393bc3126a230467dc221} 
+\#define UART\+\_\+\+ON}
+
+
+
+Definition at line \textbf{ 28} of file \textbf{ main.\+c}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{main.c@{main.c}!bme\_init\_simple@{bme\_init\_simple}}
+\index{bme\_init\_simple@{bme\_init\_simple}!main.c@{main.c}}
+\doxysubsubsection{bme\_init\_simple()}
+{\footnotesize\ttfamily \label{main_8c_ae711b62c391a71e52024c272611d64ee} 
+int bme\+\_\+init\+\_\+simple (\begin{DoxyParamCaption}\item[{struct \textbf{ bme280\+\_\+dev} $\ast$}]{dev}{, }\item[{uint8\+\_\+t $\ast$}]{dev\+\_\+addr\+\_\+ptr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 111} of file \textbf{ bme.\+c}.
+
+\index{main.c@{main.c}!bme\_read\_once@{bme\_read\_once}}
+\index{bme\_read\_once@{bme\_read\_once}!main.c@{main.c}}
+\doxysubsubsection{bme\_read\_once()}
+{\footnotesize\ttfamily \label{main_8c_ae379d395f2a1351de8c7c1ddb28fea47} 
+int bme\+\_\+read\+\_\+once (\begin{DoxyParamCaption}\item[{struct \textbf{ bme280\+\_\+dev} $\ast$}]{dev}{, }\item[{int32\+\_\+t $\ast$}]{t100}{, }\item[{uint32\+\_\+t $\ast$}]{press\+\_\+pa}{, }\item[{uint32\+\_\+t $\ast$}]{hum\+\_\+x1024}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 147} of file \textbf{ bme.\+c}.
+
+\index{main.c@{main.c}!get\_month\_from\_ascii\_sum@{get\_month\_from\_ascii\_sum}}
+\index{get\_month\_from\_ascii\_sum@{get\_month\_from\_ascii\_sum}!main.c@{main.c}}
+\doxysubsubsection{get\_month\_from\_ascii\_sum()}
+{\footnotesize\ttfamily \label{main_8c_a0922894599e8cbf138c06a947221f1e8} 
+uint8\+\_\+t get\+\_\+month\+\_\+from\+\_\+ascii\+\_\+sum (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{sum}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 47} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!ISR@{ISR}}
+\index{ISR@{ISR}!main.c@{main.c}}
+\doxysubsubsection{ISR()\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{main_8c_afea150fcd685610cb9f7672fce361e53} 
+ISR (\begin{DoxyParamCaption}\item[{INT0\+\_\+vect}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 499} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!ISR@{ISR}}
+\index{ISR@{ISR}!main.c@{main.c}}
+\doxysubsubsection{ISR()\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{main_8c_a22acfb428840c6d9aa212764589cf6c6} 
+ISR (\begin{DoxyParamCaption}\item[{INT1\+\_\+vect}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 521} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!ISR@{ISR}}
+\index{ISR@{ISR}!main.c@{main.c}}
+\doxysubsubsection{ISR()\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{main_8c_ab16889ae984b9b798989a0d239283cac} 
+ISR (\begin{DoxyParamCaption}\item[{TIMER1\+\_\+\+OVF\+\_\+vect}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 469} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{main()}
+{\footnotesize\ttfamily \label{main_8c_a840291bc02cba5474a4cb46a9b9566fe} 
+int main (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 131} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!set\_interrupt\_source@{set\_interrupt\_source}}
+\index{set\_interrupt\_source@{set\_interrupt\_source}!main.c@{main.c}}
+\doxysubsubsection{set\_interrupt\_source()}
+{\footnotesize\ttfamily \label{main_8c_a3af87ae7bf33794d0d33a9eebb393847} 
+void set\+\_\+interrupt\+\_\+source (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 78} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!set\_time\_uart@{set\_time\_uart}}
+\index{set\_time\_uart@{set\_time\_uart}!main.c@{main.c}}
+\doxysubsubsection{set\_time\_uart()}
+{\footnotesize\ttfamily \label{main_8c_a20ad19940be437dbe8e0b68bf2f229eb} 
+void set\+\_\+time\+\_\+uart (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 94} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!sgp41\_init\_simple@{sgp41\_init\_simple}}
+\index{sgp41\_init\_simple@{sgp41\_init\_simple}!main.c@{main.c}}
+\doxysubsubsection{sgp41\_init\_simple()}
+{\footnotesize\ttfamily \label{main_8c_ad82d82c1e0522151ea6921266e848e3f} 
+int sgp41\+\_\+init\+\_\+simple (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 64} of file \textbf{ sgp41.\+c}.
+
+\index{main.c@{main.c}!sgp41\_measure\_once@{sgp41\_measure\_once}}
+\index{sgp41\_measure\_once@{sgp41\_measure\_once}!main.c@{main.c}}
+\doxysubsubsection{sgp41\_measure\_once()}
+{\footnotesize\ttfamily \label{main_8c_a90b58f4e4bdd065c1492a5e677681aab} 
+int sgp41\+\_\+measure\+\_\+once (\begin{DoxyParamCaption}\item[{int32\+\_\+t $\ast$}]{voc\+\_\+index}{, }\item[{int32\+\_\+t $\ast$}]{nox\+\_\+index}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 87} of file \textbf{ sgp41.\+c}.
+
+
+
+\label{doc-var-members}
+\doxysubsection{Variable Documentation}
+\index{main.c@{main.c}!BM\_OK@{BM\_OK}}
+\index{BM\_OK@{BM\_OK}!main.c@{main.c}}
+\doxysubsubsection{BM\_OK}
+{\footnotesize\ttfamily \label{main_8c_aa04850ebff9662c48d97d7622c4c4be1} 
+uint8\+\_\+t BM\+\_\+\+OK}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!counterTim1@{counterTim1}}
+\index{counterTim1@{counterTim1}!main.c@{main.c}}
+\doxysubsubsection{counterTim1}
+{\footnotesize\ttfamily \label{main_8c_afc5caf37372f9bb76029625476e2a40a} 
+volatile uint8\+\_\+t counter\+Tim1 = 0}
+
+
+
+Definition at line \textbf{ 37} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!FS\_OK@{FS\_OK}}
+\index{FS\_OK@{FS\_OK}!main.c@{main.c}}
+\doxysubsubsection{FS\_OK}
+{\footnotesize\ttfamily \label{main_8c_a54d4636f7db8072590d740d5731ec131} 
+uint8\+\_\+t FS\+\_\+\+OK}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!measurement\_flag@{measurement\_flag}}
+\index{measurement\_flag@{measurement\_flag}!main.c@{main.c}}
+\doxysubsubsection{measurement\_flag}
+{\footnotesize\ttfamily \label{main_8c_afa838159ac8ec9cb71bf42c87f4be6ad} 
+volatile uint8\+\_\+t measurement\+\_\+flag = 0}
+
+
+
+Definition at line \textbf{ 46} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!printRTC@{printRTC}}
+\index{printRTC@{printRTC}!main.c@{main.c}}
+\doxysubsubsection{printRTC}
+{\footnotesize\ttfamily \label{main_8c_af5717f1f45badd49db99bf40c95af86f} 
+volatile uint8\+\_\+t print\+RTC = 0}
+
+
+
+Definition at line \textbf{ 36} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!RTC\_OK@{RTC\_OK}}
+\index{RTC\_OK@{RTC\_OK}!main.c@{main.c}}
+\doxysubsubsection{RTC\_OK}
+{\footnotesize\ttfamily \label{main_8c_ac91f5202b1bd045cc553ee007f609f5b} 
+uint8\+\_\+t RTC\+\_\+\+OK = 0}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!SD\_OK@{SD\_OK}}
+\index{SD\_OK@{SD\_OK}!main.c@{main.c}}
+\doxysubsubsection{SD\_OK}
+{\footnotesize\ttfamily \label{main_8c_a1c579f510d600693391b03ccc42be9b4} 
+uint8\+\_\+t SD\+\_\+\+OK}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ main.\+c}.
+
+\index{main.c@{main.c}!SGP\_OK@{SGP\_OK}}
+\index{SGP\_OK@{SGP\_OK}!main.c@{main.c}}
+\doxysubsubsection{SGP\_OK}
+{\footnotesize\ttfamily \label{main_8c_a3c1cef1be4fe55c96e1239af7021bf6d} 
+uint8\+\_\+t SGP\+\_\+\+OK}
+
+
+
+Definition at line \textbf{ 39} of file \textbf{ main.\+c}.
+

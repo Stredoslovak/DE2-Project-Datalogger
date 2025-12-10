@@ -1,0 +1,73 @@
+\doxysection{sd\+\_\+routines.\+h}
+\label{sd__routines_8h_source}\index{lib/sd/sd\_routines.h@{lib/sd/sd\_routines.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ ******\ FUNCTIONS\ FOR\ SD\ RAW\ DATA\ TRANSFER\ *******}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//Controller\ \ \ \ \ \ \ \ :\ ATmega32\ (Clock:\ 8\ Mhz-\/internal)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//Compiler\ \ \ \ \ \ \ \ \ \ :\ AVR-\/GCC\ (winAVR\ with\ AVRStudio-\/4)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//Project\ Version\ \ \ :\ DL\_1.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//Author\ \ \ \ \ \ \ \ \ \ \ \ :\ CC\ Dharmani,\ Chennai\ (India)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.dharmanitech.com}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//Date\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 10\ May\ 2011}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//Link\ to\ the\ Post:\ http://www.dharmanitech.com/2009/01/sd-\/card-\/interfacing-\/with-\/atmega8-\/fat32.html}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#ifndef\ \_SD\_ROUTINES\_H\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#define\ \_SD\_ROUTINES\_H\_}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{//Use\ following\ macro\ if\ you\ don't\ want\ to\ activate\ the\ multiple\ block\ access\ functions}}
+\DoxyCodeLine{00018\ \textcolor{comment}{//those\ functions\ are\ not\ required\ for\ FAT32}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ FAT\_TESTING\_ONLY}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{comment}{//use\ following\ macros\ if\ PB1\ pin\ is\ used\ for\ Chip\ Select\ of\ SD}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\#define\ SD\_CS\_ASSERT\ \ \ \ \ PORTB\ \&=\ \string~0x02}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\#define\ SD\_CS\_DEASSERT\ \ \ PORTB\ |=\ 0x02}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//use\ following\ macros\ if\ SS\ (PB4)\ pin\ is\ used\ for\ Chip\ Select\ of\ SD}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//\ \#define\ SD\_CS\_ASSERT\ \ \ \ \ PORTB\ \&=\ \string~0x10}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//\ \#define\ SD\_CS\_DEASSERT\ \ \ PORTB\ |=\ 0x10}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//use\ following\ macros\ if\ SS\ (PD4)\ pin\ is\ used\ for\ Chip\ Select\ of\ SD\ (Arduino\ Ethernet\ Shield)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ SD\_CS\_ASSERT\ \ \ \ PORTD\ \&=\ \string~0x10}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ SD\_CS\_DEASSERT\ \ PORTD\ |=\ 0x10}}
+\DoxyCodeLine{00032\ \textcolor{comment}{//SD\ commands,\ many\ of\ these\ are\ not\ used\ here}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ GO\_IDLE\_STATE\ \ \ \ \ \ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ SEND\_OP\_COND\ \ \ \ \ \ \ \ \ \ \ \ \ 1}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ SEND\_IF\_COND\ \ \ \ \ \ \ \ \ \ \ \ \ 8}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#define\ SEND\_CSD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 9}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ STOP\_TRANSMISSION\ \ \ \ \ \ \ \ 12}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ SEND\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ \ 13}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ SET\_BLOCK\_LEN\ \ \ \ \ \ \ \ \ \ \ \ 16}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ READ\_SINGLE\_BLOCK\ \ \ \ \ \ \ \ 17}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ READ\_MULTIPLE\_BLOCKS\ \ \ \ \ 18}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ WRITE\_SINGLE\_BLOCK\ \ \ \ \ \ \ 24}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ WRITE\_MULTIPLE\_BLOCKS\ \ \ \ 25}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ ERASE\_BLOCK\_START\_ADDR\ \ \ 32}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ ERASE\_BLOCK\_END\_ADDR\ \ \ \ \ 33}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ ERASE\_SELECTED\_BLOCKS\ \ \ \ 38}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ SD\_SEND\_OP\_COND\ \ \ \ \ \ \ \ \ \ 41\ \ \ }\textcolor{comment}{//ACMD}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ APP\_CMD\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 55}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ READ\_OCR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 58}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ CRC\_ON\_OFF\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ 59}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ ON\ \ \ \ \ 1}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ OFF\ \ \ \ 0}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ totalBlocks;\ }
+\DoxyCodeLine{00057\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SDHC\_flag,\ cardType,\ buffer[512];}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_init(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_sendCommand(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ cmd,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ arg);}
+\DoxyCodeLine{00061\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_readSingleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock);}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_writeSingleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock);}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_readMultipleBlock\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks);}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_writeMultipleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks);}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_erase\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,595 @@
+\doxysection{Timer Library $<$timer.\+h$>$ }
+\label{group__fryza__timer}\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+
+
+Timer library for AVR-\/\+GCC.  
+
+
+\doxysubsubsection*{Definitions for 16-\/bit Timer/\+Counter1}
+\begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 16, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim1\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+4ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4ms, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+33ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 33ms, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+262ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 262ms, prescaler 011 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+1sec}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1s, prescaler 100 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+4sec}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4s, prescaler // 101 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Definitions for 8-\/bit Timer/\+Counter0}
+\begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 8, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim0\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+16us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16us, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+128us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 128us, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+1024us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1024us, prescaler 011 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+4096us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4096us, prescaler 100 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+16384us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16384us, prescaler // 101 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Definitions for 8-\/bit Timer/\+Counter2}
+\begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 8, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim2\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+16us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16us, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+128us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 128us, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+512us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 512us, prescaler 011 -\/-\/$>$ 32. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+1024us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1024us, prescaler 100 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+2048us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 2048us, prescaler 101 -\/-\/$>$ 128. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+4096us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4096us, prescaler 110 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+16ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16384us, prescaler 111 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Timer library for AVR-\/\+GCC. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <timer.h>}\ }
+
+\end{DoxyCode}
+
+
+The library contains macros for controlling the timer modules.
+
+\begin{DoxyNote}{Note}
+Based on Microchip Atmel ATmega328P manual and no source file is needed for the library. 
+\end{DoxyNote}
+\begin{DoxyCopyright}{Copyright}
+(c) 2019-\/2025 Tomas Fryza, MIT license 
+\end{DoxyCopyright}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_1024us@{tim0\_ovf\_1024us}}
+\index{tim0\_ovf\_1024us@{tim0\_ovf\_1024us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_1024us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaf0f92964417ea12f012f27cc8913f31a} 
+\#define tim0\+\_\+ovf\+\_\+1024us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR0B\ \&=\ \string~(1<<CS02);\ TCCR0B\ |=\ (1<<CS01)\ |\ (1<<CS00);}
+
+\end{DoxyCode}
+
+
+Set overflow 1024us, prescaler 011 -\/-\/$>$ 64. 
+
+
+
+Definition at line \textbf{ 77} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_128us@{tim0\_ovf\_128us}}
+\index{tim0\_ovf\_128us@{tim0\_ovf\_128us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_128us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaa46b7e021525c70c9ff9673195993c76} 
+\#define tim0\+\_\+ovf\+\_\+128us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR0B\ \&=\ \string~((1<<CS02)\ |\ (1<<CS00));\ TCCR0B\ |=\ (1<<CS01);}
+
+\end{DoxyCode}
+
+
+Set overflow 128us, prescaler 010 -\/-\/$>$ 8. 
+
+
+
+Definition at line \textbf{ 74} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_16384us@{tim0\_ovf\_16384us}}
+\index{tim0\_ovf\_16384us@{tim0\_ovf\_16384us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_16384us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaa90b9545f35885737bcfeafe8dfced4a} 
+\#define tim0\+\_\+ovf\+\_\+16384us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR0B\ \&=\ \string~(1<<CS01);\ TCCR0B\ |=\ (1<<CS02)\ |\ (1<<CS00);}
+
+\end{DoxyCode}
+
+
+Set overflow 16384us, prescaler // 101 -\/-\/$>$ 1024. 
+
+
+
+Definition at line \textbf{ 83} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_16us@{tim0\_ovf\_16us}}
+\index{tim0\_ovf\_16us@{tim0\_ovf\_16us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_16us}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga2c8afeb802c5d22bfd00c14e9a2f8215} 
+\#define tim0\+\_\+ovf\+\_\+16us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~((1<<CS02)\ |\ (1<<CS01));\ TCCR0B\ |=\ (1<<CS00);}
+
+\end{DoxyCode}
+
+
+Set overflow 16us, prescaler 001 -\/-\/$>$ 1. 
+
+
+
+Definition at line \textbf{ 71} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_4096us@{tim0\_ovf\_4096us}}
+\index{tim0\_ovf\_4096us@{tim0\_ovf\_4096us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_4096us}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga7f8d7c690d98af539669cbc04147d622} 
+\#define tim0\+\_\+ovf\+\_\+4096us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR0B\ \&=\ \string~((1<<CS01)\ |\ (1<<CS00));\ TCCR0B\ |=\ (1<<CS02);}
+
+\end{DoxyCode}
+
+
+Set overflow 4096us, prescaler 100 -\/-\/$>$ 256. 
+
+
+
+Definition at line \textbf{ 80} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_disable@{tim0\_ovf\_disable}}
+\index{tim0\_ovf\_disable@{tim0\_ovf\_disable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_disable}
+{\footnotesize\ttfamily \label{group__fryza__timer_gad3b76ead823ef633a9afd01050387cdd} 
+\#define tim0\+\_\+ovf\+\_\+disable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK0\ \&=\ \string~(1<<TOIE0);}
+
+\end{DoxyCode}
+
+
+Disable overflow interrupt, 0 -\/-\/$>$ disable. 
+
+
+
+Definition at line \textbf{ 89} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_ovf\_enable@{tim0\_ovf\_enable}}
+\index{tim0\_ovf\_enable@{tim0\_ovf\_enable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_ovf\_enable}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga385ca3024038fdac8303511287bd1222} 
+\#define tim0\+\_\+ovf\+\_\+enable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK0\ |=\ (1<<TOIE0);}
+
+\end{DoxyCode}
+
+
+Enable overflow interrupt, 1 -\/-\/$>$ enable. 
+
+
+
+Definition at line \textbf{ 86} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim0\_stop@{tim0\_stop}}
+\index{tim0\_stop@{tim0\_stop}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim0\_stop}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga6484f15611180337aa61403326f924d1} 
+\#define tim0\+\_\+stop(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR0B\ \&=\ \string~((1<<CS02)\ |\ (1<<CS01)\ |\ (1<<CS00));}
+
+\end{DoxyCode}
+
+
+Stop timer, prescaler 000 -\/-\/$>$ STOP. 
+
+
+
+Definition at line \textbf{ 68} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_1sec@{tim1\_ovf\_1sec}}
+\index{tim1\_ovf\_1sec@{tim1\_ovf\_1sec}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_1sec}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaf81b3545a8171e699a18235450ba565b} 
+\#define tim1\+\_\+ovf\+\_\+1sec(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~((1<<CS11)\ |\ (1<<CS10));\ TCCR1B\ |=\ (1<<CS12);}
+
+\end{DoxyCode}
+
+
+Set overflow 1s, prescaler 100 -\/-\/$>$ 256. 
+
+
+
+Definition at line \textbf{ 50} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_262ms@{tim1\_ovf\_262ms}}
+\index{tim1\_ovf\_262ms@{tim1\_ovf\_262ms}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_262ms}
+{\footnotesize\ttfamily \label{group__fryza__timer_gadd51272a969a158bb26b641b036f7eb1} 
+\#define tim1\+\_\+ovf\+\_\+262ms(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~(1<<CS12);\ TCCR1B\ |=\ (1<<CS11)\ |\ (1<<CS10);}
+
+\end{DoxyCode}
+
+
+Set overflow 262ms, prescaler 011 -\/-\/$>$ 64. 
+
+
+
+Definition at line \textbf{ 47} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_33ms@{tim1\_ovf\_33ms}}
+\index{tim1\_ovf\_33ms@{tim1\_ovf\_33ms}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_33ms}
+{\footnotesize\ttfamily \label{group__fryza__timer_gae356989c9434cd5797dee7f0c23f7104} 
+\#define tim1\+\_\+ovf\+\_\+33ms(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~((1<<CS12)\ |\ (1<<CS10));\ TCCR1B\ |=\ (1<<CS11);}
+
+\end{DoxyCode}
+
+
+Set overflow 33ms, prescaler 010 -\/-\/$>$ 8. 
+
+
+
+Definition at line \textbf{ 44} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_4ms@{tim1\_ovf\_4ms}}
+\index{tim1\_ovf\_4ms@{tim1\_ovf\_4ms}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_4ms}
+{\footnotesize\ttfamily \label{group__fryza__timer_gacd637b282a0cd5fec9bbaaa0d50d1de4} 
+\#define tim1\+\_\+ovf\+\_\+4ms(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~((1<<CS12)\ |\ (1<<CS11));\ TCCR1B\ |=\ (1<<CS10);}
+
+\end{DoxyCode}
+
+
+Set overflow 4ms, prescaler 001 -\/-\/$>$ 1. 
+
+
+
+Definition at line \textbf{ 41} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_4sec@{tim1\_ovf\_4sec}}
+\index{tim1\_ovf\_4sec@{tim1\_ovf\_4sec}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_4sec}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga8e4257a7c3525380b262b23e84fddf25} 
+\#define tim1\+\_\+ovf\+\_\+4sec(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~(1<<CS11);\ TCCR1B\ |=\ (1<<CS12)\ |\ (1<<CS10);}
+
+\end{DoxyCode}
+
+
+Set overflow 4s, prescaler // 101 -\/-\/$>$ 1024. 
+
+
+
+Definition at line \textbf{ 53} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_disable@{tim1\_ovf\_disable}}
+\index{tim1\_ovf\_disable@{tim1\_ovf\_disable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_disable}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga10e5de82299abd3952a37c50fa5bda90} 
+\#define tim1\+\_\+ovf\+\_\+disable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK1\ \&=\ \string~(1<<TOIE1);}
+
+\end{DoxyCode}
+
+
+Disable overflow interrupt, 0 -\/-\/$>$ disable. 
+
+
+
+Definition at line \textbf{ 59} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_ovf\_enable@{tim1\_ovf\_enable}}
+\index{tim1\_ovf\_enable@{tim1\_ovf\_enable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_ovf\_enable}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga85b064ac152cdf8ea01f837276f384bc} 
+\#define tim1\+\_\+ovf\+\_\+enable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK1\ |=\ (1<<TOIE1);}
+
+\end{DoxyCode}
+
+
+Enable overflow interrupt, 1 -\/-\/$>$ enable. 
+
+
+
+Definition at line \textbf{ 56} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim1\_stop@{tim1\_stop}}
+\index{tim1\_stop@{tim1\_stop}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim1\_stop}
+{\footnotesize\ttfamily \label{group__fryza__timer_gac7fe8fa6e7d978a01c857dc32c1cdd44} 
+\#define tim1\+\_\+stop(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR1B\ \&=\ \string~((1<<CS12)\ |\ (1<<CS11)\ |\ (1<<CS10));}
+
+\end{DoxyCode}
+
+
+Stop timer, prescaler 000 -\/-\/$>$ STOP. 
+
+
+
+Definition at line \textbf{ 38} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_1024us@{tim2\_ovf\_1024us}}
+\index{tim2\_ovf\_1024us@{tim2\_ovf\_1024us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_1024us}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga75be2f886febc082624e79be41ccc946} 
+\#define tim2\+\_\+ovf\+\_\+1024us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~((1<<CS21)\ |\ (1<<CS20));\ TCCR2B\ |=\ (1<<CS22);}
+
+\end{DoxyCode}
+
+
+Set overflow 1024us, prescaler 100 -\/-\/$>$ 64. 
+
+
+
+Definition at line \textbf{ 109} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_128us@{tim2\_ovf\_128us}}
+\index{tim2\_ovf\_128us@{tim2\_ovf\_128us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_128us}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga1ff5d8d7284b6486a6d4a1a109aaa284} 
+\#define tim2\+\_\+ovf\+\_\+128us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~((1<<CS22)\ |\ (1<<CS20));\ TCCR2B\ |=\ (1<<CS21);}
+
+\end{DoxyCode}
+
+
+Set overflow 128us, prescaler 010 -\/-\/$>$ 8. 
+
+
+
+Definition at line \textbf{ 103} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_16ms@{tim2\_ovf\_16ms}}
+\index{tim2\_ovf\_16ms@{tim2\_ovf\_16ms}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_16ms}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaf6b0c2da350233bf541988387e0ac4af} 
+\#define tim2\+\_\+ovf\+\_\+16ms(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ |=\ (1<<CS22)\ |\ (1<<CS21)\ |\ (1<<CS20);}
+
+\end{DoxyCode}
+
+
+Set overflow 16384us, prescaler 111 -\/-\/$>$ 1024. 
+
+
+
+Definition at line \textbf{ 118} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_16us@{tim2\_ovf\_16us}}
+\index{tim2\_ovf\_16us@{tim2\_ovf\_16us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_16us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gad4ddc093ecc464fce5f132c0991e17a6} 
+\#define tim2\+\_\+ovf\+\_\+16us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~((1<<CS22)\ |\ (1<<CS21));\ TCCR2B\ |=\ (1<<CS20);}
+
+\end{DoxyCode}
+
+
+Set overflow 16us, prescaler 001 -\/-\/$>$ 1. 
+
+
+
+Definition at line \textbf{ 100} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_2048us@{tim2\_ovf\_2048us}}
+\index{tim2\_ovf\_2048us@{tim2\_ovf\_2048us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_2048us}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga431093a9c5fedddc1fc5860e906c764a} 
+\#define tim2\+\_\+ovf\+\_\+2048us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~(1<<CS21);\ TCCR2B\ |=\ (1<<CS22)\ |\ (1<<CS20);}
+
+\end{DoxyCode}
+
+
+Set overflow 2048us, prescaler 101 -\/-\/$>$ 128. 
+
+
+
+Definition at line \textbf{ 112} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_4096us@{tim2\_ovf\_4096us}}
+\index{tim2\_ovf\_4096us@{tim2\_ovf\_4096us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_4096us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gad929bee3868e92eafe4a394bf1adf8dd} 
+\#define tim2\+\_\+ovf\+\_\+4096us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~(1<<CS20);\ TCCR2B\ |=\ (1<<CS22)\ |\ (1<<CS21);}
+
+\end{DoxyCode}
+
+
+Set overflow 4096us, prescaler 110 -\/-\/$>$ 256. 
+
+
+
+Definition at line \textbf{ 115} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_512us@{tim2\_ovf\_512us}}
+\index{tim2\_ovf\_512us@{tim2\_ovf\_512us}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_512us}
+{\footnotesize\ttfamily \label{group__fryza__timer_gadf008bf46c9dc4dc46b4913f3cd811b4} 
+\#define tim2\+\_\+ovf\+\_\+512us(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~(1<<CS22);\ TCCR2B\ |=\ (1<<CS21)\ |\ (1<<CS20);}
+
+\end{DoxyCode}
+
+
+Set overflow 512us, prescaler 011 -\/-\/$>$ 32. 
+
+
+
+Definition at line \textbf{ 106} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_disable@{tim2\_ovf\_disable}}
+\index{tim2\_ovf\_disable@{tim2\_ovf\_disable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_disable}
+{\footnotesize\ttfamily \label{group__fryza__timer_ga1f7e43561be4d016c806ef42aa2c89b5} 
+\#define tim2\+\_\+ovf\+\_\+disable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK2\ \&=\ \string~(1<<TOIE2);}
+
+\end{DoxyCode}
+
+
+Disable overflow interrupt, 0 -\/-\/$>$ disable. 
+
+
+
+Definition at line \textbf{ 124} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_ovf\_enable@{tim2\_ovf\_enable}}
+\index{tim2\_ovf\_enable@{tim2\_ovf\_enable}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_ovf\_enable}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaab0c29e35e8532596fed18342d7d505c} 
+\#define tim2\+\_\+ovf\+\_\+enable(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TIMSK2\ |=\ (1<<TOIE2);}
+
+\end{DoxyCode}
+
+
+Enable overflow interrupt, 1 -\/-\/$>$ enable. 
+
+
+
+Definition at line \textbf{ 121} of file \textbf{ timer.\+h}.
+
+\index{Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}!tim2\_stop@{tim2\_stop}}
+\index{tim2\_stop@{tim2\_stop}!Timer Library $<$timer.h$>$@{Timer Library $<$timer.h$>$}}
+\doxysubsubsection{tim2\_stop}
+{\footnotesize\ttfamily \label{group__fryza__timer_gaaf7091ca0c4c12b4049b2ef5b305fa59} 
+\#define tim2\+\_\+stop(\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{TCCR2B\ \&=\ \string~((1<<CS22)\ |\ (1<<CS21)\ |\ (1<<CS20));}
+
+\end{DoxyCode}
+
+
+Stop timer, prescaler 000 -\/-\/$>$ STOP. 
+
+
+
+Definition at line \textbf{ 97} of file \textbf{ timer.\+h}.
+

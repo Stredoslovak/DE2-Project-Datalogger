@@ -1,0 +1,93 @@
+\doxysection{lib/sgp41/\+Sensirion\+I2\+CSgp41.c File Reference}
+\label{_sensirion_i2_c_sgp41_8c}\index{lib/sgp41/SensirionI2CSgp41.c@{lib/sgp41/SensirionI2CSgp41.c}}
+{\ttfamily \#include "{}Sensirion\+I2\+CSgp41.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$util/delay.\+h$>$}\newline
+{\ttfamily \#include "{}twi.\+h"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ SGP41\+\_\+\+I2\+C\+\_\+\+ADDRESS}~0x59
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint16\+\_\+t \textbf{ sgp41\+\_\+execute\+Conditioning} (uint16\+\_\+t default\+Rh, uint16\+\_\+t defaultT, uint16\+\_\+t $\ast$sraw\+Voc)
+\item 
+uint16\+\_\+t \textbf{ sgp41\+\_\+measure\+Raw\+Signals} (uint16\+\_\+t relative\+Humidity, uint16\+\_\+t temperature, uint16\+\_\+t $\ast$sraw\+Voc, uint16\+\_\+t $\ast$sraw\+Nox)
+\item 
+uint16\+\_\+t \textbf{ sgp41\+\_\+execute\+Self\+Test} (uint16\+\_\+t $\ast$test\+Result)
+\item 
+uint16\+\_\+t \textbf{ sgp41\+\_\+turn\+Heater\+Off} (void)
+\item 
+uint16\+\_\+t \textbf{ sgp41\+\_\+get\+Serial\+Number} (uint16\+\_\+t serial\+Number[$\,$])
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!SGP41\_I2C\_ADDRESS@{SGP41\_I2C\_ADDRESS}}
+\index{SGP41\_I2C\_ADDRESS@{SGP41\_I2C\_ADDRESS}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{SGP41\_I2C\_ADDRESS}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_aca693b031c890577ed3629e4f53ef047} 
+\#define SGP41\+\_\+\+I2\+C\+\_\+\+ADDRESS~0x59}
+
+
+
+Definition at line \textbf{ 50} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!sgp41\_executeConditioning@{sgp41\_executeConditioning}}
+\index{sgp41\_executeConditioning@{sgp41\_executeConditioning}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{sgp41\_executeConditioning()}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_a1f147faeab485213e9a86b18e3fbfc8f} 
+uint16\+\_\+t sgp41\+\_\+execute\+Conditioning (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{default\+Rh}{, }\item[{uint16\+\_\+t}]{defaultT}{, }\item[{uint16\+\_\+t $\ast$}]{sraw\+Voc}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 127} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!sgp41\_executeSelfTest@{sgp41\_executeSelfTest}}
+\index{sgp41\_executeSelfTest@{sgp41\_executeSelfTest}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{sgp41\_executeSelfTest()}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_a3ef0f1072b7cd123ad60f03336eccb99} 
+uint16\+\_\+t sgp41\+\_\+execute\+Self\+Test (\begin{DoxyParamCaption}\item[{uint16\+\_\+t $\ast$}]{test\+Result}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 157} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!sgp41\_getSerialNumber@{sgp41\_getSerialNumber}}
+\index{sgp41\_getSerialNumber@{sgp41\_getSerialNumber}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{sgp41\_getSerialNumber()}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_a6cce1c012608b10ecf4a24e3bc2df736} 
+uint16\+\_\+t sgp41\+\_\+get\+Serial\+Number (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{serial\+Number}{[$\,$]}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 176} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!sgp41\_measureRawSignals@{sgp41\_measureRawSignals}}
+\index{sgp41\_measureRawSignals@{sgp41\_measureRawSignals}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{sgp41\_measureRawSignals()}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_a6c91436bf1a691e0e5b628cd33443a35} 
+uint16\+\_\+t sgp41\+\_\+measure\+Raw\+Signals (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{relative\+Humidity}{, }\item[{uint16\+\_\+t}]{temperature}{, }\item[{uint16\+\_\+t $\ast$}]{sraw\+Voc}{, }\item[{uint16\+\_\+t $\ast$}]{sraw\+Nox}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 141} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+
+\index{SensirionI2CSgp41.c@{SensirionI2CSgp41.c}!sgp41\_turnHeaterOff@{sgp41\_turnHeaterOff}}
+\index{sgp41\_turnHeaterOff@{sgp41\_turnHeaterOff}!SensirionI2CSgp41.c@{SensirionI2CSgp41.c}}
+\doxysubsubsection{sgp41\_turnHeaterOff()}
+{\footnotesize\ttfamily \label{_sensirion_i2_c_sgp41_8c_aae99c1908566e65eaab3598d154b6e5f} 
+uint16\+\_\+t sgp41\+\_\+turn\+Heater\+Off (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 169} of file \textbf{ Sensirion\+I2\+CSgp41.\+c}.
+

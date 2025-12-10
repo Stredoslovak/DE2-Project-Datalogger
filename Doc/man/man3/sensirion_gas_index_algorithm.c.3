@@ -1,0 +1,178 @@
+.TH "lib/gas_index_algorithm/sensirion_gas_index_algorithm.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/gas_index_algorithm/sensirion_gas_index_algorithm.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'sensirion_gas_index_algorithm\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBFIX16_MAXIMUM\fP   0x7FFFFFFF"
+.br
+.ti -1c
+.RI "#define \fBFIX16_MINIMUM\fP   0x80000000"
+.br
+.ti -1c
+.RI "#define \fBFIX16_OVERFLOW\fP   0x80000000"
+.br
+.ti -1c
+.RI "#define \fBFIX16_ONE\fP   0x00010000"
+.br
+.ti -1c
+.RI "#define \fBNUM_EXP_VALUES\fP   4"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_init\fP (\fBGasIndexAlgorithmParams\fP *params, int32_t algorithm_type)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_reset\fP (\fBGasIndexAlgorithmParams\fP *params)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_get_states\fP (const \fBGasIndexAlgorithmParams\fP *params, int32_t *state0, int32_t *state1)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_set_states\fP (\fBGasIndexAlgorithmParams\fP *params, int32_t state0, int32_t state1)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_set_tuning_parameters\fP (\fBGasIndexAlgorithmParams\fP *params, int32_t index_offset, int32_t learning_time_offset_hours, int32_t learning_time_gain_hours, int32_t gating_max_duration_minutes, int32_t std_initial, int32_t gain_factor)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_get_tuning_parameters\fP (const \fBGasIndexAlgorithmParams\fP *params, int32_t *index_offset, int32_t *learning_time_offset_hours, int32_t *learning_time_gain_hours, int32_t *gating_max_duration_minutes, int32_t *std_initial, int32_t *gain_factor)"
+.br
+.ti -1c
+.RI "void \fBGasIndexAlgorithm_process\fP (\fBGasIndexAlgorithmParams\fP *params, int32_t sraw, int32_t *gas_index)"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define FIX16_MAXIMUM   0x7FFFFFFF"
+< the maximum value of \fBfix16_t\fP the minimum value of \fBfix16_t\fP 
+.PP
+Definition at line \fB35\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "#define FIX16_MINIMUM   0x80000000"
+the value used to indicate overflows when FIXMATH_NO_OVERFLOW is not specified 
+.PP
+Definition at line \fB37\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "#define FIX16_ONE   0x00010000"
+
+.PP
+Definition at line \fB42\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "#define FIX16_OVERFLOW   0x80000000"
+\fBfix16_t\fP value of 1 
+.PP
+Definition at line \fB40\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "#define NUM_EXP_VALUES   4"
+
+.SH "Function Documentation"
+.PP 
+.SS "void GasIndexAlgorithm_get_states (const \fBGasIndexAlgorithmParams\fP * params, int32_t * state0, int32_t * state1)"
+Get current algorithm states\&. Retrieved values can be used in \fBGasIndexAlgorithm_set_states()\fP to resume operation after a short interruption, skipping initial learning phase\&. NOTE: This feature can only be used for VOC algorithm type and after at least 3 hours of continuous operation\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.br
+\fIstate0\fP State0 to be stored 
+.br
+\fIstate1\fP State1 to be stored 
+.RE
+.PP
+
+.PP
+Definition at line \fB380\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_get_tuning_parameters (const \fBGasIndexAlgorithmParams\fP * params, int32_t * index_offset, int32_t * learning_time_offset_hours, int32_t * learning_time_gain_hours, int32_t * gating_max_duration_minutes, int32_t * std_initial, int32_t * gain_factor)"
+Get current parameters to customize the gas index algorithm\&. Refer to \fBGasIndexAlgorithm_set_tuning_parameters()\fP for description of the parameters\&. 
+.PP
+Definition at line \fB416\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_init (\fBGasIndexAlgorithmParams\fP * params, int32_t algorithm_type)"
+Initialize the gas index algorithm parameters for the specified algorithm type and reset its internal states\&. Call this once at the beginning\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.br
+\fIalgorithm_type\fP 0 (GasIndexAlgorithm_ALGORITHM_TYPE_VOC) for VOC or 1 (GasIndexAlgorithm_ALGORITHM_TYPE_NOX) for NOx 
+.RE
+.PP
+
+.PP
+Definition at line \fB321\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_process (\fBGasIndexAlgorithmParams\fP * params, int32_t sraw, int32_t * gas_index)"
+Calculate the gas index value from the raw sensor value\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.br
+\fIsraw\fP Raw value from the SGP4x sensor 
+.br
+\fIgas_index\fP Calculated gas index value from the raw sensor value\&. Zero during initial blackout period and 1\&.\&.500 afterwards 
+.RE
+.PP
+
+.PP
+Definition at line \fB433\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_reset (\fBGasIndexAlgorithmParams\fP * params)"
+Reset the internal states of the gas index algorithm\&. Previously set tuning parameters are preserved\&. Call this when resuming operation after a measurement interruption\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.RE
+.PP
+
+.PP
+Definition at line \fB353\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_set_states (\fBGasIndexAlgorithmParams\fP * params, int32_t state0, int32_t state1)"
+Set previously retrieved algorithm states to resume operation after a short interruption, skipping initial learning phase\&. This feature should not be used after interruptions of more than 10 minutes\&. Call this once after \fBGasIndexAlgorithm_init()\fP or \fBGasIndexAlgorithm_reset()\fP and the optional \fBGasIndexAlgorithm_set_tuning_parameters()\fP, if desired\&. Otherwise, the algorithm will start with initial learning phase\&. NOTE: This feature can only be used for VOC algorithm type\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.br
+\fIstate0\fP State0 to be restored 
+.br
+\fIstate1\fP State1 to be restored 
+.RE
+.PP
+
+.PP
+Definition at line \fB388\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SS "void GasIndexAlgorithm_set_tuning_parameters (\fBGasIndexAlgorithmParams\fP * params, int32_t index_offset, int32_t learning_time_offset_hours, int32_t learning_time_gain_hours, int32_t gating_max_duration_minutes, int32_t std_initial, int32_t gain_factor)"
+Set parameters to customize the gas index algorithm\&. Call this once after \fBGasIndexAlgorithm_init()\fP and before optional \fBGasIndexAlgorithm_set_states()\fP, if desired\&. Otherwise, the default values will be used\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIparams\fP Pointer to the \fBGasIndexAlgorithmParams\fP struct 
+.br
+\fIindex_offset\fP Gas index representing typical (average) conditions\&. Range 1\&.\&.250, default 100 for VOC and 1 for NOx 
+.br
+\fIlearning_time_offset_hours\fP Time constant of long-term estimator for offset\&. Past events will be forgotten after about twice the learning time\&. Range 1\&.\&.1000 [hours], default 12 [hours] 
+.br
+\fIlearning_time_gain_hours\fP Time constant of long-term estimator for gain\&. Past events will be forgotten after about twice the learning time\&. Range 1\&.\&.1000 [hours], default 12 [hours] NOTE: This value is not relevant for NOx algorithm type 
+.br
+\fIgating_max_duration_minutes\fP Maximum duration of gating (freeze of estimator during high gas index signal)\&. 0 (no gating) or range 1\&.\&.3000 [minutes], default 180 [minutes] for VOC and 720 [minutes] for NOx 
+.br
+\fIstd_initial\fP Initial estimate for standard deviation\&. Lower value boosts events during initial learning period, but may result in larger device-to-device variations\&. Range 10\&.\&.5000, default 50 NOTE: This value is not relevant for NOx algorithm type 
+.br
+\fIgain_factor\fP Factor used to scale applied gain value when calculating gas index\&. Range 1\&.\&.1000, default 230 
+.RE
+.PP
+
+.PP
+Definition at line \fB400\fP of file \fBsensirion_gas_index_algorithm\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

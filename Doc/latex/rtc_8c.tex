@@ -1,0 +1,234 @@
+\doxysection{lib/rtc/rtc.c File Reference}
+\label{rtc_8c}\index{lib/rtc/rtc.c@{lib/rtc/rtc.c}}
+{\ttfamily \#include "{}rtc.\+h"{}}\newline
+{\ttfamily \#include $<$twi.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ RTC\+\_\+\+ADDRESS}~0x68
+\item 
+\#define \textbf{ RTC\+\_\+\+SEC}~0x00
+\item 
+\#define \textbf{ RTC\+\_\+\+MIN}~0x01
+\item 
+\#define \textbf{ RTC\+\_\+\+HOUR}~0x02
+\item 
+\#define \textbf{ RTC\+\_\+\+DAY}~0x03
+\item 
+\#define \textbf{ RTC\+\_\+\+DATE}~0x04
+\item 
+\#define \textbf{ RTC\+\_\+\+MONTH}~0x05
+\item 
+\#define \textbf{ RTC\+\_\+\+YEAR}~0x06
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ rtc\+\_\+setup} (void)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+read\+\_\+reg} (uint8\+\_\+t reg\+\_\+addr)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+write\+\_\+reg} (uint8\+\_\+t reg\+\_\+addr, uint8\+\_\+t \textbf{ data})
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+set\+\_\+time} (uint8\+\_\+t hours, uint8\+\_\+t minutes, uint8\+\_\+t seconds)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+get\+\_\+time} (uint8\+\_\+t $\ast$hours, uint8\+\_\+t $\ast$minutes, uint8\+\_\+t $\ast$seconds)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+get\+\_\+date} (uint8\+\_\+t $\ast$date, uint8\+\_\+t $\ast$month, uint8\+\_\+t $\ast$year)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+get\+\_\+day} (uint8\+\_\+t $\ast$day)
+\item 
+uint8\+\_\+t \textbf{ rtc\+\_\+set\+\_\+date} (uint8\+\_\+t day, uint8\+\_\+t date, uint8\+\_\+t month, uint8\+\_\+t year)
+\item 
+uint8\+\_\+t \textbf{ RTC\+\_\+read} (void)
+\item 
+unsigned char \textbf{ get\+Date\+Time\+\_\+\+FAT} (void)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{rtc.c@{rtc.c}!RTC\_ADDRESS@{RTC\_ADDRESS}}
+\index{RTC\_ADDRESS@{RTC\_ADDRESS}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_ADDRESS}
+{\footnotesize\ttfamily \label{rtc_8c_a7c5d1c7f4a102bc090361b840c211815} 
+\#define RTC\+\_\+\+ADDRESS~0x68}
+
+
+
+Definition at line \textbf{ 5} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_DATE@{RTC\_DATE}}
+\index{RTC\_DATE@{RTC\_DATE}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_DATE}
+{\footnotesize\ttfamily \label{rtc_8c_a6f25f228247dc102195a2adf70311dc5} 
+\#define RTC\+\_\+\+DATE~0x04}
+
+
+
+Definition at line \textbf{ 12} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_DAY@{RTC\_DAY}}
+\index{RTC\_DAY@{RTC\_DAY}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_DAY}
+{\footnotesize\ttfamily \label{rtc_8c_a8645ae13bb42ddf10d3ca762a8754160} 
+\#define RTC\+\_\+\+DAY~0x03}
+
+
+
+Definition at line \textbf{ 11} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_HOUR@{RTC\_HOUR}}
+\index{RTC\_HOUR@{RTC\_HOUR}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_HOUR}
+{\footnotesize\ttfamily \label{rtc_8c_a7264eac87ffc91cbdea1239d346a0ea4} 
+\#define RTC\+\_\+\+HOUR~0x02}
+
+
+
+Definition at line \textbf{ 10} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_MIN@{RTC\_MIN}}
+\index{RTC\_MIN@{RTC\_MIN}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_MIN}
+{\footnotesize\ttfamily \label{rtc_8c_a34fc4e7c0e5db231217aa3174e394c72} 
+\#define RTC\+\_\+\+MIN~0x01}
+
+
+
+Definition at line \textbf{ 9} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_MONTH@{RTC\_MONTH}}
+\index{RTC\_MONTH@{RTC\_MONTH}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_MONTH}
+{\footnotesize\ttfamily \label{rtc_8c_abda0c877ee1a02b8351c0cfe72838088} 
+\#define RTC\+\_\+\+MONTH~0x05}
+
+
+
+Definition at line \textbf{ 13} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_SEC@{RTC\_SEC}}
+\index{RTC\_SEC@{RTC\_SEC}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_SEC}
+{\footnotesize\ttfamily \label{rtc_8c_a2507e650d4ccc8a2bdf3001800a3e743} 
+\#define RTC\+\_\+\+SEC~0x00}
+
+
+
+Definition at line \textbf{ 8} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_YEAR@{RTC\_YEAR}}
+\index{RTC\_YEAR@{RTC\_YEAR}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_YEAR}
+{\footnotesize\ttfamily \label{rtc_8c_a1df5568e6774b73aa4c6e59fc40e9147} 
+\#define RTC\+\_\+\+YEAR~0x06}
+
+
+
+Definition at line \textbf{ 14} of file \textbf{ rtc.\+c}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{rtc.c@{rtc.c}!getDateTime\_FAT@{getDateTime\_FAT}}
+\index{getDateTime\_FAT@{getDateTime\_FAT}!rtc.c@{rtc.c}}
+\doxysubsubsection{getDateTime\_FAT()}
+{\footnotesize\ttfamily \label{rtc_8c_a9dfbd47cdd42bf1609c1387e6748e3fe} 
+unsigned char get\+Date\+Time\+\_\+\+FAT (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 104} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_get\_date@{rtc\_get\_date}}
+\index{rtc\_get\_date@{rtc\_get\_date}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_get\_date()}
+{\footnotesize\ttfamily \label{rtc_8c_ad717541b89e9994b09d93143c63f2780} 
+uint8\+\_\+t rtc\+\_\+get\+\_\+date (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{date}{, }\item[{uint8\+\_\+t $\ast$}]{month}{, }\item[{uint8\+\_\+t $\ast$}]{year}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 73} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_get\_day@{rtc\_get\_day}}
+\index{rtc\_get\_day@{rtc\_get\_day}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_get\_day()}
+{\footnotesize\ttfamily \label{rtc_8c_a359f9e6a7c4c3cf49ace892e2ae6db4a} 
+uint8\+\_\+t rtc\+\_\+get\+\_\+day (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{day}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 85} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_get\_time@{rtc\_get\_time}}
+\index{rtc\_get\_time@{rtc\_get\_time}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_get\_time()}
+{\footnotesize\ttfamily \label{rtc_8c_a5fd68511548c076d53dcb38b9a4f8a93} 
+uint8\+\_\+t rtc\+\_\+get\+\_\+time (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{hours}{, }\item[{uint8\+\_\+t $\ast$}]{minutes}{, }\item[{uint8\+\_\+t $\ast$}]{seconds}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 61} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!RTC\_read@{RTC\_read}}
+\index{RTC\_read@{RTC\_read}!rtc.c@{rtc.c}}
+\doxysubsubsection{RTC\_read()}
+{\footnotesize\ttfamily \label{rtc_8c_a148dbe6b6b460d7bb726cce2dca58570} 
+uint8\+\_\+t RTC\+\_\+read (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 99} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_read\_reg@{rtc\_read\_reg}}
+\index{rtc\_read\_reg@{rtc\_read\_reg}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_read\_reg()}
+{\footnotesize\ttfamily \label{rtc_8c_ac254e8a8b1406650814b524825758ab3} 
+uint8\+\_\+t rtc\+\_\+read\+\_\+reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+\_\+addr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 41} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_set\_date@{rtc\_set\_date}}
+\index{rtc\_set\_date@{rtc\_set\_date}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_set\_date()}
+{\footnotesize\ttfamily \label{rtc_8c_ad3d2e11bb778711aeb50bf06c52b315a} 
+uint8\+\_\+t rtc\+\_\+set\+\_\+date (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{day}{, }\item[{uint8\+\_\+t}]{date}{, }\item[{uint8\+\_\+t}]{month}{, }\item[{uint8\+\_\+t}]{year}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 91} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_set\_time@{rtc\_set\_time}}
+\index{rtc\_set\_time@{rtc\_set\_time}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_set\_time()}
+{\footnotesize\ttfamily \label{rtc_8c_a5025fa28b2f1b384d447f82ad713835d} 
+uint8\+\_\+t rtc\+\_\+set\+\_\+time (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{hours}{, }\item[{uint8\+\_\+t}]{minutes}{, }\item[{uint8\+\_\+t}]{seconds}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 53} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_setup@{rtc\_setup}}
+\index{rtc\_setup@{rtc\_setup}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_setup()}
+{\footnotesize\ttfamily \label{rtc_8c_ae83559199d1a128c09c800d2622d5628} 
+void rtc\+\_\+setup (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 28} of file \textbf{ rtc.\+c}.
+
+\index{rtc.c@{rtc.c}!rtc\_write\_reg@{rtc\_write\_reg}}
+\index{rtc\_write\_reg@{rtc\_write\_reg}!rtc.c@{rtc.c}}
+\doxysubsubsection{rtc\_write\_reg()}
+{\footnotesize\ttfamily \label{rtc_8c_ac6147d7bbf059b4614b2781c1a5ae4f6} 
+uint8\+\_\+t rtc\+\_\+write\+\_\+reg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{reg\+\_\+addr}{, }\item[{uint8\+\_\+t}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \textbf{ 48} of file \textbf{ rtc.\+c}.
+

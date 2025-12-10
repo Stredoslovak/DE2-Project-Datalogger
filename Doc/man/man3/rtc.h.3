@@ -1,0 +1,228 @@
+.TH "lib/rtc/rtc.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/rtc/rtc.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdint\&.h>\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBRTC_ADDRESS\fP   0x68"
+.br
+.ti -1c
+.RI "#define \fBRTC_SEC\fP   0x00  /* Seconds (and CH bit) */"
+.br
+.ti -1c
+.RI "#define \fBRTC_MIN\fP   0x01  /* Minutes */"
+.br
+.ti -1c
+.RI "#define \fBRTC_HOUR\fP   0x02  /* Hours (12/24 bit) */"
+.br
+.ti -1c
+.RI "#define \fBRTC_DAY\fP   0x03  /* Day of week */"
+.br
+.ti -1c
+.RI "#define \fBRTC_DATE\fP   0x04  /* Date (day of month) */"
+.br
+.ti -1c
+.RI "#define \fBRTC_MONTH\fP   0x05  /* Month */"
+.br
+.ti -1c
+.RI "#define \fBRTC_YEAR\fP   0x06  /* Year (00\&.\&.99) */"
+.br
+.ti -1c
+.RI "#define \fBRTC_CONTROL\fP   0x07  /* Control register (square\-wave output) */"
+.br
+.ti -1c
+.RI "#define \fBSECONDS\fP   \fBrtc_register\fP[0]"
+.br
+.ti -1c
+.RI "#define \fBMINUTES\fP   \fBrtc_register\fP[1]"
+.br
+.ti -1c
+.RI "#define \fBHOURS\fP   \fBrtc_register\fP[2]"
+.br
+.ti -1c
+.RI "#define \fBDAY\fP   \fBrtc_register\fP[3]"
+.br
+.ti -1c
+.RI "#define \fBDATE\fP   \fBrtc_register\fP[4]"
+.br
+.ti -1c
+.RI "#define \fBMONTH\fP   \fBrtc_register\fP[5]"
+.br
+.ti -1c
+.RI "#define \fBYEAR\fP   \fBrtc_register\fP[6]"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBrtc_setup\fP (void)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_read_reg\fP (uint8_t reg_addr)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_write_reg\fP (uint8_t reg_addr, uint8_t \fBdata\fP)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_set_time\fP (uint8_t hours, uint8_t minutes, uint8_t seconds)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_get_time\fP (uint8_t *hours, uint8_t *minutes, uint8_t *seconds)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_set_date\fP (uint8_t day, uint8_t date, uint8_t month, uint8_t year)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_get_date\fP (uint8_t *date, uint8_t *month, uint8_t *year)"
+.br
+.ti -1c
+.RI "uint8_t \fBrtc_get_day\fP (uint8_t *day)"
+.br
+.ti -1c
+.RI "unsigned char \fBgetDateTime_FAT\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBrtc_register\fP [7]"
+.br
+.ti -1c
+.RI "unsigned int \fBdateFAT\fP"
+.br
+.ti -1c
+.RI "unsigned int \fBtimeFAT\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define DATE   \fBrtc_register\fP[4]"
+
+.PP
+Definition at line \fB25\fP of file \fBrtc\&.h\fP\&.
+.SS "#define DAY   \fBrtc_register\fP[3]"
+
+.PP
+Definition at line \fB24\fP of file \fBrtc\&.h\fP\&.
+.SS "#define HOURS   \fBrtc_register\fP[2]"
+
+.PP
+Definition at line \fB23\fP of file \fBrtc\&.h\fP\&.
+.SS "#define MINUTES   \fBrtc_register\fP[1]"
+
+.PP
+Definition at line \fB22\fP of file \fBrtc\&.h\fP\&.
+.SS "#define MONTH   \fBrtc_register\fP[5]"
+
+.PP
+Definition at line \fB26\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_ADDRESS   0x68"
+
+.PP
+Definition at line \fB8\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_CONTROL   0x07  /* Control register (square\-wave output) */"
+
+.PP
+Definition at line \fB18\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_DATE   0x04  /* Date (day of month) */"
+
+.PP
+Definition at line \fB15\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_DAY   0x03  /* Day of week */"
+
+.PP
+Definition at line \fB14\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_HOUR   0x02  /* Hours (12/24 bit) */"
+
+.PP
+Definition at line \fB13\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_MIN   0x01  /* Minutes */"
+
+.PP
+Definition at line \fB12\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_MONTH   0x05  /* Month */"
+
+.PP
+Definition at line \fB16\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_SEC   0x00  /* Seconds (and CH bit) */"
+
+.PP
+Definition at line \fB11\fP of file \fBrtc\&.h\fP\&.
+.SS "#define RTC_YEAR   0x06  /* Year (00\&.\&.99) */"
+
+.PP
+Definition at line \fB17\fP of file \fBrtc\&.h\fP\&.
+.SS "#define SECONDS   \fBrtc_register\fP[0]"
+
+.PP
+Definition at line \fB21\fP of file \fBrtc\&.h\fP\&.
+.SS "#define YEAR   \fBrtc_register\fP[6]"
+
+.PP
+Definition at line \fB27\fP of file \fBrtc\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "unsigned char getDateTime_FAT (void )"
+
+.PP
+Definition at line \fB104\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_get_date (uint8_t * date, uint8_t * month, uint8_t * year)"
+
+.PP
+Definition at line \fB73\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_get_day (uint8_t * day)"
+
+.PP
+Definition at line \fB85\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_get_time (uint8_t * hours, uint8_t * minutes, uint8_t * seconds)"
+
+.PP
+Definition at line \fB61\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_read_reg (uint8_t reg_addr)"
+
+.PP
+Definition at line \fB41\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_set_date (uint8_t day, uint8_t date, uint8_t month, uint8_t year)"
+
+.PP
+Definition at line \fB91\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_set_time (uint8_t hours, uint8_t minutes, uint8_t seconds)"
+
+.PP
+Definition at line \fB53\fP of file \fBrtc\&.c\fP\&.
+.SS "void rtc_setup (void )"
+
+.PP
+Definition at line \fB28\fP of file \fBrtc\&.c\fP\&.
+.SS "uint8_t rtc_write_reg (uint8_t reg_addr, uint8_t data)"
+
+.PP
+Definition at line \fB48\fP of file \fBrtc\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "unsigned int dateFAT"
+
+.PP
+Definition at line \fB30\fP of file \fBrtc\&.h\fP\&.
+.SS "unsigned char rtc_register[7]"
+
+.PP
+Definition at line \fB29\fP of file \fBrtc\&.h\fP\&.
+.SS "unsigned int timeFAT"
+
+.PP
+Definition at line \fB30\fP of file \fBrtc\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

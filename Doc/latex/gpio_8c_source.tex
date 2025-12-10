@@ -1,0 +1,109 @@
+\doxysection{gpio.\+c}
+\label{gpio_8c_source}\index{lib/gpio/gpio.c@{lib/gpio/gpio.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ }}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ GPIO\ library\ for\ AVR-\/GCC.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ (c)\ 2019-\/2024\ Tomas\ Fryza,\ MIT\ license}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Developed\ using\ PlatformIO\ and\ AVR\ 8-\/bit\ Toolchain\ 3.6.2.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Tested\ on\ Arduino\ Uno\ board\ and\ ATmega328P,\ 16\ MHz.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ -\/-\/\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <gpio.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ -\/-\/\ Function\ definitions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00014\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ Function:\ gpio\_mode\_output()}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ Purpose:\ \ Configure\ one\ output\ pin.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ Input(s):\ reg\ -\/\ Address\ of\ Data\ Direction\ Register,\ such\ as\ \&DDRB}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ pin\ -\/\ Pin\ designation\ in\ the\ interval\ 0\ to\ 7}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}\ gpio\_mode\_output(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \ \ *reg\ =\ *reg\ |\ (1<<pin);}
+\DoxyCodeLine{00024\ \}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ Function:\ gpio\_mode\_input\_pullup()}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ Purpose:\ \ Configure\ one\ input\ pin\ and\ enable\ pull-\/up.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ Input(s):\ reg\ -\/\ Address\ of\ Data\ Direction\ Register,\ such\ as\ \&DDRB}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ pin\ -\/\ Pin\ designation\ in\ the\ interval\ 0\ to\ 7}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{void}\ gpio\_mode\_input\_pullup(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ \ \ *reg\ =\ *reg\ \&\ \string~(1<<pin);\ \ \textcolor{comment}{//\ Data\ Direction\ Register}}
+\DoxyCodeLine{00037\ \ \ \ \ reg++;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Change\ pointer\ to\ Data\ Register}}
+\DoxyCodeLine{00038\ \ \ \ \ *reg\ =\ *reg\ |\ (1<<pin);\ \ \ \textcolor{comment}{//\ Data\ Register}}
+\DoxyCodeLine{00039\ \}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ *\ Function:\ gpio\_write\_low()}}
+\DoxyCodeLine{00044\ \textcolor{comment}{\ *\ Purpose:\ \ Write\ one\ pin\ to\ low\ value.}}
+\DoxyCodeLine{00045\ \textcolor{comment}{\ *\ Input(s):\ reg\ -\/\ Address\ of\ Port\ Register,\ such\ as\ \&PORTB}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ pin\ -\/\ Pin\ designation\ in\ the\ interval\ 0\ to\ 7}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00049\ \textcolor{keywordtype}{void}\ gpio\_write\_low(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00050\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ *reg\ =\ *reg\ \&\ \string~(1<<pin);}
+\DoxyCodeLine{00052\ \}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ *\ Function:\ gpio\_write\_high()}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ *\ Purpose:\ \ Write\ one\ pin\ to\ high\ value.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ *\ Input(s):\ reg\ -\/\ Address\ of\ Port\ Register,\ such\ as\ \&PORTB}}
+\DoxyCodeLine{00059\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ pin\ -\/\ Pin\ designation\ in\ the\ interval\ 0\ to\ 7}}
+\DoxyCodeLine{00060\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00062\ \textcolor{keywordtype}{void}\ gpio\_write\_high(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00063\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ *reg\ =\ *reg\ |\ (1<<pin);}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ Function:\ gpio\_read()}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Purpose:\ \ Read\ a\ value\ from\ input\ pin.}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ *\ Input(s):\ reg\ -\/\ Address\ of\ Pin\ Register,\ such\ as\ \&PINB}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ pin\ -\/\ Pin\ designation\ in\ the\ interval\ 0\ to\ 7}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\ *\ Returns:\ \ Pin\ value}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00075\ uint8\_t\ gpio\_read(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ \ \ \ \ uint8\_t\ temp;}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ temp\ =\ *reg\ \&\ (1<<pin);}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{if}\ (temp\ !=\ 0)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00083\ \ \ \ \ \}}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{keywordtype}{void}\ gpio\_mode\_input\_nopull(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00092\ \{}
+\DoxyCodeLine{00093\ \ \ \ \ *reg\ =\ *reg\ \&\ \string~(1<<pin);}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{keywordtype}{void}\ gpio\_toggle(\textcolor{keyword}{volatile}\ uint8\_t\ *reg,\ uint8\_t\ pin)}
+\DoxyCodeLine{00099\ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ *reg\ =\ *reg\ \string^\ (1\ <<\ pin);}
+\DoxyCodeLine{00101\ \ \ \ \ reg++;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Change\ pointer\ to\ Data\ Register}}
+\DoxyCodeLine{00102\ \ \ \ \ *reg\ =\ *reg\ \&\ \string~(1<<pin);}
+\DoxyCodeLine{00103\ \ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,194 @@
+\doxysection{bme.\+c}
+\label{bme_8c_source}\index{src/bme.c@{src/bme.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <util/delay.h>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}twi.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}bme280.h"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{comment}{/*\ Expose\ simple\ init\ +\ single-\/measure\ API\ for\ integration\ into\ a\ combined\ main}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ The\ file\ provides:}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ \ -\/\ int\ bme\_init\_simple(struct\ bme280\_dev\ *dev,\ uint8\_t\ dev\_addr)}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ \ -\/\ int\ bme\_read\_once(struct\ bme280\_dev\ *dev,\ int32\_t\ *t100,\ uint32\_t\ *press\_pa,\ uint32\_t\ *hum\_x1024)}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ Note:\ this\ module\ uses\ the\ project's\ TWI\ helper\ functions\ (twi.h)\ for\ I2C}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ callbacks.\ The\ caller\ must\ call\ \`{}twi\_init()`\ before\ \`{}bme\_init\_simple()`\ and}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ is\ responsible\ for\ UART\ output.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{comment}{/*\ Manufacturer\ integer\ compensation\ functions\ (from\ Bosch\ Sensortec).\ Returns:}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ -\/\ Temperature:\ int32\ in\ 0.01\ degC}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ -\/\ Pressure:\ uint32\ in\ Q24.8\ (Pa\ *\ 256)}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ -\/\ Humidity:\ uint32\ in\ Q22.10\ (percent\ *\ 1024)}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{static}\ int32\_t\ BME280\_compensate\_T\_int32(int32\_t\ adc\_T,\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib)}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ \ \ \ \ int32\_t\ var1,\ var2,\ T;}
+\DoxyCodeLine{00027\ \ \ \ \ var1\ =\ ((((adc\_T\ >>\ 3)\ -\/\ ((int32\_t)calib-\/>dig\_t1\ <<\ 1)))\ *\ ((int32\_t)calib-\/>dig\_t2))\ >>\ 11;}
+\DoxyCodeLine{00028\ \ \ \ \ var2\ =\ (((((adc\_T\ >>\ 4)\ -\/\ ((int32\_t)calib-\/>dig\_t1))\ *\ ((adc\_T\ >>\ 4)\ -\/\ ((int32\_t)calib-\/>dig\_t1)))\ >>\ 12)\ *}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \ \ \ \ ((int32\_t)calib-\/>dig\_t3))\ >>\ 14;}
+\DoxyCodeLine{00030\ \ \ \ \ calib-\/>t\_fine\ =\ var1\ +\ var2;}
+\DoxyCodeLine{00031\ \ \ \ \ T\ =\ (calib-\/>t\_fine\ *\ 5\ +\ 128)\ >>\ 8;}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ T;}
+\DoxyCodeLine{00033\ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{static}\ uint32\_t\ BME280\_compensate\_P\_int64(int32\_t\ adc\_P,\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib)}
+\DoxyCodeLine{00036\ \{}
+\DoxyCodeLine{00037\ \ \ \ \ int64\_t\ var1,\ var2,\ p;}
+\DoxyCodeLine{00038\ \ \ \ \ var1\ =\ ((int64\_t)calib-\/>t\_fine)\ -\/\ 128000;}
+\DoxyCodeLine{00039\ \ \ \ \ var2\ =\ var1\ *\ var1\ *\ (int64\_t)calib-\/>dig\_p6;}
+\DoxyCodeLine{00040\ \ \ \ \ var2\ =\ var2\ +\ ((var1\ *\ (int64\_t)calib-\/>dig\_p5)\ <<\ 17);}
+\DoxyCodeLine{00041\ \ \ \ \ var2\ =\ var2\ +\ (((int64\_t)calib-\/>dig\_p4)\ <<\ 35);}
+\DoxyCodeLine{00042\ \ \ \ \ var1\ =\ ((var1\ *\ var1\ *\ (int64\_t)calib-\/>dig\_p3)\ >>\ 8)\ +\ ((var1\ *\ (int64\_t)calib-\/>dig\_p2)\ <<\ 12);}
+\DoxyCodeLine{00043\ \ \ \ \ var1\ =\ (((((int64\_t)1)\ <<\ 47)\ +\ var1)\ *\ ((int64\_t)calib-\/>dig\_p1))\ >>\ 33;}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{if}\ (var1\ ==\ 0)}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{/*\ avoid\ exception\ caused\ by\ division\ by\ zero\ */}}
+\DoxyCodeLine{00047\ \ \ \ \ \}}
+\DoxyCodeLine{00048\ \ \ \ \ p\ =\ 1048576\ -\/\ adc\_P;}
+\DoxyCodeLine{00049\ \ \ \ \ p\ =\ (((p\ <<\ 31)\ -\/\ var2)\ *\ 3125)\ /\ var1;}
+\DoxyCodeLine{00050\ \ \ \ \ var1\ =\ (((int64\_t)calib-\/>dig\_p9)\ *\ (p\ >>\ 13)\ *\ (p\ >>\ 13))\ >>\ 25;}
+\DoxyCodeLine{00051\ \ \ \ \ var2\ =\ (((int64\_t)calib-\/>dig\_p8)\ *\ p)\ >>\ 19;}
+\DoxyCodeLine{00052\ \ \ \ \ p\ =\ ((p\ +\ var1\ +\ var2)\ >>\ 8)\ +\ (((int64\_t)calib-\/>dig\_p7)\ <<\ 4);}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)p;}
+\DoxyCodeLine{00054\ \}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{static}\ uint32\_t\ bme280\_compensate\_H\_int32(int32\_t\ adc\_H,\ \textcolor{keyword}{struct}\ bme280\_calib\_data\ *calib)}
+\DoxyCodeLine{00057\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ int32\_t\ v\_x1\_u32r;}
+\DoxyCodeLine{00059\ \ \ \ \ v\_x1\_u32r\ =\ (calib-\/>t\_fine\ -\/\ ((int32\_t)76800));}
+\DoxyCodeLine{00060\ \ \ \ \ v\_x1\_u32r\ =\ (((((adc\_H\ <<\ 14)\ -\/\ (((int32\_t)calib-\/>dig\_h4)\ <<\ 20)\ -\/\ (((int32\_t)calib-\/>dig\_h5)\ *\ v\_x1\_u32r))\ +\ ((int32\_t)16384))\ >>\ 15)\ *}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (((((((v\_x1\_u32r\ *\ ((int32\_t)calib-\/>dig\_h6))\ >>\ 10)\ *\ (((v\_x1\_u32r\ *\ ((int32\_t)calib-\/>dig\_h3))\ >>\ 11)\ +\ ((int32\_t)32768)))\ >>\ 10)\ +\ ((int32\_t)2097152))\ *\ ((int32\_t)calib-\/>dig\_h2)\ +\ 8192)\ >>\ 14));}
+\DoxyCodeLine{00062\ \ \ \ \ v\_x1\_u32r\ =\ (v\_x1\_u32r\ -\/\ (((((v\_x1\_u32r\ >>\ 15)\ *\ (v\_x1\_u32r\ >>\ 15))\ >>\ 7)\ *\ ((int32\_t)calib-\/>dig\_h1))\ >>\ 4));}
+\DoxyCodeLine{00063\ \ \ \ \ v\_x1\_u32r\ =\ (v\_x1\_u32r\ <\ 0\ ?\ 0\ :\ v\_x1\_u32r);}
+\DoxyCodeLine{00064\ \ \ \ \ v\_x1\_u32r\ =\ (v\_x1\_u32r\ >\ 419430400\ ?\ 419430400\ :\ v\_x1\_u32r);}
+\DoxyCodeLine{00065\ \ \ \ \ \textcolor{keywordflow}{return}\ (uint32\_t)(v\_x1\_u32r\ >>\ 12);}
+\DoxyCodeLine{00066\ \}}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{comment}{/*\ Adapter\ callbacks\ for\ Bosch\ driver\ (use\ dev-\/>intf\_ptr\ as\ pointer\ to\ 7-\/bit\ I2C\ address)}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\ *\ These\ are\ file-\/local\ and\ used\ by\ bme\_init\_simple/bme\_read\_once.}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{static}\ BME280\_INTF\_RET\_TYPE\ user\_i2c\_read(uint8\_t\ reg\_addr,\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keywordtype}{void}\ *intf\_ptr)}
+\DoxyCodeLine{00072\ \{}
+\DoxyCodeLine{00073\ \ \ \ \ uint8\_t\ dev\_addr\ =\ *((uint8\_t\ *)intf\_ptr);}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{if}\ (len\ ==\ 0\ ||\ reg\_data\ ==\ NULL)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ BME280\_E\_INVALID\_LEN;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \ \ \ \ twi\_readfrom\_mem\_into(dev\_addr,\ reg\_addr,\ (\textcolor{keyword}{volatile}\ uint8\_t\ *)reg\_data,\ (uint8\_t)len);}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{return}\ BME280\_INTF\_RET\_SUCCESS;}
+\DoxyCodeLine{00079\ \}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{static}\ BME280\_INTF\_RET\_TYPE\ user\_i2c\_write(uint8\_t\ reg\_addr,\ \textcolor{keyword}{const}\ uint8\_t\ *reg\_data,\ uint32\_t\ len,\ \textcolor{keywordtype}{void}\ *intf\_ptr)}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \ \ uint8\_t\ dev\_addr\ =\ *((uint8\_t\ *)intf\_ptr);}
+\DoxyCodeLine{00084\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00085\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((dev\_addr\ <<\ 1)\ |\ TWI\_WRITE)\ !=\ 0)\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ BME280\_E\_COMM\_FAIL;\ \}}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(reg\_addr)\ !=\ 0)\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ BME280\_E\_COMM\_FAIL;\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{for}\ (uint32\_t\ i\ =\ 0;\ i\ <\ len;\ i++)}
+\DoxyCodeLine{00088\ \ \ \ \ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(reg\_data[i])\ !=\ 0)\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ BME280\_E\_COMM\_FAIL;\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{return}\ BME280\_INTF\_RET\_SUCCESS;}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ user\_delay\_us(uint32\_t\ period,\ \textcolor{keywordtype}{void}\ *intf\_ptr)}
+\DoxyCodeLine{00096\ \{}
+\DoxyCodeLine{00097\ \ \ \ \ (void)intf\_ptr;}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{while}\ (period\ >=\ 1000)}
+\DoxyCodeLine{00099\ \ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \_delay\_ms(1);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ period\ -\/=\ 1000;}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{while}\ (period-\/-\/)}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \_delay\_us(1);}
+\DoxyCodeLine{00105\ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{comment}{/*\ Initialize\ BME280\ device\ and\ basic\ settings.\ Caller\ must\ call\ \`{}twi\_init()`\ first.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ dev\_addr:\ 7-\/bit\ I2C\ address\ (e.g.\ BME280\_I2C\_ADDR\_PRIM)}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ Returns\ BME280\_OK\ (0)\ on\ success\ or\ negative\ error\ code.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00111\ \textcolor{keywordtype}{int}\ bme\_init\_simple(\textcolor{keyword}{struct}\ bme280\_dev\ *dev,\ uint8\_t\ *dev\_addr\_ptr)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ dev-\/>intf\ =\ BME280\_I2C\_INTF;}
+\DoxyCodeLine{00114\ \ \ \ \ dev-\/>intf\_ptr\ =\ dev\_addr\_ptr;\ \textcolor{comment}{/*\ use\ caller-\/owned\ address\ storage\ */}}
+\DoxyCodeLine{00115\ \ \ \ \ dev-\/>read\ =\ user\_i2c\_read;}
+\DoxyCodeLine{00116\ \ \ \ \ dev-\/>write\ =\ user\_i2c\_write;}
+\DoxyCodeLine{00117\ \ \ \ \ dev-\/>delay\_us\ =\ user\_delay\_us;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ int8\_t\ rslt\ =\ bme280\_init(dev);}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ !=\ BME280\_OK)}
+\DoxyCodeLine{00121\ \ \ \ \ \{}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ }
+\DoxyCodeLine{00125\ \ \ \ \ \textcolor{comment}{/*\ Configure\ sensor:\ oversampling\ x1\ for\ T/P/H\ */}}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_settings\ settings;}
+\DoxyCodeLine{00127\ \ \ \ \ settings.osr\_h\ =\ BME280\_OVERSAMPLING\_1X;}
+\DoxyCodeLine{00128\ \ \ \ \ settings.osr\_p\ =\ BME280\_OVERSAMPLING\_1X;}
+\DoxyCodeLine{00129\ \ \ \ \ settings.osr\_t\ =\ BME280\_OVERSAMPLING\_1X;}
+\DoxyCodeLine{00130\ \ \ \ \ settings.filter\ =\ BME280\_FILTER\_COEFF\_OFF;}
+\DoxyCodeLine{00131\ \ \ \ \ settings.standby\_time\ =\ BME280\_STANDBY\_TIME\_125\_MS;}
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \ \ \ \ rslt\ =\ bme280\_set\_sensor\_settings(BME280\_SEL\_ALL\_SETTINGS,\ \&settings,\ dev);}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ !=\ BME280\_OK)}
+\DoxyCodeLine{00135\ \ \ \ \ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ rslt;}
+\DoxyCodeLine{00137\ \ \ \ \ \}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ BME280\_OK;}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*\ Perform\ one\ forced\ measurement\ and\ return\ compensated\ values.}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ *\ t100:\ temperature\ in\ 0.01\ degC}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ *\ press\_pa:\ pressure\ in\ Pa}}
+\DoxyCodeLine{00144\ \textcolor{comment}{\ *\ hum\_x1024:\ humidity\ in\ percent\ *\ 1024}}
+\DoxyCodeLine{00145\ \textcolor{comment}{\ *\ Returns\ 0\ on\ success,\ non-\/zero\ on\ failure.}}
+\DoxyCodeLine{00146\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00147\ \textcolor{keywordtype}{int}\ bme\_read\_once(\textcolor{keyword}{struct}\ bme280\_dev\ *dev,\ int32\_t\ *t100,\ uint32\_t\ *press\_pa,\ uint32\_t\ *hum\_x1024)}
+\DoxyCodeLine{00148\ \{}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{/*\ Trigger\ one-\/shot\ measurement\ (forced)\ */}}
+\DoxyCodeLine{00150\ \ \ \ \ int8\_t\ rslt\ =\ bme280\_set\_sensor\_mode(BME280\_POWERMODE\_FORCED,\ dev);}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ !=\ BME280\_OK)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \ \ \ \ \textcolor{comment}{/*\ Wait\ required\ measurement\ time\ */}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_settings\ settings;}
+\DoxyCodeLine{00155\ \ \ \ \ \textcolor{comment}{/*\ read\ back\ current\ settings\ to\ compute\ delay}}
+\DoxyCodeLine{00156\ \textcolor{comment}{\ \ \ \ \ *\ If\ reading\ settings\ fails,\ fall\ back\ to\ a\ conservative\ delay}}
+\DoxyCodeLine{00157\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00158\ \ \ \ \ rslt\ =\ bme280\_get\_sensor\_settings(\&settings,\ dev);}
+\DoxyCodeLine{00159\ \ \ \ \ uint32\_t\ meas\_delay\_us\ =\ 0;}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ ==\ BME280\_OK)}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ bme280\_cal\_meas\_delay(\&meas\_delay\_us,\ \&settings);}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ meas\_delay\_us\ =\ 10000;\ \textcolor{comment}{/*\ 10\ ms\ conservative\ */}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \ \ \ \ user\_delay\_us(meas\_delay\_us,\ dev-\/>intf\_ptr);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{comment}{/*\ Read\ raw\ measurement\ registers\ (8\ bytes:\ press(3),\ temp(3),\ hum(2))\ */}}
+\DoxyCodeLine{00168\ \ \ \ \ uint8\_t\ data[8];}
+\DoxyCodeLine{00169\ \ \ \ \ rslt\ =\ bme280\_get\_regs(BME280\_REG\_DATA,\ data,\ BME280\_LEN\_P\_T\_H\_DATA,\ dev);}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{if}\ (rslt\ !=\ BME280\_OK)}
+\DoxyCodeLine{00171\ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/2;}
+\DoxyCodeLine{00173\ \ \ \ \ \}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \ \ \ \ uint32\_t\ adc\_P\ =\ ((uint32\_t)data[0]\ <<\ 12)\ |\ ((uint32\_t)data[1]\ <<\ 4)\ |\ ((uint32\_t)data[2]\ >>\ 4);}
+\DoxyCodeLine{00176\ \ \ \ \ uint32\_t\ adc\_T\ =\ ((uint32\_t)data[3]\ <<\ 12)\ |\ ((uint32\_t)data[4]\ <<\ 4)\ |\ ((uint32\_t)data[5]\ >>\ 4);}
+\DoxyCodeLine{00177\ \ \ \ \ uint32\_t\ adc\_H\ =\ ((uint32\_t)data[6]\ <<\ 8)\ |\ (uint32\_t)data[7];}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{/*\ Compensate\ using\ manufacturer's\ integer\ routines\ */}}
+\DoxyCodeLine{00180\ \ \ \ \ *t100\ =\ BME280\_compensate\_T\_int32((int32\_t)adc\_T,\ \&dev-\/>calib\_data);\ \textcolor{comment}{/*\ 0.01\ degC\ */}}
+\DoxyCodeLine{00181\ \ \ \ \ uint32\_t\ p\_q24\_8\ =\ BME280\_compensate\_P\_int64((int32\_t)adc\_P,\ \&dev-\/>calib\_data);\ \textcolor{comment}{/*\ Q24.8\ */}}
+\DoxyCodeLine{00182\ \ \ \ \ *hum\_x1024\ =\ bme280\_compensate\_H\_int32((int32\_t)adc\_H,\ \&dev-\/>calib\_data);\ \textcolor{comment}{/*\ Q22.10\ */}}
+\DoxyCodeLine{00183\ }
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{/*\ Convert\ pressure\ Q24.8\ -\/>\ Pa\ (divide\ by\ 256)\ */}}
+\DoxyCodeLine{00185\ \ \ \ \ *press\_pa\ =\ (uint32\_t)((uint64\_t)p\_q24\_8\ /\ 256ULL);}
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00188\ \}}
+
+\end{DoxyCode}

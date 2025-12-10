@@ -1,0 +1,321 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structbme280__calib__data" kind="struct" language="C++" prot="public">
+    <compoundname>bme280_calib_data</compoundname>
+    <includes refid="bme280__defs_8h" local="no">bme280_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t bme280_calib_data::dig_t1</definition>
+        <argsstring></argsstring>
+        <name>dig_t1</name>
+        <qualifiedname>bme280_calib_data::dig_t1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the temperature sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="331" column="14" bodyfile="lib/bme280/bme280_defs.h" bodystart="331" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a26b994b7fd88b03183638f2f497c845f" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_t2</definition>
+        <argsstring></argsstring>
+        <name>dig_t2</name>
+        <qualifiedname>bme280_calib_data::dig_t2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the temperature sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="334" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="334" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a77666fb471ec4b45bc42aba33363f2b4" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_t3</definition>
+        <argsstring></argsstring>
+        <name>dig_t3</name>
+        <qualifiedname>bme280_calib_data::dig_t3</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the temperature sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="337" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="337" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a000ddd00a81dbec3057b93b571b2e24a" prot="public" static="no" mutable="no">
+        <type>uint16_t</type>
+        <definition>uint16_t bme280_calib_data::dig_p1</definition>
+        <argsstring></argsstring>
+        <name>dig_p1</name>
+        <qualifiedname>bme280_calib_data::dig_p1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="340" column="14" bodyfile="lib/bme280/bme280_defs.h" bodystart="340" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a018c1ca3d09ce567ba052652979a2a12" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p2</definition>
+        <argsstring></argsstring>
+        <name>dig_p2</name>
+        <qualifiedname>bme280_calib_data::dig_p2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="343" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="343" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a7bd0427af8e724b1f02429017ad6ec4a" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p3</definition>
+        <argsstring></argsstring>
+        <name>dig_p3</name>
+        <qualifiedname>bme280_calib_data::dig_p3</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="346" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="346" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1aa483ef7dee6fb9562541ff0bfed8e537" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p4</definition>
+        <argsstring></argsstring>
+        <name>dig_p4</name>
+        <qualifiedname>bme280_calib_data::dig_p4</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="349" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="349" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a2caefff25a1f115196689d7537038190" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p5</definition>
+        <argsstring></argsstring>
+        <name>dig_p5</name>
+        <qualifiedname>bme280_calib_data::dig_p5</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="352" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a9fab3467ccfa07c049e7ecdd14f8a78e" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p6</definition>
+        <argsstring></argsstring>
+        <name>dig_p6</name>
+        <qualifiedname>bme280_calib_data::dig_p6</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="355" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="355" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1aecf711535c27f4f12e91b167d78ac44f" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p7</definition>
+        <argsstring></argsstring>
+        <name>dig_p7</name>
+        <qualifiedname>bme280_calib_data::dig_p7</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="358" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="358" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1ac9e3a9878db54cc6000eda6d3b8ccfd0" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p8</definition>
+        <argsstring></argsstring>
+        <name>dig_p8</name>
+        <qualifiedname>bme280_calib_data::dig_p8</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="361" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="361" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a5a17179f6a8e0c0cf0a5043943100c20" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_p9</definition>
+        <argsstring></argsstring>
+        <name>dig_p9</name>
+        <qualifiedname>bme280_calib_data::dig_p9</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the pressure sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="364" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1ad70641088815445b41d99d588f86227c" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_calib_data::dig_h1</definition>
+        <argsstring></argsstring>
+        <name>dig_h1</name>
+        <qualifiedname>bme280_calib_data::dig_h1</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="367" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="367" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a71efa5c3d67be55820ee0816d053ed61" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_h2</definition>
+        <argsstring></argsstring>
+        <name>dig_h2</name>
+        <qualifiedname>bme280_calib_data::dig_h2</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="370" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="370" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1af9353f8b4be0932fecf12c2f45a0692d" prot="public" static="no" mutable="no">
+        <type>uint8_t</type>
+        <definition>uint8_t bme280_calib_data::dig_h3</definition>
+        <argsstring></argsstring>
+        <name>dig_h3</name>
+        <qualifiedname>bme280_calib_data::dig_h3</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="373" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="373" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1ac47663ef80cd3cd9aa7e9a8898d92057" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_h4</definition>
+        <argsstring></argsstring>
+        <name>dig_h4</name>
+        <qualifiedname>bme280_calib_data::dig_h4</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="376" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a4f448177a87fc986445dd39746fdb228" prot="public" static="no" mutable="no">
+        <type>int16_t</type>
+        <definition>int16_t bme280_calib_data::dig_h5</definition>
+        <argsstring></argsstring>
+        <name>dig_h5</name>
+        <qualifiedname>bme280_calib_data::dig_h5</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="379" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="379" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1ab798dedfdd85e18eff5439391490b94c" prot="public" static="no" mutable="no">
+        <type>int8_t</type>
+        <definition>int8_t bme280_calib_data::dig_h6</definition>
+        <argsstring></argsstring>
+        <name>dig_h6</name>
+        <qualifiedname>bme280_calib_data::dig_h6</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Calibration coefficient for the humidity sensor </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="382" column="12" bodyfile="lib/bme280/bme280_defs.h" bodystart="382" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" prot="public" static="no" mutable="no">
+        <type>int32_t</type>
+        <definition>int32_t bme280_calib_data::t_fine</definition>
+        <argsstring></argsstring>
+        <name>t_fine</name>
+        <qualifiedname>bme280_calib_data::t_fine</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Variable to store the intermediate temperature coefficient </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="385" column="13" bodyfile="lib/bme280/bme280_defs.h" bodystart="385" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Calibration data. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/bme280/bme280_defs.h" line="328" column="1" bodyfile="lib/bme280/bme280_defs.h" bodystart="329" bodyend="386"/>
+    <listofallmembers>
+      <member refid="structbme280__calib__data_1ad70641088815445b41d99d588f86227c" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h1</name></member>
+      <member refid="structbme280__calib__data_1a71efa5c3d67be55820ee0816d053ed61" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h2</name></member>
+      <member refid="structbme280__calib__data_1af9353f8b4be0932fecf12c2f45a0692d" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h3</name></member>
+      <member refid="structbme280__calib__data_1ac47663ef80cd3cd9aa7e9a8898d92057" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h4</name></member>
+      <member refid="structbme280__calib__data_1a4f448177a87fc986445dd39746fdb228" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h5</name></member>
+      <member refid="structbme280__calib__data_1ab798dedfdd85e18eff5439391490b94c" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_h6</name></member>
+      <member refid="structbme280__calib__data_1a000ddd00a81dbec3057b93b571b2e24a" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p1</name></member>
+      <member refid="structbme280__calib__data_1a018c1ca3d09ce567ba052652979a2a12" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p2</name></member>
+      <member refid="structbme280__calib__data_1a7bd0427af8e724b1f02429017ad6ec4a" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p3</name></member>
+      <member refid="structbme280__calib__data_1aa483ef7dee6fb9562541ff0bfed8e537" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p4</name></member>
+      <member refid="structbme280__calib__data_1a2caefff25a1f115196689d7537038190" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p5</name></member>
+      <member refid="structbme280__calib__data_1a9fab3467ccfa07c049e7ecdd14f8a78e" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p6</name></member>
+      <member refid="structbme280__calib__data_1aecf711535c27f4f12e91b167d78ac44f" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p7</name></member>
+      <member refid="structbme280__calib__data_1ac9e3a9878db54cc6000eda6d3b8ccfd0" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p8</name></member>
+      <member refid="structbme280__calib__data_1a5a17179f6a8e0c0cf0a5043943100c20" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_p9</name></member>
+      <member refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_t1</name></member>
+      <member refid="structbme280__calib__data_1a26b994b7fd88b03183638f2f497c845f" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_t2</name></member>
+      <member refid="structbme280__calib__data_1a77666fb471ec4b45bc42aba33363f2b4" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>dig_t3</name></member>
+      <member refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" prot="public" virt="non-virtual"><scope>bme280_calib_data</scope><name>t_fine</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

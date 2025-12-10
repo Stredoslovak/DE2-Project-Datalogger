@@ -1,0 +1,77 @@
+\doxysection{include/timer.h File Reference}
+\label{timer_8h}\index{include/timer.h@{include/timer.h}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Definitions for 16-\/bit Timer/\+Counter1}\par
+{\em \begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 16, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+}\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim1\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+4ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4ms, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+33ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 33ms, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+262ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 262ms, prescaler 011 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+1sec}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1s, prescaler 100 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+4sec}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4s, prescaler // 101 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim1\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions for 8-\/bit Timer/\+Counter0}\par
+{\em \begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 8, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+}\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim0\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+16us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16us, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+128us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 128us, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+1024us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1024us, prescaler 011 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+4096us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4096us, prescaler 100 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+16384us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16384us, prescaler // 101 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim0\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definitions for 8-\/bit Timer/\+Counter2}\par
+{\em \begin{DoxyNote}{Note}
+t\+\_\+\+OVF = 1/\+F\+\_\+\+CPU $\ast$ prescaler $\ast$ 2$^\wedge$n where n = 8, F\+\_\+\+CPU = 16 MHz 
+\end{DoxyNote}
+}\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ tim2\+\_\+stop}()
+\begin{DoxyCompactList}\small\item\em Stop timer, prescaler 000 -\/-\/$>$ STOP. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+16us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16us, prescaler 001 -\/-\/$>$ 1. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+128us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 128us, prescaler 010 -\/-\/$>$ 8. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+512us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 512us, prescaler 011 -\/-\/$>$ 32. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+1024us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 1024us, prescaler 100 -\/-\/$>$ 64. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+2048us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 2048us, prescaler 101 -\/-\/$>$ 128. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+4096us}()
+\begin{DoxyCompactList}\small\item\em Set overflow 4096us, prescaler 110 -\/-\/$>$ 256. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+16ms}()
+\begin{DoxyCompactList}\small\item\em Set overflow 16384us, prescaler 111 -\/-\/$>$ 1024. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+enable}()
+\begin{DoxyCompactList}\small\item\em Enable overflow interrupt, 1 -\/-\/$>$ enable. \end{DoxyCompactList}\item 
+\#define \textbf{ tim2\+\_\+ovf\+\_\+disable}()
+\begin{DoxyCompactList}\small\item\em Disable overflow interrupt, 0 -\/-\/$>$ disable. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}

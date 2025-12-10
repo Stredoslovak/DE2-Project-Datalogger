@@ -1,0 +1,470 @@
+\doxysection{UART Library $<$uart.\+h$>$ }
+\label{group__pfleury__uart}\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+
+
+Interrupt UART library using the built-\/in UART with transmit and receive circular buffers.  
+
+
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ UART\+\_\+\+BAUD\+\_\+\+SELECT}(baud\+Rate,  xtal\+Cpu)
+\begin{DoxyCompactList}\small\item\em UART Baudrate Expression. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+BAUD\+\_\+\+SELECT\+\_\+\+DOUBLE\+\_\+\+SPEED}(baud\+Rate,  xtal\+Cpu)
+\begin{DoxyCompactList}\small\item\em UART Baudrate Expression for ATmega double speed mode. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\begin{DoxyCompactList}\small\item\em Size of the circular receive buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE}~128
+\begin{DoxyCompactList}\small\item\em Size of the circular transmit buffer, must be power of 2. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+FRAME\+\_\+\+ERROR}~0x1000
+\begin{DoxyCompactList}\small\item\em Framing Error by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+OVERRUN\+\_\+\+ERROR}~0x0800
+\begin{DoxyCompactList}\small\item\em Overrun condition by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+PARITY\+\_\+\+ERROR}~0x0400
+\begin{DoxyCompactList}\small\item\em Parity Error by UART. \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+BUFFER\+\_\+\+OVERFLOW}~0x0200
+\begin{DoxyCompactList}\small\item\em receive ringbuffer overflow \end{DoxyCompactList}\item 
+\#define \textbf{ UART\+\_\+\+NO\+\_\+\+DATA}~0x0100
+\begin{DoxyCompactList}\small\item\em no receive data available \end{DoxyCompactList}\item 
+\#define \textbf{ uart\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\item 
+\#define \textbf{ uart1\+\_\+puts\+\_\+P}(\+\_\+\+\_\+s)
+\begin{DoxyCompactList}\small\item\em Macro to automatically put a string constant into program memory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ uart\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize UART and set baudrate. \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte from ringbuffer. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+putc} (unsigned char \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via UART. \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+init} (unsigned int baudrate)
+\begin{DoxyCompactList}\small\item\em Initialize USART1 (only available on selected ATmegas). \end{DoxyCompactList}\item 
+unsigned int \textbf{ uart1\+\_\+getc} (void)
+\begin{DoxyCompactList}\small\item\em Get received byte of USART1 from ringbuffer. (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+putc} (unsigned char \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\item 
+void \textbf{ uart1\+\_\+puts\+\_\+p} (const char $\ast$s)
+\begin{DoxyCompactList}\small\item\em Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Interrupt UART library using the built-\/in UART with transmit and receive circular buffers. 
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{preprocessor}{\#include\ <uart.h>}\ }
+
+\end{DoxyCode}
+
+
+This library can be used to transmit and receive data through the built in UART.
+
+An interrupt is generated when the UART has finished transmitting or receiving a byte. The interrupt handling routines use circular buffers for buffering received and transmitted data.
+
+The UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE and UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE constants define the size of the circular buffers in bytes. Note that these constants must be a power of 2. You may need to adapt these constants to your target and your application by adding CDEFS += -\/DUART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE=nn -\/DUART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE=nn to your Makefile.
+
+\begin{DoxyNote}{Note}
+Based on Atmel Application Note AVR306 
+\end{DoxyNote}
+\begin{DoxyAuthor}{Author}
+Peter Fleury {\texttt{pfleury@gmx.\+ch}} {\texttt{http\+://tinyurl.\+com/peterfleury}} 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+(C) 2015 Peter Fleury, GNU General Public License Version 3 
+\end{DoxyCopyright}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_puts\_P@{uart1\_puts\_P}}
+\index{uart1\_puts\_P@{uart1\_puts\_P}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_puts\_P}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gaabd7a5b0c15611ee9ecb2873cc9ee87a} 
+\#define uart1\+\_\+puts\+\_\+P(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uart1\_puts\_p(PSTR(\_\_s))}
+
+\end{DoxyCode}
+
+
+Macro to automatically put a string constant into program memory. 
+
+
+
+Definition at line \textbf{ 201} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_BAUD\_SELECT@{UART\_BAUD\_SELECT}}
+\index{UART\_BAUD\_SELECT@{UART\_BAUD\_SELECT}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_BAUD\_SELECT}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga367ff7b5de225ed936a63239ad4adb0b} 
+\#define UART\+\_\+\+BAUD\+\_\+\+SELECT(\begin{DoxyParamCaption}\item[{}]{baud\+Rate}{, }\item[{}]{xtal\+Cpu}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(((xtalCpu)\ +\ 8UL\ *\ (baudRate))\ /\ (16UL\ *\ (baudRate))\ -\/\ 1UL)}
+
+\end{DoxyCode}
+
+
+UART Baudrate Expression. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xtal\+Cpu} & system clock in Mhz, e.\+g. 4000000UL for 4Mhz \\
+\hline
+{\em baud\+Rate} & baudrate in bps, e.\+g. 1200, 2400, 9600 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 70} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_BAUD\_SELECT\_DOUBLE\_SPEED@{UART\_BAUD\_SELECT\_DOUBLE\_SPEED}}
+\index{UART\_BAUD\_SELECT\_DOUBLE\_SPEED@{UART\_BAUD\_SELECT\_DOUBLE\_SPEED}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_BAUD\_SELECT\_DOUBLE\_SPEED}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga1a02d45130520cb651ab313e69039382} 
+\#define UART\+\_\+\+BAUD\+\_\+\+SELECT\+\_\+\+DOUBLE\+\_\+\+SPEED(\begin{DoxyParamCaption}\item[{}]{baud\+Rate}{, }\item[{}]{xtal\+Cpu}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{(\ ((((xtalCpu)\ +\ 4UL\ *\ (baudRate))\ /\ (8UL\ *\ (baudRate))\ -\/\ 1UL))\ |\ 0x8000)}
+
+\end{DoxyCode}
+
+
+UART Baudrate Expression for ATmega double speed mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xtal\+Cpu} & system clock in Mhz, e.\+g. 4000000UL for 4Mhz \\
+\hline
+{\em baud\+Rate} & baudrate in bps, e.\+g. 1200, 2400, 9600 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 76} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_BUFFER\_OVERFLOW@{UART\_BUFFER\_OVERFLOW}}
+\index{UART\_BUFFER\_OVERFLOW@{UART\_BUFFER\_OVERFLOW}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_BUFFER\_OVERFLOW}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga94758f3dad6864703b7417d3e40f11df} 
+\#define UART\+\_\+\+BUFFER\+\_\+\+OVERFLOW~0x0200}
+
+
+
+receive ringbuffer overflow 
+
+
+
+Definition at line \textbf{ 107} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_FRAME\_ERROR@{UART\_FRAME\_ERROR}}
+\index{UART\_FRAME\_ERROR@{UART\_FRAME\_ERROR}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_FRAME\_ERROR}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gabcdb1041d763560cd8f8e722370dfd37} 
+\#define UART\+\_\+\+FRAME\+\_\+\+ERROR~0x1000}
+
+
+
+Framing Error by UART. 
+
+
+
+Definition at line \textbf{ 104} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_NO\_DATA@{UART\_NO\_DATA}}
+\index{UART\_NO\_DATA@{UART\_NO\_DATA}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_NO\_DATA}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga77ba544d423ff42d400220a05303f268} 
+\#define UART\+\_\+\+NO\+\_\+\+DATA~0x0100}
+
+
+
+no receive data available 
+
+
+
+Definition at line \textbf{ 108} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_OVERRUN\_ERROR@{UART\_OVERRUN\_ERROR}}
+\index{UART\_OVERRUN\_ERROR@{UART\_OVERRUN\_ERROR}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_OVERRUN\_ERROR}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga3183177e3613d8785d8cc8516931beb6} 
+\#define UART\+\_\+\+OVERRUN\+\_\+\+ERROR~0x0800}
+
+
+
+Overrun condition by UART. 
+
+
+
+Definition at line \textbf{ 105} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_PARITY\_ERROR@{UART\_PARITY\_ERROR}}
+\index{UART\_PARITY\_ERROR@{UART\_PARITY\_ERROR}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_PARITY\_ERROR}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga946e3d317937e003d2057bf19e96dd1d} 
+\#define UART\+\_\+\+PARITY\+\_\+\+ERROR~0x0400}
+
+
+
+Parity Error by UART. 
+
+
+
+Definition at line \textbf{ 106} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_puts\_P@{uart\_puts\_P}}
+\index{uart\_puts\_P@{uart\_puts\_P}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_puts\_P}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gae9e143569df2285379bc55f9f5595bf9} 
+\#define uart\+\_\+puts\+\_\+P(\begin{DoxyParamCaption}\item[{}]{\+\_\+\+\_\+s}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uart\_puts\_p(PSTR(\_\_s))}
+
+\end{DoxyCode}
+
+
+Macro to automatically put a string constant into program memory. 
+
+
+
+Definition at line \textbf{ 187} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_RX\_BUFFER\_SIZE@{UART\_RX\_BUFFER\_SIZE}}
+\index{UART\_RX\_BUFFER\_SIZE@{UART\_RX\_BUFFER\_SIZE}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_RX\_BUFFER\_SIZE}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga5bdd6772c246436bb14377095de79b31} 
+\#define UART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE~128}
+
+
+
+Size of the circular receive buffer, must be power of 2. 
+
+You may need to adapt this constant to your target and your application by adding CDEFS += -\/DUART\+\_\+\+RX\+\_\+\+BUFFER\+\_\+\+SIZE=nn to your Makefile. 
+
+Definition at line \textbf{ 84} of file \textbf{ uart.\+h}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!UART\_TX\_BUFFER\_SIZE@{UART\_TX\_BUFFER\_SIZE}}
+\index{UART\_TX\_BUFFER\_SIZE@{UART\_TX\_BUFFER\_SIZE}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{UART\_TX\_BUFFER\_SIZE}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga05f5d709605c6317c97e4974bec3402a} 
+\#define UART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE~128}
+
+
+
+Size of the circular transmit buffer, must be power of 2. 
+
+You may need to adapt this constant to your target and your application by adding CDEFS += -\/DUART\+\_\+\+TX\+\_\+\+BUFFER\+\_\+\+SIZE=nn to your Makefile. 
+
+Definition at line \textbf{ 93} of file \textbf{ uart.\+h}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_getc@{uart1\_getc}}
+\index{uart1\_getc@{uart1\_getc}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_getc()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gaeb1405c641e5bc9b7224018f5e8d90de} 
+unsigned int uart1\+\_\+getc (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Get received byte of USART1 from ringbuffer. (only available on selected ATmega). 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+getc}{p.}{group__pfleury__uart_gaefaab30a8338ec46a6be35b99b1b4f09} 
+\end{DoxySeeAlso}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_init@{uart1\_init}}
+\index{uart1\_init@{uart1\_init}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_init()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga4db697cb5469fd70e794fa7df73a6d6a} 
+void uart1\+\_\+init (\begin{DoxyParamCaption}\item[{unsigned int}]{baudrate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Initialize USART1 (only available on selected ATmegas). 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+init}{p.}{group__pfleury__uart_gac19a76bb7d446125734a67f9f4b68991} 
+\end{DoxySeeAlso}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_putc@{uart1\_putc}}
+\index{uart1\_putc@{uart1\_putc}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_putc()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gab465f689d197fadfbacc374fc9411154} 
+void uart1\+\_\+putc (\begin{DoxyParamCaption}\item[{unsigned char}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega). 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+putc}{p.}{group__pfleury__uart_gad975221bc08b901e4c7ad69f9c9a97e2} 
+\end{DoxySeeAlso}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_puts@{uart1\_puts}}
+\index{uart1\_puts@{uart1\_puts}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_puts()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga5568f8f3913b218fd4d0346af78831b2} 
+void uart1\+\_\+puts (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega). 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+puts}{p.}{group__pfleury__uart_gae52facc0a56086a365bb0018160d8d71} 
+\end{DoxySeeAlso}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart1\_puts\_p@{uart1\_puts\_p}}
+\index{uart1\_puts\_p@{uart1\_puts\_p}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart1\_puts\_p()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga1e8074d0a2d5922601c5db2f9777ba79} 
+void uart1\+\_\+puts\+\_\+p (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega). 
+
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+puts\+\_\+p}{p.}{group__pfleury__uart_ga6d78b6744db6232f52b4616402036c2f} 
+\end{DoxySeeAlso}
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_getc@{uart\_getc}}
+\index{uart\_getc@{uart\_getc}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_getc()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gaefaab30a8338ec46a6be35b99b1b4f09} 
+unsigned int uart\+\_\+getc (\begin{DoxyParamCaption}\item[{void}]{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Get received byte from ringbuffer. 
+
+Returns in the lower byte the received character and in the higher byte the last receive error. UART\+\_\+\+NO\+\_\+\+DATA is returned when no data is available.
+
+\begin{DoxyReturn}{Returns}
+lower byte\+: received byte from ringbuffer 
+
+higher byte\+: last receive status
+\begin{DoxyItemize}
+\item {\bfseries{0}} successfully received data from UART
+\item {\bfseries{UART\+\_\+\+NO\+\_\+\+DATA}} ~\newline
+no receive data available
+\item {\bfseries{UART\+\_\+\+BUFFER\+\_\+\+OVERFLOW}} ~\newline
+Receive ringbuffer overflow. We are not reading the receive buffer fast enough, one or more received character have been dropped
+\item {\bfseries{UART\+\_\+\+OVERRUN\+\_\+\+ERROR}} ~\newline
+Overrun condition by UART. A character already present in the UART UDR register was not read by the interrupt handler before the next character arrived, one or more received characters have been dropped.
+\item {\bfseries{UART\+\_\+\+FRAME\+\_\+\+ERROR}} ~\newline
+Framing Error by UART 
+\end{DoxyItemize}
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 494} of file \textbf{ uart.\+c}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_init@{uart\_init}}
+\index{uart\_init@{uart\_init}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_init()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gac19a76bb7d446125734a67f9f4b68991} 
+void uart\+\_\+init (\begin{DoxyParamCaption}\item[{unsigned int}]{baudrate}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Initialize UART and set baudrate. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em baudrate} & Specify baudrate using macro \doxyref{UART\+\_\+\+BAUD\+\_\+\+SELECT()}{p.}{group__pfleury__uart_ga367ff7b5de225ed936a63239ad4adb0b} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 439} of file \textbf{ uart.\+c}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_putc@{uart\_putc}}
+\index{uart\_putc@{uart\_putc}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_putc()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gad975221bc08b901e4c7ad69f9c9a97e2} 
+void uart\+\_\+putc (\begin{DoxyParamCaption}\item[{unsigned char}]{data}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put byte to ringbuffer for transmitting via UART. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & byte to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 526} of file \textbf{ uart.\+c}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_puts@{uart\_puts}}
+\index{uart\_puts@{uart\_puts}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_puts()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_gae52facc0a56086a365bb0018160d8d71} 
+void uart\+\_\+puts (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put string to ringbuffer for transmitting via UART. 
+
+The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts. Blocks if it can not write the whole string into the circular buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & string to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+
+
+Definition at line \textbf{ 551} of file \textbf{ uart.\+c}.
+
+\index{UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}!uart\_puts\_p@{uart\_puts\_p}}
+\index{uart\_puts\_p@{uart\_puts\_p}!UART Library $<$uart.h$>$@{UART Library $<$uart.h$>$}}
+\doxysubsubsection{uart\_puts\_p()}
+{\footnotesize\ttfamily \label{group__pfleury__uart_ga6d78b6744db6232f52b4616402036c2f} 
+void uart\+\_\+puts\+\_\+p (\begin{DoxyParamCaption}\item[{const char $\ast$}]{s}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Put string from program memory to ringbuffer for transmitting via UART. 
+
+The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts. Blocks if it can not write the whole string into the circular buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em s} & program memory string to be transmitted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+none 
+\end{DoxyReturn}
+\begin{DoxySeeAlso}{See also}
+\doxyref{uart\+\_\+puts\+\_\+P}{p.}{group__pfleury__uart_gae9e143569df2285379bc55f9f5595bf9} 
+\end{DoxySeeAlso}
+
+
+Definition at line \textbf{ 563} of file \textbf{ uart.\+c}.
+

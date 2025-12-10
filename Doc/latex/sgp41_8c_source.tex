@@ -1,0 +1,120 @@
+\doxysection{sgp41.\+c}
+\label{sgp41_8c_source}\index{src/sgp41.c@{src/sgp41.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ I2C-\/Generator:\ 0.3.0}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ Yaml\ Version:\ 0.1.0}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ Template\ Version:\ 0.7.0-\/62-\/g3d691f9}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00006\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021,\ Sensirion\ AG}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ this}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *\ \ \ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ *\ Neither\ the\ name\ of\ Sensirion\ AG\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ \ \ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{//\ Use\ project's\ TWI\ and\ UART\ libraries\ (no\ Arduino)}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <util/delay.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ "{}twi.h"{}}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}uart.h"{}}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ "{}SensirionI2CSgp41.h"{}}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ <avr/interrupt.h>}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ "{}timer.h"{}}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}sensirion\_gas\_index\_algorithm.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ Refactored\ SGP41\ wrapper:\ provide\ init\ +\ single-\/measure\ interface\ so\ main.c}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ can\ control\ timing\ and\ UART\ output.\ The\ module\ keeps\ internal\ state\ for\ the}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ *\ gas\ index\ algorithms\ between\ measurements.}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{//\ Time\ in\ seconds\ needed\ for\ NOx\ conditioning\ (do\ not\ exceed\ 10s)}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{static}\ uint16\_t\ conditioning\_s\ =\ 10;}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{static}\ GasIndexAlgorithmParams\ voc\_params;}
+\DoxyCodeLine{00057\ \textcolor{keyword}{static}\ GasIndexAlgorithmParams\ nox\_params;}
+\DoxyCodeLine{00058\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ initialized\ =\ 0;}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \textcolor{comment}{/*\ Initialize\ SGP41\ algorithm\ state\ and\ perform\ optional\ self-\/test.}}
+\DoxyCodeLine{00061\ \textcolor{comment}{\ *\ Caller\ must\ call\ \`{}twi\_init()`\ before\ this\ function.}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\ *\ Returns\ 0\ on\ success,\ non-\/zero\ on\ error.}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00064\ \textcolor{keywordtype}{int}\ sgp41\_init\_simple(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00065\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{if}\ (initialized)\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{comment}{/*\ Get\ serial\ number\ (optional,\ non-\/fatal)\ */}}
+\DoxyCodeLine{00069\ \ \ \ \ uint16\_t\ serialNumber[3];}
+\DoxyCodeLine{00070\ \ \ \ \ (void)sgp41\_getSerialNumber(serialNumber);}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{comment}{/*\ Run\ self-\/test\ once\ (non-\/fatal)\ */}}
+\DoxyCodeLine{00073\ \ \ \ \ uint16\_t\ testResult\ =\ 0;}
+\DoxyCodeLine{00074\ \ \ \ \ (void)sgp41\_executeSelfTest(\&testResult);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ gas\ index\ algorithms\ for\ VOC\ and\ NOx\ */}}
+\DoxyCodeLine{00077\ \ \ \ \ GasIndexAlgorithm\_init(\&voc\_params,\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC);}
+\DoxyCodeLine{00078\ \ \ \ \ GasIndexAlgorithm\_init(\&nox\_params,\ GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX);}
+\DoxyCodeLine{00079\ }
+\DoxyCodeLine{00080\ \ \ \ \ initialized\ =\ 1;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ Perform\ one\ measurement\ and\ compute\ VOC/NOx\ indices.\ Caller\ provides\ pointers}}
+\DoxyCodeLine{00085\ \textcolor{comment}{\ *\ to\ store\ results.\ Returns\ 0\ on\ success\ or\ non-\/zero\ on\ error.}}
+\DoxyCodeLine{00086\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00087\ \textcolor{keywordtype}{int}\ sgp41\_measure\_once(int32\_t\ *voc\_index,\ int32\_t\ *nox\_index)}
+\DoxyCodeLine{00088\ \{}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordflow}{if}\ (!initialized)\ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \ \ \ \ uint16\_t\ defaultRh\ =\ 0x8000;}
+\DoxyCodeLine{00092\ \ \ \ \ uint16\_t\ defaultT\ =\ 0x6666;}
+\DoxyCodeLine{00093\ \ \ \ \ uint16\_t\ srawVoc\ =\ 0;}
+\DoxyCodeLine{00094\ \ \ \ \ uint16\_t\ srawNox\ =\ 0;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \ \ \ \ uint16\_t\ err;}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordflow}{if}\ (conditioning\_s\ >\ 0)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ run\ conditioning\ command\ to\ keep\ sensor\ heater\ conditioned\ */}}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ (void)sgp41\_executeConditioning(defaultRh,\ defaultT,\ \&srawVoc);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ always\ perform\ a\ measurement\ to\ obtain\ both\ VOC\ and\ NOx\ */}}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ err\ =\ sgp41\_measureRawSignals(defaultRh,\ defaultT,\ \&srawVoc,\ \&srawNox);}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ conditioning\_s-\/-\/;}
+\DoxyCodeLine{00103\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ err\ =\ sgp41\_measureRawSignals(defaultRh,\ defaultT,\ \&srawVoc,\ \&srawNox);}
+\DoxyCodeLine{00105\ \ \ \ \ \}}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordflow}{if}\ (err)\ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{int})err;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{comment}{/*\ Process\ raw\ sraw\ values\ through\ gas\ index\ algorithms\ */}}
+\DoxyCodeLine{00110\ \ \ \ \ GasIndexAlgorithm\_process(\&voc\_params,\ (int32\_t)srawVoc,\ voc\_index);}
+\DoxyCodeLine{00111\ \ \ \ \ GasIndexAlgorithm\_process(\&nox\_params,\ (int32\_t)srawNox,\ nox\_index);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00114\ \}}
+
+\end{DoxyCode}

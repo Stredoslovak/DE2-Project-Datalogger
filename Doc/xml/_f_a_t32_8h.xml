@@ -1,0 +1,895 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="_f_a_t32_8h" kind="file" language="C++">
+    <compoundname>FAT32.h</compoundname>
+    <includedby refid="_f_a_t32_8c" local="yes">lib/FAT32/FAT32.c</includedby>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/FAT32/FAT32.c</label>
+        <link refid="_f_a_t32_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/FAT32/FAT32.h</label>
+        <link refid="_f_a_t32_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_m_b_rinfo___structure" prot="public">MBRinfo_Structure</innerclass>
+    <innerclass refid="structpartition_info___structure" prot="public">partitionInfo_Structure</innerclass>
+    <innerclass refid="struct_b_s___structure" prot="public">BS_Structure</innerclass>
+    <innerclass refid="struct_f_s_info___structure" prot="public">FSInfo_Structure</innerclass>
+    <innerclass refid="structdir___structure" prot="public">dir_Structure</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="_f_a_t32_8h_1aef018487342a3344aa32ee15ddcb4410" prot="public" static="no">
+        <name>ATTR_READ_ONLY</name>
+        <initializer>0x01</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="97" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="97" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a42249a182dc832d4647b67281c2ffc90" prot="public" static="no">
+        <name>ATTR_HIDDEN</name>
+        <initializer>0x02</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="98" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="98" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a1c1250075cd2ca065a67a44fc9fc3222" prot="public" static="no">
+        <name>ATTR_SYSTEM</name>
+        <initializer>0x04</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="99" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="99" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ab14d118689e61ffb3e29f83d38f1f135" prot="public" static="no">
+        <name>ATTR_VOLUME_ID</name>
+        <initializer>0x08</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="100" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="100" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1afa13d3c1c60925f7b1e639233a799860" prot="public" static="no">
+        <name>ATTR_DIRECTORY</name>
+        <initializer>0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="101" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="101" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a1b257aa7e0fdd8b11372edf885302176" prot="public" static="no">
+        <name>ATTR_ARCHIVE</name>
+        <initializer>0x20</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="102" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="102" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a4530dded7bddf70573cbc1fc4515367e" prot="public" static="no">
+        <name>ATTR_LONG_NAME</name>
+        <initializer>0x0f</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="103" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="103" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a708effadc6982b89faaf84eab0d56d76" prot="public" static="no">
+        <name>DIR_ENTRY_SIZE</name>
+        <initializer>0x32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="106" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a2b7cf2a3641be7b89138615764d60ba3" prot="public" static="no">
+        <name>EMPTY</name>
+        <initializer>0x00</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="107" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ab792dfd97ab00abb6a5fc20191a9e952" prot="public" static="no">
+        <name>DELETED</name>
+        <initializer>0xe5</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="108" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a982a66f513611f7f83ebfa4b4ecf1df9" prot="public" static="no">
+        <name>GET</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="109" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="109" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a59da1d65e87a723efe808dbabb4fc205" prot="public" static="no">
+        <name>SET</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="110" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="110" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ada74e7db007a68e763f20c17f2985356" prot="public" static="no">
+        <name>READ</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="111" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="111" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ab64044259d5a2440725279dc7801f33e" prot="public" static="no">
+        <name>VERIFY</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="112" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="112" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a97fe5470fb1ac167c713671655ff3e52" prot="public" static="no">
+        <name>ADD</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="113" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="113" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ab9959e75e26bc66b3733ddc04de6b4cf" prot="public" static="no">
+        <name>REMOVE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="114" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1ab811d8c6ff3a505312d3276590444289" prot="public" static="no">
+        <name>LOW</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="115" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="115" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a5bb885982ff66a2e0a0a45a8ee9c35e2" prot="public" static="no">
+        <name>HIGH</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="116" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="116" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a06dfea051e603d2b87c6f5df322838e7" prot="public" static="no">
+        <name>TOTAL_FREE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="117" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="117" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a4adc951e93b4d0152fbd792c9fbee411" prot="public" static="no">
+        <name>NEXT_FREE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="118" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a0cc54057c5dc1d7b693f95420adedf72" prot="public" static="no">
+        <name>GET_LIST</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="119" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="119" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1adf1ff268922f8fc22293d87c75017085" prot="public" static="no">
+        <name>GET_FILE</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="120" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="120" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1abbbe5949f3c1f72e439924f8cf503509" prot="public" static="no">
+        <name>DELETE</name>
+        <initializer>2</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="121" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="121" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a59adc4c82490d23754cd39c2fb99b0da" prot="public" static="no">
+        <name>EOF</name>
+        <initializer>0x0fffffff</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="122" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="_f_a_t32_8h_1a220f38b26fa99d4d91b574f42d991516" prot="public" static="no">
+        <name>MAX_STRING_SIZE</name>
+        <initializer>100</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="125" column="9" bodyfile="lib/FAT32/FAT32.h" bodystart="125" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="_f_a_t32_8h_1a195efb1de098d7d1990480b68a866ed1" prot="public" static="no" mutable="no">
+        <type>volatile unsigned long</type>
+        <definition>volatile unsigned long firstDataSector</definition>
+        <argsstring></argsstring>
+        <name>firstDataSector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="129" column="24" bodyfile="lib/FAT32/FAT32.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a141b615f923e667e5f1a3ae5383bfc1c" prot="public" static="no" mutable="no">
+        <type>volatile unsigned long</type>
+        <definition>volatile unsigned long rootCluster</definition>
+        <argsstring></argsstring>
+        <name>rootCluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="129" column="40" bodyfile="lib/FAT32/FAT32.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a2b38c32df25a8b72d4a58d3a08f98ae4" prot="public" static="no" mutable="no">
+        <type>volatile unsigned long</type>
+        <definition>volatile unsigned long totalClusters</definition>
+        <argsstring></argsstring>
+        <name>totalClusters</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="129" column="52" bodyfile="lib/FAT32/FAT32.h" bodystart="129" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1ab9c1a1edb108a9cec6c7c6a7de4a4020" prot="public" static="no" mutable="no">
+        <type>volatile unsigned int</type>
+        <definition>volatile unsigned int bytesPerSector</definition>
+        <argsstring></argsstring>
+        <name>bytesPerSector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="130" column="24" bodyfile="lib/FAT32/FAT32.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1adfae3f231d9c524b2a1da486872e5536" prot="public" static="no" mutable="no">
+        <type>volatile unsigned int</type>
+        <definition>volatile unsigned int sectorPerCluster</definition>
+        <argsstring></argsstring>
+        <name>sectorPerCluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="130" column="39" bodyfile="lib/FAT32/FAT32.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1ab83964e3360b51b496622eee5baa4fdf" prot="public" static="no" mutable="no">
+        <type>volatile unsigned int</type>
+        <definition>volatile unsigned int reservedSectorCount</definition>
+        <argsstring></argsstring>
+        <name>reservedSectorCount</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="130" column="56" bodyfile="lib/FAT32/FAT32.h" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a92f9351dc6943803baabdc7d245a8721" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long unusedSectors</definition>
+        <argsstring></argsstring>
+        <name>unusedSectors</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="131" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a237d717b3c479aa8072a49ec90b3cdea" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long appendFileSector</definition>
+        <argsstring></argsstring>
+        <name>appendFileSector</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="131" column="29" bodyfile="lib/FAT32/FAT32.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a23876fd50ef181a38270e12ab918d447" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long appendFileLocation</definition>
+        <argsstring></argsstring>
+        <name>appendFileLocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="131" column="46" bodyfile="lib/FAT32/FAT32.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a486df86cef253a40f9115fd866b3d3dd" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long fileSize</definition>
+        <argsstring></argsstring>
+        <name>fileSize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="131" column="65" bodyfile="lib/FAT32/FAT32.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1ae01f3af1e3e205987505b48eb3ce5d25" prot="public" static="no" mutable="no">
+        <type>unsigned long</type>
+        <definition>unsigned long appendStartCluster</definition>
+        <argsstring></argsstring>
+        <name>appendStartCluster</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="131" column="74" bodyfile="lib/FAT32/FAT32.h" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1ab5feb40fa3b72b5b8360a7da8367498f" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char freeClusterCountUpdated</definition>
+        <argsstring></argsstring>
+        <name>freeClusterCountUpdated</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="134" column="15" bodyfile="lib/FAT32/FAT32.h" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="_f_a_t32_8h_1a6a329928c08fe4a8a8791dc777111121" prot="public" static="no" mutable="no">
+        <type>volatile unsigned char</type>
+        <definition>volatile unsigned char dataString[MAX_STRING_SIZE]</definition>
+        <argsstring>[MAX_STRING_SIZE]</argsstring>
+        <name>dataString</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="137" column="24" bodyfile="lib/FAT32/FAT32.h" bodystart="137" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_f_a_t32_8h_1a1a404adb1477372c136ee3d8ec370bef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char getBootSectorData</definition>
+        <argsstring>(void)</argsstring>
+        <name>getBootSectorData</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="142" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="28" bodyend="73" declfile="lib/FAT32/FAT32.h" declline="142" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a7e2988f898a6b56ba385ae2c34128a86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long getFirstSector</definition>
+        <argsstring>(unsigned long clusterNumber)</argsstring>
+        <name>getFirstSector</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>clusterNumber</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="143" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="80" bodyend="83" declfile="lib/FAT32/FAT32.h" declline="143" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a44efd4747cb07a0a1cf3784c838b6a6e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long getSetFreeCluster</definition>
+        <argsstring>(unsigned char totOrNext, unsigned char get_set, unsigned long FSEntry)</argsstring>
+        <name>getSetFreeCluster</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>totOrNext</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>get_set</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>FSEntry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="144" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="134" bodyend="160" declfile="lib/FAT32/FAT32.h" declline="144" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1aa35e16da2fe720a2f1acb332deb7ae5c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>struct <ref refid="structdir___structure" kindref="compound">dir_Structure</ref> *</type>
+        <definition>struct dir_Structure * findFiles</definition>
+        <argsstring>(unsigned char flag, unsigned char *fileName)</argsstring>
+        <name>findFiles</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="145" column="21" bodyfile="lib/FAT32/FAT32.c" bodystart="169" bodyend="309" declfile="lib/FAT32/FAT32.h" declline="145" declcolumn="21"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1ab0d24683088974e34e652dcf46037c9f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long getSetNextCluster</definition>
+        <argsstring>(unsigned long clusterNumber, unsigned char get_set, unsigned long clusterEntry)</argsstring>
+        <name>getSetNextCluster</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>clusterNumber</declname>
+        </param>
+        <param>
+          <type>unsigned char</type>
+          <declname>get_set</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>clusterEntry</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="146" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="92" bodyend="123" declfile="lib/FAT32/FAT32.h" declline="146" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1ab213e22a70270c138864e3075aa51fb8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char readFile</definition>
+        <argsstring>(unsigned char flag, unsigned char *fileName)</argsstring>
+        <name>readFile</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>unsigned char *</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="147" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="319" bodyend="376" declfile="lib/FAT32/FAT32.h" declline="147" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a126f62cbfb84a23224d07d7eebb1f377" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char convertFileName</definition>
+        <argsstring>(unsigned char *fileName)</argsstring>
+        <name>convertFileName</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="148" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="383" bodyend="434" declfile="lib/FAT32/FAT32.h" declline="148" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a94b370a9a30661006d819c7d5f69a0ff" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char writeFile</definition>
+        <argsstring>(unsigned char *fileName)</argsstring>
+        <name>writeFile</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="149" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="442" bodyend="665" declfile="lib/FAT32/FAT32.h" declline="149" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1ad2257b158f7a4303f5914ef300e2e62b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void appendFile</definition>
+        <argsstring>(void)</argsstring>
+        <name>appendFile</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="150" column="6" declfile="lib/FAT32/FAT32.h" declline="150" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a92d056bee6b45c23b0b06fd4390daaba" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned long</type>
+        <definition>unsigned long searchNextFreeCluster</definition>
+        <argsstring>(unsigned long startCluster)</argsstring>
+        <name>searchNextFreeCluster</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startCluster</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="151" column="15" bodyfile="lib/FAT32/FAT32.c" bodystart="674" bodyend="693" declfile="lib/FAT32/FAT32.h" declline="151" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1ac038c8795e541cbd5a33eda705b01934" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void displayMemory</definition>
+        <argsstring>(unsigned char flag, unsigned long memory)</argsstring>
+        <name>displayMemory</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>memory</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="152" column="6" bodyfile="lib/FAT32/FAT32.c" bodystart="702" bodyend="719" declfile="lib/FAT32/FAT32.h" declline="152" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1aae257afc618304098844252c3d71b788" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void deleteFile</definition>
+        <argsstring>(unsigned char *fileName)</argsstring>
+        <name>deleteFile</name>
+        <param>
+          <type>unsigned char *</type>
+          <declname>fileName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="153" column="6" bodyfile="lib/FAT32/FAT32.c" bodystart="726" bodyend="734" declfile="lib/FAT32/FAT32.h" declline="153" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="_f_a_t32_8h_1a546d211c1f6659e26fc0eae87393bff0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void freeMemoryUpdate</definition>
+        <argsstring>(unsigned char flag, unsigned long size)</argsstring>
+        <name>freeMemoryUpdate</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>flag</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>size</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/FAT32/FAT32.h" line="154" column="6" bodyfile="lib/FAT32/FAT32.c" bodystart="743" bodyend="761" declfile="lib/FAT32/FAT32.h" declline="154" declcolumn="6"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//********************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>****<sp/>ROUTINES<sp/>FOR<sp/>FAT32<sp/>IMPLEMATATION<sp/>OF<sp/>SD<sp/>CARD<sp/>*****</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//********************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//Controller<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>ATmega32<sp/>(Clock:<sp/>8<sp/>Mhz-internal)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//Compiler<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>AVR-GCC<sp/>(winAVR<sp/>with<sp/>AVRStudio-4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//Project<sp/>Version<sp/><sp/><sp/>:<sp/>DL_1.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//Author<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CC<sp/>Dharmani,<sp/>Chennai<sp/>(India)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>www.dharmanitech.com</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//Date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>10<sp/>May<sp/>2011</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//*********************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_FAT32_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_FAT32_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//Structure<sp/>to<sp/>access<sp/>Master<sp/>Boot<sp/>Record<sp/>for<sp/>getting<sp/>info<sp/>about<sp/>partioions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="struct_m_b_rinfo___structure" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_m_b_rinfo___structure" kindref="compound">MBRinfo_Structure</ref>{</highlight></codeline>
+<codeline lineno="17" refid="struct_m_b_rinfo___structure_1a30656d47a40dc86f11e4da2b9d16fe25" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="struct_m_b_rinfo___structure_1a30656d47a40dc86f11e4da2b9d16fe25" kindref="member">nothing</ref>[446];<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//ignore,<sp/>placed<sp/>here<sp/>to<sp/>fill<sp/>the<sp/>gap<sp/>in<sp/>the<sp/>structure</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="struct_m_b_rinfo___structure_1af7d7bbc2788745605ffc10f8c2ce6f8c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="struct_m_b_rinfo___structure_1af7d7bbc2788745605ffc10f8c2ce6f8c" kindref="member">partitionData</ref>[64];<sp/><sp/></highlight><highlight class="comment">//partition<sp/>records<sp/>(16x4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="struct_m_b_rinfo___structure_1a70340f742796d7a399ee04d8103f0648" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_m_b_rinfo___structure_1a70340f742796d7a399ee04d8103f0648" kindref="member">signature</ref>;<sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//0xaa55</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//Structure<sp/>to<sp/>access<sp/>info<sp/>of<sp/>the<sp/>first<sp/>partioion<sp/>of<sp/>the<sp/>disk<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="structpartition_info___structure" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structpartition_info___structure" kindref="compound">partitionInfo_Structure</ref>{<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="24" refid="structpartition_info___structure_1a70b734a0878d426ac9c6da0a94b466d0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a70b734a0878d426ac9c6da0a94b466d0" kindref="member">status</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//0x80<sp/>-<sp/>active<sp/>partition</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="structpartition_info___structure_1a736782ddf708dc130b09909aba23ab3b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a736782ddf708dc130b09909aba23ab3b" kindref="member">headStart</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//starting<sp/>head</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="structpartition_info___structure_1a8da58ea6de317c87bfc0183ccf1b2e2b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a8da58ea6de317c87bfc0183ccf1b2e2b" kindref="member">cylSectStart</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//starting<sp/>cylinder<sp/>and<sp/>sector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="structpartition_info___structure_1a19a736deab9c3e705688e2d3c2a8139d" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a19a736deab9c3e705688e2d3c2a8139d" kindref="member">type</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//partition<sp/>type<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="structpartition_info___structure_1a1d5a88999390f37bed55fdf04a1d138b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a1d5a88999390f37bed55fdf04a1d138b" kindref="member">headEnd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//ending<sp/>head<sp/>of<sp/>the<sp/>partition</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="structpartition_info___structure_1a61507a320b2eaec3b412778df21d4cf0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a61507a320b2eaec3b412778df21d4cf0" kindref="member">cylSectEnd</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//ending<sp/>cylinder<sp/>and<sp/>sector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="structpartition_info___structure_1a90664247ac05aa81fb8f7af3f0cf8eb7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a90664247ac05aa81fb8f7af3f0cf8eb7" kindref="member">firstSector</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//total<sp/>sectors<sp/>between<sp/>MBR<sp/>&amp;<sp/>the<sp/>first<sp/>sector<sp/>of<sp/>the<sp/>partition</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="structpartition_info___structure_1a0bd4f974d31b6da25d50d4d9a998649a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><sp/><sp/><ref refid="structpartition_info___structure_1a0bd4f974d31b6da25d50d4d9a998649a" kindref="member">sectorsTotal</ref>;<sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//size<sp/>of<sp/>this<sp/>partition<sp/>in<sp/>sectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//Structure<sp/>to<sp/>access<sp/>boot<sp/>sector<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="struct_b_s___structure" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_b_s___structure" kindref="compound">BS_Structure</ref>{</highlight></codeline>
+<codeline lineno="36" refid="struct_b_s___structure_1adecfee5d15aa0546cb7d9b526016b6bd" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1adecfee5d15aa0546cb7d9b526016b6bd" kindref="member">jumpBoot</ref>[3];<sp/></highlight><highlight class="comment">//default:<sp/>0x009000EB</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="struct_b_s___structure_1a098074f9902021de7e8643fb5cda7c13" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a098074f9902021de7e8643fb5cda7c13" kindref="member">OEMName</ref>[8];</highlight></codeline>
+<codeline lineno="38" refid="struct_b_s___structure_1acac43d7200b78119da81c3f042a549a5" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1acac43d7200b78119da81c3f042a549a5" kindref="member">bytesPerSector</ref>;<sp/></highlight><highlight class="comment">//deafault:<sp/>512</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="struct_b_s___structure_1a3c091e5e25c6a576c2cf60bd5d33efc6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a3c091e5e25c6a576c2cf60bd5d33efc6" kindref="member">sectorPerCluster</ref>;</highlight></codeline>
+<codeline lineno="40" refid="struct_b_s___structure_1aab33678a8d6ba2ce7efe792db3a71ae3" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1aab33678a8d6ba2ce7efe792db3a71ae3" kindref="member">reservedSectorCount</ref>;</highlight></codeline>
+<codeline lineno="41" refid="struct_b_s___structure_1a4b92102f6eea055d57ca56089588ec83" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a4b92102f6eea055d57ca56089588ec83" kindref="member">numberofFATs</ref>;</highlight></codeline>
+<codeline lineno="42" refid="struct_b_s___structure_1a9aae7eea55e36ee205ed6a09fd2faa04" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a9aae7eea55e36ee205ed6a09fd2faa04" kindref="member">rootEntryCount</ref>;</highlight></codeline>
+<codeline lineno="43" refid="struct_b_s___structure_1aba9ab844a63d4169c26635a8f9e89a36" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1aba9ab844a63d4169c26635a8f9e89a36" kindref="member">totalSectors_F16</ref>;<sp/></highlight><highlight class="comment">//must<sp/>be<sp/>0<sp/>for<sp/>FAT32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="struct_b_s___structure_1a695db39ff2ef8d53a3906862055acbc0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a695db39ff2ef8d53a3906862055acbc0" kindref="member">mediaType</ref>;</highlight></codeline>
+<codeline lineno="45" refid="struct_b_s___structure_1a23382388dd0b77dbd7c0854bd4cbdc3e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a23382388dd0b77dbd7c0854bd4cbdc3e" kindref="member">FATsize_F16</ref>;<sp/></highlight><highlight class="comment">//must<sp/>be<sp/>0<sp/>for<sp/>FAT32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="struct_b_s___structure_1a343886a6675bcfa2ac01c9cb56aeb07b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a343886a6675bcfa2ac01c9cb56aeb07b" kindref="member">sectorsPerTrack</ref>;</highlight></codeline>
+<codeline lineno="47" refid="struct_b_s___structure_1a1ef566dd23a35e9ea6e67a53da0c9bf0" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a1ef566dd23a35e9ea6e67a53da0c9bf0" kindref="member">numberofHeads</ref>;</highlight></codeline>
+<codeline lineno="48" refid="struct_b_s___structure_1a08affcdcb8c7ad28520d990a4e3d22f2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a08affcdcb8c7ad28520d990a4e3d22f2" kindref="member">hiddenSectors</ref>;</highlight></codeline>
+<codeline lineno="49" refid="struct_b_s___structure_1a9cb6a4269abeca81390a2b42be07b16f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a9cb6a4269abeca81390a2b42be07b16f" kindref="member">totalSectors_F32</ref>;</highlight></codeline>
+<codeline lineno="50" refid="struct_b_s___structure_1abdc187711f5332c09f73c890fd45eb62" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1abdc187711f5332c09f73c890fd45eb62" kindref="member">FATsize_F32</ref>;<sp/></highlight><highlight class="comment">//count<sp/>of<sp/>sectors<sp/>occupied<sp/>by<sp/>one<sp/>FAT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="struct_b_s___structure_1aaf2851444feeaaeae580212a77491ffc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1aaf2851444feeaaeae580212a77491ffc" kindref="member">extFlags</ref>;</highlight></codeline>
+<codeline lineno="52" refid="struct_b_s___structure_1ad75d83f7c5a6c04f58f27ab2e23f8915" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1ad75d83f7c5a6c04f58f27ab2e23f8915" kindref="member">FSversion</ref>;<sp/></highlight><highlight class="comment">//0x0000<sp/>(defines<sp/>version<sp/>0.0)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="struct_b_s___structure_1a04b0b3480b867ae2beae09223bcc14af" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a04b0b3480b867ae2beae09223bcc14af" kindref="member">rootCluster</ref>;<sp/></highlight><highlight class="comment">//first<sp/>cluster<sp/>of<sp/>root<sp/>directory<sp/>(=2)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="struct_b_s___structure_1aa3e276801f9d08544be577e558c21edf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1aa3e276801f9d08544be577e558c21edf" kindref="member">FSinfo</ref>;<sp/></highlight><highlight class="comment">//sector<sp/>number<sp/>of<sp/>FSinfo<sp/>structure<sp/>(=1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55" refid="struct_b_s___structure_1aadaff346d14c35c273ae0dbac1cff407" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1aadaff346d14c35c273ae0dbac1cff407" kindref="member">BackupBootSector</ref>;</highlight></codeline>
+<codeline lineno="56" refid="struct_b_s___structure_1a419422ad4dcc889639bfc1b5f8edd7b1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a419422ad4dcc889639bfc1b5f8edd7b1" kindref="member">reserved</ref>[12];</highlight></codeline>
+<codeline lineno="57" refid="struct_b_s___structure_1a994d5390d6bfa5d62a9025e5582a04ad" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a994d5390d6bfa5d62a9025e5582a04ad" kindref="member">driveNumber</ref>;</highlight></codeline>
+<codeline lineno="58" refid="struct_b_s___structure_1af4624a817e2ced2f85ee5f22c1884cbe" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1af4624a817e2ced2f85ee5f22c1884cbe" kindref="member">reserved1</ref>;</highlight></codeline>
+<codeline lineno="59" refid="struct_b_s___structure_1a1d8eed59005f61ddcbc9d6a1c3774e3e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a1d8eed59005f61ddcbc9d6a1c3774e3e" kindref="member">bootSignature</ref>;</highlight></codeline>
+<codeline lineno="60" refid="struct_b_s___structure_1afeb0eff07541fde293c29f2c77e46e3a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1afeb0eff07541fde293c29f2c77e46e3a" kindref="member">volumeID</ref>;</highlight></codeline>
+<codeline lineno="61" refid="struct_b_s___structure_1ab2345321a677116822f385fe338d595f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1ab2345321a677116822f385fe338d595f" kindref="member">volumeLabel</ref>[11];<sp/></highlight><highlight class="comment">//&quot;NO<sp/>NAME<sp/>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="struct_b_s___structure_1a5f166c0bae260164ff95b090ba387c76" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a5f166c0bae260164ff95b090ba387c76" kindref="member">fileSystemType</ref>[8];<sp/></highlight><highlight class="comment">//&quot;FAT32&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="struct_b_s___structure_1a5b27c883e59333b017172ea98228caed" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1a5b27c883e59333b017172ea98228caed" kindref="member">bootData</ref>[420];</highlight></codeline>
+<codeline lineno="64" refid="struct_b_s___structure_1af109abdf763e4e25e1c283fc0639447a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_b_s___structure_1af109abdf763e4e25e1c283fc0639447a" kindref="member">bootEndSignature</ref>;<sp/></highlight><highlight class="comment">//0xaa55</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//Structure<sp/>to<sp/>access<sp/>FSinfo<sp/>sector<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69" refid="struct_f_s_info___structure" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_f_s_info___structure" kindref="compound">FSInfo_Structure</ref></highlight></codeline>
+<codeline lineno="70"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="71" refid="struct_f_s_info___structure_1ad95f7afed427a49a0d0acde0f08dbeb1" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1ad95f7afed427a49a0d0acde0f08dbeb1" kindref="member">leadSignature</ref>;<sp/></highlight><highlight class="comment">//0x41615252</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72" refid="struct_f_s_info___structure_1a2a1c9091fc2738a6b7863d13bac4b946" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1a2a1c9091fc2738a6b7863d13bac4b946" kindref="member">reserved1</ref>[480];</highlight></codeline>
+<codeline lineno="73" refid="struct_f_s_info___structure_1ad7bac1d32517d0c3aeb7be7620a7b80f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1ad7bac1d32517d0c3aeb7be7620a7b80f" kindref="member">structureSignature</ref>;<sp/></highlight><highlight class="comment">//0x61417272</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="struct_f_s_info___structure_1a33e00f850948a25dd9097ee94c822941" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1a33e00f850948a25dd9097ee94c822941" kindref="member">freeClusterCount</ref>;<sp/></highlight><highlight class="comment">//initial:<sp/>0xffffffff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="struct_f_s_info___structure_1a458a2c30e1ec3e473ebe76d87853a651" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1a458a2c30e1ec3e473ebe76d87853a651" kindref="member">nextFreeCluster</ref>;<sp/></highlight><highlight class="comment">//initial:<sp/>0xffffffff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76" refid="struct_f_s_info___structure_1a378c97d7a15657685d3ae27dde3d54a6" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1a378c97d7a15657685d3ae27dde3d54a6" kindref="member">reserved2</ref>[12];</highlight></codeline>
+<codeline lineno="77" refid="struct_f_s_info___structure_1a6791f665953740f1cb6863b559fc4539" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="struct_f_s_info___structure_1a6791f665953740f1cb6863b559fc4539" kindref="member">trailSignature</ref>;<sp/></highlight><highlight class="comment">//0xaa550000</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight><highlight class="comment">//Structure<sp/>to<sp/>access<sp/>Directory<sp/>Entry<sp/>in<sp/>the<sp/>FAT</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81" refid="structdir___structure" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdir___structure" kindref="compound">dir_Structure</ref>{</highlight></codeline>
+<codeline lineno="82" refid="structdir___structure_1ac3ba78d582e5a5d0a65c9e049a08ee45" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1ac3ba78d582e5a5d0a65c9e049a08ee45" kindref="member">name</ref>[11];</highlight></codeline>
+<codeline lineno="83" refid="structdir___structure_1a09226eafda61559acd00ad2eece3ea47" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a09226eafda61559acd00ad2eece3ea47" kindref="member">attrib</ref>;<sp/></highlight><highlight class="comment">//file<sp/>attributes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84" refid="structdir___structure_1a058e29f567ad93af815ee436a8de41b4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a058e29f567ad93af815ee436a8de41b4" kindref="member">NTreserved</ref>;<sp/></highlight><highlight class="comment">//always<sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85" refid="structdir___structure_1a2c06d3cd905ab07c9475ee4cc570ae34" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a2c06d3cd905ab07c9475ee4cc570ae34" kindref="member">timeTenth</ref>;<sp/></highlight><highlight class="comment">//tenths<sp/>of<sp/>seconds,<sp/>set<sp/>to<sp/>0<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="structdir___structure_1aa2993bf5fd26d21a27633d588459edcf" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1aa2993bf5fd26d21a27633d588459edcf" kindref="member">createTime</ref>;<sp/></highlight><highlight class="comment">//time<sp/>file<sp/>was<sp/>created</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87" refid="structdir___structure_1a1ea63a8a2f8c2a806ecaa3bb647ca76f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a1ea63a8a2f8c2a806ecaa3bb647ca76f" kindref="member">createDate</ref>;<sp/></highlight><highlight class="comment">//date<sp/>file<sp/>was<sp/>created</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88" refid="structdir___structure_1a9a0a4c65e032bd85123ee1b396920ea9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a9a0a4c65e032bd85123ee1b396920ea9" kindref="member">lastAccessDate</ref>;</highlight></codeline>
+<codeline lineno="89" refid="structdir___structure_1a007f545e8fdb185b1951a3ce029100bc" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a007f545e8fdb185b1951a3ce029100bc" kindref="member">firstClusterHI</ref>;<sp/></highlight><highlight class="comment">//higher<sp/>word<sp/>of<sp/>the<sp/>first<sp/>cluster<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90" refid="structdir___structure_1ae41eeef0f927444cf7f2a4b939d96495" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1ae41eeef0f927444cf7f2a4b939d96495" kindref="member">writeTime</ref>;<sp/></highlight><highlight class="comment">//time<sp/>of<sp/>last<sp/>write</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="structdir___structure_1a9265d261d44b1608dc8418e893f0e85e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a9265d261d44b1608dc8418e893f0e85e" kindref="member">writeDate</ref>;<sp/></highlight><highlight class="comment">//date<sp/>of<sp/>last<sp/>write</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92" refid="structdir___structure_1ad19e819bd00c00c37fb1d2385d2542da" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1ad19e819bd00c00c37fb1d2385d2542da" kindref="member">firstClusterLO</ref>;<sp/></highlight><highlight class="comment">//lower<sp/>word<sp/>of<sp/>the<sp/>first<sp/>cluster<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93" refid="structdir___structure_1a959dfbeb51ab9847aad866924457e935" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="structdir___structure_1a959dfbeb51ab9847aad866924457e935" kindref="member">fileSize</ref>;<sp/></highlight><highlight class="comment">//size<sp/>of<sp/>file<sp/>in<sp/>bytes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight><highlight class="comment">//Attribute<sp/>definitions<sp/>for<sp/>file/directory</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="_f_a_t32_8h_1aef018487342a3344aa32ee15ddcb4410" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_READ_ONLY<sp/><sp/><sp/><sp/><sp/>0x01</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="_f_a_t32_8h_1a42249a182dc832d4647b67281c2ffc90" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_HIDDEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="_f_a_t32_8h_1a1c1250075cd2ca065a67a44fc9fc3222" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_SYSTEM<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x04</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="_f_a_t32_8h_1ab14d118689e61ffb3e29f83d38f1f135" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_VOLUME_ID<sp/><sp/><sp/><sp/><sp/>0x08</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101" refid="_f_a_t32_8h_1afa13d3c1c60925f7b1e639233a799860" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_DIRECTORY<sp/><sp/><sp/><sp/><sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="_f_a_t32_8h_1a1b257aa7e0fdd8b11372edf885302176" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_ARCHIVE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x20</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="_f_a_t32_8h_1a4530dded7bddf70573cbc1fc4515367e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ATTR_LONG_NAME<sp/><sp/><sp/><sp/><sp/>0x0f</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="_f_a_t32_8h_1a708effadc6982b89faaf84eab0d56d76" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DIR_ENTRY_SIZE<sp/><sp/><sp/><sp/><sp/>0x32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107" refid="_f_a_t32_8h_1a2b7cf2a3641be7b89138615764d60ba3" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EMPTY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0x00</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="_f_a_t32_8h_1ab792dfd97ab00abb6a5fc20191a9e952" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DELETED<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0xe5</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="_f_a_t32_8h_1a982a66f513611f7f83ebfa4b4ecf1df9" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GET<sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110" refid="_f_a_t32_8h_1a59da1d65e87a723efe808dbabb4fc205" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET<sp/><sp/><sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="_f_a_t32_8h_1ada74e7db007a68e763f20c17f2985356" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READ<sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="_f_a_t32_8h_1ab64044259d5a2440725279dc7801f33e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>VERIFY<sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113" refid="_f_a_t32_8h_1a97fe5470fb1ac167c713671655ff3e52" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ADD<sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114" refid="_f_a_t32_8h_1ab9959e75e26bc66b3733ddc04de6b4cf" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>REMOVE<sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="_f_a_t32_8h_1ab811d8c6ff3a505312d3276590444289" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>LOW<sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116" refid="_f_a_t32_8h_1a5bb885982ff66a2e0a0a45a8ee9c35e2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HIGH<sp/><sp/><sp/><sp/>1<sp/><sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117" refid="_f_a_t32_8h_1a06dfea051e603d2b87c6f5df322838e7" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>TOTAL_FREE<sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="_f_a_t32_8h_1a4adc951e93b4d0152fbd792c9fbee411" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>NEXT_FREE<sp/><sp/><sp/><sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119" refid="_f_a_t32_8h_1a0cc54057c5dc1d7b693f95420adedf72" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GET_LIST<sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="120" refid="_f_a_t32_8h_1adf1ff268922f8fc22293d87c75017085" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GET_FILE<sp/><sp/><sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="_f_a_t32_8h_1abbbe5949f3c1f72e439924f8cf503509" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>DELETE<sp/><sp/><sp/><sp/><sp/><sp/><sp/>2</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122" refid="_f_a_t32_8h_1a59adc4c82490d23754cd39c2fb99b0da" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>EOF<sp/><sp/><sp/><sp/><sp/>0x0fffffff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125" refid="_f_a_t32_8h_1a220f38b26fa99d4d91b574f42d991516" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_STRING_SIZE<sp/><sp/><sp/><sp/><sp/>100<sp/><sp/></highlight><highlight class="comment">//defining<sp/>the<sp/>maximum<sp/>size<sp/>of<sp/>the<sp/>dataString</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight><highlight class="comment">//*************<sp/>external<sp/>variables<sp/>*************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129" refid="_f_a_t32_8h_1a195efb1de098d7d1990480b68a866ed1" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a195efb1de098d7d1990480b68a866ed1" kindref="member">firstDataSector</ref>,<sp/><ref refid="_f_a_t32_8h_1a141b615f923e667e5f1a3ae5383bfc1c" kindref="member">rootCluster</ref>,<sp/><ref refid="_f_a_t32_8h_1a2b38c32df25a8b72d4a58d3a08f98ae4" kindref="member">totalClusters</ref>;</highlight></codeline>
+<codeline lineno="130" refid="_f_a_t32_8h_1ab9c1a1edb108a9cec6c7c6a7de4a4020" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><ref refid="_f_a_t32_8h_1ab9c1a1edb108a9cec6c7c6a7de4a4020" kindref="member">bytesPerSector</ref>,<sp/><ref refid="_f_a_t32_8h_1adfae3f231d9c524b2a1da486872e5536" kindref="member">sectorPerCluster</ref>,<sp/><ref refid="_f_a_t32_8h_1ab83964e3360b51b496622eee5baa4fdf" kindref="member">reservedSectorCount</ref>;</highlight></codeline>
+<codeline lineno="131" refid="_f_a_t32_8h_1a23876fd50ef181a38270e12ab918d447" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a92f9351dc6943803baabdc7d245a8721" kindref="member">unusedSectors</ref>,<sp/><ref refid="_f_a_t32_8h_1a237d717b3c479aa8072a49ec90b3cdea" kindref="member">appendFileSector</ref>,<sp/><ref refid="_f_a_t32_8h_1a23876fd50ef181a38270e12ab918d447" kindref="member">appendFileLocation</ref>,<sp/><ref refid="_f_a_t32_8h_1a486df86cef253a40f9115fd866b3d3dd" kindref="member">fileSize</ref>,<sp/><ref refid="_f_a_t32_8h_1ae01f3af1e3e205987505b48eb3ce5d25" kindref="member">appendStartCluster</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight><highlight class="comment">//global<sp/>flag<sp/>to<sp/>keep<sp/>track<sp/>of<sp/>free<sp/>cluster<sp/>count<sp/>updating<sp/>in<sp/>FSinfo<sp/>sector</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="134" refid="_f_a_t32_8h_1ab5feb40fa3b72b5b8360a7da8367498f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1ab5feb40fa3b72b5b8360a7da8367498f" kindref="member">freeClusterCountUpdated</ref>;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"></highlight></codeline>
+<codeline lineno="136"><highlight class="normal"></highlight><highlight class="comment">//data<sp/>string<sp/>where<sp/>data<sp/>is<sp/>collected<sp/>before<sp/>sending<sp/>to<sp/>the<sp/>card</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="137" refid="_f_a_t32_8h_1a6a329928c08fe4a8a8791dc777111121" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a6a329928c08fe4a8a8791dc777111121" kindref="member">dataString</ref>[<ref refid="_f_a_t32_8h_1a220f38b26fa99d4d91b574f42d991516" kindref="member">MAX_STRING_SIZE</ref>];</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight></codeline>
+<codeline lineno="139"><highlight class="normal"></highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">//*************<sp/>functions<sp/>*************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a1a404adb1477372c136ee3d8ec370bef" kindref="member">getBootSectorData</ref><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a7e2988f898a6b56ba385ae2c34128a86" kindref="member">getFirstSector</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>clusterNumber);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a44efd4747cb07a0a1cf3784c838b6a6e" kindref="member">getSetFreeCluster</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>totOrNext,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>get_set,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>FSEntry);</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structdir___structure" kindref="compound">dir_Structure</ref>*<sp/><ref refid="_f_a_t32_8h_1aa35e16da2fe720a2f1acb332deb7ae5c" kindref="member">findFiles</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>flag,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName);</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1ab0d24683088974e34e652dcf46037c9f" kindref="member">getSetNextCluster</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>clusterNumber,</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>get_set,</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>clusterEntry);</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1ab213e22a70270c138864e3075aa51fb8" kindref="member">readFile</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>flag,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName);</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a126f62cbfb84a23224d07d7eebb1f377" kindref="member">convertFileName</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a94b370a9a30661006d819c7d5f69a0ff" kindref="member">writeFile</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName);</highlight></codeline>
+<codeline lineno="150" refid="_f_a_t32_8h_1ad2257b158f7a4303f5914ef300e2e62b" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1ad2257b158f7a4303f5914ef300e2e62b" kindref="member">appendFile</ref><sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a92d056bee6b45c23b0b06fd4390daaba" kindref="member">searchNextFreeCluster</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>startCluster);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1ac038c8795e541cbd5a33eda705b01934" kindref="member">displayMemory</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>flag,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>memory);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1aae257afc618304098844252c3d71b788" kindref="member">deleteFile</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*fileName);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_f_a_t32_8h_1a546d211c1f6659e26fc0eae87393bff0" kindref="member">freeMemoryUpdate</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>flag,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>size);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="lib/FAT32/FAT32.h"/>
+  </compounddef>
+</doxygen>

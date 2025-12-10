@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_d0abd4fa4a94f3c11efc7006adf05ba3" kind="dir">
+    <compoundname>lib/gas_index_algorithm</compoundname>
+    <innerfile refid="sensirion__gas__index__algorithm_8c">sensirion_gas_index_algorithm.c</innerfile>
+    <innerfile refid="sensirion__gas__index__algorithm_8h">sensirion_gas_index_algorithm.h</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/gas_index_algorithm/"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,433 @@
+\doxysection{SD\+\_\+routines.\+c}
+\label{_s_d__routines_8c_source}\index{lib/sd/SD\_routines.c@{lib/sd/SD\_routines.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ ******\ FUNCTIONS\ FOR\ SD\ RAW\ DATA\ TRANSFER\ *******}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//Controller\ \ \ \ \ \ \ \ :\ ATmega32\ (Clock:\ 8\ Mhz-\/internal)}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//Compiler\ \ \ \ \ \ \ \ \ \ :\ AVR-\/GCC\ (winAVR\ with\ AVRStudio-\/4)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//Project\ Version\ \ \ :\ DL\_1.0}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//Author\ \ \ \ \ \ \ \ \ \ \ \ :\ CC\ Dharmani,\ Chennai\ (India)}}
+\DoxyCodeLine{00008\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ www.dharmanitech.com}}
+\DoxyCodeLine{00009\ \textcolor{comment}{//Date\ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 10\ May\ 2011}}
+\DoxyCodeLine{00010\ \textcolor{comment}{//**************************************************************}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ \textcolor{comment}{//Link\ to\ the\ Post:\ http://www.dharmanitech.com/2009/01/sd-\/card-\/interfacing-\/with-\/atmega8-\/fat32.html}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <avr/pgmspace.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}SPI\_routines.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}sd\_routines.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <uart.h>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <util/delay.h>}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ Global\ variables}}
+\DoxyCodeLine{00022\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SDHC\_flag\ =\ 0;}
+\DoxyCodeLine{00023\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ cardType\ =\ 0;}
+\DoxyCodeLine{00024\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ buffer[512];}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00027\ \textcolor{comment}{//Function\ \ :\ to\ initialize\ the\ SD/SDHC\ card\ in\ SPI\ mode}}
+\DoxyCodeLine{00028\ \textcolor{comment}{//Arguments\ :\ none}}
+\DoxyCodeLine{00029\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00030\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00031\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00032\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ i,\ response,\ SD\_version;}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ retry=0\ ;}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \textcolor{keywordflow}{for}(i=0;i<10;i++)}
+\DoxyCodeLine{00038\ \ \ \ \ SPI\_transmit(0xff);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00041\ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00042\ \{}
+\DoxyCodeLine{00043\ \ \ }
+\DoxyCodeLine{00044\ \ \ \ response\ =\ SD\_sendCommand(GO\_IDLE\_STATE,\ 0);\ \textcolor{comment}{//send\ 'reset\ \&\ go\ idle'\ command}}
+\DoxyCodeLine{00045\ \ \ \ retry++;}
+\DoxyCodeLine{00046\ \ \ \ \textcolor{keywordflow}{if}(retry>0xFF)\ }
+\DoxyCodeLine{00047\ \ \ \ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}SD\_CS\_DEASSERT\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00051\ \ \ \ \}}
+\DoxyCodeLine{00052\ \ \ \ }
+\DoxyCodeLine{00053\ \}\ \textcolor{keywordflow}{while}(response\ !=\ 0x01);}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00056\ SPI\_transmit\ (0xff);}
+\DoxyCodeLine{00057\ SPI\_transmit\ (0xff);}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ retry\ =\ 0;}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ SD\_version\ =\ 2;\ \textcolor{comment}{//default\ set\ to\ SD\ compliance\ with\ ver2.x;\ }}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//this\ may\ change\ after\ checking\ the\ next\ command}}
+\DoxyCodeLine{00063\ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00064\ \{}
+\DoxyCodeLine{00065\ response\ =\ SD\_sendCommand(SEND\_IF\_COND,0x000001AA);\ \textcolor{comment}{//Check\ power\ supply\ status,\ mendatory\ for\ SDHC\ card}}
+\DoxyCodeLine{00066\ retry++;}
+\DoxyCodeLine{00067\ \textcolor{keywordflow}{if}(retry>0xfe)\ }
+\DoxyCodeLine{00068\ \ \ \ \{}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ SD\_version\ =\ 1;}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ cardType\ =\ 1;}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00072\ \ \ \ \}\ \textcolor{comment}{//time\ out}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \}\textcolor{keywordflow}{while}(response\ !=\ 0x01);}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ retry\ =\ 0;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ response\ =\ SD\_sendCommand(APP\_CMD,0);\ \textcolor{comment}{//CMD55,\ must\ be\ sent\ before\ sending\ any\ ACMD\ command}}
+\DoxyCodeLine{00081\ response\ =\ SD\_sendCommand(SD\_SEND\_OP\_COND,0x40000000);\ \textcolor{comment}{//ACMD41}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ retry++;}
+\DoxyCodeLine{00084\ \textcolor{keywordflow}{if}(retry>0xfe)\ }
+\DoxyCodeLine{00085\ \ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}SD\_SEND\_OP\_COND\ timeout\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00088\ \ \ \ \}\ }
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \}\textcolor{keywordflow}{while}(response\ !=\ 0x00);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ retry\ =\ 0;}
+\DoxyCodeLine{00094\ SDHC\_flag\ =\ 0;}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{keywordflow}{if}\ (SD\_version\ ==\ 2)}
+\DoxyCodeLine{00097\ \{\ }
+\DoxyCodeLine{00098\ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00099\ \ \ \ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ response\ =\ SD\_sendCommand(READ\_OCR,0);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ retry++;}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(retry>0xfe)\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \ cardType\ =\ 0;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \ \ \ \}\textcolor{keywordflow}{while}(response\ !=\ 0x00);}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \textcolor{keywordflow}{if}(SDHC\_flag\ ==\ 1)\ cardType\ =\ 2;}
+\DoxyCodeLine{00111\ \ \ \ \textcolor{keywordflow}{else}\ cardType\ =\ 3;}
+\DoxyCodeLine{00112\ \}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{comment}{//SD\_sendCommand(CRC\_ON\_OFF,\ OFF);\ //disable\ CRC;\ deafault\ -\/\ CRC\ disabled\ in\ SPI\ mode}}
+\DoxyCodeLine{00115\ \textcolor{comment}{//SD\_sendCommand(SET\_BLOCK\_LEN,\ 512);\ //set\ block\ size\ to\ 512;\ default\ size\ is\ 512}}
+\DoxyCodeLine{00116\ }
+\DoxyCodeLine{00117\ SPI\_HIGH\_SPEED;}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{//successful\ return}}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00123\ \textcolor{comment}{//Function\ \ :\ to\ send\ a\ command\ to\ SD\ card}}
+\DoxyCodeLine{00124\ \textcolor{comment}{//Arguments\ :\ unsigned\ char\ (8-\/bit\ command\ value)}}
+\DoxyCodeLine{00125\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \&\ unsigned\ long\ (32-\/bit\ command\ argument)}}
+\DoxyCodeLine{00126\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ response\ byte}}
+\DoxyCodeLine{00127\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00128\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_sendCommand(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ cmd,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ arg)}
+\DoxyCodeLine{00129\ \{}
+\DoxyCodeLine{00130\ \ \ \ }
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response,\ retry=0,\ status;}
+\DoxyCodeLine{00132\ \textcolor{comment}{//\ uart\_puts\_P("{}In\ SD\_sendCommand\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00133\ \textcolor{comment}{//SD\ card\ accepts\ byte\ address\ while\ SDHC\ accepts\ block\ address\ in\ multiples\ of\ 512}}
+\DoxyCodeLine{00134\ \textcolor{comment}{//so,\ if\ it's\ SD\ card\ we\ need\ to\ convert\ block\ address\ into\ corresponding\ byte\ address\ by\ }}
+\DoxyCodeLine{00135\ \textcolor{comment}{//multipying\ it\ with\ 512.\ which\ is\ equivalent\ to\ shifting\ it\ left\ 9\ times}}
+\DoxyCodeLine{00136\ \textcolor{comment}{//following\ 'if'\ loop\ does\ that}}
+\DoxyCodeLine{00137\ }
+\DoxyCodeLine{00138\ \textcolor{keywordflow}{if}(SDHC\_flag\ ==\ 0)\ \ }
+\DoxyCodeLine{00139\ \{}
+\DoxyCodeLine{00140\ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SDHC\_flag\ ==\ 0\(\backslash\)r\(\backslash\)n"{}});\ \ \ }
+\DoxyCodeLine{00141\ \textcolor{keywordflow}{if}(cmd\ ==\ READ\_SINGLE\_BLOCK\ \ \ \ \ ||}
+\DoxyCodeLine{00142\ \ \ \ cmd\ ==\ READ\_MULTIPLE\_BLOCKS\ \ ||}
+\DoxyCodeLine{00143\ \ \ \ cmd\ ==\ WRITE\_SINGLE\_BLOCK\ \ \ \ ||}
+\DoxyCodeLine{00144\ \ \ \ cmd\ ==\ WRITE\_MULTIPLE\_BLOCKS\ ||}
+\DoxyCodeLine{00145\ \ \ \ cmd\ ==\ ERASE\_BLOCK\_START\_ADDR||\ }
+\DoxyCodeLine{00146\ \ \ \ cmd\ ==\ ERASE\_BLOCK\_END\_ADDR\ )\ }
+\DoxyCodeLine{00147\ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ arg\ =\ arg\ <<\ 9;}
+\DoxyCodeLine{00149\ \ \ \ \}\ \ \ \ \ \ \ }
+\DoxyCodeLine{00150\ \}}
+\DoxyCodeLine{00151\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00152\ uart\_puts\_P(\textcolor{stringliteral}{"{}After\ SD\_CS\_ASSERT\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00153\ \_delay\_ms(1);\ \textcolor{comment}{//small\ delay\ before\ sending\ command}}
+\DoxyCodeLine{00154\ SPI\_transmit(cmd\ |\ 0x40);\ \textcolor{comment}{//send\ command,\ first\ two\ bits\ always\ '01'}}
+\DoxyCodeLine{00155\ SPI\_transmit(arg>>24);}
+\DoxyCodeLine{00156\ SPI\_transmit(arg>>16);}
+\DoxyCodeLine{00157\ SPI\_transmit(arg>>8);}
+\DoxyCodeLine{00158\ SPI\_transmit(arg);}
+\DoxyCodeLine{00159\ \textcolor{comment}{//\ uart\_puts\_P("{}CMDs\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00160\ \textcolor{keywordflow}{if}(cmd\ ==\ SEND\_IF\_COND)\ \ \textcolor{comment}{//it\ is\ compulsory\ to\ send\ correct\ CRC\ for\ CMD8\ (CRC=0x87)\ \&\ CMD0\ (CRC=0x95)}}
+\DoxyCodeLine{00161\ \ \ SPI\_transmit(0x87);\ \ \ \ \textcolor{comment}{//for\ remaining\ commands,\ CRC\ is\ ignored\ in\ SPI\ mode}}
+\DoxyCodeLine{00162\ \textcolor{keywordflow}{else}\ }
+\DoxyCodeLine{00163\ \ \ SPI\_transmit(0x95);\ }
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{keywordflow}{while}((response\ =\ SPI\_receive())\ ==\ 0xff)\ \textcolor{comment}{//wait\ response}}
+\DoxyCodeLine{00166\ \ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfe)\ \textcolor{keywordflow}{break};\ \textcolor{comment}{//time\ out\ error}}
+\DoxyCodeLine{00167\ }
+\DoxyCodeLine{00168\ \textcolor{keywordflow}{if}(response\ ==\ 0x00\ \&\&\ cmd\ ==\ 58)\ \ \textcolor{comment}{//checking\ response\ of\ CMD58}}
+\DoxyCodeLine{00169\ \{}
+\DoxyCodeLine{00170\ \ \ status\ =\ SPI\_receive()\ \&\ 0x40;\ \ \ \ \ \textcolor{comment}{//first\ byte\ of\ the\ OCR\ register\ (bit\ 31:24)}}
+\DoxyCodeLine{00171\ \ \ \textcolor{keywordflow}{if}(status\ ==\ 0x40)\ SDHC\_flag\ =\ 1;\ \ \textcolor{comment}{//we\ need\ it\ to\ verify\ SDHC\ card}}
+\DoxyCodeLine{00172\ \ \ \textcolor{keywordflow}{else}\ SDHC\_flag\ =\ 0;}
+\DoxyCodeLine{00173\ }
+\DoxyCodeLine{00174\ \ \ SPI\_receive();\ \textcolor{comment}{//remaining\ 3\ bytes\ of\ the\ OCR\ register\ are\ ignored\ here}}
+\DoxyCodeLine{00175\ \ \ SPI\_receive();\ \textcolor{comment}{//one\ can\ use\ these\ bytes\ to\ check\ power\ supply\ limits\ of\ SD}}
+\DoxyCodeLine{00176\ \ \ SPI\_receive();\ }
+\DoxyCodeLine{00177\ \}}
+\DoxyCodeLine{00178\ }
+\DoxyCodeLine{00179\ SPI\_receive();\ \textcolor{comment}{//extra\ 8\ CLK}}
+\DoxyCodeLine{00180\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00181\ }
+\DoxyCodeLine{00182\ \textcolor{keywordflow}{return}\ response;\ \textcolor{comment}{//return\ state}}
+\DoxyCodeLine{00183\ \}}
+\DoxyCodeLine{00184\ }
+\DoxyCodeLine{00185\ \textcolor{comment}{//*****************************************************************}}
+\DoxyCodeLine{00186\ \textcolor{comment}{//Function\ \ :\ to\ erase\ specified\ no.\ of\ blocks\ of\ SD\ card}}
+\DoxyCodeLine{00187\ \textcolor{comment}{//Arguments\ :\ none}}
+\DoxyCodeLine{00188\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00189\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00190\ \textcolor{comment}{//*****************************************************************}}
+\DoxyCodeLine{00191\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_erase\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks)}
+\DoxyCodeLine{00192\ \{}
+\DoxyCodeLine{00193\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response;}
+\DoxyCodeLine{00194\ }
+\DoxyCodeLine{00195\ response\ =\ SD\_sendCommand(ERASE\_BLOCK\_START\_ADDR,\ startBlock);\ \textcolor{comment}{//send\ starting\ block\ address}}
+\DoxyCodeLine{00196\ \textcolor{keywordflow}{if}(response\ !=\ 0x00)\ \textcolor{comment}{//check\ for\ SD\ status:\ 0x00\ -\/\ OK\ (No\ flags\ set)}}
+\DoxyCodeLine{00197\ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ response\ =\ SD\_sendCommand(ERASE\_BLOCK\_END\_ADDR,(startBlock\ +\ totalBlocks\ -\/\ 1));\ \textcolor{comment}{//send\ end\ block\ address}}
+\DoxyCodeLine{00200\ \textcolor{keywordflow}{if}(response\ !=\ 0x00)}
+\DoxyCodeLine{00201\ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00203\ response\ =\ SD\_sendCommand(ERASE\_SELECTED\_BLOCKS,\ 0);\ \textcolor{comment}{//erase\ all\ selected\ blocks}}
+\DoxyCodeLine{00204\ \textcolor{keywordflow}{if}(response\ !=\ 0x00)}
+\DoxyCodeLine{00205\ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{//normal\ return}}
+\DoxyCodeLine{00208\ \}}
+\DoxyCodeLine{00209\ }
+\DoxyCodeLine{00210\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00211\ \textcolor{comment}{//Function\ \ :\ to\ read\ a\ single\ block\ from\ SD\ card}}
+\DoxyCodeLine{00212\ \textcolor{comment}{//Arguments\ :\ none}}
+\DoxyCodeLine{00213\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00215\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00216\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_readSingleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock)}
+\DoxyCodeLine{00217\ \{}
+\DoxyCodeLine{00218\ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}In\ SD\_readSingleBlock\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00219\ \ \ \ \textcolor{comment}{//\ uart\_pu}}
+\DoxyCodeLine{00220\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response;}
+\DoxyCodeLine{00221\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ retry=0;}
+\DoxyCodeLine{00222\ uart\_puts\_P(\textcolor{stringliteral}{"{}re1\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00223\ \ response\ =\ SD\_sendCommand(READ\_SINGLE\_BLOCK,\ startBlock);\ \textcolor{comment}{//read\ a\ Block\ command}}
+\DoxyCodeLine{00224\ \ uart\_puts\_P(\textcolor{stringliteral}{"{}re2\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00225\ \ \textcolor{keywordflow}{if}(response\ !=\ 0x00)\ \textcolor{keywordflow}{return}\ response;\ \textcolor{comment}{//check\ for\ SD\ status:\ 0x00\ -\/\ OK\ (No\ flags\ set)}}
+\DoxyCodeLine{00226\ }
+\DoxyCodeLine{00227\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00228\ \_delay\_ms(1);\ \textcolor{comment}{//small\ delay\ before\ reading\ data}}
+\DoxyCodeLine{00229\ retry\ =\ 0;}
+\DoxyCodeLine{00230\ \textcolor{keywordflow}{while}(SPI\_receive()\ !=\ 0xfe)\ \textcolor{comment}{//wait\ for\ start\ block\ token\ 0xfe\ (0x11111110)}}
+\DoxyCodeLine{00231\ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}\ \textcolor{comment}{//return\ if\ time-\/out}}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00233\ \textcolor{keywordflow}{for}(i=0;\ i<512;\ i++)\ \textcolor{comment}{//read\ 512\ bytes}}
+\DoxyCodeLine{00234\ \ \ buffer[i]\ =\ SPI\_receive();}
+\DoxyCodeLine{00235\ }
+\DoxyCodeLine{00236\ SPI\_receive();\ \textcolor{comment}{//receive\ incoming\ CRC\ (16-\/bit),\ CRC\ is\ ignored\ here}}
+\DoxyCodeLine{00237\ SPI\_receive();}
+\DoxyCodeLine{00238\ }
+\DoxyCodeLine{00239\ SPI\_receive();\ \textcolor{comment}{//extra\ 8\ clock\ pulses}}
+\DoxyCodeLine{00240\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00242\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00243\ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00246\ \textcolor{comment}{//Function\ \ :\ to\ write\ to\ a\ single\ block\ of\ SD\ card}}
+\DoxyCodeLine{00247\ \textcolor{comment}{//Arguments\ :\ none}}
+\DoxyCodeLine{00248\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00249\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00250\ \textcolor{comment}{//******************************************************************}}
+\DoxyCodeLine{00251\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_writeSingleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock)}
+\DoxyCodeLine{00252\ \{}
+\DoxyCodeLine{00253\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response;}
+\DoxyCodeLine{00254\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ retry=0;}
+\DoxyCodeLine{00255\ }
+\DoxyCodeLine{00256\ \ response\ =\ SD\_sendCommand(WRITE\_SINGLE\_BLOCK,\ startBlock);\ \textcolor{comment}{//write\ a\ Block\ command}}
+\DoxyCodeLine{00257\ \ \ }
+\DoxyCodeLine{00258\ \ \textcolor{keywordflow}{if}(response\ !=\ 0x00)\ \textcolor{keywordflow}{return}\ response;\ \textcolor{comment}{//check\ for\ SD\ status:\ 0x00\ -\/\ OK\ (No\ flags\ set)}}
+\DoxyCodeLine{00259\ }
+\DoxyCodeLine{00260\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ SPI\_transmit(0xfe);\ \ \ \ \ \textcolor{comment}{//Send\ start\ block\ token\ 0xfe\ (0x11111110)}}
+\DoxyCodeLine{00263\ }
+\DoxyCodeLine{00264\ \textcolor{keywordflow}{for}(i=0;\ i<512;\ i++)\ \ \ \ \textcolor{comment}{//send\ 512\ bytes\ data}}
+\DoxyCodeLine{00265\ \ \ SPI\_transmit(buffer[i]);}
+\DoxyCodeLine{00266\ }
+\DoxyCodeLine{00267\ SPI\_transmit(0xff);\ \ \ \ \ \textcolor{comment}{//transmit\ dummy\ CRC\ (16-\/bit),\ CRC\ is\ ignored\ here}}
+\DoxyCodeLine{00268\ SPI\_transmit(0xff);}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ response\ =\ SPI\_receive();}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00272\ \textcolor{keywordflow}{if}(\ (response\ \&\ 0x1f)\ !=\ 0x05)\ \textcolor{comment}{//response=\ 0xXXX0AAA1\ ;\ AAA='010'\ -\/\ data\ accepted}}
+\DoxyCodeLine{00273\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//AAA='101'-\/data\ rejected\ due\ to\ CRC\ error}}
+\DoxyCodeLine{00274\ \ \ SD\_CS\_DEASSERT;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//AAA='110'-\/data\ rejected\ due\ to\ write\ error}}
+\DoxyCodeLine{00275\ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00276\ \}}
+\DoxyCodeLine{00277\ }
+\DoxyCodeLine{00278\ \textcolor{keywordflow}{while}(!SPI\_receive())\ \textcolor{comment}{//wait\ for\ SD\ card\ to\ complete\ writing\ and\ get\ idle}}
+\DoxyCodeLine{00279\ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00280\ }
+\DoxyCodeLine{00281\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00282\ SPI\_transmit(0xff);\ \ \ \textcolor{comment}{//just\ spend\ 8\ clock\ cycle\ delay\ before\ reasserting\ the\ CS\ line}}
+\DoxyCodeLine{00283\ SD\_CS\_ASSERT;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//re-\/asserting\ the\ CS\ line\ to\ verify\ if\ card\ is\ still\ busy}}
+\DoxyCodeLine{00284\ }
+\DoxyCodeLine{00285\ \textcolor{keywordflow}{while}(!SPI\_receive())\ \textcolor{comment}{//wait\ for\ SD\ card\ to\ complete\ writing\ and\ get\ idle}}
+\DoxyCodeLine{00286\ \ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00287\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00289\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00290\ \}}
+\DoxyCodeLine{00291\ }
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#ifndef\ FAT\_TESTING\_ONLY}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00296\ \textcolor{comment}{//Function\ \ :\ to\ read\ multiple\ blocks\ from\ SD\ card\ \&\ send\ every\ block\ to\ UART}}
+\DoxyCodeLine{00297\ \textcolor{comment}{//Arguments\ :\ none}}
+\DoxyCodeLine{00298\ \textcolor{comment}{//return\ \ \ \ :\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00299\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00300\ \textcolor{comment}{//****************************************************************************}}
+\DoxyCodeLine{00301\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_readMultipleBlock\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks)}
+\DoxyCodeLine{00302\ \{}
+\DoxyCodeLine{00303\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response;}
+\DoxyCodeLine{00304\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ retry=0;}
+\DoxyCodeLine{00305\ }
+\DoxyCodeLine{00306\ retry\ =\ 0;}
+\DoxyCodeLine{00307\ }
+\DoxyCodeLine{00308\ response\ =\ SD\_sendCommand(READ\_MULTIPLE\_BLOCKS,\ startBlock);\ \textcolor{comment}{//write\ a\ Block\ command}}
+\DoxyCodeLine{00309\ \ \ }
+\DoxyCodeLine{00310\ \textcolor{keywordflow}{if}(response\ !=\ 0x00)\ \textcolor{keywordflow}{return}\ response;\ \textcolor{comment}{//check\ for\ SD\ status:\ 0x00\ -\/\ OK\ (No\ flags\ set)}}
+\DoxyCodeLine{00311\ }
+\DoxyCodeLine{00312\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00313\ }
+\DoxyCodeLine{00314\ \textcolor{keywordflow}{while}(\ totalBlocks\ )}
+\DoxyCodeLine{00315\ \{}
+\DoxyCodeLine{00316\ \ \ retry\ =\ 0;}
+\DoxyCodeLine{00317\ \ \ \textcolor{keywordflow}{while}(SPI\_receive()\ !=\ 0xfe)\ \textcolor{comment}{//wait\ for\ start\ block\ token\ 0xfe\ (0x11111110)}}
+\DoxyCodeLine{00318\ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}\ \textcolor{comment}{//return\ if\ time-\/out}}
+\DoxyCodeLine{00319\ }
+\DoxyCodeLine{00320\ \ \ \textcolor{keywordflow}{for}(i=0;\ i<512;\ i++)\ \textcolor{comment}{//read\ 512\ bytes}}
+\DoxyCodeLine{00321\ \ \ \ \ \ buffer[i]\ =\ SPI\_receive();}
+\DoxyCodeLine{00322\ }
+\DoxyCodeLine{00323\ \ \ SPI\_receive();\ \textcolor{comment}{//receive\ incoming\ CRC\ (16-\/bit),\ CRC\ is\ ignored\ here}}
+\DoxyCodeLine{00324\ \ \ SPI\_receive();}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00326\ \ \ SPI\_receive();\ \textcolor{comment}{//extra\ 8\ cycles}}
+\DoxyCodeLine{00327\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00328\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\ -\/-\/-\/-\/-\/-\/-\/-\/-\/\ "{}});}
+\DoxyCodeLine{00329\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00330\ }
+\DoxyCodeLine{00331\ \ \ \textcolor{keywordflow}{for}(i=0;\ i<512;\ i++)\ \textcolor{comment}{//send\ the\ block\ to\ UART}}
+\DoxyCodeLine{00332\ \ \ \{}
+\DoxyCodeLine{00333\ \ \ \ \ \ uart\_putc(buffer[i]);}
+\DoxyCodeLine{00334\ \ \ \}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00337\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\ -\/-\/-\/-\/-\/-\/-\/-\/-\/\ "{}});}
+\DoxyCodeLine{00338\ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00339\ \ \ totalBlocks-\/-\/;}
+\DoxyCodeLine{00340\ \}}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ SD\_sendCommand(STOP\_TRANSMISSION,\ 0);\ \textcolor{comment}{//command\ to\ stop\ transmission}}
+\DoxyCodeLine{00343\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00344\ SPI\_receive();\ \textcolor{comment}{//extra\ 8\ clock\ pulses}}
+\DoxyCodeLine{00345\ }
+\DoxyCodeLine{00346\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00347\ \}}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{comment}{//***************************************************************************}}
+\DoxyCodeLine{00350\ \textcolor{comment}{//Function:\ to\ receive\ data\ from\ UART\ and\ write\ to\ multiple\ blocks\ of\ SD\ card}}
+\DoxyCodeLine{00351\ \textcolor{comment}{//Arguments:\ none}}
+\DoxyCodeLine{00352\ \textcolor{comment}{//return:\ unsigned\ char;\ will\ be\ 0\ if\ no\ error,}}
+\DoxyCodeLine{00353\ \textcolor{comment}{//\ otherwise\ the\ response\ byte\ will\ be\ sent}}
+\DoxyCodeLine{00354\ \textcolor{comment}{//****************************************************************************}}
+\DoxyCodeLine{00355\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ SD\_writeMultipleBlock(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ startBlock,\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ totalBlocks)}
+\DoxyCodeLine{00356\ \{}
+\DoxyCodeLine{00357\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ response,\ data;}
+\DoxyCodeLine{00358\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ i,\ retry=0;}
+\DoxyCodeLine{00359\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long}\ blockCounter=0;}
+\DoxyCodeLine{00360\ }
+\DoxyCodeLine{00361\ response\ =\ SD\_sendCommand(WRITE\_MULTIPLE\_BLOCKS,\ startBlock);\ \textcolor{comment}{//write\ a\ Block\ command}}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \textcolor{keywordflow}{if}(response\ !=\ 0x00)\ \textcolor{keywordflow}{return}\ response;\ \textcolor{comment}{//check\ for\ SD\ status:\ 0x00\ -\/\ OK\ (No\ flags\ set)}}
+\DoxyCodeLine{00364\ }
+\DoxyCodeLine{00365\ SD\_CS\_ASSERT;}
+\DoxyCodeLine{00366\ }
+\DoxyCodeLine{00367\ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00368\ uart\_puts(\textcolor{stringliteral}{"{}\ Enter\ text\ (End\ with\ \string~):\ "{}});}
+\DoxyCodeLine{00369\ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00371\ \textcolor{keywordflow}{while}(\ blockCounter\ <\ totalBlocks\ )}
+\DoxyCodeLine{00372\ \{}
+\DoxyCodeLine{00373\ \ \ \ i=0;}
+\DoxyCodeLine{00374\ \ \ \ \textcolor{keywordflow}{do}}
+\DoxyCodeLine{00375\ \ \ \ \{}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ data\ =\ uart\_getc();}
+\DoxyCodeLine{00377\ \ \ \ \ \ \ buffer[i++]\ =\ data;}
+\DoxyCodeLine{00378\ \ \ \ \ \ \textcolor{keywordflow}{if}(i\ ==\ 512)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00379\ \ \ \ \}\textcolor{keywordflow}{while}\ (data\ !=\ \textcolor{charliteral}{'\string~'});}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00382\ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}\ -\/-\/-\/-\/\ "{}});}
+\DoxyCodeLine{00383\ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00384\ }
+\DoxyCodeLine{00385\ \ \ \ SPI\_transmit(0xfc);\ \textcolor{comment}{//Send\ start\ block\ token\ 0xfc\ (0x11111100)}}
+\DoxyCodeLine{00386\ }
+\DoxyCodeLine{00387\ \ \ \ \textcolor{keywordflow}{for}(i=0;\ i<512;\ i++)\ \textcolor{comment}{//send\ 512\ bytes\ data}}
+\DoxyCodeLine{00388\ \ \ \ \ \ \ SPI\_transmit(buffer[i]);}
+\DoxyCodeLine{00389\ }
+\DoxyCodeLine{00390\ \ \ \ SPI\_transmit(0xff);\ \textcolor{comment}{//transmit\ dummy\ CRC\ (16-\/bit),\ CRC\ is\ ignored\ here}}
+\DoxyCodeLine{00391\ \ \ \ SPI\_transmit(0xff);}
+\DoxyCodeLine{00392\ }
+\DoxyCodeLine{00393\ \ \ \ response\ =\ SPI\_receive();}
+\DoxyCodeLine{00394\ \ \ \ \textcolor{keywordflow}{if}((response\ \&\ 0x1f)\ !=\ 0x05)}
+\DoxyCodeLine{00395\ \ \ \ \{}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ response;}
+\DoxyCodeLine{00398\ \ \ \ \}}
+\DoxyCodeLine{00399\ }
+\DoxyCodeLine{00400\ \ \ \ \textcolor{keywordflow}{while}(!SPI\_receive())}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00402\ }
+\DoxyCodeLine{00403\ \ \ \ blockCounter++;}
+\DoxyCodeLine{00404\ \}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ SPI\_transmit(0xfd);\ \textcolor{comment}{//send\ 'stop\ transmission\ token'}}
+\DoxyCodeLine{00407\ }
+\DoxyCodeLine{00408\ retry\ =\ 0;}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00410\ \textcolor{keywordflow}{while}(!SPI\_receive())\ \textcolor{comment}{//wait\ for\ SD\ card\ to\ complete\ writing\ and\ get\ idle}}
+\DoxyCodeLine{00411\ \ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00412\ }
+\DoxyCodeLine{00413\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00414\ SPI\_transmit(0xff);\ \textcolor{comment}{//just\ spend\ 8\ clock\ cycle\ delay\ before\ reasserting\ the\ CS\ signal}}
+\DoxyCodeLine{00415\ SD\_CS\_ASSERT;\ \textcolor{comment}{//re\ assertion\ of\ the\ CS\ signal\ is\ required\ to\ verify\ if\ card\ is\ still\ busy}}
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \textcolor{keywordflow}{while}(!SPI\_receive())\ \textcolor{comment}{//wait\ for\ SD\ card\ to\ complete\ writing\ and\ get\ idle}}
+\DoxyCodeLine{00418\ \ \ \ \textcolor{keywordflow}{if}(retry++\ >\ 0xfffe)\{SD\_CS\_DEASSERT;\ \textcolor{keywordflow}{return}\ 1;\}}
+\DoxyCodeLine{00419\ SD\_CS\_DEASSERT;}
+\DoxyCodeLine{00420\ }
+\DoxyCodeLine{00421\ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00422\ \}}
+\DoxyCodeLine{00423\ \textcolor{comment}{//*********************************************}}
+\DoxyCodeLine{00424\ }
+\DoxyCodeLine{00425\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00426\ }
+\DoxyCodeLine{00427\ \textcolor{comment}{//********\ END\ ******\ www.dharmanitech.com\ *****}}
+
+\end{DoxyCode}

@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="dir_97aefd0d527b934f1d99a682da8fe6a9" kind="dir">
+    <compoundname>lib</compoundname>
+    <innerdir refid="dir_3910783ddda4ffb3575243835bbe5c91">lib/bme280</innerdir>
+    <innerdir refid="dir_da59c1a99b9e1d6246def90730814f52">lib/FAT32</innerdir>
+    <innerdir refid="dir_d0abd4fa4a94f3c11efc7006adf05ba3">lib/gas_index_algorithm</innerdir>
+    <innerdir refid="dir_541432474389f3d0c2d8c34c147b933c">lib/gpio</innerdir>
+    <innerdir refid="dir_f77afeb3040438c0f6923b9e9d7d5ece">lib/rtc</innerdir>
+    <innerdir refid="dir_9edec02ba212d7e4cc0043d9925a81af">lib/sd</innerdir>
+    <innerdir refid="dir_60af4551674fdba982acd4dd242a2619">lib/sgp41</innerdir>
+    <innerdir refid="dir_64eefeec3d7aa9339b38a625e5f884e5">lib/SPI</innerdir>
+    <innerdir refid="dir_7d92855bde7db39b1dfe3b8f27819bb3">lib/twi</innerdir>
+    <innerdir refid="dir_b4d6f175b33edcf901b87ee260cccf25">lib/uart</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/"/>
+  </compounddef>
+</doxygen>

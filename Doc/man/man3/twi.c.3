@@ -1,0 +1,54 @@
+.TH "lib/twi/twi.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/twi/twi.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <twi\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBtwi_init\fP (void)"
+.br
+.RI "Initialize TWI unit, enable internal pull-ups, and set SCL frequency\&. "
+.ti -1c
+.RI "void \fBtwi_start\fP (void)"
+.br
+.RI "Start communication on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_write\fP (uint8_t \fBdata\fP)"
+.br
+.RI "Write one byte to the I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_read\fP (uint8_t ack)"
+.br
+.RI "Read one byte from the I2C/TWI bus and acknowledge it by ACK or NACK\&. "
+.ti -1c
+.RI "void \fBtwi_stop\fP (void)"
+.br
+.RI "Generates Stop condition on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_test_address\fP (uint8_t addr)"
+.br
+.RI "Test presence of one I2C device on the bus\&. "
+.ti -1c
+.RI "void \fBtwi_readfrom_mem_into\fP (uint8_t addr, uint8_t memaddr, volatile uint8_t *buf, uint8_t nbytes)"
+.br
+.RI "Read into buf from the peripheral, starting from the memory address\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem\fP (uint8_t addr, uint8_t memaddr, uint8_t \fBdata\fP)"
+.br
+.RI "Write into peripheral\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem_16b\fP (uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf, uint8_t dataLowerHalf)"
+.br
+.RI "Write 16bit into peripheral\&. "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

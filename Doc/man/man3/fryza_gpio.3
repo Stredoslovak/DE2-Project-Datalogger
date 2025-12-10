@@ -1,0 +1,181 @@
+.TH "fryza_gpio" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+fryza_gpio \- GPIO Library <gpio\&.h>
+.PP
+ \- GPIO library for AVR-GCC\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBgpio_mode_output\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.RI "Configure one output pin\&. "
+.ti -1c
+.RI "void \fBgpio_mode_input_pullup\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.RI "Configure one input pin and enable pull-up\&. "
+.ti -1c
+.RI "void \fBgpio_write_low\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.RI "Write one pin to low value\&. "
+.ti -1c
+.RI "void \fBgpio_write_high\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.RI "Write one pin to high value\&. "
+.ti -1c
+.RI "uint8_t \fBgpio_read\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.RI "Read a value from input pin\&. "
+.ti -1c
+.RI "void \fBgpio_mode_input_nopull\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.ti -1c
+.RI "void \fBgpio_toggle\fP (volatile uint8_t *reg, uint8_t pin)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+GPIO library for AVR-GCC\&. 
+
+
+.PP
+.nf
+#include <gpio\&.h> 
+
+.fi
+.PP
+
+.PP
+The library contains functions for controlling AVRs' gpio pin(s)\&.
+
+.PP
+\fBNote\fP
+.RS 4
+Based on AVR Libc Reference Manual\&. 
+.RE
+.PP
+\fBCopyright\fP
+.RS 4
+(c) 2019-2024 Tomas Fryza, MIT license 
+.RE
+.PP
+
+.SH "Function Documentation"
+.PP 
+.SS "void gpio_mode_input_nopull (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Definition at line \fB91\fP of file \fBgpio\&.c\fP\&.
+.SS "void gpio_mode_input_pullup (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Configure one input pin and enable pull-up\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg\fP Address of Data Direction Register, such as &DDRB 
+.br
+\fIpin\fP Pin designation in the interval 0 to 7 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB34\fP of file \fBgpio\&.c\fP\&.
+.SS "void gpio_mode_output (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Configure one output pin\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg\fP Address of Data Direction Register, such as &DDRB 
+.br
+\fIpin\fP Pin designation in the interval 0 to 7 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB21\fP of file \fBgpio\&.c\fP\&.
+.SS "uint8_t gpio_read (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Read a value from input pin\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg\fP Address of Pin Register, such as &PIND 
+.br
+\fIpin\fP Pin designation in the interval 0 to 7 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Pin value 
+.RE
+.PP
+
+.PP
+Definition at line \fB75\fP of file \fBgpio\&.c\fP\&.
+.SS "void gpio_toggle (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Definition at line \fB98\fP of file \fBgpio\&.c\fP\&.
+.SS "void gpio_write_high (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Write one pin to high value\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg\fP Address of Port Register, such as &PORTB 
+.br
+\fIpin\fP Pin designation in the interval 0 to 7 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB62\fP of file \fBgpio\&.c\fP\&.
+.SS "void gpio_write_low (volatile uint8_t * reg, uint8_t pin)"
+
+.PP
+Write one pin to low value\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg\fP Address of Port Register, such as &PORTB 
+.br
+\fIpin\fP Pin designation in the interval 0 to 7 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+none 
+.RE
+.PP
+
+.PP
+Definition at line \fB49\fP of file \fBgpio\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

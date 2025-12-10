@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="structbme280__data" kind="struct" language="C++" prot="public">
+    <compoundname>bme280_data</compoundname>
+    <includes refid="bme280__defs_8h" local="no">bme280_defs.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structbme280__data_1a45f80ad1a10a6704bb6f8dec70976c72" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double bme280_data::pressure</definition>
+        <argsstring></argsstring>
+        <name>pressure</name>
+        <qualifiedname>bme280_data::pressure</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compensated pressure </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="396" column="12" bodyfile="lib/bme280/bme280_defs.h" bodystart="396" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__data_1a16a033ae72f60312e8528dde5a686154" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double bme280_data::temperature</definition>
+        <argsstring></argsstring>
+        <name>temperature</name>
+        <qualifiedname>bme280_data::temperature</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compensated temperature </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="399" column="12" bodyfile="lib/bme280/bme280_defs.h" bodystart="399" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structbme280__data_1a0c38debcdec5946cccb553a970f9fa88" prot="public" static="no" mutable="no">
+        <type>double</type>
+        <definition>double bme280_data::humidity</definition>
+        <argsstring></argsstring>
+        <name>humidity</name>
+        <qualifiedname>bme280_data::humidity</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Compensated humidity </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/bme280/bme280_defs.h" line="402" column="12" bodyfile="lib/bme280/bme280_defs.h" bodystart="402" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>bme280 sensor structure which comprises of temperature, pressure and humidity data </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="lib/bme280/bme280_defs.h" line="393" column="1" bodyfile="lib/bme280/bme280_defs.h" bodystart="394" bodyend="403"/>
+    <listofallmembers>
+      <member refid="structbme280__data_1a0c38debcdec5946cccb553a970f9fa88" prot="public" virt="non-virtual"><scope>bme280_data</scope><name>humidity</name></member>
+      <member refid="structbme280__data_1a45f80ad1a10a6704bb6f8dec70976c72" prot="public" virt="non-virtual"><scope>bme280_data</scope><name>pressure</name></member>
+      <member refid="structbme280__data_1a16a033ae72f60312e8528dde5a686154" prot="public" virt="non-virtual"><scope>bme280_data</scope><name>temperature</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

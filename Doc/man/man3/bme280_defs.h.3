@@ -1,0 +1,1141 @@
+.TH "lib/bme280/bme280_defs.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/bme280/bme280_defs.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include <stddef\&.h>\fP
+.br
+
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "struct \fBbme280_calib_data\fP"
+.br
+.RI "Calibration data\&. "
+.ti -1c
+.RI "struct \fBbme280_data\fP"
+.br
+.RI "bme280 sensor structure which comprises of temperature, pressure and humidity data "
+.ti -1c
+.RI "struct \fBbme280_uncomp_data\fP"
+.br
+.RI "bme280 sensor structure which comprises of uncompensated temperature, pressure and humidity data "
+.ti -1c
+.RI "struct \fBbme280_settings\fP"
+.br
+.RI "bme280 sensor settings structure which comprises of mode, oversampling and filter settings\&. "
+.ti -1c
+.RI "struct \fBbme280_dev\fP"
+.br
+.RI "bme280 device structure "
+.in -1c
+.SS "Macros"
+
+.PP
+.RI "\fBCommon macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBINT8_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBUINT8_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBINT16_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBUINT16_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBINT32_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBUINT32_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBINT64_C\fP(x)"
+.br
+.ti -1c
+.RI "#define \fBUINT64_C\fP(x)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBC standard macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBNULL\fP   ((void *) 0)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBCompiler switch macros Definitions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_DOUBLE_ENABLE\fP"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBGeneral Macro Definitions\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBTRUE\fP   \fBUINT8_C\fP(1)"
+.br
+.ti -1c
+.RI "#define \fBFALSE\fP   \fBUINT8_C\fP(0)"
+.br
+.ti -1c
+.RI "#define \fBBME280_INTF_RET_TYPE\fP   int8_t"
+.br
+.ti -1c
+.RI "#define \fBBME280_INTF_RET_SUCCESS\fP   \fBINT8_C\fP(0)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBAPI success code\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_OK\fP   \fBINT8_C\fP(0)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBAPI error codes\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_E_NULL_PTR\fP   \fBINT8_C\fP(\-1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_E_COMM_FAIL\fP   \fBINT8_C\fP(\-2)"
+.br
+.ti -1c
+.RI "#define \fBBME280_E_INVALID_LEN\fP   \fBINT8_C\fP(\-3)"
+.br
+.ti -1c
+.RI "#define \fBBME280_E_DEV_NOT_FOUND\fP   \fBINT8_C\fP(\-4)"
+.br
+.ti -1c
+.RI "#define \fBBME280_E_SLEEP_MODE_FAIL\fP   \fBINT8_C\fP(\-5)"
+.br
+.ti -1c
+.RI "#define \fBBME280_E_NVM_COPY_FAILED\fP   \fBINT8_C\fP(\-6)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBAPI warning codes\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_W_INVALID_OSR_MACRO\fP   \fBINT8_C\fP(1)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBBME280 chip identifier\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_CHIP_ID\fP   \fBUINT8_C\fP(0x60)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBI2C addresses\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_I2C_ADDR_PRIM\fP   \fBUINT8_C\fP(0x76)"
+.br
+.ti -1c
+.RI "#define \fBBME280_I2C_ADDR_SEC\fP   \fBUINT8_C\fP(0x77)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBRegister Address\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_REG_CHIP_ID\fP   \fBUINT8_C\fP(0xD0)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_RESET\fP   \fBUINT8_C\fP(0xE0)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_TEMP_PRESS_CALIB_DATA\fP   \fBUINT8_C\fP(0x88)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_HUMIDITY_CALIB_DATA\fP   \fBUINT8_C\fP(0xE1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_CTRL_HUM\fP   \fBUINT8_C\fP(0xF2)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_STATUS\fP   \fBUINT8_C\fP(0xF3)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_PWR_CTRL\fP   \fBUINT8_C\fP(0xF4)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_CTRL_MEAS\fP   \fBUINT8_C\fP(0xF4)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_CONFIG\fP   \fBUINT8_C\fP(0xF5)"
+.br
+.ti -1c
+.RI "#define \fBBME280_REG_DATA\fP   \fBUINT8_C\fP(0xF7)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBMacros related to size\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_LEN_TEMP_PRESS_CALIB_DATA\fP   \fBUINT8_C\fP(26)"
+.br
+.ti -1c
+.RI "#define \fBBME280_LEN_HUMIDITY_CALIB_DATA\fP   \fBUINT8_C\fP(7)"
+.br
+.ti -1c
+.RI "#define \fBBME280_LEN_P_T_H_DATA\fP   \fBUINT8_C\fP(8)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBSensor power modes\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_POWERMODE_SLEEP\fP   \fBUINT8_C\fP(0x00)"
+.br
+.ti -1c
+.RI "#define \fBBME280_POWERMODE_FORCED\fP   \fBUINT8_C\fP(0x01)"
+.br
+.ti -1c
+.RI "#define \fBBME280_POWERMODE_NORMAL\fP   \fBUINT8_C\fP(0x03)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SENSOR_MODE_MSK\fP   \fBUINT8_C\fP(0x03)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SENSOR_MODE_POS\fP   \fBUINT8_C\fP(0x00)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBSoft reset command\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_SOFT_RESET_COMMAND\fP   \fBUINT8_C\fP(0xB6)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STATUS_IM_UPDATE\fP   \fBUINT8_C\fP(0x01)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STATUS_MEAS_DONE\fP   \fBUINT8_C\fP(0x08)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBSensor component selection macros\fP"
+.br
+These values are internal for API implementation\&. Don't relate this to data sheet\&. 
+.PP
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_PRESS\fP   \fBUINT8_C\fP(1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_TEMP\fP   \fBUINT8_C\fP(1 << 1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_HUM\fP   \fBUINT8_C\fP(1 << 2)"
+.br
+.ti -1c
+.RI "#define \fBBME280_ALL\fP   \fBUINT8_C\fP(0x07)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBSettings selection macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_SEL_OSR_PRESS\fP   \fBUINT8_C\fP(1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SEL_OSR_TEMP\fP   \fBUINT8_C\fP(1 << 1)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SEL_OSR_HUM\fP   \fBUINT8_C\fP(1 << 2)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SEL_FILTER\fP   \fBUINT8_C\fP(1 << 3)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SEL_STANDBY\fP   \fBUINT8_C\fP(1 << 4)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SEL_ALL_SETTINGS\fP   \fBUINT8_C\fP(0x1F)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBOversampling macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_NO_OVERSAMPLING\fP   \fBUINT8_C\fP(0x00)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_1X\fP   \fBUINT8_C\fP(0x01)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_2X\fP   \fBUINT8_C\fP(0x02)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_4X\fP   \fBUINT8_C\fP(0x03)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_8X\fP   \fBUINT8_C\fP(0x04)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_16X\fP   \fBUINT8_C\fP(0x05)"
+.br
+.ti -1c
+.RI "#define \fBBME280_OVERSAMPLING_MAX\fP   \fBUINT8_C\fP(16)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_HUM_MSK\fP   \fBUINT8_C\fP(0x07)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_HUM_POS\fP   \fBUINT8_C\fP(0x00)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_PRESS_MSK\fP   \fBUINT8_C\fP(0x1C)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_PRESS_POS\fP   \fBUINT8_C\fP(0x02)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_TEMP_MSK\fP   \fBUINT8_C\fP(0xE0)"
+.br
+.ti -1c
+.RI "#define \fBBME280_CTRL_TEMP_POS\fP   \fBUINT8_C\fP(0x05)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBMeasurement delay calculation macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_MEAS_OFFSET\fP   \fBUINT16_C\fP(1250)"
+.br
+.ti -1c
+.RI "#define \fBBME280_MEAS_DUR\fP   \fBUINT16_C\fP(2300)"
+.br
+.ti -1c
+.RI "#define \fBBME280_PRES_HUM_MEAS_OFFSET\fP   \fBUINT16_C\fP(575)"
+.br
+.ti -1c
+.RI "#define \fBBME280_MEAS_SCALING_FACTOR\fP   \fBUINT16_C\fP(1000)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STARTUP_DELAY\fP   \fBUINT16_C\fP(2000)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBLength macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_MAX_LEN\fP   \fBUINT8_C\fP(10)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBStandby duration selection macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_0_5_MS\fP   (0x00)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_62_5_MS\fP   (0x01)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_125_MS\fP   (0x02)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_250_MS\fP   (0x03)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_500_MS\fP   (0x04)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_1000_MS\fP   (0x05)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_10_MS\fP   (0x06)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_TIME_20_MS\fP   (0x07)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_MSK\fP   \fBUINT8_C\fP(0xE0)"
+.br
+.ti -1c
+.RI "#define \fBBME280_STANDBY_POS\fP   \fBUINT8_C\fP(0x05)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBBit shift macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_12_BIT_SHIFT\fP   \fBUINT8_C\fP(12)"
+.br
+.ti -1c
+.RI "#define \fBBME280_8_BIT_SHIFT\fP   \fBUINT8_C\fP(8)"
+.br
+.ti -1c
+.RI "#define \fBBME280_4_BIT_SHIFT\fP   \fBUINT8_C\fP(4)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBFilter coefficient selection macros\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_FILTER_COEFF_OFF\fP   (0x00)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_COEFF_2\fP   (0x01)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_COEFF_4\fP   (0x02)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_COEFF_8\fP   (0x03)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_COEFF_16\fP   (0x04)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_MSK\fP   \fBUINT8_C\fP(0x1C)"
+.br
+.ti -1c
+.RI "#define \fBBME280_FILTER_POS\fP   \fBUINT8_C\fP(0x02)"
+.br
+.in -1c
+.in -1c
+.PP
+.RI "\fBMacro to combine two 8 bit data's to form a 16 bit data\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_CONCAT_BYTES\fP(msb,  lsb)"
+.br
+.in -1c
+.in -1c
+.SS "Typedefs"
+
+.PP
+.RI "\fBFunction Pointers\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "typedef \fBBME280_INTF_RET_TYPE\fP(* \fBbme280_read_fptr_t\fP) (uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr)"
+.br
+.RI "Bus communication function pointer which should be mapped to the platform specific read functions of the user\&. "
+.ti -1c
+.RI "typedef \fBBME280_INTF_RET_TYPE\fP(* \fBbme280_write_fptr_t\fP) (uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr)"
+.br
+.RI "Bus communication function pointer which should be mapped to the platform specific write functions of the user\&. "
+.ti -1c
+.RI "typedef void(* \fBbme280_delay_us_fptr_t\fP) (uint32_t period, void *intf_ptr)"
+.br
+.RI "Delay function pointer which should be mapped to delay function of the user\&. "
+.in -1c
+.in -1c
+.SS "Macro to SET and GET BITS of a register"
+
+.in +1c
+.ti -1c
+.RI "#define \fBBME280_SET_BITS\fP(reg_data,  bitname,  \fBdata\fP)"
+.br
+.ti -1c
+.RI "#define \fBBME280_SET_BITS_POS_0\fP(reg_data,  bitname,  \fBdata\fP)"
+.br
+.ti -1c
+.RI "#define \fBBME280_GET_BITS\fP(reg_data,  bitname)"
+.br
+.ti -1c
+.RI "#define \fBBME280_GET_BITS_POS_0\fP(reg_data,  bitname)"
+.br
+.ti -1c
+.RI "enum \fBbme280_intf\fP { \fBBME280_SPI_INTF\fP, \fBBME280_I2C_INTF\fP }"
+.br
+.RI "Interface selection Enums\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Copyright (c) 2020 Bosch Sensortec GmbH\&. All rights reserved\&.
+
+.PP
+BSD-3-Clause
+
+.PP
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+.PP
+.IP "1." 4
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer\&.
+.IP "2." 4
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution\&.
+.IP "3." 4
+Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission\&.
+.PP
+
+.PP
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED\&. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE\&.
+
+.PP
+\fBDate\fP
+.RS 4
+2020-12-17 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+v3\&.5\&.1 
+.RE
+.PP
+
+.PP
+Definition in file \fBbme280_defs\&.h\fP\&.
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define BME280_12_BIT_SHIFT   \fBUINT8_C\fP(12)"
+
+.PP
+Definition at line \fB230\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_4_BIT_SHIFT   \fBUINT8_C\fP(4)"
+
+.PP
+Definition at line \fB232\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_8_BIT_SHIFT   \fBUINT8_C\fP(8)"
+
+.PP
+Definition at line \fB231\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_ALL   \fBUINT8_C\fP(0x07)"
+
+.PP
+Definition at line \fB180\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CHIP_ID   \fBUINT8_C\fP(0x60)"
+
+.PP
+Definition at line \fB136\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CONCAT_BYTES( msb,  lsb)"
+\fBValue:\fP
+.nf
+(((uint16_t)msb << 8) | (uint16_t)lsb)
+.PP
+.fi
+
+.PP
+Definition at line \fB245\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_HUM_MSK   \fBUINT8_C\fP(0x07)"
+
+.PP
+Definition at line \fB199\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_HUM_POS   \fBUINT8_C\fP(0x00)"
+
+.PP
+Definition at line \fB200\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_PRESS_MSK   \fBUINT8_C\fP(0x1C)"
+
+.PP
+Definition at line \fB201\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_PRESS_POS   \fBUINT8_C\fP(0x02)"
+
+.PP
+Definition at line \fB202\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_TEMP_MSK   \fBUINT8_C\fP(0xE0)"
+
+.PP
+Definition at line \fB203\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_CTRL_TEMP_POS   \fBUINT8_C\fP(0x05)"
+
+.PP
+Definition at line \fB204\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_DOUBLE_ENABLE"
+
+.PP
+Definition at line \fB92\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_COMM_FAIL   \fBINT8_C\fP(\-2)"
+
+.PP
+Definition at line \fB126\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_DEV_NOT_FOUND   \fBINT8_C\fP(\-4)"
+
+.PP
+Definition at line \fB128\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_INVALID_LEN   \fBINT8_C\fP(\-3)"
+
+.PP
+Definition at line \fB127\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_NULL_PTR   \fBINT8_C\fP(\-1)"
+
+.PP
+Definition at line \fB125\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_NVM_COPY_FAILED   \fBINT8_C\fP(\-6)"
+
+.PP
+Definition at line \fB130\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_E_SLEEP_MODE_FAIL   \fBINT8_C\fP(\-5)"
+
+.PP
+Definition at line \fB129\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_COEFF_16   (0x04)"
+
+.PP
+Definition at line \fB239\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_COEFF_2   (0x01)"
+
+.PP
+Definition at line \fB236\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_COEFF_4   (0x02)"
+
+.PP
+Definition at line \fB237\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_COEFF_8   (0x03)"
+
+.PP
+Definition at line \fB238\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_COEFF_OFF   (0x00)"
+
+.PP
+Definition at line \fB235\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_MSK   \fBUINT8_C\fP(0x1C)"
+
+.PP
+Definition at line \fB241\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_FILTER_POS   \fBUINT8_C\fP(0x02)"
+
+.PP
+Definition at line \fB242\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_GET_BITS( reg_data,  bitname)"
+\fBValue:\fP
+.nf
+                                                   ((reg_data & (bitname##_MSK)) >> \\
+                                                   (bitname##_POS))
+.PP
+.fi
+
+.PP
+Definition at line \fB256\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_GET_BITS_POS_0( reg_data,  bitname)"
+\fBValue:\fP
+.nf
+(reg_data & (bitname##_MSK))
+.PP
+.fi
+
+.PP
+Definition at line \fB258\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_HUM   \fBUINT8_C\fP(1 << 2)"
+
+.PP
+Definition at line \fB179\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_I2C_ADDR_PRIM   \fBUINT8_C\fP(0x76)"
+
+.PP
+Definition at line \fB139\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_I2C_ADDR_SEC   \fBUINT8_C\fP(0x77)"
+
+.PP
+Definition at line \fB140\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_INTF_RET_SUCCESS   \fBINT8_C\fP(0)"
+The last error code from read/write interface is stored in the device structure as intf_rslt\&. 
+.PP
+Definition at line \fB118\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_INTF_RET_TYPE   int8_t"
+BME280_INTF_RET_TYPE is the read/write interface return type which can be overwritten by the build system\&. 
+.PP
+Definition at line \fB111\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_LEN_HUMIDITY_CALIB_DATA   \fBUINT8_C\fP(7)"
+
+.PP
+Definition at line \fB156\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_LEN_P_T_H_DATA   \fBUINT8_C\fP(8)"
+
+.PP
+Definition at line \fB157\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_LEN_TEMP_PRESS_CALIB_DATA   \fBUINT8_C\fP(26)"
+
+.PP
+Definition at line \fB155\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_MAX_LEN   \fBUINT8_C\fP(10)"
+
+.PP
+Definition at line \fB214\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_MEAS_DUR   \fBUINT16_C\fP(2300)"
+
+.PP
+Definition at line \fB208\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_MEAS_OFFSET   \fBUINT16_C\fP(1250)"
+
+.PP
+Definition at line \fB207\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_MEAS_SCALING_FACTOR   \fBUINT16_C\fP(1000)"
+
+.PP
+Definition at line \fB210\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_NO_OVERSAMPLING   \fBUINT8_C\fP(0x00)"
+
+.PP
+Definition at line \fB191\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OK   \fBINT8_C\fP(0)"
+
+.PP
+Definition at line \fB122\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_16X   \fBUINT8_C\fP(0x05)"
+
+.PP
+Definition at line \fB196\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_1X   \fBUINT8_C\fP(0x01)"
+
+.PP
+Definition at line \fB192\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_2X   \fBUINT8_C\fP(0x02)"
+
+.PP
+Definition at line \fB193\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_4X   \fBUINT8_C\fP(0x03)"
+
+.PP
+Definition at line \fB194\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_8X   \fBUINT8_C\fP(0x04)"
+
+.PP
+Definition at line \fB195\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_OVERSAMPLING_MAX   \fBUINT8_C\fP(16)"
+
+.PP
+Definition at line \fB197\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_POWERMODE_FORCED   \fBUINT8_C\fP(0x01)"
+
+.PP
+Definition at line \fB161\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_POWERMODE_NORMAL   \fBUINT8_C\fP(0x03)"
+
+.PP
+Definition at line \fB162\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_POWERMODE_SLEEP   \fBUINT8_C\fP(0x00)"
+
+.PP
+Definition at line \fB160\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_PRES_HUM_MEAS_OFFSET   \fBUINT16_C\fP(575)"
+
+.PP
+Definition at line \fB209\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_PRESS   \fBUINT8_C\fP(1)"
+
+.PP
+Definition at line \fB177\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_CHIP_ID   \fBUINT8_C\fP(0xD0)"
+
+.PP
+Definition at line \fB143\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_CONFIG   \fBUINT8_C\fP(0xF5)"
+
+.PP
+Definition at line \fB151\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_CTRL_HUM   \fBUINT8_C\fP(0xF2)"
+
+.PP
+Definition at line \fB147\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_CTRL_MEAS   \fBUINT8_C\fP(0xF4)"
+
+.PP
+Definition at line \fB150\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_DATA   \fBUINT8_C\fP(0xF7)"
+
+.PP
+Definition at line \fB152\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_HUMIDITY_CALIB_DATA   \fBUINT8_C\fP(0xE1)"
+
+.PP
+Definition at line \fB146\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_PWR_CTRL   \fBUINT8_C\fP(0xF4)"
+
+.PP
+Definition at line \fB149\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_RESET   \fBUINT8_C\fP(0xE0)"
+
+.PP
+Definition at line \fB144\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_STATUS   \fBUINT8_C\fP(0xF3)"
+
+.PP
+Definition at line \fB148\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_REG_TEMP_PRESS_CALIB_DATA   \fBUINT8_C\fP(0x88)"
+
+.PP
+Definition at line \fB145\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_ALL_SETTINGS   \fBUINT8_C\fP(0x1F)"
+
+.PP
+Definition at line \fB188\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_FILTER   \fBUINT8_C\fP(1 << 3)"
+
+.PP
+Definition at line \fB186\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_OSR_HUM   \fBUINT8_C\fP(1 << 2)"
+
+.PP
+Definition at line \fB185\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_OSR_PRESS   \fBUINT8_C\fP(1)"
+
+.PP
+Definition at line \fB183\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_OSR_TEMP   \fBUINT8_C\fP(1 << 1)"
+
+.PP
+Definition at line \fB184\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SEL_STANDBY   \fBUINT8_C\fP(1 << 4)"
+
+.PP
+Definition at line \fB187\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SENSOR_MODE_MSK   \fBUINT8_C\fP(0x03)"
+
+.PP
+Definition at line \fB164\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SENSOR_MODE_POS   \fBUINT8_C\fP(0x00)"
+
+.PP
+Definition at line \fB165\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SET_BITS( reg_data,  bitname,  \fBdata\fP)"
+\fBValue:\fP
+.nf
+    ((reg_data & ~(bitname##_MSK)) | \\
+     ((data << bitname##_POS) & bitname##_MSK))
+.PP
+.fi
+
+.PP
+Definition at line \fB248\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SET_BITS_POS_0( reg_data,  bitname,  \fBdata\fP)"
+\fBValue:\fP
+.nf
+    ((reg_data & ~(bitname##_MSK)) | \\
+     (data & bitname##_MSK))
+.PP
+.fi
+
+.PP
+Definition at line \fB252\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_SOFT_RESET_COMMAND   \fBUINT8_C\fP(0xB6)"
+
+.PP
+Definition at line \fB168\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_MSK   \fBUINT8_C\fP(0xE0)"
+
+.PP
+Definition at line \fB226\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_POS   \fBUINT8_C\fP(0x05)"
+
+.PP
+Definition at line \fB227\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_0_5_MS   (0x00)"
+
+.PP
+Definition at line \fB217\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_1000_MS   (0x05)"
+
+.PP
+Definition at line \fB222\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_10_MS   (0x06)"
+
+.PP
+Definition at line \fB223\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_125_MS   (0x02)"
+
+.PP
+Definition at line \fB219\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_20_MS   (0x07)"
+
+.PP
+Definition at line \fB224\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_250_MS   (0x03)"
+
+.PP
+Definition at line \fB220\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_500_MS   (0x04)"
+
+.PP
+Definition at line \fB221\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STANDBY_TIME_62_5_MS   (0x01)"
+
+.PP
+Definition at line \fB218\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STARTUP_DELAY   \fBUINT16_C\fP(2000)"
+
+.PP
+Definition at line \fB211\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STATUS_IM_UPDATE   \fBUINT8_C\fP(0x01)"
+
+.PP
+Definition at line \fB170\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_STATUS_MEAS_DONE   \fBUINT8_C\fP(0x08)"
+
+.PP
+Definition at line \fB171\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_TEMP   \fBUINT8_C\fP(1 << 1)"
+
+.PP
+Definition at line \fB178\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define BME280_W_INVALID_OSR_MACRO   \fBINT8_C\fP(1)"
+
+.PP
+Definition at line \fB133\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define FALSE   \fBUINT8_C\fP(0)"
+
+.PP
+Definition at line \fB104\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define INT16_C( x)"
+\fBValue:\fP
+.nf
+S16_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB62\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define INT32_C( x)"
+\fBValue:\fP
+.nf
+S32_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB67\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define INT64_C( x)"
+\fBValue:\fP
+.nf
+S64_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB72\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define INT8_C( x)"
+\fBValue:\fP
+.nf
+S8_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB57\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define NULL   ((void *) 0)"
+
+.PP
+Definition at line \fB82\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define TRUE   \fBUINT8_C\fP(1)"
+
+.PP
+Definition at line \fB101\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define UINT16_C( x)"
+\fBValue:\fP
+.nf
+U16_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB63\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define UINT32_C( x)"
+\fBValue:\fP
+.nf
+U32_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB68\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define UINT64_C( x)"
+\fBValue:\fP
+.nf
+U64_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB73\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "#define UINT8_C( x)"
+\fBValue:\fP
+.nf
+U8_C(x)
+.PP
+.fi
+
+.PP
+Definition at line \fB58\fP of file \fBbme280_defs\&.h\fP\&.
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* bme280_delay_us_fptr_t) (uint32_t period, void *intf_ptr)"
+
+.PP
+Delay function pointer which should be mapped to delay function of the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIperiod\fP : Delay in microseconds\&. 
+.br
+\fIintf_ptr\fP : Void pointer that can enable the linking of descriptors for interface related call backs 
+.RE
+.PP
+
+.PP
+Definition at line \fB319\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "typedef \fBBME280_INTF_RET_TYPE\fP(* bme280_read_fptr_t) (uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr)"
+
+.PP
+Bus communication function pointer which should be mapped to the platform specific read functions of the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg_addr\fP : Register address from which data is read\&. 
+.br
+\fIreg_data\fP : Pointer to data buffer where read data is stored\&. 
+.br
+\fIlen\fP : Number of bytes of data to be read\&. 
+.br
+\fIintf_ptr\fP : Void pointer that can enable the linking of descriptors for interface related call backs\&.
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fINon\fP zero value -> Fail\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB290\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "typedef \fBBME280_INTF_RET_TYPE\fP(* bme280_write_fptr_t) (uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr)"
+
+.PP
+Bus communication function pointer which should be mapped to the platform specific write functions of the user\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIreg_addr\fP : Register address to which the data is written\&. 
+.br
+\fIreg_data\fP : Pointer to data buffer in which data to be written is stored\&. 
+.br
+\fIlen\fP : Number of bytes of data to be written\&. 
+.br
+\fIintf_ptr\fP : Void pointer that can enable the linking of descriptors for interface related call backs
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fINon\fP zero value -> Fail\&. 
+.RE
+.PP
+
+.PP
+Definition at line \fB307\fP of file \fBbme280_defs\&.h\fP\&.
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBbme280_intf\fP"
+
+.PP
+Interface selection Enums\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\f(BIBME280_SPI_INTF \fP
+SPI interface 
+.TP
+\f(BIBME280_I2C_INTF \fP
+I2C interface 
+.PP
+Definition at line \fB265\fP of file \fBbme280_defs\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

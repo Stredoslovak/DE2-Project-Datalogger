@@ -1,0 +1,124 @@
+.TH "lib/twi/twi.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/twi/twi.h
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+
+.SS "Macros"
+
+.PP
+.RI "\fBDefinition of frequencies\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBF_CPU\fP   16000000"
+.br
+.RI "CPU frequency in Hz required TWI_BIT_RATE_REG\&. "
+.ti -1c
+.RI "#define \fBF_SCL\fP   100000"
+.br
+.RI "I2C/TWI bit rate\&. Must be greater than 31000\&. "
+.ti -1c
+.RI "#define \fBTWI_BIT_RATE_REG\fP   ((\fBF_CPU\fP/\fBF_SCL\fP \- 16) / 2)"
+.br
+.RI "TWI bit rate register value\&. "
+.in -1c
+.in -1c
+.PP
+.RI "\fBDefinition of ports and pins\fP"
+.br
+
+.in +1c
+.in +1c
+.ti -1c
+.RI "#define \fBTWI_PORT\fP   PORTC"
+.br
+.RI "Port of TWI unit\&. "
+.ti -1c
+.RI "#define \fBTWI_SDA_PIN\fP   4"
+.br
+.RI "SDA pin of TWI unit\&. "
+.ti -1c
+.RI "#define \fBTWI_SCL_PIN\fP   5"
+.br
+.RI "SCL pin of TWI unit\&. "
+.in -1c
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem_16b\fP (uint8_t addr, uint8_t memaddr, uint8_t dataUpperHalf, uint8_t dataLowerHalf)"
+.br
+.RI "Write 16bit into peripheral\&. "
+.in -1c
+.SS "Other definitions"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTWI_WRITE\fP   0"
+.br
+.RI "Mode for writing to I2C/TWI device\&. "
+.ti -1c
+.RI "#define \fBTWI_READ\fP   1"
+.br
+.RI "Mode for reading from I2C/TWI device\&. "
+.ti -1c
+.RI "#define \fBTWI_ACK\fP   0"
+.br
+.RI "ACK value for writing to I2C/TWI bus\&. "
+.ti -1c
+.RI "#define \fBTWI_NACK\fP   1"
+.br
+.RI "NACK value for writing to I2C/TWI bus\&. "
+.ti -1c
+.RI "#define \fBDDR\fP(_x)"
+.br
+.RI "Address of Data Direction Register of port _x\&. "
+.ti -1c
+.RI "#define \fBPIN\fP(_x)"
+.br
+.RI "Address of input register of port _x\&. "
+.ti -1c
+.RI "void \fBtwi_init\fP (void)"
+.br
+.RI "Initialize TWI unit, enable internal pull-ups, and set SCL frequency\&. "
+.ti -1c
+.RI "void \fBtwi_start\fP (void)"
+.br
+.RI "Start communication on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_write\fP (uint8_t \fBdata\fP)"
+.br
+.RI "Write one byte to the I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_read\fP (uint8_t ack)"
+.br
+.RI "Read one byte from the I2C/TWI bus and acknowledge it by ACK or NACK\&. "
+.ti -1c
+.RI "void \fBtwi_stop\fP (void)"
+.br
+.RI "Generates Stop condition on I2C/TWI bus\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_test_address\fP (uint8_t addr)"
+.br
+.RI "Test presence of one I2C device on the bus\&. "
+.ti -1c
+.RI "void \fBtwi_readfrom_mem_into\fP (uint8_t addr, uint8_t memaddr, volatile uint8_t *buf, uint8_t nbytes)"
+.br
+.RI "Read into buf from the peripheral, starting from the memory address\&. "
+.ti -1c
+.RI "uint8_t \fBtwi_writeto_mem\fP (uint8_t addr, uint8_t memaddr, uint8_t \fBdata\fP)"
+.br
+.RI "Write into peripheral\&. "
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

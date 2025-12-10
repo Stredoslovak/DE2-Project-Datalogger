@@ -1,0 +1,551 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="rtc_8h" kind="file" language="C++">
+    <compoundname>rtc.h</compoundname>
+    <includes local="no">stdint.h</includes>
+    <includedby refid="_f_a_t32_8c" local="yes">lib/FAT32/FAT32.c</includedby>
+    <includedby refid="rtc_8c" local="yes">lib/rtc/rtc.c</includedby>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/rtc/rtc.h</label>
+        <link refid="rtc_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/FAT32/FAT32.c</label>
+        <link refid="_f_a_t32_8c"/>
+      </node>
+      <node id="3">
+        <label>lib/rtc/rtc.c</label>
+        <link refid="rtc_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/rtc/rtc.h</label>
+        <link refid="rtc_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="rtc_8h_1a7c5d1c7f4a102bc090361b840c211815" prot="public" static="no">
+        <name>RTC_ADDRESS</name>
+        <initializer>0x68</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="8" column="9" bodyfile="lib/rtc/rtc.h" bodystart="8" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a2507e650d4ccc8a2bdf3001800a3e743" prot="public" static="no">
+        <name>RTC_SEC</name>
+        <initializer>0x00  /* Seconds (and CH bit) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="11" column="9" bodyfile="lib/rtc/rtc.h" bodystart="11" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a34fc4e7c0e5db231217aa3174e394c72" prot="public" static="no">
+        <name>RTC_MIN</name>
+        <initializer>0x01  /* Minutes */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="12" column="9" bodyfile="lib/rtc/rtc.h" bodystart="12" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a7264eac87ffc91cbdea1239d346a0ea4" prot="public" static="no">
+        <name>RTC_HOUR</name>
+        <initializer>0x02  /* Hours (12/24 bit) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="13" column="9" bodyfile="lib/rtc/rtc.h" bodystart="13" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a8645ae13bb42ddf10d3ca762a8754160" prot="public" static="no">
+        <name>RTC_DAY</name>
+        <initializer>0x03  /* Day of week */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="14" column="9" bodyfile="lib/rtc/rtc.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a6f25f228247dc102195a2adf70311dc5" prot="public" static="no">
+        <name>RTC_DATE</name>
+        <initializer>0x04  /* Date (day of month) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="15" column="9" bodyfile="lib/rtc/rtc.h" bodystart="15" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1abda0c877ee1a02b8351c0cfe72838088" prot="public" static="no">
+        <name>RTC_MONTH</name>
+        <initializer>0x05  /* Month */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="16" column="9" bodyfile="lib/rtc/rtc.h" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a1df5568e6774b73aa4c6e59fc40e9147" prot="public" static="no">
+        <name>RTC_YEAR</name>
+        <initializer>0x06  /* Year (00..99) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="17" column="9" bodyfile="lib/rtc/rtc.h" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a0899c31d955e92154d34eb19adf27f25" prot="public" static="no">
+        <name>RTC_CONTROL</name>
+        <initializer>0x07  /* Control register (square-wave output) */</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="18" column="9" bodyfile="lib/rtc/rtc.h" bodystart="18" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a48fcf4f2eeef6769d588168d4ac2ab0e" prot="public" static="no">
+        <name>SECONDS</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[0]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="21" column="10" bodyfile="lib/rtc/rtc.h" bodystart="21" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a84be9dcfa5a172ee83121620d15c8e29" prot="public" static="no">
+        <name>MINUTES</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[1]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="22" column="10" bodyfile="lib/rtc/rtc.h" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a212d0f839f6f7ca43ccde311f93d5892" prot="public" static="no">
+        <name>HOURS</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[2]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="23" column="10" bodyfile="lib/rtc/rtc.h" bodystart="23" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a509a01c55cbe47386fe24602b7c7fda1" prot="public" static="no">
+        <name>DAY</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[3]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="24" column="10" bodyfile="lib/rtc/rtc.h" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a30b328ca499f27b3d0f8111b495834ca" prot="public" static="no">
+        <name>DATE</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[4]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="25" column="10" bodyfile="lib/rtc/rtc.h" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a3729d06495d9713592f79f3122c9e677" prot="public" static="no">
+        <name>MONTH</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[5]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="26" column="10" bodyfile="lib/rtc/rtc.h" bodystart="26" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="rtc_8h_1a5871356500f559add06ea81d60331b1b" prot="public" static="no">
+        <name>YEAR</name>
+        <initializer><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[6]</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="27" column="10" bodyfile="lib/rtc/rtc.h" bodystart="27" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" prot="public" static="no" mutable="no">
+        <type>unsigned char</type>
+        <definition>unsigned char rtc_register[7]</definition>
+        <argsstring>[7]</argsstring>
+        <name>rtc_register</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="29" column="15" bodyfile="lib/rtc/rtc.h" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="rtc_8h_1ac07adc54d88c413ee9b8ee404276ba7a" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int dateFAT</definition>
+        <argsstring></argsstring>
+        <name>dateFAT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="30" column="14" bodyfile="lib/rtc/rtc.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="rtc_8h_1a7903f9cbaa168bbf7e2c8f45ee525693" prot="public" static="no" mutable="no">
+        <type>unsigned int</type>
+        <definition>unsigned int timeFAT</definition>
+        <argsstring></argsstring>
+        <name>timeFAT</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="30" column="22" bodyfile="lib/rtc/rtc.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="rtc_8h_1ae83559199d1a128c09c800d2622d5628" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void rtc_setup</definition>
+        <argsstring>(void)</argsstring>
+        <name>rtc_setup</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="38" column="6" bodyfile="lib/rtc/rtc.c" bodystart="28" bodyend="39" declfile="lib/rtc/rtc.h" declline="38" declcolumn="6"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1ac254e8a8b1406650814b524825758ab3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_read_reg</definition>
+        <argsstring>(uint8_t reg_addr)</argsstring>
+        <name>rtc_read_reg</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg_addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="46" column="9" bodyfile="lib/rtc/rtc.c" bodystart="41" bodyend="46" declfile="lib/rtc/rtc.h" declline="46" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1ac6147d7bbf059b4614b2781c1a5ae4f6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_write_reg</definition>
+        <argsstring>(uint8_t reg_addr, uint8_t data)</argsstring>
+        <name>rtc_write_reg</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="56" column="9" bodyfile="lib/rtc/rtc.c" bodystart="48" bodyend="51" declfile="lib/rtc/rtc.h" declline="56" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1a5025fa28b2f1b384d447f82ad713835d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_set_time</definition>
+        <argsstring>(uint8_t hours, uint8_t minutes, uint8_t seconds)</argsstring>
+        <name>rtc_set_time</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>hours</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>minutes</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="64" column="9" bodyfile="lib/rtc/rtc.c" bodystart="53" bodyend="59" declfile="lib/rtc/rtc.h" declline="64" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1a5fd68511548c076d53dcb38b9a4f8a93" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_get_time</definition>
+        <argsstring>(uint8_t *hours, uint8_t *minutes, uint8_t *seconds)</argsstring>
+        <name>rtc_get_time</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>hours</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>minutes</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>seconds</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="72" column="9" bodyfile="lib/rtc/rtc.c" bodystart="61" bodyend="72" declfile="lib/rtc/rtc.h" declline="72" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1ad3d2e11bb778711aeb50bf06c52b315a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_set_date</definition>
+        <argsstring>(uint8_t day, uint8_t date, uint8_t month, uint8_t year)</argsstring>
+        <name>rtc_set_date</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>day</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>date</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>month</declname>
+        </param>
+        <param>
+          <type>uint8_t</type>
+          <declname>year</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="81" column="9" bodyfile="lib/rtc/rtc.c" bodystart="91" bodyend="98" declfile="lib/rtc/rtc.h" declline="81" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1ad717541b89e9994b09d93143c63f2780" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_get_date</definition>
+        <argsstring>(uint8_t *date, uint8_t *month, uint8_t *year)</argsstring>
+        <name>rtc_get_date</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>date</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>month</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>year</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="83" column="9" bodyfile="lib/rtc/rtc.c" bodystart="73" bodyend="84" declfile="lib/rtc/rtc.h" declline="83" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1a359f9e6a7c4c3cf49ace892e2ae6db4a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint8_t</type>
+        <definition>uint8_t rtc_get_day</definition>
+        <argsstring>(uint8_t *day)</argsstring>
+        <name>rtc_get_day</name>
+        <param>
+          <type>uint8_t *</type>
+          <declname>day</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="84" column="9" bodyfile="lib/rtc/rtc.c" bodystart="85" bodyend="90" declfile="lib/rtc/rtc.h" declline="84" declcolumn="9"/>
+      </memberdef>
+      <memberdef kind="function" id="rtc_8h_1a9dfbd47cdd42bf1609c1387e6748e3fe" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char getDateTime_FAT</definition>
+        <argsstring>(void)</argsstring>
+        <name>getDateTime_FAT</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/rtc/rtc.h" line="86" column="15" bodyfile="lib/rtc/rtc.c" bodystart="104" bodyend="136" declfile="lib/rtc/rtc.h" declline="86" declcolumn="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>RTC_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor"><sp/><sp/><sp/><sp/>#define<sp/>RTC_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/><sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#include<sp/>&lt;avr/io.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdint.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>I2C<sp/>address<sp/>of<sp/>DS1307<sp/>RTC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="rtc_8h_1a7c5d1c7f4a102bc090361b840c211815" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_ADDRESS<sp/>0x68</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>RTC<sp/>register<sp/>addresses<sp/>(DS1307)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="rtc_8h_1a2507e650d4ccc8a2bdf3001800a3e743" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_SEC<sp/><sp/><sp/><sp/><sp/>0x00<sp/><sp/></highlight><highlight class="comment">/*<sp/>Seconds<sp/>(and<sp/>CH<sp/>bit)<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="rtc_8h_1a34fc4e7c0e5db231217aa3174e394c72" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_MIN<sp/><sp/><sp/><sp/><sp/>0x01<sp/><sp/></highlight><highlight class="comment">/*<sp/>Minutes<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="rtc_8h_1a7264eac87ffc91cbdea1239d346a0ea4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_HOUR<sp/><sp/><sp/><sp/>0x02<sp/><sp/></highlight><highlight class="comment">/*<sp/>Hours<sp/>(12/24<sp/>bit)<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="rtc_8h_1a8645ae13bb42ddf10d3ca762a8754160" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_DAY<sp/><sp/><sp/><sp/><sp/>0x03<sp/><sp/></highlight><highlight class="comment">/*<sp/>Day<sp/>of<sp/>week<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="rtc_8h_1a6f25f228247dc102195a2adf70311dc5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_DATE<sp/><sp/><sp/><sp/>0x04<sp/><sp/></highlight><highlight class="comment">/*<sp/>Date<sp/>(day<sp/>of<sp/>month)<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="rtc_8h_1abda0c877ee1a02b8351c0cfe72838088" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_MONTH<sp/><sp/><sp/>0x05<sp/><sp/></highlight><highlight class="comment">/*<sp/>Month<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="rtc_8h_1a1df5568e6774b73aa4c6e59fc40e9147" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_YEAR<sp/><sp/><sp/><sp/>0x06<sp/><sp/></highlight><highlight class="comment">/*<sp/>Year<sp/>(00..99)<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18" refid="rtc_8h_1a0899c31d955e92154d34eb19adf27f25" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>RTC_CONTROL<sp/>0x07<sp/><sp/></highlight><highlight class="comment">/*<sp/>Control<sp/>register<sp/>(square-wave<sp/>output)<sp/>*/</highlight><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="rtc_8h_1a48fcf4f2eeef6769d588168d4ac2ab0e" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>SECONDS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[0]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="rtc_8h_1a84be9dcfa5a172ee83121620d15c8e29" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>MINUTES<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23" refid="rtc_8h_1a212d0f839f6f7ca43ccde311f93d5892" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>HOURS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[2]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="rtc_8h_1a509a01c55cbe47386fe24602b7c7fda1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>DAY<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[3]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25" refid="rtc_8h_1a30b328ca499f27b3d0f8111b495834ca" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>DATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[4]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26" refid="rtc_8h_1a3729d06495d9713592f79f3122c9e677" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>MONTH<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[5]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="rtc_8h_1a5871356500f559add06ea81d60331b1b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/><sp/><sp/><sp/><sp/>YEAR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rtc_register[6]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="rtc_8h_1a188bfe7d8768803b8ce95517e37e9cc7" kindref="member">rtc_register</ref>[7];</highlight></codeline>
+<codeline lineno="30" refid="rtc_8h_1ac07adc54d88c413ee9b8ee404276ba7a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="rtc_8h_1ac07adc54d88c413ee9b8ee404276ba7a" kindref="member">dateFAT</ref>,<sp/><ref refid="rtc_8h_1a7903f9cbaa168bbf7e2c8f45ee525693" kindref="member">timeFAT</ref>;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>rtc_setup</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Initialize<sp/>RTC<sp/>device<sp/>state:<sp/>start<sp/>oscillator<sp/>(clear<sp/>CH<sp/>bit),</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/>select<sp/>24-hour<sp/>mode<sp/>(clear<sp/>12/24<sp/>bit)<sp/>and<sp/>clear<sp/>control<sp/>register.</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>No<sp/>parameters,<sp/>returns<sp/>void.</highlight></codeline>
+<codeline lineno="37"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="rtc_8h_1ae83559199d1a128c09c800d2622d5628" kindref="member">rtc_setup</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="41"><highlight class="comment"><sp/>*<sp/>rtc_read_reg</highlight></codeline>
+<codeline lineno="42"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Read<sp/>single<sp/>RTC<sp/>register<sp/>over<sp/>I2C.</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>reg_addr<sp/>:<sp/>register<sp/>address<sp/>(use<sp/>RTC_*<sp/>macros)</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>returns<sp/><sp/>:<sp/>byte<sp/>read<sp/>from<sp/>device</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1ac254e8a8b1406650814b524825758ab3" kindref="member">rtc_read_reg</ref>(uint8_t<sp/>reg_addr);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*<sp/>rtc_write_reg</highlight></codeline>
+<codeline lineno="51"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Write<sp/>single<sp/>RTC<sp/>register<sp/>over<sp/>I2C.</highlight></codeline>
+<codeline lineno="52"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>reg_addr<sp/>:<sp/>register<sp/>address<sp/>(use<sp/>RTC_*<sp/>macros)</highlight></codeline>
+<codeline lineno="53"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>data<sp/><sp/><sp/><sp/><sp/>:<sp/>byte<sp/>to<sp/>write</highlight></codeline>
+<codeline lineno="54"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>returns<sp/><sp/>:<sp/>result<sp/>code<sp/>from<sp/>underlying<sp/>TWI<sp/>write<sp/>(0<sp/>=<sp/>success<sp/>typically)</highlight></codeline>
+<codeline lineno="55"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1ac6147d7bbf059b4614b2781c1a5ae4f6" kindref="member">rtc_write_reg</ref>(uint8_t<sp/>reg_addr,<sp/>uint8_t<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/>rtc_set_time</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Set<sp/>RTC<sp/>time<sp/>(hours,<sp/>minutes,<sp/>seconds)<sp/>in<sp/>decimal<sp/>(0..23,<sp/>0..59,<sp/>0..59).</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Values<sp/>are<sp/>converted<sp/>to<sp/>BCD<sp/>before<sp/>writing.</highlight></codeline>
+<codeline lineno="62"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>returns<sp/><sp/>:<sp/>0<sp/>on<sp/>success<sp/>(function<sp/>currently<sp/>always<sp/>returns<sp/>0)</highlight></codeline>
+<codeline lineno="63"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1a5025fa28b2f1b384d447f82ad713835d" kindref="member">rtc_set_time</ref>(uint8_t<sp/>hours,<sp/>uint8_t<sp/>minutes,<sp/>uint8_t<sp/>seconds);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/>*<sp/>rtc_get_time</highlight></codeline>
+<codeline lineno="68"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Read<sp/>current<sp/>time<sp/>from<sp/>RTC<sp/>and<sp/>convert<sp/>BCD<sp/>-&gt;<sp/>decimal.</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>hours,<sp/>minutes,<sp/>seconds<sp/>:<sp/>pointers<sp/>to<sp/>store<sp/>values<sp/>(non-NULL)</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>returns<sp/>:<sp/>0<sp/>on<sp/>success</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1a5fd68511548c076d53dcb38b9a4f8a93" kindref="member">rtc_get_time</ref>(uint8_t<sp/>*hours,<sp/>uint8_t<sp/>*minutes,<sp/>uint8_t<sp/>*seconds);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="75"><highlight class="comment"><sp/>*<sp/>rtc_set_date</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Set<sp/>RTC<sp/>calendar<sp/>date<sp/>(day-of-week,<sp/>date,<sp/>month,<sp/>year)<sp/>in<sp/>decimal.</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>day<sp/><sp/><sp/>:<sp/>1..7<sp/>(day<sp/>of<sp/>week),<sp/>date:<sp/>1..31,<sp/>month:<sp/>1..12,<sp/>year:<sp/>0..99</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Values<sp/>are<sp/>converted<sp/>to<sp/>BCD<sp/>before<sp/>writing.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>returns<sp/>:<sp/>0<sp/>on<sp/>success</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1ad3d2e11bb778711aeb50bf06c52b315a" kindref="member">rtc_set_date</ref>(uint8_t<sp/>day,<sp/>uint8_t<sp/>date,<sp/>uint8_t<sp/>month,<sp/>uint8_t<sp/>year);</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1ad717541b89e9994b09d93143c63f2780" kindref="member">rtc_get_date</ref>(uint8_t<sp/>*date,<sp/>uint8_t<sp/>*month,<sp/>uint8_t<sp/>*year);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal">uint8_t<sp/><ref refid="rtc_8h_1a359f9e6a7c4c3cf49ace892e2ae6db4a" kindref="member">rtc_get_day</ref>(uint8_t<sp/>*day);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="rtc_8h_1a9dfbd47cdd42bf1609c1387e6748e3fe" kindref="member">getDateTime_FAT</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="lib/rtc/rtc.h"/>
+  </compounddef>
+</doxygen>

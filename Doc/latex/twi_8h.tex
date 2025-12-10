@@ -1,0 +1,60 @@
+\doxysection{lib/twi/twi.h File Reference}
+\label{twi_8h}\index{lib/twi/twi.h@{lib/twi/twi.h}}
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{Indent}\textbf{ Definition of frequencies}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ F\+\_\+\+CPU}~16000000
+\begin{DoxyCompactList}\small\item\em CPU frequency in Hz required TWI\+\_\+\+BIT\+\_\+\+RATE\+\_\+\+REG. \end{DoxyCompactList}\item 
+\#define \textbf{ F\+\_\+\+SCL}~100000
+\begin{DoxyCompactList}\small\item\em I2\+C/\+TWI bit rate. Must be greater than 31000. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+BIT\+\_\+\+RATE\+\_\+\+REG}~((\textbf{ F\+\_\+\+CPU}/\textbf{ F\+\_\+\+SCL} -\/ 16) / 2)
+\begin{DoxyCompactList}\small\item\em TWI bit rate register value. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\begin{Indent}\textbf{ Definition of ports and pins}\par
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ TWI\+\_\+\+PORT}~PORTC
+\begin{DoxyCompactList}\small\item\em Port of TWI unit. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+SDA\+\_\+\+PIN}~4
+\begin{DoxyCompactList}\small\item\em SDA pin of TWI unit. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+SCL\+\_\+\+PIN}~5
+\begin{DoxyCompactList}\small\item\em SCL pin of TWI unit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\end{Indent}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \textbf{ twi\+\_\+writeto\+\_\+mem\+\_\+16b} (uint8\+\_\+t addr, uint8\+\_\+t memaddr, uint8\+\_\+t data\+Upper\+Half, uint8\+\_\+t data\+Lower\+Half)
+\begin{DoxyCompactList}\small\item\em Write 16bit into peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Other definitions}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ TWI\+\_\+\+WRITE}~0
+\begin{DoxyCompactList}\small\item\em Mode for writing to I2\+C/\+TWI device. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+READ}~1
+\begin{DoxyCompactList}\small\item\em Mode for reading from I2\+C/\+TWI device. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+ACK}~0
+\begin{DoxyCompactList}\small\item\em ACK value for writing to I2\+C/\+TWI bus. \end{DoxyCompactList}\item 
+\#define \textbf{ TWI\+\_\+\+NACK}~1
+\begin{DoxyCompactList}\small\item\em NACK value for writing to I2\+C/\+TWI bus. \end{DoxyCompactList}\item 
+\#define \textbf{ DDR}(\+\_\+x)
+\begin{DoxyCompactList}\small\item\em Address of Data Direction Register of port \+\_\+x. \end{DoxyCompactList}\item 
+\#define \textbf{ PIN}(\+\_\+x)
+\begin{DoxyCompactList}\small\item\em Address of input register of port \+\_\+x. \end{DoxyCompactList}\item 
+void \textbf{ twi\+\_\+init} (void)
+\begin{DoxyCompactList}\small\item\em Initialize TWI unit, enable internal pull-\/ups, and set SCL frequency. \end{DoxyCompactList}\item 
+void \textbf{ twi\+\_\+start} (void)
+\begin{DoxyCompactList}\small\item\em Start communication on I2\+C/\+TWI bus. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ twi\+\_\+write} (uint8\+\_\+t \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Write one byte to the I2\+C/\+TWI bus. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ twi\+\_\+read} (uint8\+\_\+t ack)
+\begin{DoxyCompactList}\small\item\em Read one byte from the I2\+C/\+TWI bus and acknowledge it by ACK or NACK. \end{DoxyCompactList}\item 
+void \textbf{ twi\+\_\+stop} (void)
+\begin{DoxyCompactList}\small\item\em Generates Stop condition on I2\+C/\+TWI bus. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ twi\+\_\+test\+\_\+address} (uint8\+\_\+t addr)
+\begin{DoxyCompactList}\small\item\em Test presence of one I2C device on the bus. \end{DoxyCompactList}\item 
+void \textbf{ twi\+\_\+readfrom\+\_\+mem\+\_\+into} (uint8\+\_\+t addr, uint8\+\_\+t memaddr, volatile uint8\+\_\+t $\ast$buf, uint8\+\_\+t nbytes)
+\begin{DoxyCompactList}\small\item\em Read into buf from the peripheral, starting from the memory address. \end{DoxyCompactList}\item 
+uint8\+\_\+t \textbf{ twi\+\_\+writeto\+\_\+mem} (uint8\+\_\+t addr, uint8\+\_\+t memaddr, uint8\+\_\+t \textbf{ data})
+\begin{DoxyCompactList}\small\item\em Write into peripheral. \end{DoxyCompactList}\end{DoxyCompactItemize}

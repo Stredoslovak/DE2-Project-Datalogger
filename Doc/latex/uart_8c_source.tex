@@ -1,0 +1,781 @@
+\doxysection{uart.\+c}
+\label{uart_8c_source}\index{lib/uart/uart.c@{lib/uart/uart.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*\ \ Title:\ \ \ \ Interrupt\ UART\ library\ with\ receive/transmit\ circular\ buffers}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ \ Author:\ \ \ Peter\ Fleury\ <pfleury@gmx.ch>\ \ \ http://tinyurl.com/peterfleury}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*\ \ File:\ \ \ \ \ \$Id:\ uart.c,v\ 1.15.2.4\ 2015/09/05\ 18:33:32\ peter\ Exp\ \$}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ Software:\ AVR-\/GCC\ 4.x}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*\ \ Hardware:\ any\ AVR\ with\ built-\/in\ UART,}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ License:\ \ GNU\ General\ Public\ License}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ \ DESCRIPTION:}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ An\ interrupt\ is\ generated\ when\ the\ UART\ has\ finished\ transmitting\ or}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*\ \ \ receiving\ a\ byte.\ The\ interrupt\ handling\ routines\ use\ circular\ buffers}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ \ \ for\ buffering\ received\ and\ transmitted\ data.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ The\ UART\_RX\_BUFFER\_SIZE\ and\ UART\_TX\_BUFFER\_SIZE\ variables\ define}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ \ \ the\ buffer\ size\ in\ bytes.\ Note\ that\ these\ variables\ must\ be\ a}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ \ \ power\ of\ 2.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*\ \ USAGE:}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ \ \ Refere\ to\ the\ header\ file\ uart.h\ for\ a\ description\ of\ the\ routines.}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ See\ also\ example\ test\_uart.c.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ \ NOTES:}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ \ \ Based\ on\ Atmel\ Application\ Note\ AVR306}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*\ \ LICENSE:}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ \ \ Copyright\ (C)\ 2015\ Peter\ Fleury,\ GNU\ General\ Public\ License\ Version\ 3}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*\ \ \ This\ program\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or\ modify}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ \ \ it\ under\ the\ terms\ of\ the\ GNU\ General\ Public\ License\ as\ published\ by}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*\ \ \ the\ Free\ Software\ Foundation;\ either\ version\ 2\ of\ the\ License,\ or}}
+\DoxyCodeLine{00031\ \textcolor{comment}{*\ \ \ any\ later\ version.}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*\ \ \ This\ program\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00034\ \textcolor{comment}{*\ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00035\ \textcolor{comment}{*\ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the}}
+\DoxyCodeLine{00036\ \textcolor{comment}{*\ \ \ GNU\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{*}}
+\DoxyCodeLine{00038\ \textcolor{comment}{*************************************************************************/}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#include\ <avr/io.h>}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#include\ <avr/interrupt.h>}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#include\ <avr/pgmspace.h>}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#include\ "{}uart.h"{}}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ \ constants\ and\ macros}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ size\ of\ RX/TX\ buffers\ */}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ UART\_RX\_BUFFER\_MASK\ (\ UART\_RX\_BUFFER\_SIZE\ -\/\ 1)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ UART\_TX\_BUFFER\_MASK\ (\ UART\_TX\_BUFFER\_SIZE\ -\/\ 1)}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#if\ (\ UART\_RX\_BUFFER\_SIZE\ \&\ UART\_RX\_BUFFER\_MASK\ )}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#\ error\ RX\ buffer\ size\ is\ not\ a\ power\ of\ 2}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ (\ UART\_TX\_BUFFER\_SIZE\ \&\ UART\_TX\_BUFFER\_MASK\ )}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#\ error\ TX\ buffer\ size\ is\ not\ a\ power\ of\ 2}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#if\ defined(\_\_AVR\_AT90S2313\_\_)\ ||\ defined(\_\_AVR\_AT90S4414\_\_)\ ||\ defined(\_\_AVR\_AT90S8515\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_AT90S4434\_\_)\ ||\ defined(\_\_AVR\_AT90S8535\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega103\_\_)}}
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ old\ AVR\ classic\ or\ ATmega103\ with\ one\ UART\ */}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ UART\_RX\_vect}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ UART\_UDRE\_vect}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ USR}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCR}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00074\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00075\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_AT90S2333\_\_)\ ||\ defined(\_\_AVR\_AT90S4433\_\_)}}
+\DoxyCodeLine{00077\ \textcolor{comment}{/*\ old\ AVR\ classic\ with\ one\ UART\ */}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ UART\_RX\_vect}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ UART\_UDRE\_vect}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00082\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_AT90PWM216\_\_)\ ||\ defined(\_\_AVR\_AT90PWM316\_\_)}}
+\DoxyCodeLine{00090\ \textcolor{comment}{/*\ AT90PWN216/316\ with\ one\ USART\ */}}
+\DoxyCodeLine{00091\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART\_RX\_vect}}
+\DoxyCodeLine{00092\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART\_UDRE\_vect}}
+\DoxyCodeLine{00093\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSRC}}
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRL}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRH}}
+\DoxyCodeLine{00100\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00101\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00102\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00103\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00104\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ0}}
+\DoxyCodeLine{00105\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ1}}
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega8\_\_)\ ||\ defined(\_\_AVR\_ATmega8A\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega16\_\_)\ ||\ defined(\_\_AVR\_ATmega16A\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega32\_\_)\ ||\ defined(\_\_AVR\_ATmega32A\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega323\_\_)}}
+\DoxyCodeLine{00110\ \textcolor{comment}{/*\ ATmega\ with\ one\ USART\ */}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART\_RXC\_vect}}
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART\_UDRE\_vect}}
+\DoxyCodeLine{00113\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00115\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSRC}}
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRL}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRH}}
+\DoxyCodeLine{00120\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00121\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00122\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00123\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00124\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ0}}
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ1}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_URSEL\ \ \ \ \ \ \ \ \ \ URSEL}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega8515\_\_)\ ||\ defined(\_\_AVR\_ATmega8535\_\_)}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART\_RX\_vect}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART\_UDRE\_vect}}
+\DoxyCodeLine{00130\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00131\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00132\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSRC}}
+\DoxyCodeLine{00133\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00134\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00135\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRL}}
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRH}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ0}}
+\DoxyCodeLine{00142\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ1}}
+\DoxyCodeLine{00143\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_URSEL\ \ \ \ \ \ \ \ \ \ URSEL}}
+\DoxyCodeLine{00144\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega163\_\_)}}
+\DoxyCodeLine{00145\ \textcolor{comment}{/*\ ATmega163\ with\ one\ UART\ */}}
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ UART\_RX\_vect}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ UART\_UDRE\_vect}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00150\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00151\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRHI}}
+\DoxyCodeLine{00154\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00155\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega162\_\_)}}
+\DoxyCodeLine{00159\ \textcolor{comment}{/*\ ATmega\ with\ two\ USART\ */}}
+\DoxyCodeLine{00160\ \textcolor{preprocessor}{\#\ define\ ATMEGA\_USART1}}
+\DoxyCodeLine{00161\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART0\_RXC\_vect}}
+\DoxyCodeLine{00162\ \textcolor{preprocessor}{\#\ define\ UART1\_RECEIVE\_INTERRUPT\ \ USART1\_RXC\_vect}}
+\DoxyCodeLine{00163\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART0\_UDRE\_vect}}
+\DoxyCodeLine{00164\ \textcolor{preprocessor}{\#\ define\ UART1\_TRANSMIT\_INTERRUPT\ USART1\_UDRE\_vect}}
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR0A}}
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR0B}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR0C}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR0}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE0}}
+\DoxyCodeLine{00170\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0L}}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0H}}
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_URSEL\ \ \ \ \ \ \ \ \ \ URSEL0}}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X0}}
+\DoxyCodeLine{00174\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE0}}
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN0}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN0}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ00}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ01}}
+\DoxyCodeLine{00179\ \textcolor{preprocessor}{\#\ define\ UART1\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR1A}}
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#\ define\ UART1\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR1B}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\#\ define\ UART1\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR1C}}
+\DoxyCodeLine{00182\ \textcolor{preprocessor}{\#\ define\ UART1\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR1}}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\#\ define\ UART1\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE1}}
+\DoxyCodeLine{00184\ \textcolor{preprocessor}{\#\ define\ UART1\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1L}}
+\DoxyCodeLine{00185\ \textcolor{preprocessor}{\#\ define\ UART1\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1H}}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_URSEL\ \ \ \ \ \ \ \ \ \ URSEL1}}
+\DoxyCodeLine{00187\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X1}}
+\DoxyCodeLine{00188\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE1}}
+\DoxyCodeLine{00189\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN1}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN1}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ10}}
+\DoxyCodeLine{00192\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ11}}
+\DoxyCodeLine{00193\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega161\_\_)}}
+\DoxyCodeLine{00194\ \textcolor{comment}{/*\ ATmega\ with\ UART\ */}}
+\DoxyCodeLine{00195\ \textcolor{preprocessor}{\#\ error\ "{}AVR\ ATmega161\ currently\ not\ supported\ by\ this\ libaray\ !"{}}}
+\DoxyCodeLine{00196\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega169\_\_)}}
+\DoxyCodeLine{00197\ \textcolor{comment}{/*\ ATmega\ with\ one\ USART\ */}}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART0\_RX\_vect}}
+\DoxyCodeLine{00199\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART0\_UDRE\_vect}}
+\DoxyCodeLine{00200\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSRC}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00204\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00205\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRL}}
+\DoxyCodeLine{00206\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRH}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00210\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ0}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ1}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega48\_\_)\ ||\ defined(\_\_AVR\_ATmega48A\_\_)\ ||\ defined(\_\_AVR\_ATmega48P\_\_)\ ||\ defined(\_\_AVR\_ATmega48PA\_\_)\ ||\ defined(\_\_AVR\_ATmega48PB\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega88\_\_)\ ||\ defined(\_\_AVR\_ATmega88A\_\_)\ ||\ defined(\_\_AVR\_ATmega88P\_\_)\ ||\ defined(\_\_AVR\_ATmega88PA\_\_)\ ||\ defined(\_\_AVR\_ATmega88PB\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00215\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega168\_\_)\ ||\ defined(\_\_AVR\_ATmega168A\_\_)\ ||\ defined(\_\_AVR\_ATmega168P\_\_)\ ||\ defined(\_\_AVR\_ATmega168PA\_\_)\ ||\ defined(\_\_AVR\_ATmega168PB\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00216\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega328\_\_)\ ||\ defined(\_\_AVR\_ATmega328P\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00217\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega3250\_\_)\ ||\ defined(\_\_AVR\_ATmega3290\_\_)\ ||\ defined(\_\_AVR\_ATmega6450\_\_)\ ||\ defined(\_\_AVR\_ATmega6490\_\_)}}
+\DoxyCodeLine{00218\ \textcolor{comment}{/*\ ATmega\ with\ one\ USART\ */}}
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART\_RX\_vect}}
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART\_UDRE\_vect}}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR0A}}
+\DoxyCodeLine{00222\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR0B}}
+\DoxyCodeLine{00223\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR0C}}
+\DoxyCodeLine{00224\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR0}}
+\DoxyCodeLine{00225\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE0}}
+\DoxyCodeLine{00226\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0L}}
+\DoxyCodeLine{00227\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0H}}
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X0}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE0}}
+\DoxyCodeLine{00230\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN0}}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN0}}
+\DoxyCodeLine{00232\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ00}}
+\DoxyCodeLine{00233\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ01}}
+\DoxyCodeLine{00234\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATtiny2313\_\_)\ ||\ defined(\_\_AVR\_ATtiny2313A\_\_)\ ||\ defined(\_\_AVR\_ATtiny4313\_\_)}}
+\DoxyCodeLine{00235\ \textcolor{comment}{/*\ ATtiny\ with\ one\ USART\ */}}
+\DoxyCodeLine{00236\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART\_RX\_vect}}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART\_UDRE\_vect}}
+\DoxyCodeLine{00238\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSRA}}
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSRB}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSRC}}
+\DoxyCodeLine{00241\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR}}
+\DoxyCodeLine{00242\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE}}
+\DoxyCodeLine{00243\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRL}}
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRRH}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ0}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ1}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega329\_\_)\ ||\ defined(\_\_AVR\_ATmega649\_\_)\ ||\ defined(\_\_AVR\_ATmega3290\_\_)\ ||\ defined(\_\_AVR\_ATmega6490\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega169A\_\_)\ ||\ defined(\_\_AVR\_ATmega169PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00253\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega329A\_\_)\ ||\ defined(\_\_AVR\_ATmega329PA\_\_)\ ||\ defined(\_\_AVR\_ATmega3290A\_\_)\ ||\ defined(\_\_AVR\_ATmega3290PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega649A\_\_)\ ||\ defined(\_\_AVR\_ATmega649P\_\_)\ ||\ defined(\_\_AVR\_ATmega6490A\_\_)\ ||\ defined(\_\_AVR\_ATmega6490P\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega165\_\_)\ ||\ defined(\_\_AVR\_ATmega325\_\_)\ ||\ defined(\_\_AVR\_ATmega645\_\_)\ ||\ defined(\_\_AVR\_ATmega3250\_\_)\ ||\ defined(\_\_AVR\_ATmega6450\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega165A\_\_)\ ||\ defined(\_\_AVR\_ATmega165PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega325A\_\_)\ ||\ defined(\_\_AVR\_ATmega325PA\_\_)\ ||\ defined(\_\_AVR\_ATmega3250A\_\_)\ ||\ defined(\_\_AVR\_ATmega3250PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega645A\_\_)\ ||\ defined(\_\_AVR\_ATmega645PA\_\_)\ ||\ defined(\_\_AVR\_ATmega6450A\_\_)\ ||\ defined(\_\_AVR\_ATmega6450PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega644\_\_)}}
+\DoxyCodeLine{00260\ \textcolor{comment}{/*\ ATmega\ with\ one\ USART\ */}}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART0\_RX\_vect}}
+\DoxyCodeLine{00262\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART0\_UDRE\_vect}}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR0A}}
+\DoxyCodeLine{00264\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR0B}}
+\DoxyCodeLine{00265\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR0C}}
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR0}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE0}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0L}}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0H}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X0}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE0}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN0}}
+\DoxyCodeLine{00273\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN0}}
+\DoxyCodeLine{00274\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ00}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ01}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega64\_\_)\ ||\ defined(\_\_AVR\_ATmega128\_\_)\ ||\ defined(\_\_AVR\_ATmega128A\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega640\_\_)\ ||\ defined(\_\_AVR\_ATmega1280\_\_)\ ||\ defined(\_\_AVR\_ATmega1281\_\_)\ ||\ defined(\_\_AVR\_ATmega2560\_\_)\ ||\ defined(\_\_AVR\_ATmega2561\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega164P\_\_)\ ||\ defined(\_\_AVR\_ATmega324P\_\_)\ ||\ defined(\_\_AVR\_ATmega644P\_\_)\ ||\ \ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega164A\_\_)\ ||\ defined(\_\_AVR\_ATmega164PA\_\_)\ ||\ defined(\_\_AVR\_ATmega324A\_\_)\ ||\ defined(\_\_AVR\_ATmega324PA\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega644A\_\_)\ ||\ defined(\_\_AVR\_ATmega644PA\_\_)\ ||\ defined(\_\_AVR\_ATmega1284\_\_)\ ||\ defined(\_\_AVR\_ATmega1284P\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATtiny1634\_\_)}}
+\DoxyCodeLine{00282\ \textcolor{comment}{/*\ ATmega\ with\ two\ USART\ */}}
+\DoxyCodeLine{00283\ \textcolor{preprocessor}{\#\ define\ ATMEGA\_USART1}}
+\DoxyCodeLine{00284\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART0\_RX\_vect}}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\#\ define\ UART1\_RECEIVE\_INTERRUPT\ \ USART1\_RX\_vect}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART0\_UDRE\_vect}}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\#\ define\ UART1\_TRANSMIT\_INTERRUPT\ USART1\_UDRE\_vect}}
+\DoxyCodeLine{00288\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR0A}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR0B}}
+\DoxyCodeLine{00290\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR0C}}
+\DoxyCodeLine{00291\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR0}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE0}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0L}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR0H}}
+\DoxyCodeLine{00295\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X0}}
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE0}}
+\DoxyCodeLine{00297\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN0}}
+\DoxyCodeLine{00298\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN0}}
+\DoxyCodeLine{00299\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ00}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ01}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\#\ define\ UART1\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR1A}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\#\ define\ UART1\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR1B}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\#\ define\ UART1\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR1C}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#\ define\ UART1\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR1}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\#\ define\ UART1\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE1}}
+\DoxyCodeLine{00306\ \textcolor{preprocessor}{\#\ define\ UART1\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1L}}
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#\ define\ UART1\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1H}}
+\DoxyCodeLine{00308\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X1}}
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE1}}
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN1}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN1}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ10}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#\ define\ UART1\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ11}}
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#elif\ defined(\_\_AVR\_ATmega8U2\_\_)\ ||\ defined(\_\_AVR\_ATmega16U2\_\_)\ ||\ defined(\_\_AVR\_ATmega32U2\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_ATmega16U4\_\_)\ ||\ defined(\_\_AVR\_ATmega32U4\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00316\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_AT90USB82\_\_)\ ||\ defined(\_\_AVR\_AT90USB162\_\_)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\ \ \ \ defined(\_\_AVR\_AT90USB646\_\_)\ ||\ defined(\_\_AVR\_AT90USB1286\_\_)\ ||\ defined(\_\_AVR\_AT90USB647\_\_)\ ||\ defined(\_\_AVR\_AT90USB1287\_\_)}}
+\DoxyCodeLine{00318\ \textcolor{preprocessor}{\#\ define\ UART0\_RECEIVE\_INTERRUPT\ \ USART1\_RX\_vect}}
+\DoxyCodeLine{00319\ \textcolor{preprocessor}{\#\ define\ UART0\_TRANSMIT\_INTERRUPT\ USART1\_UDRE\_vect}}
+\DoxyCodeLine{00320\ \textcolor{preprocessor}{\#\ define\ UART0\_STATUS\ \ \ \ \ \ \ \ \ \ \ \ \ UCSR1A}}
+\DoxyCodeLine{00321\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROL\ \ \ \ \ \ \ \ \ \ \ \ UCSR1B}}
+\DoxyCodeLine{00322\ \textcolor{preprocessor}{\#\ define\ UART0\_CONTROLC\ \ \ \ \ \ \ \ \ \ \ UCSR1C}}
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#\ define\ UART0\_DATA\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ UDR1}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\#\ define\ UART0\_UDRIE\ \ \ \ \ \ \ \ \ \ \ \ \ \ UDRIE1}}
+\DoxyCodeLine{00325\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRL\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1L}}
+\DoxyCodeLine{00326\ \textcolor{preprocessor}{\#\ define\ UART0\_UBRRH\ \ \ \ \ \ \ \ \ \ \ \ \ \ UBRR1H}}
+\DoxyCodeLine{00327\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_U2X\ \ \ \ \ \ \ \ \ \ \ \ U2X1}}
+\DoxyCodeLine{00328\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXCIE\ \ \ \ \ \ \ \ \ \ RXCIE1}}
+\DoxyCodeLine{00329\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_RXEN\ \ \ \ \ \ \ \ \ \ \ RXEN1}}
+\DoxyCodeLine{00330\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_TXEN\ \ \ \ \ \ \ \ \ \ \ TXEN1}}
+\DoxyCodeLine{00331\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ0\ \ \ \ \ \ \ \ \ \ UCSZ10}}
+\DoxyCodeLine{00332\ \textcolor{preprocessor}{\#\ define\ UART0\_BIT\_UCSZ1\ \ \ \ \ \ \ \ \ \ UCSZ11}}
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ if\ defined(\_\_AVR\_AT90S2313\_\_)\ ||\ defined(\_\_AVR\_AT90S4414\_\_)\ ||\ defined(\_\_AVR\_AT90S8515\_\_)\ ||\ defined(\_\_AVR\_AT90S4434\_\_)\ ||\ defined(\_\_AVR\_AT90S8535\_\_)\ ||\ defined(\_\_AVR\_ATmega103\_\_)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\#\ error\ "{}no\ UART\ definition\ for\ MCU\ available"{}}}
+\DoxyCodeLine{00335\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ if\ defined(\_\_AVR\_AT90S2313\_\_)\ ||\ defined(\_\_AVR\_AT90S4414\_\_)\ ||\ defined(\_\_AVR\_AT90S8515\_\_)\ ||\ defined(\_\_AVR\_AT90S4434\_\_)\ ||\ defined(\_\_AVR\_AT90S8535\_\_)\ ||\ defined(\_\_AVR\_ATmega103\_\_)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00336\ }
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00339\ \textcolor{comment}{\ *\ \ module\ global\ variables}}
+\DoxyCodeLine{00340\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00341\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_TxBuf[UART\_TX\_BUFFER\_SIZE];}
+\DoxyCodeLine{00342\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_RxBuf[UART\_RX\_BUFFER\_SIZE];}
+\DoxyCodeLine{00343\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_TxHead;}
+\DoxyCodeLine{00344\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_TxTail;}
+\DoxyCodeLine{00345\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_RxHead;}
+\DoxyCodeLine{00346\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_RxTail;}
+\DoxyCodeLine{00347\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART\_LastRxError;}
+\DoxyCodeLine{00348\ }
+\DoxyCodeLine{00349\ \textcolor{preprocessor}{\#if\ defined(\ ATMEGA\_USART1\ )}}
+\DoxyCodeLine{00350\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_TxBuf[UART\_TX\_BUFFER\_SIZE];}
+\DoxyCodeLine{00351\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_RxBuf[UART\_RX\_BUFFER\_SIZE];}
+\DoxyCodeLine{00352\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_TxHead;}
+\DoxyCodeLine{00353\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_TxTail;}
+\DoxyCodeLine{00354\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_RxHead;}
+\DoxyCodeLine{00355\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_RxTail;}
+\DoxyCodeLine{00356\ \textcolor{keyword}{static}\ \textcolor{keyword}{volatile}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ UART1\_LastRxError;}
+\DoxyCodeLine{00357\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00358\ }
+\DoxyCodeLine{00359\ }
+\DoxyCodeLine{00360\ ISR(UART0\_RECEIVE\_INTERRUPT)}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00363\ \textcolor{comment}{\ *\ Function:\ UART\ Receive\ Complete\ interrupt}}
+\DoxyCodeLine{00364\ \textcolor{comment}{\ *\ Purpose:\ \ called\ when\ the\ UART\ has\ received\ a\ character}}
+\DoxyCodeLine{00365\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00366\ \{}
+\DoxyCodeLine{00367\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmphead;}
+\DoxyCodeLine{00368\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data;}
+\DoxyCodeLine{00369\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ usr;}
+\DoxyCodeLine{00370\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ lastRxError\ =\ 0;}
+\DoxyCodeLine{00371\ }
+\DoxyCodeLine{00372\ }
+\DoxyCodeLine{00373\ \ \ \ \ \textcolor{comment}{/*\ read\ UART\ status\ register\ and\ UART\ data\ register\ */}}
+\DoxyCodeLine{00374\ \ \ \ \ usr\ \ =\ UART0\_STATUS;}
+\DoxyCodeLine{00375\ \ \ \ \ data\ =\ UART0\_DATA;}
+\DoxyCodeLine{00376\ }
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{comment}{/*\ get\ FEn\ (Frame\ Error)\ DORn\ (Data\ OverRun)\ UPEn\ (USART\ Parity\ Error)\ bits\ */}}
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(FE)\ \&\&\ defined(DOR)\ \&\&\ defined(UPE)}}
+\DoxyCodeLine{00379\ \ \ \ \ lastRxError\ =\ usr\ \&\ (\_BV(FE)\ |\ \_BV(DOR)\ |\ \_BV(UPE)\ );}
+\DoxyCodeLine{00380\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(FE0)\ \&\&\ defined(DOR0)\ \&\&\ defined(UPE0)}}
+\DoxyCodeLine{00381\ \ \ \ \ lastRxError\ =\ usr\ \&\ (\_BV(FE0)\ |\ \_BV(DOR0)\ |\ \_BV(UPE0)\ );}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(FE1)\ \&\&\ defined(DOR1)\ \&\&\ defined(UPE1)}}
+\DoxyCodeLine{00383\ \ \ \ \ lastRxError\ =\ usr\ \&\ (\_BV(FE1)\ |\ \_BV(DOR1)\ |\ \_BV(UPE1)\ );}
+\DoxyCodeLine{00384\ \textcolor{preprocessor}{\ \ \ \ \#elif\ defined(FE)\ \&\&\ defined(DOR)}}
+\DoxyCodeLine{00385\ \ \ \ \ lastRxError\ =\ usr\ \&\ (\_BV(FE)\ |\ \_BV(DOR)\ );}
+\DoxyCodeLine{00386\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00387\ }
+\DoxyCodeLine{00388\ \ \ \ \ \textcolor{comment}{/*\ calculate\ buffer\ index\ */}}
+\DoxyCodeLine{00389\ \ \ \ \ tmphead\ =\ (\ UART\_RxHead\ +\ 1)\ \&\ UART\_RX\_BUFFER\_MASK;}
+\DoxyCodeLine{00390\ }
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordflow}{if}\ (tmphead\ ==\ UART\_RxTail)}
+\DoxyCodeLine{00392\ \ \ \ \ \{}
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ error:\ receive\ buffer\ overflow\ */}}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ lastRxError\ =\ UART\_BUFFER\_OVERFLOW\ >>\ 8;}
+\DoxyCodeLine{00395\ \ \ \ \ \}}
+\DoxyCodeLine{00396\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00397\ \ \ \ \ \{}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ store\ new\ index\ */}}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ UART\_RxHead\ =\ tmphead;}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ store\ received\ data\ in\ buffer\ */}}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ UART\_RxBuf[tmphead]\ =\ data;}
+\DoxyCodeLine{00402\ \ \ \ \ \}}
+\DoxyCodeLine{00403\ \ \ \ \ UART\_LastRxError\ |=\ lastRxError;}
+\DoxyCodeLine{00404\ \}}
+\DoxyCodeLine{00405\ }
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00407\ ISR(UART0\_TRANSMIT\_INTERRUPT)}
+\DoxyCodeLine{00408\ }
+\DoxyCodeLine{00409\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00410\ \textcolor{comment}{\ *\ Function:\ UART\ Data\ Register\ Empty\ interrupt}}
+\DoxyCodeLine{00411\ \textcolor{comment}{\ *\ Purpose:\ \ called\ when\ the\ UART\ is\ ready\ to\ transmit\ the\ next\ byte}}
+\DoxyCodeLine{00412\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00413\ \{}
+\DoxyCodeLine{00414\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmptail;}
+\DoxyCodeLine{00415\ }
+\DoxyCodeLine{00416\ }
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordflow}{if}\ (UART\_TxHead\ !=\ UART\_TxTail)}
+\DoxyCodeLine{00418\ \ \ \ \ \{}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ calculate\ and\ store\ new\ buffer\ index\ */}}
+\DoxyCodeLine{00420\ \ \ \ \ \ \ \ \ tmptail\ \ \ \ \ =\ (UART\_TxTail\ +\ 1)\ \&\ UART\_TX\_BUFFER\_MASK;}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ UART\_TxTail\ =\ tmptail;}
+\DoxyCodeLine{00422\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ get\ one\ byte\ from\ buffer\ and\ write\ it\ to\ UART\ */}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ UART0\_DATA\ =\ UART\_TxBuf[tmptail];\ \textcolor{comment}{/*\ start\ transmission\ */}}
+\DoxyCodeLine{00424\ \ \ \ \ \}}
+\DoxyCodeLine{00425\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00426\ \ \ \ \ \{}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ tx\ buffer\ empty,\ disable\ UDRE\ interrupt\ */}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ UART0\_CONTROL\ \&=\ \string~\_BV(UART0\_UDRIE);}
+\DoxyCodeLine{00429\ \ \ \ \ \}}
+\DoxyCodeLine{00430\ \}}
+\DoxyCodeLine{00431\ }
+\DoxyCodeLine{00432\ }
+\DoxyCodeLine{00433\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00434\ \textcolor{comment}{\ *\ Function:\ uart\_init()}}
+\DoxyCodeLine{00435\ \textcolor{comment}{\ *\ Purpose:\ \ initialize\ UART\ and\ set\ baudrate}}
+\DoxyCodeLine{00436\ \textcolor{comment}{\ *\ Input:\ \ \ \ baudrate\ using\ macro\ UART\_BAUD\_SELECT()}}
+\DoxyCodeLine{00437\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00438\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00439\ \textcolor{keywordtype}{void}\ uart\_init(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ baudrate)}
+\DoxyCodeLine{00440\ \{}
+\DoxyCodeLine{00441\ \ \ \ \ UART\_TxHead\ =\ 0;}
+\DoxyCodeLine{00442\ \ \ \ \ UART\_TxTail\ =\ 0;}
+\DoxyCodeLine{00443\ \ \ \ \ UART\_RxHead\ =\ 0;}
+\DoxyCodeLine{00444\ \ \ \ \ UART\_RxTail\ =\ 0;}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00446\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART\_TEST}}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\ \ \ \ \#\ ifndef\ UART0\_BIT\_U2X}}
+\DoxyCodeLine{00448\ \textcolor{preprocessor}{\ \ \ \ \#\ \ warning\ "{}UART0\_BIT\_U2X\ not\ defined"{}}}
+\DoxyCodeLine{00449\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00450\ \textcolor{preprocessor}{\ \ \ \ \#\ ifndef\ UART0\_UBRRH}}
+\DoxyCodeLine{00451\ \textcolor{preprocessor}{\ \ \ \ \#\ \ warning\ "{}UART0\_UBRRH\ not\ defined"{}}}
+\DoxyCodeLine{00452\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00453\ \textcolor{preprocessor}{\ \ \ \ \#\ ifndef\ UART0\_CONTROLC}}
+\DoxyCodeLine{00454\ \textcolor{preprocessor}{\ \ \ \ \#\ \ warning\ "{}UART0\_CONTROLC\ not\ defined"{}}}
+\DoxyCodeLine{00455\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00456\ \textcolor{preprocessor}{\ \ \ \ \#\ if\ defined(URSEL)\ ||\ defined(URSEL0)}}
+\DoxyCodeLine{00457\ \textcolor{preprocessor}{\ \ \ \ \#\ \ ifndef\ UART0\_BIT\_URSEL}}
+\DoxyCodeLine{00458\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ warning\ "{}UART0\_BIT\_URSEL\ not\ defined"{}}}
+\DoxyCodeLine{00459\ \textcolor{preprocessor}{\ \ \ \ \#\ \ endif}}
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\ \ \ \ \#endif\ }\textcolor{comment}{/*\ ifdef\ UART\_TEST\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00463\ \ \ \ \ \textcolor{comment}{/*\ Set\ baud\ rate\ */}}
+\DoxyCodeLine{00464\ \ \ \ \ \textcolor{keywordflow}{if}\ (baudrate\ \&\ 0x8000)}
+\DoxyCodeLine{00465\ \ \ \ \ \{}
+\DoxyCodeLine{00466\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#if\ UART0\_BIT\_U2X}}
+\DoxyCodeLine{00467\ \ \ \ \ \ \ \ \ UART0\_STATUS\ =\ (1\ <<\ UART0\_BIT\_U2X);\ \textcolor{comment}{//\ Enable\ 2x\ speed}}
+\DoxyCodeLine{00468\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00469\ \ \ \ \ \}}
+\DoxyCodeLine{00470\ \textcolor{preprocessor}{\ \ \ \ \#if\ defined(UART0\_UBRRH)}}
+\DoxyCodeLine{00471\ \ \ \ \ UART0\_UBRRH\ =\ (\textcolor{keywordtype}{unsigned}\ char)\ ((baudrate\ >>\ 8)\ \&\ 0x80);}
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00473\ \ \ \ \ UART0\_UBRRL\ =\ (\textcolor{keywordtype}{unsigned}\ char)\ (baudrate\ \&\ 0x00FF);}
+\DoxyCodeLine{00474\ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{comment}{/*\ Enable\ USART\ receiver\ and\ transmitter\ and\ receive\ complete\ interrupt\ */}}
+\DoxyCodeLine{00476\ \ \ \ \ UART0\_CONTROL\ =\ \_BV(UART0\_BIT\_RXCIE)\ |\ (1\ <<\ UART0\_BIT\_RXEN)\ |\ (1\ <<\ UART0\_BIT\_TXEN);}
+\DoxyCodeLine{00477\ }
+\DoxyCodeLine{00478\ \ \ \ \ \textcolor{comment}{/*\ Set\ frame\ format:\ asynchronous,\ 8data,\ no\ parity,\ 1stop\ bit\ */}}
+\DoxyCodeLine{00479\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART0\_CONTROLC}}
+\DoxyCodeLine{00480\ \textcolor{preprocessor}{\ \ \ \ \#\ ifdef\ UART0\_BIT\_URSEL}}
+\DoxyCodeLine{00481\ \ \ \ \ UART0\_CONTROLC\ =\ (1\ <<\ UART0\_BIT\_URSEL)\ |\ (1\ <<\ UART0\_BIT\_UCSZ1)\ |\ (1\ <<\ UART0\_BIT\_UCSZ0);}
+\DoxyCodeLine{00482\ \textcolor{preprocessor}{\ \ \ \ \#\ else}}
+\DoxyCodeLine{00483\ \ \ \ \ UART0\_CONTROLC\ =\ (1\ <<\ UART0\_BIT\_UCSZ1)\ |\ (1\ <<\ UART0\_BIT\_UCSZ0);}
+\DoxyCodeLine{00484\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00485\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00486\ \}\textcolor{comment}{/*\ uart\_init\ */}}
+\DoxyCodeLine{00487\ }
+\DoxyCodeLine{00488\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00489\ \textcolor{comment}{\ *\ Function:\ uart\_getc()}}
+\DoxyCodeLine{00490\ \textcolor{comment}{\ *\ Purpose:\ \ return\ byte\ from\ ringbuffer}}
+\DoxyCodeLine{00491\ \textcolor{comment}{\ *\ Returns:\ \ lower\ byte:\ \ received\ byte\ from\ ringbuffer}}
+\DoxyCodeLine{00492\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ higher\ byte:\ last\ receive\ error}}
+\DoxyCodeLine{00493\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00494\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uart\_getc(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00495\ \{}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmptail;}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data;}
+\DoxyCodeLine{00498\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ lastRxError;}
+\DoxyCodeLine{00499\ }
+\DoxyCodeLine{00500\ }
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{keywordflow}{if}\ (UART\_RxHead\ ==\ UART\_RxTail)}
+\DoxyCodeLine{00502\ \ \ \ \ \{}
+\DoxyCodeLine{00503\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ UART\_NO\_DATA;\ \textcolor{comment}{/*\ no\ data\ available\ */}}
+\DoxyCodeLine{00504\ \ \ \ \ \}}
+\DoxyCodeLine{00505\ }
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{comment}{/*\ calculate\ buffer\ index\ */}}
+\DoxyCodeLine{00507\ \ \ \ \ tmptail\ =\ (UART\_RxTail\ +\ 1)\ \&\ UART\_RX\_BUFFER\_MASK;}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{comment}{/*\ get\ data\ from\ receive\ buffer\ */}}
+\DoxyCodeLine{00510\ \ \ \ \ data\ \ \ \ \ \ \ \ =\ UART\_RxBuf[tmptail];}
+\DoxyCodeLine{00511\ \ \ \ \ lastRxError\ =\ UART\_LastRxError;}
+\DoxyCodeLine{00512\ }
+\DoxyCodeLine{00513\ \ \ \ \ \textcolor{comment}{/*\ store\ buffer\ index\ */}}
+\DoxyCodeLine{00514\ \ \ \ \ UART\_RxTail\ =\ tmptail;}
+\DoxyCodeLine{00515\ }
+\DoxyCodeLine{00516\ \ \ \ \ UART\_LastRxError\ =\ 0;}
+\DoxyCodeLine{00517\ \ \ \ \ \textcolor{keywordflow}{return}\ (lastRxError\ <<\ 8)\ +\ data;}
+\DoxyCodeLine{00518\ \}\textcolor{comment}{/*\ uart\_getc\ */}}
+\DoxyCodeLine{00519\ }
+\DoxyCodeLine{00520\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00521\ \textcolor{comment}{\ *\ Function:\ uart\_putc()}}
+\DoxyCodeLine{00522\ \textcolor{comment}{\ *\ Purpose:\ \ write\ byte\ to\ ringbuffer\ for\ transmitting\ via\ UART}}
+\DoxyCodeLine{00523\ \textcolor{comment}{\ *\ Input:\ \ \ \ byte\ to\ be\ transmitted}}
+\DoxyCodeLine{00524\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00525\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00526\ \textcolor{keywordtype}{void}\ uart\_putc(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data)}
+\DoxyCodeLine{00527\ \{}
+\DoxyCodeLine{00528\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmphead;}
+\DoxyCodeLine{00529\ }
+\DoxyCodeLine{00530\ }
+\DoxyCodeLine{00531\ \ \ \ \ tmphead\ =\ (UART\_TxHead\ +\ 1)\ \&\ UART\_TX\_BUFFER\_MASK;}
+\DoxyCodeLine{00532\ }
+\DoxyCodeLine{00533\ \ \ \ \ \textcolor{keywordflow}{while}\ (tmphead\ ==\ UART\_TxTail)}
+\DoxyCodeLine{00534\ \ \ \ \ \{}
+\DoxyCodeLine{00535\ \ \ \ \ \ \ \ \ ;\textcolor{comment}{/*\ wait\ for\ free\ space\ in\ buffer\ */}}
+\DoxyCodeLine{00536\ \ \ \ \ \}}
+\DoxyCodeLine{00537\ }
+\DoxyCodeLine{00538\ \ \ \ \ UART\_TxBuf[tmphead]\ =\ data;}
+\DoxyCodeLine{00539\ \ \ \ \ UART\_TxHead\ \ \ \ \ \ \ \ \ =\ tmphead;}
+\DoxyCodeLine{00540\ }
+\DoxyCodeLine{00541\ \ \ \ \ \textcolor{comment}{/*\ enable\ UDRE\ interrupt\ */}}
+\DoxyCodeLine{00542\ \ \ \ \ UART0\_CONTROL\ |=\ \_BV(UART0\_UDRIE);}
+\DoxyCodeLine{00543\ \}\textcolor{comment}{/*\ uart\_putc\ */}}
+\DoxyCodeLine{00544\ }
+\DoxyCodeLine{00545\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00546\ \textcolor{comment}{\ *\ Function:\ uart\_puts()}}
+\DoxyCodeLine{00547\ \textcolor{comment}{\ *\ Purpose:\ \ transmit\ string\ to\ UART}}
+\DoxyCodeLine{00548\ \textcolor{comment}{\ *\ Input:\ \ \ \ string\ to\ be\ transmitted}}
+\DoxyCodeLine{00549\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00550\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00551\ \textcolor{keywordtype}{void}\ uart\_puts(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)}
+\DoxyCodeLine{00552\ \{}
+\DoxyCodeLine{00553\ \ \ \ \ \textcolor{keywordflow}{while}\ (*s)}
+\DoxyCodeLine{00554\ \ \ \ \ \ \ \ \ uart\_putc(*s++);}
+\DoxyCodeLine{00555\ \}\textcolor{comment}{/*\ uart\_puts\ */}}
+\DoxyCodeLine{00556\ }
+\DoxyCodeLine{00557\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00558\ \textcolor{comment}{\ *\ Function:\ uart\_puts\_p()}}
+\DoxyCodeLine{00559\ \textcolor{comment}{\ *\ Purpose:\ \ transmit\ string\ from\ program\ memory\ to\ UART}}
+\DoxyCodeLine{00560\ \textcolor{comment}{\ *\ Input:\ \ \ \ program\ memory\ string\ to\ be\ transmitted}}
+\DoxyCodeLine{00561\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00562\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00563\ \textcolor{keywordtype}{void}\ uart\_puts\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *progmem\_s)}
+\DoxyCodeLine{00564\ \{}
+\DoxyCodeLine{00565\ \ \ \ \ \textcolor{keyword}{register}\ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00566\ }
+\DoxyCodeLine{00567\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ (c\ =\ pgm\_read\_byte(progmem\_s++))\ )}
+\DoxyCodeLine{00568\ \ \ \ \ \ \ \ \ uart\_putc(c);}
+\DoxyCodeLine{00569\ \}\textcolor{comment}{/*\ uart\_puts\_p\ */}}
+\DoxyCodeLine{00570\ }
+\DoxyCodeLine{00571\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00572\ \textcolor{comment}{\ *\ these\ functions\ are\ only\ for\ ATmegas\ with\ two\ USART}}
+\DoxyCodeLine{00573\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\#if\ defined(\ ATMEGA\_USART1\ )}}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ ISR(UART1\_RECEIVE\_INTERRUPT)}
+\DoxyCodeLine{00577\ }
+\DoxyCodeLine{00578\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00579\ \textcolor{comment}{\ *\ Function:\ UART1\ Receive\ Complete\ interrupt}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ *\ Purpose:\ \ called\ when\ the\ UART1\ has\ received\ a\ character}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00582\ \{}
+\DoxyCodeLine{00583\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmphead;}
+\DoxyCodeLine{00584\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data;}
+\DoxyCodeLine{00585\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ usr;}
+\DoxyCodeLine{00586\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ lastRxError;}
+\DoxyCodeLine{00587\ }
+\DoxyCodeLine{00588\ }
+\DoxyCodeLine{00589\ \ \ \ \ \textcolor{comment}{/*\ read\ UART\ status\ register\ and\ UART\ data\ register\ */}}
+\DoxyCodeLine{00590\ \ \ \ \ usr\ \ =\ UART1\_STATUS;}
+\DoxyCodeLine{00591\ \ \ \ \ data\ =\ UART1\_DATA;}
+\DoxyCodeLine{00592\ }
+\DoxyCodeLine{00593\ \ \ \ \ \textcolor{comment}{/*\ get\ FEn\ (Frame\ Error)\ DORn\ (Data\ OverRun)\ UPEn\ (USART\ Parity\ Error)\ bits\ */}}
+\DoxyCodeLine{00594\ \ \ \ \ lastRxError\ =\ usr\ \&\ (\_BV(FE1)\ |\ \_BV(DOR1)\ |\ \_BV(UPE1)\ );}
+\DoxyCodeLine{00595\ }
+\DoxyCodeLine{00596\ \ \ \ \ \textcolor{comment}{/*\ calculate\ buffer\ index\ */}}
+\DoxyCodeLine{00597\ \ \ \ \ tmphead\ =\ (\ UART1\_RxHead\ +\ 1)\ \&\ UART\_RX\_BUFFER\_MASK;}
+\DoxyCodeLine{00598\ }
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{keywordflow}{if}\ (tmphead\ ==\ UART1\_RxTail)}
+\DoxyCodeLine{00600\ \ \ \ \ \{}
+\DoxyCodeLine{00601\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ error:\ receive\ buffer\ overflow\ */}}
+\DoxyCodeLine{00602\ \ \ \ \ \ \ \ \ lastRxError\ =\ UART\_BUFFER\_OVERFLOW\ >>\ 8;}
+\DoxyCodeLine{00603\ \ \ \ \ \}}
+\DoxyCodeLine{00604\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00605\ \ \ \ \ \{}
+\DoxyCodeLine{00606\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ store\ new\ index\ */}}
+\DoxyCodeLine{00607\ \ \ \ \ \ \ \ \ UART1\_RxHead\ =\ tmphead;}
+\DoxyCodeLine{00608\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ store\ received\ data\ in\ buffer\ */}}
+\DoxyCodeLine{00609\ \ \ \ \ \ \ \ \ UART1\_RxBuf[tmphead]\ =\ data;}
+\DoxyCodeLine{00610\ \ \ \ \ \}}
+\DoxyCodeLine{00611\ \ \ \ \ UART1\_LastRxError\ |=\ lastRxError;}
+\DoxyCodeLine{00612\ \}}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00614\ }
+\DoxyCodeLine{00615\ ISR(UART1\_TRANSMIT\_INTERRUPT)}
+\DoxyCodeLine{00616\ }
+\DoxyCodeLine{00617\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00618\ \textcolor{comment}{\ *\ Function:\ UART1\ Data\ Register\ Empty\ interrupt}}
+\DoxyCodeLine{00619\ \textcolor{comment}{\ *\ Purpose:\ \ called\ when\ the\ UART1\ is\ ready\ to\ transmit\ the\ next\ byte}}
+\DoxyCodeLine{00620\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00621\ \{}
+\DoxyCodeLine{00622\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmptail;}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ }
+\DoxyCodeLine{00625\ \ \ \ \ \textcolor{keywordflow}{if}\ (UART1\_TxHead\ !=\ UART1\_TxTail)}
+\DoxyCodeLine{00626\ \ \ \ \ \{}
+\DoxyCodeLine{00627\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ calculate\ and\ store\ new\ buffer\ index\ */}}
+\DoxyCodeLine{00628\ \ \ \ \ \ \ \ \ tmptail\ \ \ \ \ \ =\ (UART1\_TxTail\ +\ 1)\ \&\ UART\_TX\_BUFFER\_MASK;}
+\DoxyCodeLine{00629\ \ \ \ \ \ \ \ \ UART1\_TxTail\ =\ tmptail;}
+\DoxyCodeLine{00630\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ get\ one\ byte\ from\ buffer\ and\ write\ it\ to\ UART\ */}}
+\DoxyCodeLine{00631\ \ \ \ \ \ \ \ \ UART1\_DATA\ =\ UART1\_TxBuf[tmptail];\ \textcolor{comment}{/*\ start\ transmission\ */}}
+\DoxyCodeLine{00632\ \ \ \ \ \}}
+\DoxyCodeLine{00633\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00634\ \ \ \ \ \{}
+\DoxyCodeLine{00635\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ tx\ buffer\ empty,\ disable\ UDRE\ interrupt\ */}}
+\DoxyCodeLine{00636\ \ \ \ \ \ \ \ \ UART1\_CONTROL\ \&=\ \string~\_BV(UART1\_UDRIE);}
+\DoxyCodeLine{00637\ \ \ \ \ \}}
+\DoxyCodeLine{00638\ \}}
+\DoxyCodeLine{00639\ }
+\DoxyCodeLine{00640\ }
+\DoxyCodeLine{00641\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00642\ \textcolor{comment}{\ *\ Function:\ uart1\_init()}}
+\DoxyCodeLine{00643\ \textcolor{comment}{\ *\ Purpose:\ \ initialize\ UART1\ and\ set\ baudrate}}
+\DoxyCodeLine{00644\ \textcolor{comment}{\ *\ Input:\ \ \ \ baudrate\ using\ macro\ UART\_BAUD\_SELECT()}}
+\DoxyCodeLine{00645\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00646\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00647\ \textcolor{keywordtype}{void}\ uart1\_init(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ baudrate)}
+\DoxyCodeLine{00648\ \{}
+\DoxyCodeLine{00649\ \ \ \ \ UART1\_TxHead\ =\ 0;}
+\DoxyCodeLine{00650\ \ \ \ \ UART1\_TxTail\ =\ 0;}
+\DoxyCodeLine{00651\ \ \ \ \ UART1\_RxHead\ =\ 0;}
+\DoxyCodeLine{00652\ \ \ \ \ UART1\_RxTail\ =\ 0;}
+\DoxyCodeLine{00653\ }
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\ \ \ \ \#\ ifdef\ UART\_TEST}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\ \ \ \ \#\ \ ifndef\ UART1\_BIT\_U2X}}
+\DoxyCodeLine{00656\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ warning\ "{}UART1\_BIT\_U2X\ not\ defined"{}}}
+\DoxyCodeLine{00657\ \textcolor{preprocessor}{\ \ \ \ \#\ \ endif}}
+\DoxyCodeLine{00658\ \textcolor{preprocessor}{\ \ \ \ \#\ \ ifndef\ UART1\_UBRRH}}
+\DoxyCodeLine{00659\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ warning\ "{}UART1\_UBRRH\ not\ defined"{}}}
+\DoxyCodeLine{00660\ \textcolor{preprocessor}{\ \ \ \ \#\ \ endif}}
+\DoxyCodeLine{00661\ \textcolor{preprocessor}{\ \ \ \ \#\ \ ifndef\ UART1\_CONTROLC}}
+\DoxyCodeLine{00662\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ warning\ "{}UART1\_CONTROLC\ not\ defined"{}}}
+\DoxyCodeLine{00663\ \textcolor{preprocessor}{\ \ \ \ \#\ \ endif}}
+\DoxyCodeLine{00664\ \textcolor{preprocessor}{\ \ \ \ \#\ \ if\ defined(URSEL)\ ||\ defined(URSEL1)}}
+\DoxyCodeLine{00665\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ ifndef\ UART1\_BIT\_URSEL}}
+\DoxyCodeLine{00666\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ \ warning\ "{}UART1\_BIT\_URSEL\ not\ defined"{}}}
+\DoxyCodeLine{00667\ \textcolor{preprocessor}{\ \ \ \ \#\ \ \ endif}}
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\ \ \ \ \#\ \ endif}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\ \ \ \ \#\ endif\ }\textcolor{comment}{/*\ ifdef\ UART\_TEST\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00670\ }
+\DoxyCodeLine{00671\ \ \ \ \ \textcolor{comment}{/*\ Set\ baud\ rate\ */}}
+\DoxyCodeLine{00672\ \ \ \ \ \textcolor{keywordflow}{if}\ (baudrate\ \&\ 0x8000)}
+\DoxyCodeLine{00673\ \ \ \ \ \{}
+\DoxyCodeLine{00674\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#\ if\ UART1\_BIT\_U2X}}
+\DoxyCodeLine{00675\ \ \ \ \ \ \ \ \ UART1\_STATUS\ =\ (1\ <<\ UART1\_BIT\_U2X);\ \textcolor{comment}{//\ Enable\ 2x\ speed}}
+\DoxyCodeLine{00676\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#\ endif}}
+\DoxyCodeLine{00677\ \ \ \ \ \}}
+\DoxyCodeLine{00678\ \ \ \ \ UART1\_UBRRH\ =\ (\textcolor{keywordtype}{unsigned}\ char)\ ((baudrate\ >>\ 8)\ \&\ 0x80);}
+\DoxyCodeLine{00679\ \ \ \ \ UART1\_UBRRL\ =\ (\textcolor{keywordtype}{unsigned}\ char)\ baudrate;}
+\DoxyCodeLine{00680\ }
+\DoxyCodeLine{00681\ \ \ \ \ \textcolor{comment}{/*\ Enable\ USART\ receiver\ and\ transmitter\ and\ receive\ complete\ interrupt\ */}}
+\DoxyCodeLine{00682\ \ \ \ \ UART1\_CONTROL\ =\ \_BV(UART1\_BIT\_RXCIE)\ |\ (1\ <<\ UART1\_BIT\_RXEN)\ |\ (1\ <<\ UART1\_BIT\_TXEN);}
+\DoxyCodeLine{00683\ }
+\DoxyCodeLine{00684\ \ \ \ \ \textcolor{comment}{/*\ Set\ frame\ format:\ asynchronous,\ 8data,\ no\ parity,\ 1stop\ bit\ */}}
+\DoxyCodeLine{00685\ \textcolor{preprocessor}{\ \ \ \ \#\ ifdef\ UART1\_BIT\_URSEL}}
+\DoxyCodeLine{00686\ \ \ \ \ UART1\_CONTROLC\ =\ (1\ <<\ UART1\_BIT\_URSEL)\ |\ (1\ <<\ UART1\_BIT\_UCSZ1)\ |\ (1\ <<\ UART1\_BIT\_UCSZ0);}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\ \ \ \ \#\ else}}
+\DoxyCodeLine{00688\ \ \ \ \ UART1\_CONTROLC\ =\ (1\ <<\ UART1\_BIT\_UCSZ1)\ |\ (1\ <<\ UART1\_BIT\_UCSZ0);}
+\DoxyCodeLine{00689\ \textcolor{preprocessor}{\ \ \ \ \#\ endif}}
+\DoxyCodeLine{00690\ \}\textcolor{comment}{/*\ uart\_init\ */}}
+\DoxyCodeLine{00691\ }
+\DoxyCodeLine{00692\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00693\ \textcolor{comment}{\ *\ Function:\ uart1\_getc()}}
+\DoxyCodeLine{00694\ \textcolor{comment}{\ *\ Purpose:\ \ return\ byte\ from\ ringbuffer}}
+\DoxyCodeLine{00695\ \textcolor{comment}{\ *\ Returns:\ \ lower\ byte:\ \ received\ byte\ from\ ringbuffer}}
+\DoxyCodeLine{00696\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ higher\ byte:\ last\ receive\ error}}
+\DoxyCodeLine{00697\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00698\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ uart1\_getc(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00699\ \{}
+\DoxyCodeLine{00700\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmptail;}
+\DoxyCodeLine{00701\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ data;}
+\DoxyCodeLine{00702\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ lastRxError;}
+\DoxyCodeLine{00703\ }
+\DoxyCodeLine{00704\ }
+\DoxyCodeLine{00705\ \ \ \ \ \textcolor{keywordflow}{if}\ (UART1\_RxHead\ ==\ UART1\_RxTail)}
+\DoxyCodeLine{00706\ \ \ \ \ \{}
+\DoxyCodeLine{00707\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ UART\_NO\_DATA;\ \textcolor{comment}{/*\ no\ data\ available\ */}}
+\DoxyCodeLine{00708\ \ \ \ \ \}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \ \ \ \ \textcolor{comment}{/*\ calculate\ buffer\ index\ */}}
+\DoxyCodeLine{00711\ \ \ \ \ tmptail\ =\ (UART1\_RxTail\ +\ 1)\ \&\ UART\_RX\_BUFFER\_MASK;}
+\DoxyCodeLine{00712\ }
+\DoxyCodeLine{00713\ \ \ \ \ \textcolor{comment}{/*\ get\ data\ from\ receive\ buffer\ */}}
+\DoxyCodeLine{00714\ \ \ \ \ data\ \ \ \ \ \ \ \ =\ UART1\_RxBuf[tmptail];}
+\DoxyCodeLine{00715\ \ \ \ \ lastRxError\ =\ UART1\_LastRxError;}
+\DoxyCodeLine{00716\ }
+\DoxyCodeLine{00717\ \ \ \ \ \textcolor{comment}{/*\ store\ buffer\ index\ */}}
+\DoxyCodeLine{00718\ \ \ \ \ UART1\_RxTail\ =\ tmptail;}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \ \ \ \ UART1\_LastRxError\ =\ 0;}
+\DoxyCodeLine{00721\ \ \ \ \ \textcolor{keywordflow}{return}\ (lastRxError\ <<\ 8)\ +\ data;}
+\DoxyCodeLine{00722\ \}\textcolor{comment}{/*\ uart1\_getc\ */}}
+\DoxyCodeLine{00723\ }
+\DoxyCodeLine{00724\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00725\ \textcolor{comment}{\ *\ Function:\ uart1\_putc()}}
+\DoxyCodeLine{00726\ \textcolor{comment}{\ *\ Purpose:\ \ write\ byte\ to\ ringbuffer\ for\ transmitting\ via\ UART}}
+\DoxyCodeLine{00727\ \textcolor{comment}{\ *\ Input:\ \ \ \ byte\ to\ be\ transmitted}}
+\DoxyCodeLine{00728\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00729\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00730\ \textcolor{keywordtype}{void}\ uart1\_putc(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data)}
+\DoxyCodeLine{00731\ \{}
+\DoxyCodeLine{00732\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ tmphead;}
+\DoxyCodeLine{00733\ }
+\DoxyCodeLine{00734\ }
+\DoxyCodeLine{00735\ \ \ \ \ tmphead\ =\ (UART1\_TxHead\ +\ 1)\ \&\ UART\_TX\_BUFFER\_MASK;}
+\DoxyCodeLine{00736\ }
+\DoxyCodeLine{00737\ \ \ \ \ \textcolor{keywordflow}{while}\ (tmphead\ ==\ UART1\_TxTail)}
+\DoxyCodeLine{00738\ \ \ \ \ \{}
+\DoxyCodeLine{00739\ \ \ \ \ \ \ \ \ ;\textcolor{comment}{/*\ wait\ for\ free\ space\ in\ buffer\ */}}
+\DoxyCodeLine{00740\ \ \ \ \ \}}
+\DoxyCodeLine{00741\ }
+\DoxyCodeLine{00742\ \ \ \ \ UART1\_TxBuf[tmphead]\ =\ data;}
+\DoxyCodeLine{00743\ \ \ \ \ UART1\_TxHead\ \ \ \ \ \ \ \ \ =\ tmphead;}
+\DoxyCodeLine{00744\ }
+\DoxyCodeLine{00745\ \ \ \ \ \textcolor{comment}{/*\ enable\ UDRE\ interrupt\ */}}
+\DoxyCodeLine{00746\ \ \ \ \ UART1\_CONTROL\ |=\ \_BV(UART1\_UDRIE);}
+\DoxyCodeLine{00747\ \}\textcolor{comment}{/*\ uart1\_putc\ */}}
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00749\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00750\ \textcolor{comment}{\ *\ Function:\ uart1\_puts()}}
+\DoxyCodeLine{00751\ \textcolor{comment}{\ *\ Purpose:\ \ transmit\ string\ to\ UART1}}
+\DoxyCodeLine{00752\ \textcolor{comment}{\ *\ Input:\ \ \ \ string\ to\ be\ transmitted}}
+\DoxyCodeLine{00753\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00754\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00755\ \textcolor{keywordtype}{void}\ uart1\_puts(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *s)}
+\DoxyCodeLine{00756\ \{}
+\DoxyCodeLine{00757\ \ \ \ \ \textcolor{keywordflow}{while}\ (*s)}
+\DoxyCodeLine{00758\ \ \ \ \ \ \ \ \ uart1\_putc(*s++);}
+\DoxyCodeLine{00759\ \}\textcolor{comment}{/*\ uart1\_puts\ */}}
+\DoxyCodeLine{00760\ }
+\DoxyCodeLine{00761\ \textcolor{comment}{/*************************************************************************}}
+\DoxyCodeLine{00762\ \textcolor{comment}{\ *\ Function:\ uart1\_puts\_p()}}
+\DoxyCodeLine{00763\ \textcolor{comment}{\ *\ Purpose:\ \ transmit\ string\ from\ program\ memory\ to\ UART1}}
+\DoxyCodeLine{00764\ \textcolor{comment}{\ *\ Input:\ \ \ \ program\ memory\ string\ to\ be\ transmitted}}
+\DoxyCodeLine{00765\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00766\ \textcolor{comment}{\ **************************************************************************/}}
+\DoxyCodeLine{00767\ \textcolor{keywordtype}{void}\ uart1\_puts\_p(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *progmem\_s)}
+\DoxyCodeLine{00768\ \{}
+\DoxyCodeLine{00769\ \ \ \ \ \textcolor{keyword}{register}\ \textcolor{keywordtype}{char}\ c;}
+\DoxyCodeLine{00770\ }
+\DoxyCodeLine{00771\ \ \ \ \ \textcolor{keywordflow}{while}\ (\ (c\ =\ pgm\_read\_byte(progmem\_s++))\ )}
+\DoxyCodeLine{00772\ \ \ \ \ \ \ \ \ uart1\_putc(c);}
+\DoxyCodeLine{00773\ \}\textcolor{comment}{/*\ uart1\_puts\_p\ */}}
+\DoxyCodeLine{00774\ }
+\DoxyCodeLine{00775\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ if\ defined(\ ATMEGA\_USART1\ )\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

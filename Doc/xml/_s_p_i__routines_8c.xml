@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="_s_p_i__routines_8c" kind="file" language="C++">
+    <compoundname>SPI_routines.c</compoundname>
+    <includes local="no">avr/io.h</includes>
+    <includes refid="_s_p_i__routines_8h" local="yes">SPI_routines.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/SPI/SPI_routines.c</label>
+        <link refid="_s_p_i__routines_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>SPI_routines.h</label>
+        <link refid="_s_p_i__routines_8h"/>
+      </node>
+      <node id="2">
+        <label>avr/io.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="_s_p_i__routines_8c_1ae909944aa85ae98323073c628be541aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void spi_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>spi_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.c" line="17" column="6" bodyfile="lib/SPI/SPI_routines.c" bodystart="17" bodyend="27"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_p_i__routines_8c_1a1260d608736fca6a6e24b1493def3f95" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SPI_transmit</definition>
+        <argsstring>(unsigned char data)</argsstring>
+        <name>SPI_transmit</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.c" line="29" column="15" bodyfile="lib/SPI/SPI_routines.c" bodystart="29" bodyend="40"/>
+      </memberdef>
+      <memberdef kind="function" id="_s_p_i__routines_8c_1a7bf9d94fbfaeda91cbe31f30025f837a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SPI_receive</definition>
+        <argsstring>(void)</argsstring>
+        <name>SPI_receive</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/SPI/SPI_routines.c" line="42" column="15" bodyfile="lib/SPI/SPI_routines.c" bodystart="42" bodyend="53"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>******<sp/>FUNCTIONS<sp/>FOR<sp/>SPI<sp/>COMMUNICATION<sp/>*******</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//Controller<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>ATmega32<sp/>(Clock:<sp/>8<sp/>Mhz-internal)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//Compiler<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>AVR-GCC<sp/>(winAVR<sp/>with<sp/>AVRStudio-4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//Project<sp/>Version<sp/><sp/><sp/>:<sp/>DL_1.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//Author<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CC<sp/>Dharmani,<sp/>Chennai<sp/>(India)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>www.dharmanitech.com</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//Date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>10<sp/>May<sp/>2011</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;avr/io.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_s_p_i__routines_8h" kindref="compound">SPI_routines.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="comment">//SPI<sp/>initialize<sp/>for<sp/>SD<sp/>card</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//clock<sp/>rate:<sp/>125Khz</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="_s_p_i__routines_8c_1ae909944aa85ae98323073c628be541aa" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8c_1ae909944aa85ae98323073c628be541aa" kindref="member">spi_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Enable<sp/>SPI,<sp/>Set<sp/>as<sp/>Master</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//-<sp/>Prescaler:<sp/>Fosc/16,<sp/>Enable<sp/>Interrupts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//The<sp/>MOSI,<sp/>SCK<sp/>pins</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//SPCR=(1&lt;&lt;SPE)|(1&lt;&lt;MSTR)|(1&lt;&lt;SPR0)|(1&lt;&lt;SPIE);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//SPR01<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">SPCR<sp/>=<sp/>0x52;<sp/></highlight><highlight class="comment">//setup<sp/>SPI:<sp/>Master<sp/>mode,<sp/>MSB<sp/>first,<sp/>SCK<sp/>phase<sp/>low,<sp/>SCK<sp/>idle<sp/>low</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">SPSR<sp/>=<sp/>0x00;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="_s_p_i__routines_8c_1a1260d608736fca6a6e24b1493def3f95" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8c_1a1260d608736fca6a6e24b1493def3f95" kindref="member">SPI_transmit</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>)</highlight></codeline>
+<codeline lineno="30"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Start<sp/>transmission</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>uart_puts_P(&quot;T\r\n&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal">SPDR<sp/>=<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Wait<sp/>for<sp/>transmission<sp/>complete</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!(SPSR<sp/>&amp;<sp/>(1&lt;&lt;SPIF)));</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref><sp/>=<sp/>SPDR;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">(<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>);</highlight></codeline>
+<codeline lineno="40"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="_s_p_i__routines_8c_1a7bf9d94fbfaeda91cbe31f30025f837a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_s_p_i__routines_8c_1a7bf9d94fbfaeda91cbe31f30025f837a" kindref="member">SPI_receive</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="43"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Wait<sp/>for<sp/>reception<sp/>complete</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal">SPDR<sp/>=<sp/>0xff;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="keywordflow">while</highlight><highlight class="normal">(!(SPSR<sp/>&amp;<sp/>(1&lt;&lt;SPIF)));</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref><sp/>=<sp/>SPDR;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Return<sp/>data<sp/>register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//********<sp/>END<sp/>******<sp/>www.dharmanitech.com<sp/>*****</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="lib/SPI/SPI_routines.c"/>
+  </compounddef>
+</doxygen>

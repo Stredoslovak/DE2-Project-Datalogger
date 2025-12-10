@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="timer_8h" kind="file" language="C++">
+    <compoundname>timer.h</compoundname>
+    <includes local="no">avr/io.h</includes>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <includedby refid="sgp41_8c" local="yes">src/sgp41.c</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>include/timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>avr/io.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>include/timer.h</label>
+        <link refid="timer_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+      <node id="3">
+        <label>src/sgp41.c</label>
+        <link refid="sgp41_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="user-defined">
+      <header>Definitions for 16-bit Timer/Counter1</header>
+      <description><para><simplesect kind="note"><para>t_OVF = 1/F_CPU * prescaler * 2^n where n = 16, F_CPU = 16 MHz </para>
+</simplesect>
+</para>
+</description>
+      <member refid="group__fryza__timer_1gac7fe8fa6e7d978a01c857dc32c1cdd44" kind="define"><name>tim1_stop</name></member>
+      <member refid="group__fryza__timer_1gacd637b282a0cd5fec9bbaaa0d50d1de4" kind="define"><name>tim1_ovf_4ms</name></member>
+      <member refid="group__fryza__timer_1gae356989c9434cd5797dee7f0c23f7104" kind="define"><name>tim1_ovf_33ms</name></member>
+      <member refid="group__fryza__timer_1gadd51272a969a158bb26b641b036f7eb1" kind="define"><name>tim1_ovf_262ms</name></member>
+      <member refid="group__fryza__timer_1gaf81b3545a8171e699a18235450ba565b" kind="define"><name>tim1_ovf_1sec</name></member>
+      <member refid="group__fryza__timer_1ga8e4257a7c3525380b262b23e84fddf25" kind="define"><name>tim1_ovf_4sec</name></member>
+      <member refid="group__fryza__timer_1ga85b064ac152cdf8ea01f837276f384bc" kind="define"><name>tim1_ovf_enable</name></member>
+      <member refid="group__fryza__timer_1ga10e5de82299abd3952a37c50fa5bda90" kind="define"><name>tim1_ovf_disable</name></member>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Definitions for 8-bit Timer/Counter0</header>
+      <description><para><simplesect kind="note"><para>t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz </para>
+</simplesect>
+</para>
+</description>
+      <member refid="group__fryza__timer_1ga6484f15611180337aa61403326f924d1" kind="define"><name>tim0_stop</name></member>
+      <member refid="group__fryza__timer_1ga2c8afeb802c5d22bfd00c14e9a2f8215" kind="define"><name>tim0_ovf_16us</name></member>
+      <member refid="group__fryza__timer_1gaa46b7e021525c70c9ff9673195993c76" kind="define"><name>tim0_ovf_128us</name></member>
+      <member refid="group__fryza__timer_1gaf0f92964417ea12f012f27cc8913f31a" kind="define"><name>tim0_ovf_1024us</name></member>
+      <member refid="group__fryza__timer_1ga7f8d7c690d98af539669cbc04147d622" kind="define"><name>tim0_ovf_4096us</name></member>
+      <member refid="group__fryza__timer_1gaa90b9545f35885737bcfeafe8dfced4a" kind="define"><name>tim0_ovf_16384us</name></member>
+      <member refid="group__fryza__timer_1ga385ca3024038fdac8303511287bd1222" kind="define"><name>tim0_ovf_enable</name></member>
+      <member refid="group__fryza__timer_1gad3b76ead823ef633a9afd01050387cdd" kind="define"><name>tim0_ovf_disable</name></member>
+    </sectiondef>
+    <sectiondef kind="user-defined">
+      <header>Definitions for 8-bit Timer/Counter2</header>
+      <description><para><simplesect kind="note"><para>t_OVF = 1/F_CPU * prescaler * 2^n where n = 8, F_CPU = 16 MHz </para>
+</simplesect>
+</para>
+</description>
+      <member refid="group__fryza__timer_1gaaf7091ca0c4c12b4049b2ef5b305fa59" kind="define"><name>tim2_stop</name></member>
+      <member refid="group__fryza__timer_1gad4ddc093ecc464fce5f132c0991e17a6" kind="define"><name>tim2_ovf_16us</name></member>
+      <member refid="group__fryza__timer_1ga1ff5d8d7284b6486a6d4a1a109aaa284" kind="define"><name>tim2_ovf_128us</name></member>
+      <member refid="group__fryza__timer_1gadf008bf46c9dc4dc46b4913f3cd811b4" kind="define"><name>tim2_ovf_512us</name></member>
+      <member refid="group__fryza__timer_1ga75be2f886febc082624e79be41ccc946" kind="define"><name>tim2_ovf_1024us</name></member>
+      <member refid="group__fryza__timer_1ga431093a9c5fedddc1fc5860e906c764a" kind="define"><name>tim2_ovf_2048us</name></member>
+      <member refid="group__fryza__timer_1gad929bee3868e92eafe4a394bf1adf8dd" kind="define"><name>tim2_ovf_4096us</name></member>
+      <member refid="group__fryza__timer_1gaf6b0c2da350233bf541988387e0ac4af" kind="define"><name>tim2_ovf_16ms</name></member>
+      <member refid="group__fryza__timer_1gaab0c29e35e8532596fed18342d7d505c" kind="define"><name>tim2_ovf_enable</name></member>
+      <member refid="group__fryza__timer_1ga1f7e43561be4d016c806ef42aa2c89b5" kind="define"><name>tim2_ovf_disable</name></member>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>TIMER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#<sp/>define<sp/>TIMER_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">/*<sp/></highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Timer<sp/>library<sp/>for<sp/>AVR-GCC.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>(c)<sp/>2019-2025<sp/>Tomas<sp/>Fryza,<sp/>MIT<sp/>license</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="8"><highlight class="comment"><sp/>*<sp/>Developed<sp/>using<sp/>PlatformIO<sp/>and<sp/>Atmel<sp/>AVR<sp/>platform.</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>Tested<sp/>on<sp/>Arduino<sp/>Uno<sp/>board<sp/>and<sp/>ATmega328P,<sp/>16<sp/>MHz.</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Includes<sp/>---------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;avr/io.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Defines<sp/>----------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="group__fryza__timer_1gac7fe8fa6e7d978a01c857dc32c1cdd44" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_stop()<sp/>TCCR1B<sp/>&amp;=<sp/>~((1&lt;&lt;CS12)<sp/>|<sp/>(1&lt;&lt;CS11)<sp/>|<sp/>(1&lt;&lt;CS10));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="group__fryza__timer_1gacd637b282a0cd5fec9bbaaa0d50d1de4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_4ms()<sp/>TCCR1B<sp/>&amp;=<sp/>~((1&lt;&lt;CS12)<sp/>|<sp/>(1&lt;&lt;CS11));<sp/>TCCR1B<sp/>|=<sp/>(1&lt;&lt;CS10);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="group__fryza__timer_1gae356989c9434cd5797dee7f0c23f7104" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_33ms()<sp/>TCCR1B<sp/>&amp;=<sp/>~((1&lt;&lt;CS12)<sp/>|<sp/>(1&lt;&lt;CS10));<sp/>TCCR1B<sp/>|=<sp/>(1&lt;&lt;CS11);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="group__fryza__timer_1gadd51272a969a158bb26b641b036f7eb1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_262ms()<sp/>TCCR1B<sp/>&amp;=<sp/>~(1&lt;&lt;CS12);<sp/>TCCR1B<sp/>|=<sp/>(1&lt;&lt;CS11)<sp/>|<sp/>(1&lt;&lt;CS10);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="group__fryza__timer_1gaf81b3545a8171e699a18235450ba565b" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_1sec()<sp/>TCCR1B<sp/>&amp;=<sp/>~((1&lt;&lt;CS11)<sp/>|<sp/>(1&lt;&lt;CS10));<sp/>TCCR1B<sp/>|=<sp/>(1&lt;&lt;CS12);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="group__fryza__timer_1ga8e4257a7c3525380b262b23e84fddf25" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_4sec()<sp/>TCCR1B<sp/>&amp;=<sp/>~(1&lt;&lt;CS11);<sp/>TCCR1B<sp/>|=<sp/>(1&lt;&lt;CS12)<sp/>|<sp/>(1&lt;&lt;CS10);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="group__fryza__timer_1ga85b064ac152cdf8ea01f837276f384bc" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_enable()<sp/>TIMSK1<sp/>|=<sp/>(1&lt;&lt;TOIE1);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59" refid="group__fryza__timer_1ga10e5de82299abd3952a37c50fa5bda90" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim1_ovf_disable()<sp/>TIMSK1<sp/>&amp;=<sp/>~(1&lt;&lt;TOIE1);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//<sp/>WRITE<sp/>YOUR<sp/>CODE<sp/>HERE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="group__fryza__timer_1ga6484f15611180337aa61403326f924d1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_stop()<sp/>TCCR0B<sp/>&amp;=<sp/>~((1&lt;&lt;CS02)<sp/>|<sp/>(1&lt;&lt;CS01)<sp/>|<sp/>(1&lt;&lt;CS00));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="group__fryza__timer_1ga2c8afeb802c5d22bfd00c14e9a2f8215" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_16us()<sp/>TCCR1B<sp/>&amp;=<sp/>~((1&lt;&lt;CS02)<sp/>|<sp/>(1&lt;&lt;CS01));<sp/>TCCR0B<sp/>|=<sp/>(1&lt;&lt;CS00);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74" refid="group__fryza__timer_1gaa46b7e021525c70c9ff9673195993c76" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_128us()<sp/>TCCR0B<sp/>&amp;=<sp/>~((1&lt;&lt;CS02)<sp/>|<sp/>(1&lt;&lt;CS00));<sp/>TCCR0B<sp/>|=<sp/>(1&lt;&lt;CS01);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77" refid="group__fryza__timer_1gaf0f92964417ea12f012f27cc8913f31a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_1024us()<sp/>TCCR0B<sp/>&amp;=<sp/>~(1&lt;&lt;CS02);<sp/>TCCR0B<sp/>|=<sp/>(1&lt;&lt;CS01)<sp/>|<sp/>(1&lt;&lt;CS00);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80" refid="group__fryza__timer_1ga7f8d7c690d98af539669cbc04147d622" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_4096us()<sp/>TCCR0B<sp/>&amp;=<sp/>~((1&lt;&lt;CS01)<sp/>|<sp/>(1&lt;&lt;CS00));<sp/>TCCR0B<sp/>|=<sp/>(1&lt;&lt;CS02);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83" refid="group__fryza__timer_1gaa90b9545f35885737bcfeafe8dfced4a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_16384us()<sp/>TCCR0B<sp/>&amp;=<sp/>~(1&lt;&lt;CS01);<sp/>TCCR0B<sp/>|=<sp/>(1&lt;&lt;CS02)<sp/>|<sp/>(1&lt;&lt;CS00);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="group__fryza__timer_1ga385ca3024038fdac8303511287bd1222" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_enable()<sp/>TIMSK0<sp/>|=<sp/>(1&lt;&lt;TOIE0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89" refid="group__fryza__timer_1gad3b76ead823ef633a9afd01050387cdd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim0_ovf_disable()<sp/>TIMSK0<sp/>&amp;=<sp/>~(1&lt;&lt;TOIE0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="comment">//<sp/>WRITE<sp/>YOUR<sp/>CODE<sp/>HERE</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="97" refid="group__fryza__timer_1gaaf7091ca0c4c12b4049b2ef5b305fa59" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_stop()<sp/>TCCR2B<sp/>&amp;=<sp/>~((1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS21)<sp/>|<sp/>(1&lt;&lt;CS20));</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="group__fryza__timer_1gad4ddc093ecc464fce5f132c0991e17a6" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_16us()<sp/><sp/>TCCR2B<sp/>&amp;=<sp/>~((1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS21));<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS20);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight></codeline>
+<codeline lineno="103" refid="group__fryza__timer_1ga1ff5d8d7284b6486a6d4a1a109aaa284" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_128us()<sp/>TCCR2B<sp/>&amp;=<sp/>~((1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS20));<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS21);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="106" refid="group__fryza__timer_1gadf008bf46c9dc4dc46b4913f3cd811b4" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_512us()<sp/>TCCR2B<sp/>&amp;=<sp/>~(1&lt;&lt;CS22);<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS21)<sp/>|<sp/>(1&lt;&lt;CS20);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109" refid="group__fryza__timer_1ga75be2f886febc082624e79be41ccc946" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_1024us()<sp/>TCCR2B<sp/>&amp;=<sp/>~((1&lt;&lt;CS21)<sp/>|<sp/>(1&lt;&lt;CS20));<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS22);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="110"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="group__fryza__timer_1ga431093a9c5fedddc1fc5860e906c764a" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_2048us()<sp/>TCCR2B<sp/>&amp;=<sp/>~(1&lt;&lt;CS21);<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS20);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115" refid="group__fryza__timer_1gad929bee3868e92eafe4a394bf1adf8dd" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_4096us()<sp/>TCCR2B<sp/>&amp;=<sp/>~(1&lt;&lt;CS20);<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS21);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118" refid="group__fryza__timer_1gaf6b0c2da350233bf541988387e0ac4af" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_16ms()<sp/>TCCR2B<sp/>|=<sp/>(1&lt;&lt;CS22)<sp/>|<sp/>(1&lt;&lt;CS21)<sp/>|<sp/>(1&lt;&lt;CS20);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"></highlight></codeline>
+<codeline lineno="121" refid="group__fryza__timer_1gaab0c29e35e8532596fed18342d7d505c" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_enable()<sp/><sp/>TIMSK2<sp/>|=<sp/>(1&lt;&lt;TOIE2);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="124" refid="group__fryza__timer_1ga1f7e43561be4d016c806ef42aa2c89b5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>tim2_ovf_disable()<sp/>TIMSK2<sp/>&amp;=<sp/>~(1&lt;&lt;TOIE2);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="include/timer.h"/>
+  </compounddef>
+</doxygen>

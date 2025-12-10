@@ -1,0 +1,111 @@
+.TH "bme280ApiSensorMode" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280ApiSensorMode \- Sensor Mode
+.PP
+ \- Generic API for configuring sensor power mode\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SH "Detailed Description"
+.PP 
+Generic API for configuring sensor power mode\&. 
+
+bme280_set_sensor_mode
+.PP
+
+.PP
+.nf
+int8_t bme280_set_sensor_mode(uint8_t sensor_mode, const struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API sets the power mode of the sensor\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsensor_mode\fP : Variable which contains the power mode to be set\&. 
+.br
+\fIdev\fP : Structure instance of \fBbme280_dev\fP\&.
+.RE
+.PP
+.PP
+.nf
+*    sensor_mode       |      Macros
+* ---------------------|-------------------------
+*     0                | BME280_POWERMODE_SLEEP
+*     1                | BME280_POWERMODE_FORCED
+*     3                | BME280_POWERMODE_NORMAL
+*.fi
+.PP
+
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SS "bme280_get_sensor_mode"
+
+.PP
+.nf
+int8_t bme280_get_sensor_mode(uint8_t *sensor_mode, struct bme280_dev *dev);
+
+.fi
+.PP
+
+.PP
+This API gets the power mode of the sensor\&.
+
+.PP
+\fBParameters\fP
+.RS 4
+\fIsensor_mode\fP : Pointer variable to store the power mode\&. 
+.br
+\fIdev\fP : Structure instance of \fBbme280_dev\fP\&.
+.RE
+.PP
+.PP
+.nf
+*    sensor_mode       |      Macros
+* ---------------------|-------------------------
+*     0                | BME280_POWERMODE_SLEEP
+*     1                | BME280_POWERMODE_FORCED
+*     3                | BME280_POWERMODE_NORMAL
+*.fi
+.PP
+
+.PP
+\fBReturns\fP
+.RS 4
+Result of API execution status
+.RE
+.PP
+\fBReturn values\fP
+.RS 4
+\fI0\fP -> Success\&. 
+.br
+\fI>\fP 0 -> Warning\&. 
+.br
+\fI<\fP 0 -> Fail\&. 
+.RE
+.PP
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

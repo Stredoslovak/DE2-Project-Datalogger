@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_init_bme280_api_bme280_init" kind="page">
+    <compoundname>bme280_api_bme280_init</compoundname>
+    <title>bme280_init</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">int8_t<sp/><ref refid="bme280_8c_1af0b7d7a19bb48ec9eb3651b79f0c3e85" kindref="member">bme280_init</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+</programlisting></para>
+<para>This API reads the chip-id of the sensor which is the first step to verify the sensor and also calibrates the sensor As this API is the entry point, call this API before using other APIs.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="inout">dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Structure instance of <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref></para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of API execution status.</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

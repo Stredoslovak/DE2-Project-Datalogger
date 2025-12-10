@@ -1,363 +1,468 @@
-/*
- * The I2C (TWI) bus scanner tests all addresses and detects devices
- * that are connected to the SDA and SCL signals.
- * (c) 2023-2025 Tomas Fryza, MIT license
- *
- * Developed using PlatformIO and Atmel AVR platform.
- * Tested on Arduino Uno board and ATmega328P, 16 MHz.
- */
+// this code was created with help from GithubCopilot suggestions
+
 
 // -- Includes ---------------------------------------------
 #include <avr/io.h>         // AVR device-specific IO definitions
 #include <avr/interrupt.h>  // Interrupts standard C library for AVR-GCC
-#include <twi.h>            // I2C/TWI library for AVR-GCC
+#include "timer.h"          // Timer library for AVR-GCC
 #include <uart.h>           // Peter Fleury's UART library
-#include <stdio.h>          // C library. Needed for `sprintf`
-#include "timer.h"
+#include <stdlib.h>         // C library. Needed for number conversions
+#include "SPI_routines.h"
+#include "sd_routines.h"
+#include "FAT32.h"
 #include "gpio.h"
+#include "rtc.h"
+#include <twi.h>
+#include "bme280.h"
+#include "SensirionI2CSgp41.h"
+#include <math.h>
+#include <string.h>
 #include <util/delay.h>
-#include <si4703.h>
-#include <rtc.h>
+#include <stdio.h>
 
-//-- Definitions -------------------------------------------
-#define RTC_ADDRESS 0x68  // I2C slave address of RTC DS1307
-#define FLASH_ADDRESS 0x50 // I2C slave address of 24LC256 EEPROM
-#define RTC_SEC 0x00    // RTC register address for "seconds"
-#define RTC_MIN 0x01    // RTC register address for "minutes"
-#define RTC_HOUR 0x02   // RTC register address for "hours"
-#define RTC_CALENDAR 0x03 // RTC register address for "day of the week"
 
-volatile uint8_t flag_update_uart = 0;
-volatile uint8_t rtc_time[3];
-volatile uint8_t rtc_calendar[3];
-volatile uint8_t rtc_control;
-volatile uint8_t startRTC = 0; // Start the RTC oscillator
+#define LOG_TIME_INTERVAL_SEC 5
+#define UART_ON
+// #define UART_DEBUG
+#define SD_write
+// #define UPDATE_RTC_TIME_COMPILE
+#define DAY_NUMBER 2 // 1=Sunday ... 7=Saturday
 
-// volatile uint8_t si4703_regs[2]; // SI4703 registers
- uint16_t si4703_all_regs[16] = {0};
-// -- Function definitions ---------------------------------
-/*
- * Function: Main function where the program execution begins
- * Purpose:  Call function to test all I2C (TWI) combinations
- *           and send detected devices to UART.
- * Returns:  none
+
+
+#define ACTIVITY_LED_PORT   PORTC
+#define L_ACT    2
+#define STATUS_LED_PORT     PORTC
+#define L_STATUS      1
+#define ERROR_LED_PORT      PORTC
+#define L_ERROR       0
+
+
+
+
+
+volatile uint8_t printRTC = 0;
+volatile uint8_t counterTim1 = 0;
+
+
+uint8_t SD_OK, FS_OK, BM_OK, SGP_OK, RTC_OK = 0;
+
+
+int bme_init_simple(struct bme280_dev *dev, uint8_t *dev_addr_ptr);
+int bme_read_once(struct bme280_dev *dev, int32_t *t100, uint32_t *press_pa, uint32_t *hum_x1024);
+int sgp41_init_simple(void);
+int sgp41_measure_once(int32_t *voc_index, int32_t *nox_index);
+
+
+volatile uint8_t measurement_flag = 0;
+
+
+/**
+ * @brief  Convert month ASCII abbreviation sum to month number.
+ * @param  sum Sum of ASCII values of 3-letter month abbreviation.
+ * @return Month number (1-12) or 0 on error.
  */
+uint8_t get_month_from_ascii_sum(uint16_t sum) {
+    switch(sum) {
+        case 268: return 12; // Dec
+        case 269: return 2;  // Feb
+        case 281: return 1;  // Jan
+        case 285: return 8;  // Aug
+        case 288: return 3;  // Mar
+        case 291: return 4;  // Apr
+        case 294: return 10; // Oct
+        case 295: return 5;  // May
+        case 296: return 9;  // Sep
+        case 299: return 7;  // Jul
+        case 301: return 6;  // Jun
+        case 307: return 11; // Nov
+        default: return 0;   // Error 
+    }
+}
 
- // PB0 - 8 - SEN
- // PB1 - 9 - RST
-volatile uint8_t rds_flag = 0;
-volatile uint8_t rds_ready_flag = 0;
-uint8_t BLER[4] = {0};
-volatile uint8_t interupt_reached = 0;
-volatile uint8_t rds_poll = 0;
 
-
+/**
+ * @brief  Configure external interrupt INT0 on falling edge (PD2).
+ * @return none
+ */
 static void setup_ext_int(void)
 {
     // PD2 = INT0
-    gpio_mode_input_nopull(&DDRD, 2); // nastav PD2 ako vstup s pull-up (pouzi gpio.h)
-    EICRA &= ~((1 << ISC00)); // vycistit bity pre INT0/INT1 v EICRA
+    gpio_mode_input_nopull(&DDRD, 2);
+    EICRA &= ~((1 << ISC00));
     EICRA |= (1 << ISC01);
-    // EICRA |= (1 << ISC01); // ISC01 = 1, ISC00 = 0 -> falling edge
-    EIMSK |= (1 << INT0); // povolit externy interrupt INT0
-
-    // PCICR |= (1 << PCIE0); // povolit pin change interrupt pre PCINT[7:0] (PORTB)
-    // PCMSK0 |= (1 << PCINT2); // povolit pin change interrupt
+    EIMSK |= (1 << INT0);
 }
 
-static void rds_check_group_and_dump(uint16_t A, uint16_t B, uint16_t C, uint16_t D)
+
+/**
+ * @brief  Select interrupt source based on RTC availability.
+ *         Uses external interrupt if RTC found, Timer1 otherwise.
+ * @return none
+ */
+void set_interrupt_source(void)
 {
-    uint8_t group = (B >> 12) & 0x0F;        // bits 15..12
-    uint8_t version = (B >> 11) & 0x01;      // bit 11: 0=A, 1=B
-
-    char line[120];
-    // sprintf(line, "RDS group=%u%s (B=0x%04X)\r\n", group, version==0 ? "A" : "B", B);
-    // uart_puts(line);
-
-    if (group == 4 && version == 0) {
-        /* Decode CT (clock/time) - Group 4A
-           Assumptions (standard layout used by many RDS parsers):
-            - Block C (16 bits) = Modified Julian Day (MJD)
-            - Block D: bits 15..11 = hour (5 bits, 0..23)
-                       bits 10..5  = minute (6 bits, 0..59)
-                       bits 4..0   = local offset in 0.5 hour units (5-bit signed two's complement)
-        */
-
-        uint32_t mjd = (((uint32_t)(B & 0x0003)) << 15) | (((uint32_t)C >> 1) & 0x7FFF);
-        uint8_t hour = (uint8_t)(((C & 0x0001) << 4) | ((D >> 12) & 0x0F));
-        uint8_t minute = (uint8_t)((D >> 6) & 0x3F);
-        int8_t offset_half = (int8_t)(D & 0x3F);
-        /* convert 5-bit signed (two's complement) to signed integer */
-        if (offset_half & 0x10) offset_half = offset_half - 32; //obstaranie znamienka pri offsete
-
-        /* compute local minutes and day adjustment */
-        int utc_minutes = hour * 60 + minute;
-        int local_minutes = utc_minutes + (offset_half * 30); // offset in minutes (0.5h = 30min)
-        int day_adj = 0;
-        while (local_minutes < 0) { local_minutes += 24*60; day_adj -= 1; }
-        while (local_minutes >= 24*60) { local_minutes -= 24*60; day_adj += 1; }
-
-        /* Convert MJD -> Gregorian date (algorithm via JDN) */
-        int jdn = (int)mjd + 2400001; /* JDN approximation suitable for conversion */
-        int l = jdn + 68569;
-        int n = (4 * l) / 146097;
-        l = l - (146097 * n + 3) / 4;
-        int i = (4000 * (l + 1)) / 1461001;
-        l = l - (1461 * i) / 4 + 31;
-        int j = (80 * l) / 2447;
-        int day = l - (2447 * j) / 80;
-        l = j / 11;
-        int month = j + 2 - 12 * l;
-        int year = 100 * (n - 49) + i + l;
-
-        /* apply day adjustment if local time rolled over a day boundary */
-        if (day_adj != 0) {
-            int jdn_adj = jdn + day_adj;
-            l = jdn_adj + 68569;
-            n = (4 * l) / 146097;
-            l = l - (146097 * n + 3) / 4;
-            i = (4000 * (l + 1)) / 1461001;
-            l = l - (1461 * i) / 4 + 31;
-            j = (80 * l) / 2447;
-            day = l - (2447 * j) / 80;
-            l = j / 11;
-            month = j + 2 - 12 * l;
-            year = 100 * (n - 49) + i + l;
-        }
-
-        snprintf(line, sizeof(line),
-            "CT 4A: MJD=%lu -> %04d-%02d-%02d UTC %02u:%02u offset=%+d*0.5h local %02d:%02d\r\n",
-            (unsigned long)mjd, (unsigned)year, (unsigned)month, (unsigned)day,
-            (unsigned)hour, (unsigned)minute,
-            (int)offset_half,
-            local_minutes / 60, local_minutes % 60);
-        uart_puts(line);
-        sprintf(line, "MJD=0x%08X (Hour=0x%04X | Minute=0x%04x | Offset=0x%04X)\r\n", (int)mjd,hour, minute, offset_half);
-        uart_puts(line);
-        sprintf(line, "MJD=%u (Hour=%d | Minute=%d | Offset=%d)\r\n", (int)mjd,hour, minute, offset_half);
-        uart_puts(line);
-    } else {
-        // sprintf(line, "Not CT (C=0x%04X D=0x%04X)\r\n", C, D);
-        // uart_puts(line);
+    if (RTC_OK == 0)
+    {
+        tim1_ovf_disable();
+        rtc_write_reg(0x0e, 0x00);
+        setup_ext_int();
+    }
+    else
+    {   
+        EIMSK &= ~(1 << INT0);
+        tim1_ovf_enable();
     }
 }
 
+
+/**
+ * @brief  Main program entry point.
+ *         Initializes sensors, SD card, RTC, and starts data logging.
+ * @return Program exit code (never returns in normal operation).
+ */
 int main(void)
 {
-    // char uart_msg[10];
-    // gpio_mode_output(&DDRB, 2); //sync pin
-
-    uart_init(UART_BAUD_SELECT(115200, F_CPU));
-    si4703_init_i2c(&DDRB,&PORTB, 1, &DDRB,&PORTB, 0, &DDRC,&PORTC, 4, 5);
-    
-    // si4703_init_i2c(&DDRB)
-
-    // I2C Scanner
-    sei();  // Needed for UART
-    uart_puts("Scanning I2C... ");
-    twi_init();
-    setup_ext_int();
-    si4703_readRegs((uint8_t)SI4703_ADDR, si4703_all_regs);
-    si4703_setRegs(si4703_all_regs);
-    // for (uint8_t sla = 0; sla < 128; sla++) {
-    //     if (twi_test_address(sla) == 0) {  // If ACK from Slave
-    //         sprintf(uart_msg, "0x%x ", sla);
-    //         uart_puts(uart_msg);
-            
-    //     }
-    // }
-    uart_puts(" Done\r\n");
-    // uart_puts("\r\n");
-
-    twi_writeto_mem(RTC_ADDRESS, RTC_SEC, 0x00);
-    twi_writeto_mem(RTC_ADDRESS, RTC_MIN, 0x00);
-    twi_writeto_mem(RTC_ADDRESS, RTC_HOUR, 0x00); // 24-hour format
-    twi_writeto_mem(RTC_ADDRESS, 0x07, 0b00010011); // output 32khz
-
-
-
-    _delay_ms(500);
-    if (twi_test_address(RTC_ADDRESS) != 0) {
-        uart_puts("[\x1b[31;1mERROR\x1b[0m] I2C device not detected\r\n");
-        while (1);  // Cycle here forever
-    }
-    else
-    {
-        uart_puts("[\x1b[32;1mRTC_OK\x1b[0m]");
-    }
-    
-    _delay_ms(500);
     tim1_ovf_1sec();
-    tim1_ovf_enable();
-
-    {
-        // uint16_t si4703_all_regs[16] = {0};
-        char uart_line[40];
-
-        // Použi SI4703_ADDR definíciu z hlavičky
-        si4703_readRegs((uint8_t)SI4703_ADDR, si4703_all_regs);
-
-        uart_puts("\r\nSI4703 register map:\r\n");
-        for (uint8_t a = 0; a < 16; a++) {
-            sprintf(uart_line, "0x%02X: 0x%04X\r\n", a, si4703_all_regs[a]);
-            uart_puts(uart_line);
-        }
-    }
+    uint8_t hour, minute, second; 
+    uint8_t day, date, month, year;
     
-{
-        // uint16_t si4703_all_regs[16] = {0};
-        char uart_line[40];
+    // Initialize UART
+    uart_init(UART_BAUD_SELECT(115200, F_CPU));
 
-        // Použi SI4703_ADDR definíciu z hlavičky
-        // gpio_write_high(&PORTB, 2); // sync high
-        si4703_readRegs((uint8_t)SI4703_ADDR, si4703_all_regs);
+    //Init I2C
+    twi_init();
 
-        uart_puts("\r\nSI4703 register map after write 2:\r\n");
-        for (uint8_t a = 0; a < 16; a++) {
-            sprintf(uart_line, "0x%02X: 0x%04X\r\n", a, si4703_all_regs[a]);
-            uart_puts(uart_line);
-        }
-    }
-    // si4703_tuneTo(876, si4703_all_regs); // Radio Brno nefunguje
-    // si4703_tuneTo(883, si4703_all_regs); // Radio Kiss
-    // si4703_tuneTo(10, si4703_all_regs); // Radio FM4
-    si4703_tuneTo(904, si4703_all_regs); // Vltava
-    si4703_setVol(5, si4703_all_regs); // Volume 8
+    // Configure SPI pins for ATmega328P
+    gpio_mode_output(&DDRB, PB3);  // MOSI
+    gpio_mode_output(&DDRB, PB5);  // SCK
+    gpio_mode_output(&DDRD, PD4);  // SS (Chip Select)
+    gpio_mode_input_nopull(&DDRB, PB4);  // MISO as input
+    
+    // Set SS high initially (SD card deselected)
+    gpio_write_high(&PORTD, PIND4);
 
-    if (si4703_askForRDS(si4703_all_regs))
+    gpio_mode_output(&DDRC, 0); //led red   ERROR
+    gpio_mode_output(&DDRC, 1); //led green STATUS
+    gpio_mode_output(&DDRC, 2); //led yellow ACT
+    gpio_write_high(&PORTC, 0);
+    gpio_write_high(&PORTC, 1);
+    gpio_write_high(&PORTC, 2);
+    
+    // Enable global Interrupts
+    sei();
+    
+    gpio_write_low(&ACTIVITY_LED_PORT, L_ACT);
+    gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+
+    #ifdef UART_DEBUG
+        uart_puts_P("\r\n=== SD Card FAT32 Test ===\r\n");
+    #endif
+
+    // Initialize SPI
+    #ifdef SD_write
+    spi_init();
+    #ifdef UART_DEBUG
+    uart_puts_P("SPI initialized\r\n");
+    #endif
+    
+    #ifdef UART_DEBUG
+    uart_puts_P("Initializing SD card...\r\n");
+    #endif
+    
+    if(SD_init())
     {
-        char uart_line[40];
-    sprintf(uart_line, "\r\nRDS requested \r\n");
-    uart_puts(uart_line);
-    rds_flag = 1;
+        #ifdef UART_DEBUG
+            uart_puts_P("SD Card Initialization Error!\r\n");
+            uart_puts_P("System continuing without SD card...\r\n");
+        #endif
+        SD_OK = 1;
+    }
+    #ifdef UART_DEBUG
+        uart_puts_P("SD card initialized successfully!\r\n");
+        uart_puts_P("Reading boot sector...\r\n");
+    #endif
+    
+    if(getBootSectorData())
+    {
+        #ifdef UART_DEBUG
+            uart_puts_P("FAT32 initialization failed!\r\n");
+            uart_puts_P("System continuing without SD card...\r\n");
+        #endif
+        FS_OK = 1;
     }
     else
     {
-        char uart_line[40];
-    sprintf(uart_line, "\r\nRDS not failed");
-    uart_puts(uart_line);
+        #ifdef UART_DEBUG
+            uart_puts_P("FAT32 initialized successfully!\r\n");
+        #endif
+        FS_OK = 0;
+    }
+    #endif
+
+     /* Initialize BME280 */
+    struct bme280_dev bme_dev;
+    uint8_t bme_addr = BME280_I2C_ADDR_PRIM;
+    if (bme_init_simple(&bme_dev, &bme_addr) != BME280_OK) {
+        
+        #ifdef UART_DEBUG
+            uart_puts_P("BME init failed\r\n");
+        #endif
+        BM_OK = 1;
+    }
+    _delay_ms(100);
+
+    /* Initialize SGP41 */
+    if (sgp41_init_simple() != 0) 
+    {
+        #ifdef UART_DEBUG
+            uart_puts_P("SGP41 init failed\r\n");
+        #endif
+        SGP_OK = 1;
     }
     
+    if (twi_test_address(RTC_ADDRESS))
+    {
+        #ifdef UART_DEBUG
+            uart_puts_P("RTC not found!\r\n");
+            uart_puts_P("System using Compile time\r\n");
+        #endif
+        RTC_OK = 1;
+
+        // Set compile time to local variables (RTC not available)
+        int hour_comp, minute_comp, second_comp;
+        sscanf(__TIME__, "%d:%d:%d", &hour_comp, &minute_comp, &second_comp);
+        hour = (uint8_t)hour_comp;
+        minute = (uint8_t)minute_comp;
+        second = (uint8_t)second_comp;
+
+        int year_comp, month_comp, day_comp;
+        char month_str[4];
+        sscanf(__DATE__, "%s %d %d", month_str, &day_comp, &year_comp);
+
+        uint16_t month_sum = month_str[0] + month_str[1] + month_str[2];
+        month_comp = get_month_from_ascii_sum(month_sum);
+        
+        date = (uint8_t)day_comp;
+        month = (uint8_t)month_comp;
+        year = (uint8_t)(year_comp % 100);
+    }
+    else
+    {
+        #ifdef UART_DEBUG
+            uart_puts_P("RTC found!\r\n");
+        #endif
+        #ifdef UPDATE_RTC_TIME_COMPILE
+            int hour_comp, minute_comp, second_comp;
+            sscanf(__TIME__, "%d:%d:%d", &hour_comp, &minute_comp, &second_comp);
+            hour = (uint8_t)hour_comp;
+            minute = (uint8_t)minute_comp;
+            second = (uint8_t)second_comp;
+
+            int year_comp, month_comp, day_comp;
+            char month_str[4];
+            sscanf(__DATE__, "%s %d %d", month_str, &day_comp, &year_comp);
+
+            uint16_t month_sum = month_str[0] + month_str[1] + month_str[2];
+            month_comp = get_month_from_ascii_sum(month_sum);
+            
+            date = (uint8_t)day_comp;
+            month = (uint8_t)month_comp;
+            year = (uint8_t)(year_comp % 100);
+            rtc_set_time(hour, minute, second);
+            rtc_set_date(DAY_NUMBER, day, month, (year % 100));
+        #endif
+        rtc_write_reg(0x0e, 0x00);
+    }
     
-
-    while (1) {
-        if (rds_poll)
+    if (RTC_OK & SGP_OK & SD_OK & FS_OK & BM_OK)
+    {
+        #ifdef UART_ON
+            uart_puts_P("No sensors and SD card available, system halted!\r\n");
+        #endif
+        gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+        gpio_write_low(&ACTIVITY_LED_PORT, L_ACT);
+        while(1);
+    }
+    else if (RTC_OK | SGP_OK | BM_OK | SD_OK | FS_OK)
+    {
+        #ifdef UART_ON
+            uart_puts_P("System initialized with warnings!\r\n");
+        #endif
+        gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+    }
+    else
+    {
+        #ifdef UART_ON
+            uart_puts_P("System initialized successfully!\r\n");
+        #endif
+        gpio_write_high(&ERROR_LED_PORT, L_ERROR);
+        gpio_write_high(&STATUS_LED_PORT, L_ACT);
+        gpio_write_low(&STATUS_LED_PORT, L_STATUS);
+    }
+    
+    set_interrupt_source();
+    char buffer[50];
+    // Main loop
+    while (1)
+    {   
+        #ifdef UART_ON
+        if(printRTC == 1)
         {
-           si4703_readRegs((uint8_t)SI4703_ADDR, si4703_all_regs);
-        }
-        
-        if (interupt_reached)
-        {
-            interupt_reached = 0;
-            uart_puts("\r\nrdsInt\r\n");
-        }
-        
-        if (rds_ready_flag)
-        {
-            
-            
-            si4703_readRegs((uint8_t)SI4703_ADDR, si4703_all_regs);
-            // si4703_clearRDSRequest(si4703_all_regs);
-
-            BLER[0] = ((si4703_all_regs[0x0A] >> 9) & ((1u << 2) - 1));
-            BLER[1] = ((si4703_all_regs[0x0B] >> 14) & ((1u << 2) - 1));
-            BLER[2] = ((si4703_all_regs[0x0B] >> 12) & ((1u << 2) - 1));
-            BLER[3] = ((si4703_all_regs[0x0B] >> 10) & ((1u << 2) - 1));
-            // char uart_line[40];
-
-            // uart_puts("\r\nRDS BLOCKS BER: ");
-            // for (uint8_t i = 0; i < 4; i++)
-            // {
-            //     sprintf(uart_line, "%d ", BLER[i]);
-            //     uart_puts(uart_line);
-            // }
-            if (BLER[0] <= 0 && BLER[1] <= 0 && BLER[2] <= 0 && BLER[3] <= 0)
+            printRTC = 0;
+            if (!(twi_test_address(RTC_ADDRESS)))
             {
-                rds_check_group_and_dump(
-                    si4703_all_regs[0x0C],
-                    si4703_all_regs[0x0D],
-                    si4703_all_regs[0x0E],
-                    si4703_all_regs[0x0F]
-                );
+                rtc_get_time(&hour, &minute, &second);
+                sprintf(buffer, "Time RTC: %02d:%02d:%02d\r\n", hour, minute, second);
+                uart_puts(buffer);
+                rtc_get_date(&date, &month, &year);
+                sprintf(buffer, "Date RTC: %02d/%02d/20%02d\r\n", date, month, year);
+                uart_puts(buffer);
+                RTC_OK = 0;
             }
-            rds_ready_flag = 0;
+            else
+            {
+                uart_puts_P("RTC not found, using Compile time\r\n");
+                gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+            }
         }
+        #endif
         
-        if (flag_update_uart == 60)
+        if(RTC_OK | SGP_OK | BM_OK | SD_OK | FS_OK)
         {
-            flag_update_uart = 0;
-            uart_puts("\r\n Heartbeat\r\n");
-            // sprintf(uart_msg, "\r\n RTC TIME hex: 0x%x,0x%x,0x%x", rtc_time[2], rtc_time[1], rtc_time[0]);
-            // uart_puts(uart_msg);
-            // sprintf(uart_msg, "\r\n RTC TIME dec: %d,%d,%d", rtc_time[2], rtc_time[1], rtc_time[0]);
-            // uart_puts(uart_msg);
-            // sprintf(uart_msg, "\r\n RTC CAL hex: %d,%d,%d", rtc_calendar[2], rtc_calendar[1], rtc_calendar[0]);
-            // uart_puts(uart_msg);
-            // sprintf(uart_msg, "\r\n RTC CNTRL hex: %x", rtc_control);
-            // uart_puts(uart_msg);
-
-            // sprintf(uart_msg, "\r\n SI4703 REG 0x07: %x,%x", si4703_regs[1], si4703_regs[0]);
-            // uart_puts(uart_msg);
-             // uint16_t si4703_all_regs[16] = {0};
-        char uart_line[40];
-        // if (rds_flag)
-        // {
-        //     // uart_puts("\r\nRDS requested\r\n");
-        //     rds_check_group_and_dump(
-        //     si4703_all_regs[0x0C],
-        //     si4703_all_regs[0x0D],
-        //     si4703_all_regs[0x0E],
-        //     si4703_all_regs[0x0F]
-        // );
-        // }
-        
-        // Použi SI4703_ADDR definíciu z hlavičky
-        // gpio_write_high(&PORTB, 2); // sync high
-        
-        uart_puts("\r\nSI4703 register map after write:\r\n");
-        for (uint8_t a = 0; a < 16; a++) {
-            sprintf(uart_line, "0x%02X: 0x%04X\r\n", a, si4703_all_regs[a]);
-            uart_puts(uart_line);
+            gpio_write_low(&ERROR_LED_PORT, L_ERROR);
         }
-        // sprintf(uart_line, "\r\n Current frequency: %d.%d MHz\r\n", si4703_getFreq(si4703_all_regs)/10, si4703_getFreq(si4703_all_regs)%10);
-        // uart_puts(uart_line);
-        // sprintf(uart_line, " Current volume: %d\r\n", si4703_getVolume(si4703_all_regs));
-        // uart_puts(uart_line);
-
-        
+        else
+        {
+            gpio_write_high(&ERROR_LED_PORT, L_ERROR);
         }
-        
-        
+
+        if (measurement_flag)
+        {
+            measurement_flag = 0;
+
+            char sdString[100];
+            memset(sdString, 0, sizeof(sdString)); 
+            
+            int32_t t100 = 0;
+            uint32_t press_pa = 0;
+            uint32_t hum_x1024 = 0;
+            
+            if(twi_test_address(RTC_ADDRESS))
+            {
+                RTC_OK = 1;
+                set_interrupt_source();
+            }
+            else
+            {
+                RTC_OK = 0;
+                rtc_get_time(&hour, &minute, &second);
+                rtc_get_date(&date, &month, &year);
+                set_interrupt_source();
+            }
+            
+            snprintf(sdString, sizeof(sdString), "%02d:%02d:%02d,%02d/%02d/20%02d,",
+                     hour, minute, second, date, month, year);
+            
+            if (bme_read_once(&bme_dev, &t100, &press_pa, &hum_x1024) == 0) {
+                int32_t temp_int = t100 / 100;
+                int32_t temp_frac = (t100 >= 0) ? (t100 % 100) : ((-t100) % 100);
+                
+                uint32_t press_hpa_int = press_pa / 100;
+                uint32_t press_hpa_frac = press_pa % 100;
+                
+                uint32_t hum_percent_x100 = (hum_x1024 * 100 + 512) / 1024;
+                uint32_t hum_int = hum_percent_x100 / 100;
+                uint32_t hum_frac = hum_percent_x100 % 100;
+                
+                double P = (double)press_pa;
+                double alt = 44330.0 * (1.0 - pow(P / 101325.0, 0.19029495718363465));
+                int32_t alt_int = (int32_t)alt;
+                int32_t alt_frac = (int32_t)(fabs(alt - (double)alt_int) * 100.0 + 0.5);
+                
+                char temp_buf[64];
+                snprintf(temp_buf, sizeof(temp_buf), "%02ld.%02ld,%03lu.%02lu,%02lu.%02lu,%03ld.%02ld,",
+                         (long)temp_int, (long)temp_frac,
+                         (unsigned long)press_hpa_int, (unsigned long)press_hpa_frac,
+                         (unsigned long)hum_int, (unsigned long)hum_frac,
+                         (long)alt_int, (long)alt_frac);
+                strncat(sdString, temp_buf, sizeof(sdString) - strlen(sdString) - 1);
+                BM_OK = 0;
+            } else {
+                gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+                strncat(sdString, "ERR,ERR,ERR,ERR,", sizeof(sdString) - strlen(sdString) - 1);
+                BM_OK = 1;
+            }
+            
+            /* Read SGP41 */
+            int32_t voc_idx = 0;
+            int32_t nox_idx = 0;
+            if (sgp41_measure_once(&voc_idx, &nox_idx) == 0) {
+                char temp_buf[32];
+                snprintf(temp_buf, sizeof(temp_buf), "%ld,%ld\n", (long)voc_idx, (long)nox_idx);
+                strncat(sdString, temp_buf, sizeof(sdString) - strlen(sdString) - 1);
+                SGP_OK = 0;
+            } else {
+                strncat(sdString, "ERR,ERR\n", sizeof(sdString) - strlen(sdString) - 1);
+                SGP_OK = 1;
+            }
+            
+            uint8_t write_error = 0;
+
+            /* Write to SD card */
+            #ifdef SD_write
+            gpio_write_low(&ACTIVITY_LED_PORT, L_ACT);
+            if (SD_OK == 0 && FS_OK == 0)
+            {
+                memset(dataString, 0, MAX_STRING_SIZE);
+                strncpy((char*)dataString, sdString, MAX_STRING_SIZE - 1);
+                
+                unsigned char fileName[12];
+                strcpy((char*)fileName, "data1.csv");
+
+                write_error = writeFile(fileName);
+                 if (write_error) {
+                    uart_puts_P("SD write error!\r\n");
+                    gpio_write_low(&ERROR_LED_PORT, L_ERROR);
+                }
+                gpio_write_high(&ACTIVITY_LED_PORT, L_ACT);
+            }
+            #endif
+            
+            #ifdef UART_ON
+                uart_puts(sdString);
+            #endif
+        }
     }
-
     return 0;
 }
 
-ISR(TIMER1_OVF_vect)
-{
-    // twi_readfrom_mem_into(RTC_ADDRESS, RTC_SEC, rtc_time, 3);
-    // twi_readfrom_mem_into(RTC_ADDRESS, RTC_CALENDAR, rtc_calendar, 3);
-    // twi_readfrom_mem_into(RTC_ADDRESS, 0x07, &rtc_control, 1);
-    // twi_readfrom_mem_into(0x10, 0x07, si4703_regs, 2);
-    
-    // if (rds_flag && (((si4703_all_regs[0x0A] >> 15) & ((1u))) == 1))
-    // {
-    //     rds_ready_flag = 1;
-    // }
-    // if (rds_flag)
-    // {
-    //     rds_poll = 1;
-    // }
-    
-    flag_update_uart += 1;
-}   
 
+/**
+ * @brief  Timer1 overflow interrupt handler (1-second timer).
+ *         Increments counter and triggers measurement when interval elapsed.
+ */
+ISR(TIMER1_OVF_vect)
+{   
+    counterTim1++;
+    if (counterTim1 >= LOG_TIME_INTERVAL_SEC) 
+    {
+        counterTim1 = 0;    
+        measurement_flag = 1;
+    }
+}
+
+
+/**
+ * @brief  External interrupt INT0 handler (RTC square-wave output).
+ *         Increments counter and triggers measurement when interval elapsed.
+ */
 ISR(INT0_vect)
 {
-    cli();
-    rds_ready_flag = 1;
-    // rds_flag = 0;
-    // interupt_reached = 1;
-    // uart_puts("\r\nRDS INT");
-    sei();
+    counterTim1++;
+    if (counterTim1 >= LOG_TIME_INTERVAL_SEC)
+    {
+        counterTim1 = 0;    
+        measurement_flag = 1;
+    }
 }

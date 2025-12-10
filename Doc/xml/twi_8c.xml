@@ -1,0 +1,246 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="twi_8c" kind="file" language="C++">
+    <compoundname>twi.c</compoundname>
+    <includes refid="twi_8h" local="no">twi.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/twi/twi.c</label>
+        <link refid="twi_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>twi.h</label>
+        <link refid="twi_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>avr/io.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <member refid="group__fryza__twi_1ga16f0e6b2fa5a26eadbf4086ab6d54467" kind="function"><name>twi_init</name></member>
+      <member refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kind="function"><name>twi_start</name></member>
+      <member refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kind="function"><name>twi_write</name></member>
+      <member refid="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" kind="function"><name>twi_read</name></member>
+      <member refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kind="function"><name>twi_stop</name></member>
+      <member refid="group__fryza__twi_1gae830c20b3544c9619c2c316b9a578ab2" kind="function"><name>twi_test_address</name></member>
+      <member refid="group__fryza__twi_1gacf2027b11accf8c8a40502c60dd1b76f" kind="function"><name>twi_readfrom_mem_into</name></member>
+      <member refid="group__fryza__twi_1ga6562cd3358cc443e747cff94f4d66a43" kind="function"><name>twi_writeto_mem</name></member>
+      <member refid="group__fryza__twi_1gafca31c5aa83a4430c3e71923c6fa9ba8" kind="function"><name>twi_writeto_mem_16b</name></member>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>I2C/TWI<sp/>library<sp/>for<sp/>AVR-GCC.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>(c)<sp/>2018-2025<sp/>Tomas<sp/>Fryza,<sp/>MIT<sp/>license</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Developed<sp/>using<sp/>PlatformIO<sp/>and<sp/>Atmel<sp/>AVR<sp/>platform.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Tested<sp/>on<sp/>Arduino<sp/>Uno<sp/>board<sp/>and<sp/>ATmega328P,<sp/>16<sp/>MHz.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Includes<sp/>---------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="twi_8h" kindref="compound">twi.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Functions<sp/>--------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_init()</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Initialize<sp/>TWI<sp/>unit,<sp/>enable<sp/>internal<sp/>pull-ups,<sp/>and<sp/>set<sp/>SCL</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>frequency.</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="group__fryza__twi_1ga16f0e6b2fa5a26eadbf4086ab6d54467" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__twi_1ga16f0e6b2fa5a26eadbf4086ab6d54467" kindref="member">twi_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Enable<sp/>internal<sp/>pull-up<sp/>resistors<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1ga6c0346728feb274834cad94daca316ee" kindref="member">DDR</ref>(<ref refid="group__fryza__twi_1ga762c164f4acd04d3ce3627fe73e7c018" kindref="member">TWI_PORT</ref>)<sp/>&amp;=<sp/>~((1&lt;&lt;<ref refid="group__fryza__twi_1ga3f14ed8491293d0dda1372cceaa39851" kindref="member">TWI_SDA_PIN</ref>)<sp/>|<sp/>(1&lt;&lt;<ref refid="group__fryza__twi_1gac0ad8b33f1be48e211f1eeae2dd65cee" kindref="member">TWI_SCL_PIN</ref>));</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1ga762c164f4acd04d3ce3627fe73e7c018" kindref="member">TWI_PORT</ref><sp/>|=<sp/>(1&lt;&lt;<ref refid="group__fryza__twi_1ga3f14ed8491293d0dda1372cceaa39851" kindref="member">TWI_SDA_PIN</ref>)<sp/>|<sp/>(1&lt;&lt;<ref refid="group__fryza__twi_1gac0ad8b33f1be48e211f1eeae2dd65cee" kindref="member">TWI_SCL_PIN</ref>);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Set<sp/>SCL<sp/>frequency<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>TWSR<sp/>&amp;=<sp/>~((1&lt;&lt;TWPS1)<sp/>|<sp/>(1&lt;&lt;TWPS0));</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>TWBR<sp/>=<sp/><ref refid="group__fryza__twi_1ga801c158406ca2334b446e442a2debe37" kindref="member">TWI_BIT_RATE_REG</ref>;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_start()</highlight></codeline>
+<codeline lineno="34"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Start<sp/>communication<sp/>on<sp/>I2C/TWI<sp/>bus.</highlight></codeline>
+<codeline lineno="35"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="36"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="38"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>Start<sp/>condition<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>TWCR<sp/>=<sp/>(1&lt;&lt;TWINT)<sp/>|<sp/>(1&lt;&lt;TWSTA)<sp/>|<sp/>(1&lt;&lt;TWEN);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((TWCR<sp/>&amp;<sp/>(1&lt;&lt;TWINT))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_write()</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Write<sp/>one<sp/>byte<sp/>to<sp/>the<sp/>I2C/TWI<sp/>bus.</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*<sp/>Input:<sp/><sp/><sp/><sp/>data<sp/>Byte<sp/>to<sp/>be<sp/>transmitted</highlight></codeline>
+<codeline lineno="49"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>ACK/NACK<sp/>received<sp/>value</highlight></codeline>
+<codeline lineno="50"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51" refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(uint8_t<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>)</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>twi_status;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>SLA+R,<sp/>SLA+W,<sp/>or<sp/>data<sp/>byte<sp/>on<sp/>I2C/TWI<sp/>bus<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/>TWDR<sp/>=<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/>TWCR<sp/>=<sp/>(1&lt;&lt;TWINT)<sp/>|<sp/>(1&lt;&lt;TWEN);</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((TWCR<sp/>&amp;<sp/>(1&lt;&lt;TWINT))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Check<sp/>value<sp/>of<sp/>TWI<sp/>status<sp/>register<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/>twi_status<sp/>=<sp/>TWSR<sp/>&amp;<sp/>0xf8;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Status<sp/>Code:</highlight></codeline>
+<codeline lineno="64"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0x18:<sp/>SLA+W<sp/>has<sp/>been<sp/>transmitted<sp/>and<sp/>ACK<sp/>received</highlight></codeline>
+<codeline lineno="65"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0x28:<sp/>Data<sp/>byte<sp/>has<sp/>been<sp/>transmitted<sp/>and<sp/>ACK<sp/>has<sp/>been<sp/>received</highlight></codeline>
+<codeline lineno="66"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<sp/>0x40:<sp/>SLA+R<sp/>has<sp/>been<sp/>transmitted<sp/>and<sp/>ACK<sp/>received</highlight></codeline>
+<codeline lineno="67"><highlight class="comment"><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(twi_status<sp/>==<sp/>0x18<sp/>||<sp/>twi_status<sp/>==<sp/>0x28<sp/>||<sp/>twi_status<sp/>==<sp/>0x40)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>ACK<sp/>received<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;<sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>NACK<sp/>received<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="76"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_read()</highlight></codeline>
+<codeline lineno="77"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Read<sp/>one<sp/>byte<sp/>from<sp/>the<sp/>I2C/TWI<sp/>bus<sp/>and<sp/>acknowledge</highlight></codeline>
+<codeline lineno="78"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>it<sp/>by<sp/>ACK<sp/>or<sp/>NACK.</highlight></codeline>
+<codeline lineno="79"><highlight class="comment"><sp/>*<sp/>Input:<sp/><sp/><sp/><sp/>ack<sp/>ACK/NACK<sp/>value<sp/>to<sp/>be<sp/>transmitted</highlight></codeline>
+<codeline lineno="80"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>Received<sp/>data<sp/>byte</highlight></codeline>
+<codeline lineno="81"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82" refid="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" kindref="member">twi_read</ref>(uint8_t<sp/>ack)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(ack<sp/>==<sp/><ref refid="group__fryza__twi_1ga00dcb08e2effea903c22763e0aeeb3cb" kindref="member">TWI_ACK</ref>)</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TWCR<sp/>=<sp/>(1&lt;&lt;TWINT)<sp/>|<sp/>(1&lt;&lt;TWEN)<sp/>|<sp/>(1&lt;&lt;TWEA);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>TWCR<sp/>=<sp/>(1&lt;&lt;TWINT)<sp/>|<sp/>(1&lt;&lt;TWEN);</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((TWCR<sp/>&amp;<sp/>(1&lt;&lt;TWINT))<sp/>==<sp/>0);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(TWDR);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="95"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_stop()</highlight></codeline>
+<codeline lineno="96"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Generates<sp/>Stop<sp/>condition<sp/>on<sp/>I2C/TWI<sp/>bus.</highlight></codeline>
+<codeline lineno="97"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="98"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99" refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>TWCR<sp/>=<sp/>(1&lt;&lt;TWINT)<sp/>|<sp/>(1&lt;&lt;TWSTO)<sp/>|<sp/>(1&lt;&lt;TWEN);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"></highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="106"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_test_address()</highlight></codeline>
+<codeline lineno="107"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Test<sp/>presence<sp/>of<sp/>one<sp/>I2C<sp/>device<sp/>on<sp/>the<sp/>bus.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>Input:<sp/><sp/><sp/><sp/>addr<sp/>Slave<sp/>address</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>ACK/NACK<sp/>received<sp/>value</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="group__fryza__twi_1gae830c20b3544c9619c2c316b9a578ab2" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__twi_1gae830c20b3544c9619c2c316b9a578ab2" kindref="member">twi_test_address</ref>(uint8_t<sp/>addr)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>ack;<sp/><sp/></highlight><highlight class="comment">//<sp/>ACK<sp/>response<sp/>from<sp/>Slave</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="114"><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>ack<sp/>=<sp/><ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((addr&lt;&lt;1)<sp/>|<sp/><ref refid="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" kindref="member">TWI_WRITE</ref>);</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>ack;</highlight></codeline>
+<codeline lineno="120"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="124"><highlight class="comment"><sp/>*<sp/>Function:<sp/>twi_readfrom_mem_into()</highlight></codeline>
+<codeline lineno="125"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Read<sp/>into<sp/>buf<sp/>from<sp/>the<sp/>peripheral<sp/>starting<sp/>from<sp/>the<sp/>memory<sp/>address.</highlight></codeline>
+<codeline lineno="126"><highlight class="comment"><sp/>*<sp/>Input:<sp/><sp/><sp/><sp/>addr<sp/>Slave<sp/>address</highlight></codeline>
+<codeline lineno="127"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>memaddr<sp/>Starting<sp/>address</highlight></codeline>
+<codeline lineno="128"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>buf<sp/>Buffer<sp/>to<sp/>be<sp/>read<sp/>into</highlight></codeline>
+<codeline lineno="129"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>nbytes<sp/>Number<sp/>of<sp/>bytes</highlight></codeline>
+<codeline lineno="130"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>None</highlight></codeline>
+<codeline lineno="131"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="132" refid="group__fryza__twi_1gacf2027b11accf8c8a40502c60dd1b76f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__twi_1gacf2027b11accf8c8a40502c60dd1b76f" kindref="member">twi_readfrom_mem_into</ref>(uint8_t<sp/>addr,<sp/>uint8_t<sp/>memaddr,<sp/></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*buf,<sp/>uint8_t<sp/>nbytes)</highlight></codeline>
+<codeline lineno="133"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((addr&lt;&lt;1)<sp/>|<sp/><ref refid="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" kindref="member">TWI_WRITE</ref>)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Set<sp/>starting<sp/>address</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(memaddr);</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Read<sp/>data<sp/>into<sp/>the<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((addr&lt;&lt;1)<sp/>|<sp/><ref refid="group__fryza__twi_1gaaf9a8abccd811954f9cc316f2b2f87b3" kindref="member">TWI_READ</ref>);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(nbytes<sp/>&gt;=<sp/>2)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint8_t<sp/>i=0;<sp/>i&lt;(nbytes-1);<sp/>i++)</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*buf++<sp/>=<sp/><ref refid="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" kindref="member">twi_read</ref>(<ref refid="group__fryza__twi_1ga00dcb08e2effea903c22763e0aeeb3cb" kindref="member">TWI_ACK</ref>);</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>*buf<sp/>=<sp/><ref refid="group__fryza__twi_1gae9f84b771b4acdedd2106e91cb03cc78" kindref="member">twi_read</ref>(<ref refid="group__fryza__twi_1gaaf28e960d6d1c0553791faf52ebd8ef6" kindref="member">TWI_NACK</ref>);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="159"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="160" refid="group__fryza__twi_1ga6562cd3358cc443e747cff94f4d66a43" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__twi_1ga6562cd3358cc443e747cff94f4d66a43" kindref="member">twi_writeto_mem</ref>(uint8_t<sp/>addr,<sp/>uint8_t<sp/>memaddr,<sp/>uint8_t<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>SLA+W<sp/>and<sp/>check<sp/>ACK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((addr&lt;&lt;1)<sp/>|<sp/><ref refid="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" kindref="member">TWI_WRITE</ref>)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>memory<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(memaddr)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>data<sp/>byte<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>)<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/></highlight><highlight class="comment">/*<sp/>success<sp/>(ACKs<sp/>received)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;<sp/></highlight><highlight class="comment">/*<sp/>failure<sp/>(NACK<sp/>or<sp/>other<sp/>error)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"></highlight></codeline>
+<codeline lineno="181" refid="group__fryza__twi_1gafca31c5aa83a4430c3e71923c6fa9ba8" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__twi_1gafca31c5aa83a4430c3e71923c6fa9ba8" kindref="member">twi_writeto_mem_16b</ref>(uint8_t<sp/>addr,<sp/>uint8_t<sp/>memaddr,<sp/>uint8_t<sp/>dataUpperHalf,uint8_t<sp/>dataLowerHalf)</highlight></codeline>
+<codeline lineno="182"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>SLA+W<sp/>and<sp/>check<sp/>ACK<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((addr&lt;&lt;1)<sp/>|<sp/><ref refid="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" kindref="member">TWI_WRITE</ref>)<sp/>==<sp/>0)<sp/></highlight><highlight class="comment">//vyzva<sp/>na<sp/>komunikaciu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>memory<sp/>address<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(memaddr)<sp/>==<sp/>0)<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//zapis<sp/>adresy<sp/>pociatocnej</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Send<sp/>data<sp/>byte<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(dataUpperHalf)<sp/>==<sp/>0)<sp/></highlight><highlight class="comment">//zapis<sp/>upperHalf<sp/>bytu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(dataLowerHalf)<sp/>==<sp/>0)<sp/></highlight><highlight class="comment">//zapis<sp/>lowerHalf<sp/>bytu</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/></highlight><highlight class="comment">/*<sp/>success<sp/>(ACKs<sp/>received)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;<sp/></highlight><highlight class="comment">/*<sp/>failure<sp/>(NACK<sp/>or<sp/>other<sp/>error)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="lib/twi/twi.c"/>
+  </compounddef>
+</doxygen>

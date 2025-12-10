@@ -1,0 +1,97 @@
+\doxysection{lib/uart/uart\+\_\+compat.h File Reference}
+\label{uart__compat_8h}\index{lib/uart/uart\_compat.h@{lib/uart/uart\_compat.h}}
+{\ttfamily \#include $<$avr/pgmspace.\+h$>$}\newline
+{\ttfamily \#include $<$uart.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ transmit\+Byte}(\textbf{ data})
+\begin{DoxyCompactList}\small\item\em Compatibility layer for old UART function names Maps transmit\+Byte/transmit\+String to Peter Fleury UART library. \end{DoxyCompactList}\item 
+\#define \textbf{ transmit\+String}(str)
+\item 
+\#define \textbf{ TX\+\_\+\+NEWLINE}~\textbf{ uart\+\_\+puts}("{}\textbackslash{}r\textbackslash{}n"{})
+\item 
+\#define \textbf{ BYTE}~0
+\item 
+\#define \textbf{ INT}~1
+\item 
+\#define \textbf{ LONG}~2
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{uart\_compat.h@{uart\_compat.h}!BYTE@{BYTE}}
+\index{BYTE@{BYTE}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{BYTE}
+{\footnotesize\ttfamily \label{uart__compat_8h_aec93e83855ac17c3c25c55c37ca186dd} 
+\#define BYTE~0}
+
+
+
+Definition at line \textbf{ 66} of file \textbf{ uart\+\_\+compat.\+h}.
+
+\index{uart\_compat.h@{uart\_compat.h}!INT@{INT}}
+\index{INT@{INT}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{INT}
+{\footnotesize\ttfamily \label{uart__compat_8h_afeeffe52c8fd59db7c61cf8b02042dbf} 
+\#define INT~1}
+
+
+
+Definition at line \textbf{ 67} of file \textbf{ uart\+\_\+compat.\+h}.
+
+\index{uart\_compat.h@{uart\_compat.h}!LONG@{LONG}}
+\index{LONG@{LONG}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{LONG}
+{\footnotesize\ttfamily \label{uart__compat_8h_acaa7b8a7167a8214f499c71c413ddcca} 
+\#define LONG~2}
+
+
+
+Definition at line \textbf{ 68} of file \textbf{ uart\+\_\+compat.\+h}.
+
+\index{uart\_compat.h@{uart\_compat.h}!transmitByte@{transmitByte}}
+\index{transmitByte@{transmitByte}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{transmitByte}
+{\footnotesize\ttfamily \label{uart__compat_8h_ace7f07fcb2f48c84bedf0e825c999985} 
+\#define transmit\+Byte(\begin{DoxyParamCaption}\item[{}]{\textbf{ data}}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uart\_putc(data)}
+
+\end{DoxyCode}
+
+
+Compatibility layer for old UART function names Maps transmit\+Byte/transmit\+String to Peter Fleury UART library. 
+
+
+
+Definition at line \textbf{ 13} of file \textbf{ uart\+\_\+compat.\+h}.
+
+\index{uart\_compat.h@{uart\_compat.h}!transmitString@{transmitString}}
+\index{transmitString@{transmitString}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{transmitString}
+{\footnotesize\ttfamily \label{uart__compat_8h_aea73bf4991134ec1f113b5ed8d79ec09} 
+\#define transmit\+String(\begin{DoxyParamCaption}\item[{}]{str}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{uart\_puts((\textcolor{keywordtype}{char}*)(str))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 16} of file \textbf{ uart\+\_\+compat.\+h}.
+
+\index{uart\_compat.h@{uart\_compat.h}!TX\_NEWLINE@{TX\_NEWLINE}}
+\index{TX\_NEWLINE@{TX\_NEWLINE}!uart\_compat.h@{uart\_compat.h}}
+\doxysubsubsection{TX\_NEWLINE}
+{\footnotesize\ttfamily \label{uart__compat_8h_a4f97041706df712db8c9bf3a35e20a7b} 
+\#define TX\+\_\+\+NEWLINE~\textbf{ uart\+\_\+puts}("{}\textbackslash{}r\textbackslash{}n"{})}
+
+
+
+Definition at line \textbf{ 19} of file \textbf{ uart\+\_\+compat.\+h}.
+

@@ -1,0 +1,210 @@
+\doxysection{twi.\+c}
+\label{twi_8c_source}\index{lib/twi/twi.c@{lib/twi/twi.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ I2C/TWI\ library\ for\ AVR-\/GCC.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ (c)\ 2018-\/2025\ Tomas\ Fryza,\ MIT\ license}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Developed\ using\ PlatformIO\ and\ Atmel\ AVR\ platform.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Tested\ on\ Arduino\ Uno\ board\ and\ ATmega328P,\ 16\ MHz.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ -\/-\/\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <twi.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{comment}{//\ -\/-\/\ Functions\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00014\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ Function:\ twi\_init()}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ Purpose:\ \ Initialize\ TWI\ unit,\ enable\ internal\ pull-\/ups,\ and\ set\ SCL}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ frequency.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00020\ \textcolor{keywordtype}{void}\ twi\_init(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{/*\ Enable\ internal\ pull-\/up\ resistors\ */}}
+\DoxyCodeLine{00023\ \ \ \ \ DDR(TWI\_PORT)\ \&=\ \string~((1<<TWI\_SDA\_PIN)\ |\ (1<<TWI\_SCL\_PIN));}
+\DoxyCodeLine{00024\ \ \ \ \ TWI\_PORT\ |=\ (1<<TWI\_SDA\_PIN)\ |\ (1<<TWI\_SCL\_PIN);}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{comment}{/*\ Set\ SCL\ frequency\ */}}
+\DoxyCodeLine{00027\ \ \ \ \ TWSR\ \&=\ \string~((1<<TWPS1)\ |\ (1<<TWPS0));}
+\DoxyCodeLine{00028\ \ \ \ \ TWBR\ =\ TWI\_BIT\_RATE\_REG;}
+\DoxyCodeLine{00029\ \}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ Function:\ twi\_start()}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ Purpose:\ \ Start\ communication\ on\ I2C/TWI\ bus.}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}\ twi\_start(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00038\ \{}
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{/*\ Send\ Start\ condition\ */}}
+\DoxyCodeLine{00040\ \ \ \ \ TWCR\ =\ (1<<TWINT)\ |\ (1<<TWSTA)\ |\ (1<<TWEN);}
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{keywordflow}{while}\ ((TWCR\ \&\ (1<<TWINT))\ ==\ 0);}
+\DoxyCodeLine{00042\ \}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00046\ \textcolor{comment}{\ *\ Function:\ twi\_write()}}
+\DoxyCodeLine{00047\ \textcolor{comment}{\ *\ Purpose:\ \ Write\ one\ byte\ to\ the\ I2C/TWI\ bus.}}
+\DoxyCodeLine{00048\ \textcolor{comment}{\ *\ Input:\ \ \ \ data\ Byte\ to\ be\ transmitted}}
+\DoxyCodeLine{00049\ \textcolor{comment}{\ *\ Returns:\ \ ACK/NACK\ received\ value}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00051\ uint8\_t\ twi\_write(uint8\_t\ data)}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ uint8\_t\ twi\_status;}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{comment}{/*\ Send\ SLA+R,\ SLA+W,\ or\ data\ byte\ on\ I2C/TWI\ bus\ */}}
+\DoxyCodeLine{00056\ \ \ \ \ TWDR\ =\ data;}
+\DoxyCodeLine{00057\ \ \ \ \ TWCR\ =\ (1<<TWINT)\ |\ (1<<TWEN);}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{while}\ ((TWCR\ \&\ (1<<TWINT))\ ==\ 0);}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{comment}{/*\ Check\ value\ of\ TWI\ status\ register\ */}}
+\DoxyCodeLine{00061\ \ \ \ \ twi\_status\ =\ TWSR\ \&\ 0xf8;}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \textcolor{comment}{/*\ Status\ Code:}}
+\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ -\/\ 0x18:\ SLA+W\ has\ been\ transmitted\ and\ ACK\ received}}
+\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ -\/\ 0x28:\ Data\ byte\ has\ been\ transmitted\ and\ ACK\ has\ been\ received}}
+\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ -\/\ 0x40:\ SLA+R\ has\ been\ transmitted\ and\ ACK\ received}}
+\DoxyCodeLine{00067\ \textcolor{comment}{\ \ \ \ */}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_status\ ==\ 0x18\ ||\ twi\_status\ ==\ 0x28\ ||\ twi\_status\ ==\ 0x40)}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \ \ \textcolor{comment}{/*\ ACK\ received\ */}}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ \ \ \textcolor{comment}{/*\ NACK\ received\ */}}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *\ Function:\ twi\_read()}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ Purpose:\ \ Read\ one\ byte\ from\ the\ I2C/TWI\ bus\ and\ acknowledge}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ it\ by\ ACK\ or\ NACK.}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ Input:\ \ \ \ ack\ ACK/NACK\ value\ to\ be\ transmitted}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ *\ Returns:\ \ Received\ data\ byte}}
+\DoxyCodeLine{00081\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00082\ uint8\_t\ twi\_read(uint8\_t\ ack)}
+\DoxyCodeLine{00083\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{if}\ (ack\ ==\ TWI\_ACK)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ TWCR\ =\ (1<<TWINT)\ |\ (1<<TWEN)\ |\ (1<<TWEA);}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ TWCR\ =\ (1<<TWINT)\ |\ (1<<TWEN);}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{while}\ ((TWCR\ \&\ (1<<TWINT))\ ==\ 0);}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{return}\ (TWDR);}
+\DoxyCodeLine{00091\ \}}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00095\ \textcolor{comment}{\ *\ Function:\ twi\_stop()}}
+\DoxyCodeLine{00096\ \textcolor{comment}{\ *\ Purpose:\ \ Generates\ Stop\ condition\ on\ I2C/TWI\ bus.}}
+\DoxyCodeLine{00097\ \textcolor{comment}{\ *\ Returns:\ \ none}}
+\DoxyCodeLine{00098\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00099\ \textcolor{keywordtype}{void}\ twi\_stop(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00100\ \{}
+\DoxyCodeLine{00101\ \ \ \ \ TWCR\ =\ (1<<TWINT)\ |\ (1<<TWSTO)\ |\ (1<<TWEN);}
+\DoxyCodeLine{00102\ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00106\ \textcolor{comment}{\ *\ Function:\ twi\_test\_address()}}
+\DoxyCodeLine{00107\ \textcolor{comment}{\ *\ Purpose:\ \ Test\ presence\ of\ one\ I2C\ device\ on\ the\ bus.}}
+\DoxyCodeLine{00108\ \textcolor{comment}{\ *\ Input:\ \ \ \ addr\ Slave\ address}}
+\DoxyCodeLine{00109\ \textcolor{comment}{\ *\ Returns:\ \ ACK/NACK\ received\ value}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00111\ uint8\_t\ twi\_test\_address(uint8\_t\ addr)}
+\DoxyCodeLine{00112\ \{}
+\DoxyCodeLine{00113\ \ \ \ \ uint8\_t\ ack;\ \ \textcolor{comment}{//\ ACK\ response\ from\ Slave}}
+\DoxyCodeLine{00114\ }
+\DoxyCodeLine{00115\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00116\ \ \ \ \ ack\ =\ twi\_write((addr<<1)\ |\ TWI\_WRITE);}
+\DoxyCodeLine{00117\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00118\ }
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordflow}{return}\ ack;}
+\DoxyCodeLine{00120\ \}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00124\ \textcolor{comment}{\ *\ Function:\ twi\_readfrom\_mem\_into()}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ *\ Purpose:\ \ Read\ into\ buf\ from\ the\ peripheral\ starting\ from\ the\ memory\ address.}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ *\ Input:\ \ \ \ addr\ Slave\ address}}
+\DoxyCodeLine{00127\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ memaddr\ Starting\ address}}
+\DoxyCodeLine{00128\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ buf\ Buffer\ to\ be\ read\ into}}
+\DoxyCodeLine{00129\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ nbytes\ Number\ of\ bytes}}
+\DoxyCodeLine{00130\ \textcolor{comment}{\ *\ Returns:\ \ None}}
+\DoxyCodeLine{00131\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{void}\ twi\_readfrom\_mem\_into(uint8\_t\ addr,\ uint8\_t\ memaddr,\ \textcolor{keyword}{volatile}\ uint8\_t\ *buf,\ uint8\_t\ nbytes)}
+\DoxyCodeLine{00133\ \{}
+\DoxyCodeLine{00134\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00135\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((addr<<1)\ |\ TWI\_WRITE)\ ==\ 0)}
+\DoxyCodeLine{00136\ \ \ \ \ \{}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ starting\ address}}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ twi\_write(memaddr);}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Read\ data\ into\ the\ buffer}}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ twi\_write((addr<<1)\ |\ TWI\_READ);}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (nbytes\ >=\ 2)}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ i=0;\ i<(nbytes-\/1);\ i++)}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ *buf++\ =\ twi\_read(TWI\_ACK);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ *buf\ =\ twi\_read(TWI\_NACK);}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00153\ \ \ \ \ \}}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00155\ \ \ \ \ \{}
+\DoxyCodeLine{00156\ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00157\ \ \ \ \ \}}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00159\ \}}
+\DoxyCodeLine{00160\ uint8\_t\ twi\_writeto\_mem(uint8\_t\ addr,\ uint8\_t\ memaddr,\ uint8\_t\ data)}
+\DoxyCodeLine{00161\ \{}
+\DoxyCodeLine{00162\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{comment}{/*\ Send\ SLA+W\ and\ check\ ACK\ */}}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((addr<<1)\ |\ TWI\_WRITE)\ ==\ 0)}
+\DoxyCodeLine{00165\ \ \ \ \ \{}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ memory\ address\ */}}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(memaddr)\ ==\ 0)}
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ data\ byte\ */}}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(data)\ ==\ 0)}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{/*\ success\ (ACKs\ received)\ */}}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00176\ \ \ \ \ \}}
+\DoxyCodeLine{00177\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ \textcolor{comment}{/*\ failure\ (NACK\ or\ other\ error)\ */}}
+\DoxyCodeLine{00179\ \}}
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ uint8\_t\ twi\_writeto\_mem\_16b(uint8\_t\ addr,\ uint8\_t\ memaddr,\ uint8\_t\ dataUpperHalf,uint8\_t\ dataLowerHalf)}
+\DoxyCodeLine{00182\ \{}
+\DoxyCodeLine{00183\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00184\ \ \ \ \ \textcolor{comment}{/*\ Send\ SLA+W\ and\ check\ ACK\ */}}
+\DoxyCodeLine{00185\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((addr<<1)\ |\ TWI\_WRITE)\ ==\ 0)\ \textcolor{comment}{//vyzva\ na\ komunikaciu}}
+\DoxyCodeLine{00186\ \ \ \ \ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ memory\ address\ */}}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(memaddr)\ ==\ 0)\ \ \ \ \textcolor{comment}{//zapis\ adresy\ pociatocnej}}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00190\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Send\ data\ byte\ */}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(dataUpperHalf)\ ==\ 0)\ \textcolor{comment}{//zapis\ upperHalf\ bytu}}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(dataLowerHalf)\ ==\ 0)\ \textcolor{comment}{//zapis\ lowerHalf\ bytu}}
+\DoxyCodeLine{00194\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;\ \textcolor{comment}{/*\ success\ (ACKs\ received)\ */}}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ \}}
+\DoxyCodeLine{00202\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00203\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;\ \textcolor{comment}{/*\ failure\ (NACK\ or\ other\ error)\ */}}
+\DoxyCodeLine{00204\ \}}
+
+\end{DoxyCode}

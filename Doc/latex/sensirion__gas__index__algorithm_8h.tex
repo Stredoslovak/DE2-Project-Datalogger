@@ -1,0 +1,910 @@
+\doxysection{lib/gas\+\_\+index\+\_\+algorithm/sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.h File Reference}
+\label{sensirion__gas__index__algorithm_8h}\index{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.h@{lib/gas\_index\_algorithm/sensirion\_gas\_index\_algorithm.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \textbf{ Gas\+Index\+Algorithm\+Params}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ GASINDEXALGORITHM\+\_\+\+H\+\_\+}
+\item 
+\#define \textbf{ F16}(x)
+\item 
+\#define \textbf{ bool}~int
+\item 
+\#define \textbf{ true}~1
+\item 
+\#define \textbf{ false}~0
+\item 
+\#define \textbf{ LIBRARY\+\_\+\+VERSION\+\_\+\+NAME}~"{}3.\+2.\+0"{}
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+VOC}~(0)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+NOX}~(1)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SAMPLING\+\_\+\+INTERVAL}~(1.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INITIAL\+\_\+\+BLACKOUT}~(45.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INDEX\+\_\+\+GAIN}~(230.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+INITIAL}~(50.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+BONUS\+\_\+\+VOC}~(220.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+NOX}~(2000.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+MEAN\+\_\+\+HOURS}~(12.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+VARIANCE\+\_\+\+HOURS}~(12.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+MEAN\+\_\+\+VOC}~(20.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+MEAN\+\_\+\+NOX}~(1200.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+MEAN\+\_\+\+VOC}~((3600. $\ast$ 0.\+75))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+MEAN\+\_\+\+NOX}~((3600. $\ast$ 4.\+75))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+TRANSITION\+\_\+\+MEAN}~(0.\+01)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+VARIANCE}~(2500.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+VARIANCE\+\_\+\+VOC}~((3600. $\ast$ 1.\+45))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+VARIANCE\+\_\+\+NOX}~((3600. $\ast$ 5.\+70))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+TRANSITION\+\_\+\+VARIANCE}~(0.\+01)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+VOC}~(340.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+NOX}~(30.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+INITIAL}~(510.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+TRANSITION}~(0.\+09)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+VOC\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES}~((60. $\ast$ 3.))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+NOX\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES}~((60. $\ast$ 12.))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+RATIO}~(0.\+3)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+L}~(500.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+K\+\_\+\+VOC}~(-\/0.\+0065)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+X0\+\_\+\+VOC}~(213.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+K\+\_\+\+NOX}~(-\/0.\+0101)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+X0\+\_\+\+NOX}~(614.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+VOC\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+DEFAULT}~(100.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+NOX\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+DEFAULT}~(1.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+TAU\+\_\+\+FAST}~(20.\+0)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+TAU\+\_\+\+SLOW}~(500.\+0)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+ALPHA}~(-\/0.\+2)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+VOC\+\_\+\+SRAW\+\_\+\+MINIMUM}~(20000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+NOX\+\_\+\+SRAW\+\_\+\+MINIMUM}~(10000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+PERSISTENCE\+\_\+\+UPTIME\+\_\+\+GAMMA}~((3. $\ast$ 3600.))
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+MIN}~(1)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+MAX}~(250)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+OFFSET\+\_\+\+HOURS\+\_\+\+MIN}~(1)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+OFFSET\+\_\+\+HOURS\+\_\+\+MAX}~(1000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+GAIN\+\_\+\+HOURS\+\_\+\+MIN}~(1)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+GAIN\+\_\+\+HOURS\+\_\+\+MAX}~(1000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES\+\_\+\+MIN}~(0)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES\+\_\+\+MAX}~(3000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+STD\+\_\+\+INITIAL\+\_\+\+MIN}~(10)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+STD\+\_\+\+INITIAL\+\_\+\+MAX}~(5000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GAIN\+\_\+\+FACTOR\+\_\+\+MIN}~(1)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GAIN\+\_\+\+FACTOR\+\_\+\+MAX}~(1000)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+GAMMA\+\_\+\+SCALING}~(64.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+ADDITIONAL\+\_\+\+GAMMA\+\_\+\+MEAN\+\_\+\+SCALING}~    (8.)
+\item 
+\#define \textbf{ Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+FIX16\+\_\+\+MAX}~(32767.)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef int32\+\_\+t \textbf{ fix16\+\_\+t}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+init} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t algorithm\+\_\+type)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+reset} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+get\+\_\+states} (const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t $\ast$state0, int32\+\_\+t $\ast$state1)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+set\+\_\+states} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t state0, int32\+\_\+t state1)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t index\+\_\+offset, int32\+\_\+t learning\+\_\+time\+\_\+offset\+\_\+hours, int32\+\_\+t learning\+\_\+time\+\_\+gain\+\_\+hours, int32\+\_\+t gating\+\_\+max\+\_\+duration\+\_\+minutes, int32\+\_\+t std\+\_\+initial, int32\+\_\+t gain\+\_\+factor)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+get\+\_\+tuning\+\_\+parameters} (const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t $\ast$index\+\_\+offset, int32\+\_\+t $\ast$learning\+\_\+time\+\_\+offset\+\_\+hours, int32\+\_\+t $\ast$learning\+\_\+time\+\_\+gain\+\_\+hours, int32\+\_\+t $\ast$gating\+\_\+max\+\_\+duration\+\_\+minutes, int32\+\_\+t $\ast$std\+\_\+initial, int32\+\_\+t $\ast$gain\+\_\+factor)
+\item 
+void \textbf{ Gas\+Index\+Algorithm\+\_\+process} (\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$params, int32\+\_\+t sraw, int32\+\_\+t $\ast$gas\+\_\+index)
+\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!bool@{bool}}
+\index{bool@{bool}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{bool}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_abb452686968e48b67397da5f97445f5b} 
+\#define bool~int}
+
+
+
+Definition at line \textbf{ 56} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!F16@{F16}}
+\index{F16@{F16}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{F16}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a2ce26e171e495499b9c91d7797edb5f0} 
+\#define F16(\begin{DoxyParamCaption}\item[{}]{x}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ ((fix16\_t)(((x)\ >=\ 0)\ ?\ ((x)*65536.0\ +\ 0.5)\ :\ ((x)*65536.0\ -\/\ 0.5)))}
+
+\end{DoxyCode}
+
+
+Definition at line \textbf{ 46} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!false@{false}}
+\index{false@{false}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{false}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a65e9886d74aaee76545e83dd09011727} 
+\#define false~0}
+
+
+
+Definition at line \textbf{ 58} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX@{GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX}}
+\index{GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX@{GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_ALGORITHM\_TYPE\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aefbc8af43c9df3537fe4545b86f3cd9b} 
+\#define Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+NOX~(1)}
+
+
+
+Definition at line \textbf{ 71} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC@{GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC}}
+\index{GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC@{GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_ALGORITHM\_TYPE\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a65553d56f3f8007d1768c662833ab294} 
+\#define Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+VOC~(0)}
+
+
+
+Definition at line \textbf{ 70} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_MAX\_RATIO@{GasIndexAlgorithm\_GATING\_MAX\_RATIO}}
+\index{GasIndexAlgorithm\_GATING\_MAX\_RATIO@{GasIndexAlgorithm\_GATING\_MAX\_RATIO}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_MAX\_RATIO}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a5c9a67ad92ca88a3f9cab5a4c041c72f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+RATIO~(0.\+3)}
+
+
+
+Definition at line \textbf{ 95} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES@{GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES}}
+\index{GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES@{GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_NOX\_MAX\_DURATION\_MINUTES}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aee6a7d0a00785f22e618ac792ac6f004} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+NOX\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES~((60. $\ast$ 12.))}
+
+
+
+Definition at line \textbf{ 94} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL@{GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL}}
+\index{GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL@{GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_THRESHOLD\_INITIAL}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a66482d05b71f915ea8730151293c1cbf} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+INITIAL~(510.)}
+
+
+
+Definition at line \textbf{ 91} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX@{GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX}}
+\index{GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX@{GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_THRESHOLD\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a345328861f5b23f0e57897dfe170867f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+NOX~(30.)}
+
+
+
+Definition at line \textbf{ 90} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION@{GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION}}
+\index{GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION@{GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_THRESHOLD\_TRANSITION}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a5e571bd5d2598eae72fdeabd0b67c996} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+TRANSITION~(0.\+09)}
+
+
+
+Definition at line \textbf{ 92} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC@{GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC}}
+\index{GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC@{GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_THRESHOLD\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a2134028a7a92032b0936019d3d9a9731} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+THRESHOLD\+\_\+\+VOC~(340.)}
+
+
+
+Definition at line \textbf{ 89} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES@{GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES}}
+\index{GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES@{GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_GATING\_VOC\_MAX\_DURATION\_MINUTES}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a58b77b6443eb5c1f245ab5efb81e99dc} 
+\#define Gas\+Index\+Algorithm\+\_\+\+GATING\+\_\+\+VOC\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES~((60. $\ast$ 3.))}
+
+
+
+Definition at line \textbf{ 93} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GASINDEXALGORITHM\_H\_@{GASINDEXALGORITHM\_H\_}}
+\index{GASINDEXALGORITHM\_H\_@{GASINDEXALGORITHM\_H\_}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GASINDEXALGORITHM\_H\_}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a78b91da60017324e077f3b4c46cc82e6} 
+\#define GASINDEXALGORITHM\+\_\+\+H\+\_\+}
+
+
+
+Definition at line \textbf{ 36} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INDEX\_GAIN@{GasIndexAlgorithm\_INDEX\_GAIN}}
+\index{GasIndexAlgorithm\_INDEX\_GAIN@{GasIndexAlgorithm\_INDEX\_GAIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INDEX\_GAIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aabae1c241e1218fd43942752d12616e8} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INDEX\+\_\+\+GAIN~(230.)}
+
+
+
+Definition at line \textbf{ 74} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX@{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX}}
+\index{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX@{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a2719beb4bc5f20df40e1acdc50e039c6} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+MEAN\+\_\+\+NOX~((3600. $\ast$ 4.\+75))}
+
+
+
+Definition at line \textbf{ 83} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC@{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC}}
+\index{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC@{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_DURATION\_MEAN\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ae61bc42f510606781ad77b08d6cfac6a} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+MEAN\+\_\+\+VOC~((3600. $\ast$ 0.\+75))}
+
+
+
+Definition at line \textbf{ 82} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX@{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX}}
+\index{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX@{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a1fb45129bce7e2e1dd9f2dd72761a1a8} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+VARIANCE\+\_\+\+NOX~((3600. $\ast$ 5.\+70))}
+
+
+
+Definition at line \textbf{ 87} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC@{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC}}
+\index{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC@{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_DURATION\_VARIANCE\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a2afacba1b691d0bd4e01ce0fd9e8a7fb} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+DURATION\+\_\+\+VARIANCE\+\_\+\+VOC~((3600. $\ast$ 1.\+45))}
+
+
+
+Definition at line \textbf{ 86} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN@{GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN}}
+\index{GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN@{GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_TRANSITION\_MEAN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a17b38c74ebbda88ace468bb5854040e1} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+TRANSITION\+\_\+\+MEAN~(0.\+01)}
+
+
+
+Definition at line \textbf{ 84} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE@{GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE}}
+\index{GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE@{GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INIT\_TRANSITION\_VARIANCE}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a0ed2d688c0930b6a95433696171faf5e} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INIT\+\_\+\+TRANSITION\+\_\+\+VARIANCE~(0.\+01)}
+
+
+
+Definition at line \textbf{ 88} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_INITIAL\_BLACKOUT@{GasIndexAlgorithm\_INITIAL\_BLACKOUT}}
+\index{GasIndexAlgorithm\_INITIAL\_BLACKOUT@{GasIndexAlgorithm\_INITIAL\_BLACKOUT}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_INITIAL\_BLACKOUT}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a8e0817dfc832435e4df6ad264ee5c047} 
+\#define Gas\+Index\+Algorithm\+\_\+\+INITIAL\+\_\+\+BLACKOUT~(45.)}
+
+
+
+Definition at line \textbf{ 73} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_LP\_ALPHA@{GasIndexAlgorithm\_LP\_ALPHA}}
+\index{GasIndexAlgorithm\_LP\_ALPHA@{GasIndexAlgorithm\_LP\_ALPHA}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_LP\_ALPHA}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aa5acfc6b763f1f5a70ec02c80b9ea570} 
+\#define Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+ALPHA~(-\/0.\+2)}
+
+
+
+Definition at line \textbf{ 105} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_LP\_TAU\_FAST@{GasIndexAlgorithm\_LP\_TAU\_FAST}}
+\index{GasIndexAlgorithm\_LP\_TAU\_FAST@{GasIndexAlgorithm\_LP\_TAU\_FAST}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_LP\_TAU\_FAST}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ab7a67ed8447673477ea6d6f18eb89e5c} 
+\#define Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+TAU\+\_\+\+FAST~(20.\+0)}
+
+
+
+Definition at line \textbf{ 103} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_LP\_TAU\_SLOW@{GasIndexAlgorithm\_LP\_TAU\_SLOW}}
+\index{GasIndexAlgorithm\_LP\_TAU\_SLOW@{GasIndexAlgorithm\_LP\_TAU\_SLOW}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_LP\_TAU\_SLOW}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a8ee41aa49a3d9bd5a7bb6d306c2b67f5} 
+\#define Gas\+Index\+Algorithm\+\_\+\+LP\+\_\+\+TAU\+\_\+\+SLOW~(500.\+0)}
+
+
+
+Definition at line \textbf{ 104} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING}}
+\index{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_ADDITIONAL\_GAMMA\_MEAN\_SCALING}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a2c5f1fd825776b93ab125f3a42144f63} 
+\#define Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+ADDITIONAL\+\_\+\+GAMMA\+\_\+\+MEAN\+\_\+\+SCALING~    (8.)}
+
+
+
+Definition at line \textbf{ 122} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX}}
+\index{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_FIX16\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a44325df492b1c248d312e2c33609d898} 
+\#define Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+FIX16\+\_\+\+MAX~(32767.)}
+
+
+
+Definition at line \textbf{ 124} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING}}
+\index{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING@{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_MEAN\_VARIANCE\_ESTIMATOR\_\_GAMMA\_SCALING}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ae668ba617dc6dea8b7a94981868930ef} 
+\#define Gas\+Index\+Algorithm\+\_\+\+MEAN\+\_\+\+VARIANCE\+\_\+\+ESTIMATOR\+\_\+\+\_\+\+GAMMA\+\_\+\+SCALING~(64.)}
+
+
+
+Definition at line \textbf{ 121} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT@{GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT}}
+\index{GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT@{GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_NOX\_INDEX\_OFFSET\_DEFAULT}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ad14f5b2d784a0c089a40a0353266d9cf} 
+\#define Gas\+Index\+Algorithm\+\_\+\+NOX\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+DEFAULT~(1.)}
+
+
+
+Definition at line \textbf{ 102} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM@{GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM}}
+\index{GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM@{GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_NOX\_SRAW\_MINIMUM}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a431a9bc88341cd080e7354ca27ddbfd9} 
+\#define Gas\+Index\+Algorithm\+\_\+\+NOX\+\_\+\+SRAW\+\_\+\+MINIMUM~(10000)}
+
+
+
+Definition at line \textbf{ 107} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA@{GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA}}
+\index{GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA@{GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_PERSISTENCE\_UPTIME\_GAMMA}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_adc213bf22c5ff669b5a4d1043deb66af} 
+\#define Gas\+Index\+Algorithm\+\_\+\+PERSISTENCE\+\_\+\+UPTIME\+\_\+\+GAMMA~((3. $\ast$ 3600.))}
+
+
+
+Definition at line \textbf{ 108} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SAMPLING\_INTERVAL@{GasIndexAlgorithm\_SAMPLING\_INTERVAL}}
+\index{GasIndexAlgorithm\_SAMPLING\_INTERVAL@{GasIndexAlgorithm\_SAMPLING\_INTERVAL}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SAMPLING\_INTERVAL}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_affc1d4c9cf8f4227ec6ac215299a4d2f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SAMPLING\+\_\+\+INTERVAL~(1.)}
+
+
+
+Definition at line \textbf{ 72} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SIGMOID\_K\_NOX@{GasIndexAlgorithm\_SIGMOID\_K\_NOX}}
+\index{GasIndexAlgorithm\_SIGMOID\_K\_NOX@{GasIndexAlgorithm\_SIGMOID\_K\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SIGMOID\_K\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a3dddce158535f161ecac1fd65e2dd041} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+K\+\_\+\+NOX~(-\/0.\+0101)}
+
+
+
+Definition at line \textbf{ 99} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SIGMOID\_K\_VOC@{GasIndexAlgorithm\_SIGMOID\_K\_VOC}}
+\index{GasIndexAlgorithm\_SIGMOID\_K\_VOC@{GasIndexAlgorithm\_SIGMOID\_K\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SIGMOID\_K\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a237639cca1b7097814d5d59641c6f64f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+K\+\_\+\+VOC~(-\/0.\+0065)}
+
+
+
+Definition at line \textbf{ 97} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SIGMOID\_L@{GasIndexAlgorithm\_SIGMOID\_L}}
+\index{GasIndexAlgorithm\_SIGMOID\_L@{GasIndexAlgorithm\_SIGMOID\_L}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SIGMOID\_L}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ad1a1f8ee49cdef4f45d795bdf51eca75} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+L~(500.)}
+
+
+
+Definition at line \textbf{ 96} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SIGMOID\_X0\_NOX@{GasIndexAlgorithm\_SIGMOID\_X0\_NOX}}
+\index{GasIndexAlgorithm\_SIGMOID\_X0\_NOX@{GasIndexAlgorithm\_SIGMOID\_X0\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SIGMOID\_X0\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a578ec9b9b07dfdeea678e555727de760} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+X0\+\_\+\+NOX~(614.)}
+
+
+
+Definition at line \textbf{ 100} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SIGMOID\_X0\_VOC@{GasIndexAlgorithm\_SIGMOID\_X0\_VOC}}
+\index{GasIndexAlgorithm\_SIGMOID\_X0\_VOC@{GasIndexAlgorithm\_SIGMOID\_X0\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SIGMOID\_X0\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a3a5abf61617208f230b4d86dc46ddd4e} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SIGMOID\+\_\+\+X0\+\_\+\+VOC~(213.)}
+
+
+
+Definition at line \textbf{ 98} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC@{GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC}}
+\index{GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC@{GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SRAW\_STD\_BONUS\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a23bfd900cb240929e687f6e1ec1eaf4c} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+BONUS\+\_\+\+VOC~(220.)}
+
+
+
+Definition at line \textbf{ 76} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SRAW\_STD\_INITIAL@{GasIndexAlgorithm\_SRAW\_STD\_INITIAL}}
+\index{GasIndexAlgorithm\_SRAW\_STD\_INITIAL@{GasIndexAlgorithm\_SRAW\_STD\_INITIAL}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SRAW\_STD\_INITIAL}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a52aa63874447b4b9d854a5d36e0d35af} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+INITIAL~(50.)}
+
+
+
+Definition at line \textbf{ 75} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_SRAW\_STD\_NOX@{GasIndexAlgorithm\_SRAW\_STD\_NOX}}
+\index{GasIndexAlgorithm\_SRAW\_STD\_NOX@{GasIndexAlgorithm\_SRAW\_STD\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_SRAW\_STD\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ad815e5e2d8f417a0e0eb71bd47d49b8d} 
+\#define Gas\+Index\+Algorithm\+\_\+\+SRAW\+\_\+\+STD\+\_\+\+NOX~(2000.)}
+
+
+
+Definition at line \textbf{ 77} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX@{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX}}
+\index{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX@{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_NOX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_af7aa5d98de4f206ff02ccb9b118f381f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+MEAN\+\_\+\+NOX~(1200.)}
+
+
+
+Definition at line \textbf{ 81} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC@{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC}}
+\index{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC@{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TAU\_INITIAL\_MEAN\_VOC}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aa6470efcc86cd6af48c63040c4323c74} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+MEAN\+\_\+\+VOC~(20.)}
+
+
+
+Definition at line \textbf{ 80} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE@{GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE}}
+\index{GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE@{GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TAU\_INITIAL\_VARIANCE}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a0277496ccdf852da572cb14381ee21de} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+INITIAL\+\_\+\+VARIANCE~(2500.)}
+
+
+
+Definition at line \textbf{ 85} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TAU\_MEAN\_HOURS@{GasIndexAlgorithm\_TAU\_MEAN\_HOURS}}
+\index{GasIndexAlgorithm\_TAU\_MEAN\_HOURS@{GasIndexAlgorithm\_TAU\_MEAN\_HOURS}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TAU\_MEAN\_HOURS}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a1b3c2250f40e0bc66b8cb4a70d942f98} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+MEAN\+\_\+\+HOURS~(12.)}
+
+
+
+Definition at line \textbf{ 78} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS@{GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS}}
+\index{GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS@{GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TAU\_VARIANCE\_HOURS}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ac8a62c45f8c290cf2e57174b2b537770} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TAU\+\_\+\+VARIANCE\+\_\+\+HOURS~(12.)}
+
+
+
+Definition at line \textbf{ 79} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MAX@{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MAX@{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ac172efa5a9b092b395f8850acd804a72} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GAIN\+\_\+\+FACTOR\+\_\+\+MAX~(1000)}
+
+
+
+Definition at line \textbf{ 120} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MIN@{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MIN@{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_GAIN\_FACTOR\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ab369c8bd560e41f01010d2901feabce4} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GAIN\+\_\+\+FACTOR\+\_\+\+MIN~(1)}
+
+
+
+Definition at line \textbf{ 119} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MAX@{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MAX@{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aaf01e8c4d5258ab61c328107b58ba6d3} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES\+\_\+\+MAX~(3000)}
+
+
+
+Definition at line \textbf{ 116} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MIN@{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MIN@{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_GATING\_MAX\_DURATION\_MINUTES\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a3115fe11dd62538441f2e252379ca5f9} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+GATING\+\_\+\+MAX\+\_\+\+DURATION\+\_\+\+MINUTES\+\_\+\+MIN~(0)}
+
+
+
+Definition at line \textbf{ 115} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MAX@{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MAX@{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ac3b6d740df353191e3af30ba760da397} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+MAX~(250)}
+
+
+
+Definition at line \textbf{ 110} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MIN@{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MIN@{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_INDEX\_OFFSET\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a1a37b38d4622f634fff6eb2652ef23b9} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+MIN~(1)}
+
+
+
+Definition at line \textbf{ 109} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MAX@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MAX@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a421a90ddfbcf61a595e1d78d15674d26} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+GAIN\+\_\+\+HOURS\+\_\+\+MAX~(1000)}
+
+
+
+Definition at line \textbf{ 114} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MIN@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MIN@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_GAIN\_HOURS\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ada1c26924e93c05330a364bd8dd0b00f} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+GAIN\+\_\+\+HOURS\+\_\+\+MIN~(1)}
+
+
+
+Definition at line \textbf{ 113} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MAX@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MAX@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a0109cf4f6c274b37d5d2de46fc291583} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+OFFSET\+\_\+\+HOURS\+\_\+\+MAX~(1000)}
+
+
+
+Definition at line \textbf{ 112} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MIN@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MIN@{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_LEARNING\_TIME\_OFFSET\_HOURS\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ab4f6fd73c153344712f485c569df35a3} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+LEARNING\+\_\+\+TIME\+\_\+\+OFFSET\+\_\+\+HOURS\+\_\+\+MIN~(1)}
+
+
+
+Definition at line \textbf{ 111} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MAX@{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MAX}}
+\index{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MAX@{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MAX}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MAX}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a0d9591d379984fff1e3040933d49a2e2} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+STD\+\_\+\+INITIAL\+\_\+\+MAX~(5000)}
+
+
+
+Definition at line \textbf{ 118} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MIN@{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MIN}}
+\index{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MIN@{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MIN}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_TUNING\_STD\_INITIAL\_MIN}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a0128cd57b0e1949c68b5d2754b5f9062} 
+\#define Gas\+Index\+Algorithm\+\_\+\+TUNING\+\_\+\+STD\+\_\+\+INITIAL\+\_\+\+MIN~(10)}
+
+
+
+Definition at line \textbf{ 117} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT@{GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT}}
+\index{GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT@{GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_VOC\_INDEX\_OFFSET\_DEFAULT}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a298c01bf061e3a0de6bb1c3210070ceb} 
+\#define Gas\+Index\+Algorithm\+\_\+\+VOC\+\_\+\+INDEX\+\_\+\+OFFSET\+\_\+\+DEFAULT~(100.)}
+
+
+
+Definition at line \textbf{ 101} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM@{GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM}}
+\index{GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM@{GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_VOC\_SRAW\_MINIMUM}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a8a8c79da034acb1c615b11bc1648fa6a} 
+\#define Gas\+Index\+Algorithm\+\_\+\+VOC\+\_\+\+SRAW\+\_\+\+MINIMUM~(20000)}
+
+
+
+Definition at line \textbf{ 106} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!LIBRARY\_VERSION\_NAME@{LIBRARY\_VERSION\_NAME}}
+\index{LIBRARY\_VERSION\_NAME@{LIBRARY\_VERSION\_NAME}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{LIBRARY\_VERSION\_NAME}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_ab2ff8fc34fb9262af92d0524fc6ae2a5} 
+\#define LIBRARY\+\_\+\+VERSION\+\_\+\+NAME~"{}3.\+2.\+0"{}}
+
+
+
+Definition at line \textbf{ 67} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!true@{true}}
+\index{true@{true}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{true}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a41f9c5fb8b08eb5dc3edce4dcb37fee7} 
+\#define true~1}
+
+
+
+Definition at line \textbf{ 57} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+
+
+\label{doc-typedef-members}
+\doxysubsection{Typedef Documentation}
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!fix16\_t@{fix16\_t}}
+\index{fix16\_t@{fix16\_t}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{fix16\_t}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_aca43c6dc0c416d1e27c18614b7ebcb73} 
+typedef int32\+\_\+t \textbf{ fix16\+\_\+t}}
+
+
+
+Definition at line \textbf{ 44} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+h}.
+
+
+
+\label{doc-func-members}
+\doxysubsection{Function Documentation}
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_get\_states@{GasIndexAlgorithm\_get\_states}}
+\index{GasIndexAlgorithm\_get\_states@{GasIndexAlgorithm\_get\_states}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_get\_states()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a1e163ca69501abb38c9176c1e933c9b1} 
+void Gas\+Index\+Algorithm\+\_\+get\+\_\+states (\begin{DoxyParamCaption}\item[{const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t $\ast$}]{state0}{, }\item[{int32\+\_\+t $\ast$}]{state1}{}\end{DoxyParamCaption})}
+
+Get current algorithm states. Retrieved values can be used in \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+states()}{p.}{sensirion__gas__index__algorithm_8h_a66ca339428d66175e53c6c0cb34a1ed0} to resume operation after a short interruption, skipping initial learning phase. NOTE\+: This feature can only be used for VOC algorithm type and after at least 3 hours of continuous operation. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em state0} & State0 to be stored \\
+\hline
+{\em state1} & State1 to be stored \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 380} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_get\_tuning\_parameters@{GasIndexAlgorithm\_get\_tuning\_parameters}}
+\index{GasIndexAlgorithm\_get\_tuning\_parameters@{GasIndexAlgorithm\_get\_tuning\_parameters}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_get\_tuning\_parameters()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a409f98c042ef6e200fb8c735e521664c} 
+void Gas\+Index\+Algorithm\+\_\+get\+\_\+tuning\+\_\+parameters (\begin{DoxyParamCaption}\item[{const \textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t $\ast$}]{index\+\_\+offset}{, }\item[{int32\+\_\+t $\ast$}]{learning\+\_\+time\+\_\+offset\+\_\+hours}{, }\item[{int32\+\_\+t $\ast$}]{learning\+\_\+time\+\_\+gain\+\_\+hours}{, }\item[{int32\+\_\+t $\ast$}]{gating\+\_\+max\+\_\+duration\+\_\+minutes}{, }\item[{int32\+\_\+t $\ast$}]{std\+\_\+initial}{, }\item[{int32\+\_\+t $\ast$}]{gain\+\_\+factor}{}\end{DoxyParamCaption})}
+
+Get current parameters to customize the gas index algorithm. Refer to \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters()}{p.}{sensirion__gas__index__algorithm_8h_a4bef9d1a53546711018b907cea278dac} for description of the parameters. 
+
+Definition at line \textbf{ 416} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_init@{GasIndexAlgorithm\_init}}
+\index{GasIndexAlgorithm\_init@{GasIndexAlgorithm\_init}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_init()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a39e8ff626b9de149244ea53418b97f47} 
+void Gas\+Index\+Algorithm\+\_\+init (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{algorithm\+\_\+type}{}\end{DoxyParamCaption})}
+
+Initialize the gas index algorithm parameters for the specified algorithm type and reset its internal states. Call this once at the beginning. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em algorithm\+\_\+type} & 0 (Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+VOC) for VOC or 1 (Gas\+Index\+Algorithm\+\_\+\+ALGORITHM\+\_\+\+TYPE\+\_\+\+NOX) for NOx \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 321} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_process@{GasIndexAlgorithm\_process}}
+\index{GasIndexAlgorithm\_process@{GasIndexAlgorithm\_process}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_process()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a4be92e48685ba183966d2612ce33528c} 
+void Gas\+Index\+Algorithm\+\_\+process (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{sraw}{, }\item[{int32\+\_\+t $\ast$}]{gas\+\_\+index}{}\end{DoxyParamCaption})}
+
+Calculate the gas index value from the raw sensor value.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em sraw} & Raw value from the SGP4x sensor \\
+\hline
+{\em gas\+\_\+index} & Calculated gas index value from the raw sensor value. Zero during initial blackout period and 1..500 afterwards \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 433} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_reset@{GasIndexAlgorithm\_reset}}
+\index{GasIndexAlgorithm\_reset@{GasIndexAlgorithm\_reset}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_reset()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a384a6c2521ab3ffea737ca6aca9ba95a} 
+void Gas\+Index\+Algorithm\+\_\+reset (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{}\end{DoxyParamCaption})}
+
+Reset the internal states of the gas index algorithm. Previously set tuning parameters are preserved. Call this when resuming operation after a measurement interruption. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 353} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_set\_states@{GasIndexAlgorithm\_set\_states}}
+\index{GasIndexAlgorithm\_set\_states@{GasIndexAlgorithm\_set\_states}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_set\_states()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a66ca339428d66175e53c6c0cb34a1ed0} 
+void Gas\+Index\+Algorithm\+\_\+set\+\_\+states (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{state0}{, }\item[{int32\+\_\+t}]{state1}{}\end{DoxyParamCaption})}
+
+Set previously retrieved algorithm states to resume operation after a short interruption, skipping initial learning phase. This feature should not be used after interruptions of more than 10 minutes. Call this once after \doxyref{Gas\+Index\+Algorithm\+\_\+init()}{p.}{sensirion__gas__index__algorithm_8h_a39e8ff626b9de149244ea53418b97f47} or \doxyref{Gas\+Index\+Algorithm\+\_\+reset()}{p.}{sensirion__gas__index__algorithm_8h_a384a6c2521ab3ffea737ca6aca9ba95a} and the optional \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters()}{p.}{sensirion__gas__index__algorithm_8h_a4bef9d1a53546711018b907cea278dac}, if desired. Otherwise, the algorithm will start with initial learning phase. NOTE\+: This feature can only be used for VOC algorithm type. 
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em state0} & State0 to be restored \\
+\hline
+{\em state1} & State1 to be restored \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 388} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+
+\index{sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}!GasIndexAlgorithm\_set\_tuning\_parameters@{GasIndexAlgorithm\_set\_tuning\_parameters}}
+\index{GasIndexAlgorithm\_set\_tuning\_parameters@{GasIndexAlgorithm\_set\_tuning\_parameters}!sensirion\_gas\_index\_algorithm.h@{sensirion\_gas\_index\_algorithm.h}}
+\doxysubsubsection{GasIndexAlgorithm\_set\_tuning\_parameters()}
+{\footnotesize\ttfamily \label{sensirion__gas__index__algorithm_8h_a4bef9d1a53546711018b907cea278dac} 
+void Gas\+Index\+Algorithm\+\_\+set\+\_\+tuning\+\_\+parameters (\begin{DoxyParamCaption}\item[{\textbf{ Gas\+Index\+Algorithm\+Params} $\ast$}]{params}{, }\item[{int32\+\_\+t}]{index\+\_\+offset}{, }\item[{int32\+\_\+t}]{learning\+\_\+time\+\_\+offset\+\_\+hours}{, }\item[{int32\+\_\+t}]{learning\+\_\+time\+\_\+gain\+\_\+hours}{, }\item[{int32\+\_\+t}]{gating\+\_\+max\+\_\+duration\+\_\+minutes}{, }\item[{int32\+\_\+t}]{std\+\_\+initial}{, }\item[{int32\+\_\+t}]{gain\+\_\+factor}{}\end{DoxyParamCaption})}
+
+Set parameters to customize the gas index algorithm. Call this once after \doxyref{Gas\+Index\+Algorithm\+\_\+init()}{p.}{sensirion__gas__index__algorithm_8h_a39e8ff626b9de149244ea53418b97f47} and before optional \doxyref{Gas\+Index\+Algorithm\+\_\+set\+\_\+states()}{p.}{sensirion__gas__index__algorithm_8h_a66ca339428d66175e53c6c0cb34a1ed0}, if desired. Otherwise, the default values will be used.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the \doxyref{Gas\+Index\+Algorithm\+Params}{p.}{struct_gas_index_algorithm_params} struct \\
+\hline
+{\em index\+\_\+offset} & Gas index representing typical (average) conditions. Range 1..250, default 100 for VOC and 1 for NOx \\
+\hline
+{\em learning\+\_\+time\+\_\+offset\+\_\+hours} & Time constant of long-\/term estimator for offset. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] \\
+\hline
+{\em learning\+\_\+time\+\_\+gain\+\_\+hours} & Time constant of long-\/term estimator for gain. Past events will be forgotten after about twice the learning time. Range 1..1000 [hours], default 12 [hours] NOTE\+: This value is not relevant for NOx algorithm type \\
+\hline
+{\em gating\+\_\+max\+\_\+duration\+\_\+minutes} & Maximum duration of gating (freeze of estimator during high gas index signal). 0 (no gating) or range 1..3000 [minutes], default 180 [minutes] for VOC and 720 [minutes] for NOx \\
+\hline
+{\em std\+\_\+initial} & Initial estimate for standard deviation. Lower value boosts events during initial learning period, but may result in larger device-\/to-\/device variations. Range 10..5000, default 50 NOTE\+: This value is not relevant for NOx algorithm type \\
+\hline
+{\em gain\+\_\+factor} & Factor used to scale applied gain value when calculating gas index. Range 1..1000, default 230 \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \textbf{ 400} of file \textbf{ sensirion\+\_\+gas\+\_\+index\+\_\+algorithm.\+c}.
+

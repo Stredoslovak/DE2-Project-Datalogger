@@ -1,0 +1,82 @@
+.TH "bme280_dev" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+bme280_dev \- bme280 device structure  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <bme280_defs\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "uint8_t \fBchip_id\fP"
+.br
+.ti -1c
+.RI "enum \fBbme280_intf\fP \fBintf\fP"
+.br
+.ti -1c
+.RI "void * \fBintf_ptr\fP"
+.br
+.ti -1c
+.RI "\fBBME280_INTF_RET_TYPE\fP \fBintf_rslt\fP"
+.br
+.ti -1c
+.RI "\fBbme280_read_fptr_t\fP \fBread\fP"
+.br
+.ti -1c
+.RI "\fBbme280_write_fptr_t\fP \fBwrite\fP"
+.br
+.ti -1c
+.RI "\fBbme280_delay_us_fptr_t\fP \fBdelay_us\fP"
+.br
+.ti -1c
+.RI "struct \fBbme280_calib_data\fP \fBcalib_data\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+bme280 device structure 
+.PP
+Definition at line \fB459\fP of file \fBbme280_defs\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "struct \fBbme280_calib_data\fP bme280_dev::calib_data"
+Trim data 
+.PP
+Definition at line \fB491\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "uint8_t bme280_dev::chip_id"
+Chip Id 
+.PP
+Definition at line \fB462\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "\fBbme280_delay_us_fptr_t\fP bme280_dev::delay_us"
+Delay function pointer 
+.PP
+Definition at line \fB488\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "enum \fBbme280_intf\fP bme280_dev::intf"
+Interface Selection For SPI, intf = BME280_SPI_INTF For I2C, intf = BME280_I2C_INTF 
+.PP
+Definition at line \fB468\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "void* bme280_dev::intf_ptr"
+The interface pointer is used to enable the user to link their interface descriptors for reference during the implementation of the read and write interfaces to the hardware\&. 
+.PP
+Definition at line \fB476\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "\fBBME280_INTF_RET_TYPE\fP bme280_dev::intf_rslt"
+Variable to store result of read/write function 
+.PP
+Definition at line \fB479\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "\fBbme280_read_fptr_t\fP bme280_dev::read"
+Read function pointer 
+.PP
+Definition at line \fB482\fP of file \fBbme280_defs\&.h\fP\&.
+.SS "\fBbme280_write_fptr_t\fP bme280_dev::write"
+Write function pointer 
+.PP
+Definition at line \fB485\fP of file \fBbme280_defs\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

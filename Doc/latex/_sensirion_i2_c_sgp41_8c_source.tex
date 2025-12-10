@@ -1,0 +1,190 @@
+\doxysection{Sensirion\+I2\+CSgp41.\+c}
+\label{_sensirion_i2_c_sgp41_8c_source}\index{lib/sgp41/SensirionI2CSgp41.c@{lib/sgp41/SensirionI2CSgp41.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ THIS\ FILE\ IS\ AUTOMATICALLY\ GENERATED}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *\ I2C-\/Generator:\ 0.3.0}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Yaml\ Version:\ 0.1.0}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Template\ Version:\ 0.7.0-\/62-\/g3d691f9}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ *\ Copyright\ (c)\ 2021,\ Sensirion\ AG}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ *\ All\ rights\ reserved.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ *\ Redistribution\ and\ use\ in\ source\ and\ binary\ forms,\ with\ or\ without}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ *\ modification,\ are\ permitted\ provided\ that\ the\ following\ conditions\ are\ met:}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ *\ *\ Redistributions\ of\ source\ code\ must\ retain\ the\ above\ copyright\ notice,\ this}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ *\ \ \ list\ of\ conditions\ and\ the\ following\ disclaimer.}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ *\ *\ Redistributions\ in\ binary\ form\ must\ reproduce\ the\ above\ copyright\ notice,}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ *\ \ \ this\ list\ of\ conditions\ and\ the\ following\ disclaimer\ in\ the\ documentation}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ *\ \ \ and/or\ other\ materials\ provided\ with\ the\ distribution.}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00022\ \textcolor{comment}{\ *\ *\ Neither\ the\ name\ of\ Sensirion\ AG\ nor\ the\ names\ of\ its}}
+\DoxyCodeLine{00023\ \textcolor{comment}{\ *\ \ \ contributors\ may\ be\ used\ to\ endorse\ or\ promote\ products\ derived\ from}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ \ \ this\ software\ without\ specific\ prior\ written\ permission.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00026\ \textcolor{comment}{\ *\ THIS\ SOFTWARE\ IS\ PROVIDED\ BY\ THE\ COPYRIGHT\ HOLDERS\ AND\ CONTRIBUTORS\ "{}AS\ IS"{}}}
+\DoxyCodeLine{00027\ \textcolor{comment}{\ *\ AND\ ANY\ EXPRESS\ OR\ IMPLIED\ WARRANTIES,\ INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ THE}}
+\DoxyCodeLine{00028\ \textcolor{comment}{\ *\ IMPLIED\ WARRANTIES\ OF\ MERCHANTABILITY\ AND\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE}}
+\DoxyCodeLine{00029\ \textcolor{comment}{\ *\ ARE\ DISCLAIMED.\ IN\ NO\ EVENT\ SHALL\ THE\ COPYRIGHT\ HOLDER\ OR\ CONTRIBUTORS\ BE}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ *\ LIABLE\ FOR\ ANY\ DIRECT,\ INDIRECT,\ INCIDENTAL,\ SPECIAL,\ EXEMPLARY,\ OR}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ *\ CONSEQUENTIAL\ DAMAGES\ (INCLUDING,\ BUT\ NOT\ LIMITED\ TO,\ PROCUREMENT\ OF}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ *\ SUBSTITUTE\ GOODS\ OR\ SERVICES;\ LOSS\ OF\ USE,\ DATA,\ OR\ PROFITS;\ OR\ BUSINESS}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ INTERRUPTION)\ HOWEVER\ CAUSED\ AND\ ON\ ANY\ THEORY\ OF\ LIABILITY,\ WHETHER\ IN}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ *\ CONTRACT,\ STRICT\ LIABILITY,\ OR\ TORT\ (INCLUDING\ NEGLIGENCE\ OR\ OTHERWISE)}}
+\DoxyCodeLine{00035\ \textcolor{comment}{\ *\ ARISING\ IN\ ANY\ WAY\ OUT\ OF\ THE\ USE\ OF\ THIS\ SOFTWARE,\ EVEN\ IF\ ADVISED\ OF\ THE}}
+\DoxyCodeLine{00036\ \textcolor{comment}{\ *\ POSSIBILITY\ OF\ SUCH\ DAMAGE.}}
+\DoxyCodeLine{00037\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ Minimal\ SGP41\ implementation\ using\ \`{}twi`\ library.}}
+\DoxyCodeLine{00040\ \textcolor{comment}{\ *\ This\ implements\ basic\ commands\ used\ by\ the\ main\ program\ and}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ *\ performs\ CRC\ checks\ for\ received\ data.\ It\ avoids\ Arduino/Wire.}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#include\ "{}SensirionI2CSgp41.h"{}}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#include\ <stdint.h>}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ <stddef.h>}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#include\ <util/delay.h>}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#include\ "{}twi.h"{}}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\#define\ SGP41\_I2C\_ADDRESS\ 0x59}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{comment}{//\ CRC8\ (Sensirion)\ polynomial\ 0x31\ init\ 0xFF}}
+\DoxyCodeLine{00053\ \textcolor{keyword}{static}\ uint8\_t\ sensirion\_crc(\textcolor{keyword}{const}\ uint8\_t\ *data,\ \textcolor{keywordtype}{size\_t}\ count)\ \{}
+\DoxyCodeLine{00054\ \ \ \ \ uint8\_t\ crc\ =\ 0xFF;}
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ count;\ ++i)\ \{}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ crc\ \string^=\ data[i];}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (uint8\_t\ bit\ =\ 0;\ bit\ <\ 8;\ ++bit)\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (crc\ \&\ 0x80)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crc\ =\ (uint8\_t)((crc\ <<\ 1)\ \string^\ 0x31);}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ crc\ <<=\ 1;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{return}\ crc;}
+\DoxyCodeLine{00065\ \}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{//\ write\ command\ (16-\/bit)\ and\ optional\ data\ words\ (each\ u16)\ with\ CRC\ per\ word}}
+\DoxyCodeLine{00068\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ write\_command\_with\_words(uint16\_t\ command,\ \textcolor{keyword}{const}\ uint16\_t\ *words,}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ words\_count)\ \{}
+\DoxyCodeLine{00070\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((SGP41\_I2C\_ADDRESS\ <<\ 1)\ |\ TWI\_WRITE))\ \{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;\ \textcolor{comment}{//\ address\ NACK}}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{comment}{/*\ command\ high,\ low\ */}}
+\DoxyCodeLine{00077\ \ \ \ \ uint8\_t\ cmd\_hi\ =\ (uint8\_t)((command\ >>\ 8)\ \&\ 0xFF);}
+\DoxyCodeLine{00078\ \ \ \ \ uint8\_t\ cmd\_lo\ =\ (uint8\_t)(command\ \&\ 0xFF);}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(cmd\_hi))\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ -\/2;\ \}}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(cmd\_lo))\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ -\/3;\ \}}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{comment}{//\ send\ data\ words\ with\ CRC\ (each\ word\ =\ 2\ bytes\ +\ 1\ crc)}}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ words\_count;\ ++i)\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ uint8\_t\ b1\ =\ (uint8\_t)((words[i]\ >>\ 8)\ \&\ 0xFF);}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ uint8\_t\ b2\ =\ (uint8\_t)(words[i]\ \&\ 0xFF);}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(b1))\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ -\/4;\ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(b2))\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ -\/5;\ \}}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ uint8\_t\ crc\ =\ sensirion\_crc((\textcolor{keyword}{const}\ uint8\_t[])\{b1,\ b2\},\ 2);}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write(crc))\ \{\ twi\_stop();\ \textcolor{keywordflow}{return}\ -\/6;\ \}}
+\DoxyCodeLine{00090\ \ \ \ \ \}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00094\ \}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{comment}{//\ read\ num\_bytes\ from\ device\ into\ buf;\ returns\ 0\ on\ success}}
+\DoxyCodeLine{00097\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ read\_bytes(uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ num\_bytes)\ \{}
+\DoxyCodeLine{00098\ \ \ \ \ twi\_start();}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_write((SGP41\_I2C\_ADDRESS\ <<\ 1)\ |\ TWI\_READ))\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ num\_bytes;\ ++i)\ \{}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ uint8\_t\ ack\ =\ (i\ +\ 1\ <\ num\_bytes)\ ?\ TWI\_ACK\ :\ TWI\_NACK;}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ buf[i]\ =\ twi\_read(ack);}
+\DoxyCodeLine{00106\ \ \ \ \ \}}
+\DoxyCodeLine{00107\ \ \ \ \ twi\_stop();}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00109\ \}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ \textcolor{comment}{//\ Helper\ to\ check\ CRCs\ in\ a\ buffer\ that\ contains\ N\ groups\ of\ [MSB,LSB,CRC]}}
+\DoxyCodeLine{00112\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ check\_and\_extract\_words(\textcolor{keyword}{const}\ uint8\_t\ *buf,\ \textcolor{keywordtype}{size\_t}\ groups,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ *out\_words)\ \{}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{size\_t}\ i\ =\ 0;\ i\ <\ groups;\ ++i)\ \{}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ uint8\_t\ b1\ =\ buf[i\ *\ 3\ +\ 0];}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ uint8\_t\ b2\ =\ buf[i\ *\ 3\ +\ 1];}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ uint8\_t\ crc\ =\ buf[i\ *\ 3\ +\ 2];}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ uint8\_t\ expected\ =\ sensirion\_crc((\textcolor{keyword}{const}\ uint8\_t[])\{b1,\ b2\},\ 2);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (crc\ !=\ expected)\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/2;\ \textcolor{comment}{//\ CRC\ error}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ out\_words[i]\ =\ (uint16\_t)((b1\ <<\ 8)\ |\ b2);}
+\DoxyCodeLine{00123\ \ \ \ \ \}}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00125\ \}}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ uint16\_t\ sgp41\_executeConditioning(uint16\_t\ defaultRh,\ uint16\_t\ defaultT,}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t*\ srawVoc)\ \{}
+\DoxyCodeLine{00129\ \ \ \ \ uint16\_t\ cmd\ =\ 0x2612;}
+\DoxyCodeLine{00130\ \ \ \ \ uint16\_t\ args[2]\ =\ \{\ defaultRh,\ defaultT\ \};}
+\DoxyCodeLine{00131\ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_command\_with\_words(cmd,\ args,\ 2)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00132\ \ \ \ \ \_delay\_ms(50);}
+\DoxyCodeLine{00133\ \ \ \ \ uint8\_t\ buf[3];}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{if}\ (read\_bytes(buf,\ 3)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00135\ \ \ \ \ uint16\_t\ out;}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_and\_extract\_words(buf,\ 1,\ \&out)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00137\ \ \ \ \ *srawVoc\ =\ out;}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00139\ \}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ uint16\_t\ sgp41\_measureRawSignals(uint16\_t\ relativeHumidity,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t\ temperature,\ uint16\_t*\ srawVoc,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint16\_t*\ srawNox)\ \{}
+\DoxyCodeLine{00144\ \ \ \ \ uint16\_t\ cmd\ =\ 0x2619;}
+\DoxyCodeLine{00145\ \ \ \ \ uint16\_t\ args[2]\ =\ \{\ relativeHumidity,\ temperature\ \};}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_command\_with\_words(cmd,\ args,\ 2)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00147\ \ \ \ \ \_delay\_ms(50);}
+\DoxyCodeLine{00148\ \ \ \ \ uint8\_t\ buf[6];}
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{keywordflow}{if}\ (read\_bytes(buf,\ 6)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00150\ \ \ \ \ uint16\_t\ out[2];}
+\DoxyCodeLine{00151\ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_and\_extract\_words(buf,\ 2,\ out)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00152\ \ \ \ \ *srawVoc\ =\ out[0];}
+\DoxyCodeLine{00153\ \ \ \ \ *srawNox\ =\ out[1];}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00155\ \}}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ uint16\_t\ sgp41\_executeSelfTest(uint16\_t*\ testResult)\ \{}
+\DoxyCodeLine{00158\ \ \ \ \ uint16\_t\ cmd\ =\ 0x280E;}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_command\_with\_words(cmd,\ NULL,\ 0)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00160\ \ \ \ \ \_delay\_ms(320);}
+\DoxyCodeLine{00161\ \ \ \ \ uint8\_t\ buf[3];}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{if}\ (read\_bytes(buf,\ 3)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00163\ \ \ \ \ uint16\_t\ out;}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_and\_extract\_words(buf,\ 1,\ \&out)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00165\ \ \ \ \ *testResult\ =\ out;}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00167\ \}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00169\ uint16\_t\ sgp41\_turnHeaterOff(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{00170\ \ \ \ \ uint16\_t\ cmd\ =\ 0x3615;}
+\DoxyCodeLine{00171\ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_command\_with\_words(cmd,\ NULL,\ 0)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00172\ \ \ \ \ \_delay\_ms(1);}
+\DoxyCodeLine{00173\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00174\ \}}
+\DoxyCodeLine{00175\ }
+\DoxyCodeLine{00176\ uint16\_t\ sgp41\_getSerialNumber(uint16\_t\ serialNumber[])\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ uint16\_t\ cmd\ =\ 0x3682;}
+\DoxyCodeLine{00178\ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_command\_with\_words(cmd,\ NULL,\ 0)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{00179\ \ \ \ \ \_delay\_ms(1);}
+\DoxyCodeLine{00180\ \ \ \ \ uint8\_t\ buf[9];}
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{if}\ (read\_bytes(buf,\ 9)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 2;}
+\DoxyCodeLine{00182\ \ \ \ \ \textcolor{keywordflow}{if}\ (check\_and\_extract\_words(buf,\ 3,\ serialNumber)\ !=\ 0)\ \textcolor{keywordflow}{return}\ 3;}
+\DoxyCodeLine{00183\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00184\ \}}
+
+\end{DoxyCode}

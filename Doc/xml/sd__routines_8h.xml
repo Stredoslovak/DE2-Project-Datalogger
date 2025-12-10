@@ -1,0 +1,564 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="sd__routines_8h" kind="file" language="C++">
+    <compoundname>sd_routines.h</compoundname>
+    <includedby refid="_f_a_t32_8c" local="yes">lib/FAT32/FAT32.c</includedby>
+    <includedby refid="_s_d__routines_8c" local="yes">lib/sd/SD_routines.c</includedby>
+    <includedby refid="main_8c" local="yes">src/main.c</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>lib/FAT32/FAT32.c</label>
+        <link refid="_f_a_t32_8c"/>
+      </node>
+      <node id="3">
+        <label>lib/sd/SD_routines.c</label>
+        <link refid="_s_d__routines_8c"/>
+      </node>
+      <node id="1">
+        <label>lib/sd/sd_routines.h</label>
+        <link refid="sd__routines_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>src/main.c</label>
+        <link refid="main_8c"/>
+      </node>
+    </invincdepgraph>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="sd__routines_8h_1a4c9caedf210e9e4e61475e4e86293123" prot="public" static="no">
+        <name>FAT_TESTING_ONLY</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="20" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ab42aba8ac59f4a88718f351bf6e30874" prot="public" static="no">
+        <name>SD_CS_ASSERT</name>
+        <initializer>PORTD &amp;= ~0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="30" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ac13a5b7ed7d2ee96da07f2b2ae9249fe" prot="public" static="no">
+        <name>SD_CS_DEASSERT</name>
+        <initializer>PORTD |= 0x10</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="31" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a939c1c73db7a96767f5d06dfe7591b01" prot="public" static="no">
+        <name>GO_IDLE_STATE</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="33" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a2397afdad46162ab52c4008d8f5dab23" prot="public" static="no">
+        <name>SEND_OP_COND</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="34" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a01bcf82717d75d8ccf0a8664d431738d" prot="public" static="no">
+        <name>SEND_IF_COND</name>
+        <initializer>8</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="35" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a85a884eec438d450dc1c05e8d9d29044" prot="public" static="no">
+        <name>SEND_CSD</name>
+        <initializer>9</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="36" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a0f220568605a0eaa9a5cbb3d3cc82408" prot="public" static="no">
+        <name>STOP_TRANSMISSION</name>
+        <initializer>12</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="37" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a7f98c79059221d788e2219865d770648" prot="public" static="no">
+        <name>SEND_STATUS</name>
+        <initializer>13</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="38" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a2f0756e65bb52b5d7e7934ce1d5ec0da" prot="public" static="no">
+        <name>SET_BLOCK_LEN</name>
+        <initializer>16</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="39" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a078b4c06f187324dd4e14cf59a6c87c2" prot="public" static="no">
+        <name>READ_SINGLE_BLOCK</name>
+        <initializer>17</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="40" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ac1b68c53e7902f7197cd9f52b163bda1" prot="public" static="no">
+        <name>READ_MULTIPLE_BLOCKS</name>
+        <initializer>18</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="41" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="41" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ae24d09e65670aa853aa83889b55a92a0" prot="public" static="no">
+        <name>WRITE_SINGLE_BLOCK</name>
+        <initializer>24</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="42" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a8cf5245e676d5405878f2af647491553" prot="public" static="no">
+        <name>WRITE_MULTIPLE_BLOCKS</name>
+        <initializer>25</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="43" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a0fe84e05b768d0f4b0f98a7f48a19f7f" prot="public" static="no">
+        <name>ERASE_BLOCK_START_ADDR</name>
+        <initializer>32</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="44" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="44" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ade170f78d275c9bfd354e726e12435e2" prot="public" static="no">
+        <name>ERASE_BLOCK_END_ADDR</name>
+        <initializer>33</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="45" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ae9177be3107326be877417b3b02e3a83" prot="public" static="no">
+        <name>ERASE_SELECTED_BLOCKS</name>
+        <initializer>38</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="46" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a38e73c548131f1fd3f8acdad82fd44fb" prot="public" static="no">
+        <name>SD_SEND_OP_COND</name>
+        <initializer>41</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="47" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="47" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1acdb057504ceebb40cb4a5df3197a8fb5" prot="public" static="no">
+        <name>APP_CMD</name>
+        <initializer>55</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="48" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a9903337fbf33e03e1a9182fbca009313" prot="public" static="no">
+        <name>READ_OCR</name>
+        <initializer>58</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="49" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a5104895f45f0891d5bedef91b7dd4a92" prot="public" static="no">
+        <name>CRC_ON_OFF</name>
+        <initializer>59</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="50" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="50" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1ad76d1750a6cdeebd506bfcd6752554d2" prot="public" static="no">
+        <name>ON</name>
+        <initializer>1</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="53" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="sd__routines_8h_1a29e413f6725b2ba32d165ffaa35b01e5" prot="public" static="no">
+        <name>OFF</name>
+        <initializer>0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="54" column="9" bodyfile="lib/sd/sd_routines.h" bodystart="54" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" prot="public" static="no" mutable="no">
+        <type>volatile unsigned long</type>
+        <definition>volatile unsigned long startBlock</definition>
+        <argsstring></argsstring>
+        <name>startBlock</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="56" column="24" bodyfile="lib/sd/sd_routines.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sd__routines_8h_1a18e6ba0217759ba11da835a1aa52edbf" prot="public" static="no" mutable="no">
+        <type>volatile unsigned long</type>
+        <definition>volatile unsigned long totalBlocks</definition>
+        <argsstring></argsstring>
+        <name>totalBlocks</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="56" column="35" bodyfile="lib/sd/sd_routines.h" bodystart="56" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sd__routines_8h_1a7fa85cbe61c04a9f71c57aaf1c04cfcc" prot="public" static="no" mutable="no">
+        <type>volatile unsigned char</type>
+        <definition>volatile unsigned char SDHC_flag</definition>
+        <argsstring></argsstring>
+        <name>SDHC_flag</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="57" column="24" bodyfile="lib/sd/sd_routines.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sd__routines_8h_1add9f7153567b2f38191b157d2caf7b79" prot="public" static="no" mutable="no">
+        <type>volatile unsigned char</type>
+        <definition>volatile unsigned char cardType</definition>
+        <argsstring></argsstring>
+        <name>cardType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="57" column="34" bodyfile="lib/sd/sd_routines.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="sd__routines_8h_1adfca90f2667c4bd33f89652fc0a75146" prot="public" static="no" mutable="no">
+        <type>volatile unsigned char</type>
+        <definition>volatile unsigned char buffer[512]</definition>
+        <argsstring>[512]</argsstring>
+        <name>buffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="57" column="43" bodyfile="lib/sd/sd_routines.h" bodystart="57" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="sd__routines_8h_1a1b26e131140b8ab739faa4dd100d6cf2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_init</definition>
+        <argsstring>(void)</argsstring>
+        <name>SD_init</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="59" column="15" bodyfile="lib/sd/SD_routines.c" bodystart="32" bodyend="120" declfile="lib/sd/sd_routines.h" declline="59" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1a9faa6fa4ebcf98a07808f2d2c040dcfd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_sendCommand</definition>
+        <argsstring>(unsigned char cmd, unsigned long arg)</argsstring>
+        <name>SD_sendCommand</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>cmd</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="60" column="15" bodyfile="lib/sd/SD_routines.c" bodystart="128" bodyend="183" declfile="lib/sd/sd_routines.h" declline="60" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1a479d5a79e118601ffede156b20d87494" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_readSingleBlock</definition>
+        <argsstring>(unsigned long startBlock)</argsstring>
+        <name>SD_readSingleBlock</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startBlock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="61" column="15" bodyfile="lib/sd/SD_routines.c" bodystart="216" bodyend="243" declfile="lib/sd/sd_routines.h" declline="61" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1aa72e78c5d2b4664dfdbb339030a1798c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_writeSingleBlock</definition>
+        <argsstring>(unsigned long startBlock)</argsstring>
+        <name>SD_writeSingleBlock</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startBlock</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="62" column="15" bodyfile="lib/sd/SD_routines.c" bodystart="251" bodyend="290" declfile="lib/sd/sd_routines.h" declline="62" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1a53bffe1cf14bfa7bf68d9573e31a2970" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_readMultipleBlock</definition>
+        <argsstring>(unsigned long startBlock, unsigned long totalBlocks)</argsstring>
+        <name>SD_readMultipleBlock</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startBlock</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>totalBlocks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="63" column="15" declfile="lib/sd/sd_routines.h" declline="63" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1af2c67f72a35334e82eedebef71964d9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_writeMultipleBlock</definition>
+        <argsstring>(unsigned long startBlock, unsigned long totalBlocks)</argsstring>
+        <name>SD_writeMultipleBlock</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startBlock</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>totalBlocks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="64" column="15" declfile="lib/sd/sd_routines.h" declline="64" declcolumn="15"/>
+      </memberdef>
+      <memberdef kind="function" id="sd__routines_8h_1a42f0a626164a7e52e260d0cd735e5479" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned char</type>
+        <definition>unsigned char SD_erase</definition>
+        <argsstring>(unsigned long startBlock, unsigned long totalBlocks)</argsstring>
+        <name>SD_erase</name>
+        <param>
+          <type>unsigned long</type>
+          <declname>startBlock</declname>
+        </param>
+        <param>
+          <type>unsigned long</type>
+          <declname>totalBlocks</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/sd/sd_routines.h" line="65" column="15" bodyfile="lib/sd/SD_routines.c" bodystart="191" bodyend="208" declfile="lib/sd/sd_routines.h" declline="65" declcolumn="15"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="comment">//<sp/>******<sp/>FUNCTIONS<sp/>FOR<sp/>SD<sp/>RAW<sp/>DATA<sp/>TRANSFER<sp/>*******</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//Controller<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>ATmega32<sp/>(Clock:<sp/>8<sp/>Mhz-internal)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="comment">//Compiler<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>AVR-GCC<sp/>(winAVR<sp/>with<sp/>AVRStudio-4)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//Project<sp/>Version<sp/><sp/><sp/>:<sp/>DL_1.0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//Author<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>CC<sp/>Dharmani,<sp/>Chennai<sp/>(India)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>www.dharmanitech.com</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//Date<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>10<sp/>May<sp/>2011</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="comment">//**************************************************************</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="comment">//Link<sp/>to<sp/>the<sp/>Post:<sp/>http://www.dharmanitech.com/2009/01/sd-card-interfacing-with-atmega8-fat32.html</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#ifndef<sp/>_SD_ROUTINES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>_SD_ROUTINES_H_</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="comment">//Use<sp/>following<sp/>macro<sp/>if<sp/>you<sp/>don&apos;t<sp/>want<sp/>to<sp/>activate<sp/>the<sp/>multiple<sp/>block<sp/>access<sp/>functions</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">//those<sp/>functions<sp/>are<sp/>not<sp/>required<sp/>for<sp/>FAT32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="sd__routines_8h_1a4c9caedf210e9e4e61475e4e86293123" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>FAT_TESTING_ONLY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//use<sp/>following<sp/>macros<sp/>if<sp/>PB1<sp/>pin<sp/>is<sp/>used<sp/>for<sp/>Chip<sp/>Select<sp/>of<sp/>SD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>SD_CS_ASSERT<sp/><sp/><sp/><sp/><sp/>PORTB<sp/>&amp;=<sp/>~0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//#define<sp/>SD_CS_DEASSERT<sp/><sp/><sp/>PORTB<sp/>|=<sp/>0x02</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//use<sp/>following<sp/>macros<sp/>if<sp/>SS<sp/>(PB4)<sp/>pin<sp/>is<sp/>used<sp/>for<sp/>Chip<sp/>Select<sp/>of<sp/>SD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>SD_CS_ASSERT<sp/><sp/><sp/><sp/><sp/>PORTB<sp/>&amp;=<sp/>~0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/>#define<sp/>SD_CS_DEASSERT<sp/><sp/><sp/>PORTB<sp/>|=<sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//use<sp/>following<sp/>macros<sp/>if<sp/>SS<sp/>(PD4)<sp/>pin<sp/>is<sp/>used<sp/>for<sp/>Chip<sp/>Select<sp/>of<sp/>SD<sp/>(Arduino<sp/>Ethernet<sp/>Shield)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30" refid="sd__routines_8h_1ab42aba8ac59f4a88718f351bf6e30874" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD_CS_ASSERT<sp/><sp/><sp/><sp/>PORTD<sp/>&amp;=<sp/>~0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31" refid="sd__routines_8h_1ac13a5b7ed7d2ee96da07f2b2ae9249fe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD_CS_DEASSERT<sp/><sp/>PORTD<sp/>|=<sp/>0x10</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//SD<sp/>commands,<sp/>many<sp/>of<sp/>these<sp/>are<sp/>not<sp/>used<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33" refid="sd__routines_8h_1a939c1c73db7a96767f5d06dfe7591b01" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>GO_IDLE_STATE<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="sd__routines_8h_1a2397afdad46162ab52c4008d8f5dab23" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEND_OP_COND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="sd__routines_8h_1a01bcf82717d75d8ccf0a8664d431738d" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEND_IF_COND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36" refid="sd__routines_8h_1a85a884eec438d450dc1c05e8d9d29044" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEND_CSD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37" refid="sd__routines_8h_1a0f220568605a0eaa9a5cbb3d3cc82408" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>STOP_TRANSMISSION<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>12</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="sd__routines_8h_1a7f98c79059221d788e2219865d770648" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SEND_STATUS<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="sd__routines_8h_1a2f0756e65bb52b5d7e7934ce1d5ec0da" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SET_BLOCK_LEN<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>16</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40" refid="sd__routines_8h_1a078b4c06f187324dd4e14cf59a6c87c2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READ_SINGLE_BLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>17</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="sd__routines_8h_1ac1b68c53e7902f7197cd9f52b163bda1" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READ_MULTIPLE_BLOCKS<sp/><sp/><sp/><sp/><sp/>18</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42" refid="sd__routines_8h_1ae24d09e65670aa853aa83889b55a92a0" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WRITE_SINGLE_BLOCK<sp/><sp/><sp/><sp/><sp/><sp/><sp/>24</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="sd__routines_8h_1a8cf5245e676d5405878f2af647491553" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>WRITE_MULTIPLE_BLOCKS<sp/><sp/><sp/><sp/>25</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44" refid="sd__routines_8h_1a0fe84e05b768d0f4b0f98a7f48a19f7f" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ERASE_BLOCK_START_ADDR<sp/><sp/><sp/>32</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="sd__routines_8h_1ade170f78d275c9bfd354e726e12435e2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ERASE_BLOCK_END_ADDR<sp/><sp/><sp/><sp/><sp/>33</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46" refid="sd__routines_8h_1ae9177be3107326be877417b3b02e3a83" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ERASE_SELECTED_BLOCKS<sp/><sp/><sp/><sp/>38</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47" refid="sd__routines_8h_1a38e73c548131f1fd3f8acdad82fd44fb" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>SD_SEND_OP_COND<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>41<sp/><sp/><sp/></highlight><highlight class="comment">//ACMD</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="sd__routines_8h_1acdb057504ceebb40cb4a5df3197a8fb5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>APP_CMD<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>55</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="sd__routines_8h_1a9903337fbf33e03e1a9182fbca009313" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>READ_OCR<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>58</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50" refid="sd__routines_8h_1a5104895f45f0891d5bedef91b7dd4a92" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>CRC_ON_OFF<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>59</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="sd__routines_8h_1ad76d1750a6cdeebd506bfcd6752554d2" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>ON<sp/><sp/><sp/><sp/><sp/>1</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54" refid="sd__routines_8h_1a29e413f6725b2ba32d165ffaa35b01e5" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>OFF<sp/><sp/><sp/><sp/>0</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56" refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>,<sp/><ref refid="sd__routines_8h_1a18e6ba0217759ba11da835a1aa52edbf" kindref="member">totalBlocks</ref>;<sp/></highlight></codeline>
+<codeline lineno="57" refid="sd__routines_8h_1adfca90f2667c4bd33f89652fc0a75146" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="_s_d__routines_8c_1a7fa85cbe61c04a9f71c57aaf1c04cfcc" kindref="member">SDHC_flag</ref>,<sp/><ref refid="_s_d__routines_8c_1add9f7153567b2f38191b157d2caf7b79" kindref="member">cardType</ref>,<sp/><ref refid="_s_d__routines_8c_1adfca90f2667c4bd33f89652fc0a75146" kindref="member">buffer</ref>[512];</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a1b26e131140b8ab739faa4dd100d6cf2" kindref="member">SD_init</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a9faa6fa4ebcf98a07808f2d2c040dcfd" kindref="member">SD_sendCommand</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>cmd,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/>arg);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a479d5a79e118601ffede156b20d87494" kindref="member">SD_readSingleBlock</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>);</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aa72e78c5d2b4664dfdbb339030a1798c" kindref="member">SD_writeSingleBlock</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>);</highlight></codeline>
+<codeline lineno="63" refid="sd__routines_8h_1a53bffe1cf14bfa7bf68d9573e31a2970" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a53bffe1cf14bfa7bf68d9573e31a2970" kindref="member">SD_readMultipleBlock</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a18e6ba0217759ba11da835a1aa52edbf" kindref="member">totalBlocks</ref>);</highlight></codeline>
+<codeline lineno="64" refid="sd__routines_8h_1af2c67f72a35334e82eedebef71964d9a" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1af2c67f72a35334e82eedebef71964d9a" kindref="member">SD_writeMultipleBlock</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a18e6ba0217759ba11da835a1aa52edbf" kindref="member">totalBlocks</ref>);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a42f0a626164a7e52e260d0cd735e5479" kindref="member">SD_erase</ref><sp/>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1aef9ccbd37ff89101204c1ab239f94453" kindref="member">startBlock</ref>,<sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">long</highlight><highlight class="normal"><sp/><ref refid="sd__routines_8h_1a18e6ba0217759ba11da835a1aa52edbf" kindref="member">totalBlocks</ref>);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="preprocessor">#endif</highlight></codeline>
+    </programlisting>
+    <location file="lib/sd/sd_routines.h"/>
+  </compounddef>
+</doxygen>

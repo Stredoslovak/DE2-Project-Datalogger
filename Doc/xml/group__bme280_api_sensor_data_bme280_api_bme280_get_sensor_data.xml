@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__bme280_api_sensor_data_bme280_api_bme280_get_sensor_data" kind="page">
+    <compoundname>bme280_api_bme280_get_sensor_data</compoundname>
+    <title>bme280_get_sensor_data</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="normal">int8_t<sp/><ref refid="bme280_8c_1a6671fea2c1e01f40029a653b9ab4410d" kindref="member">bme280_get_sensor_data</ref>(uint8_t<sp/>sensor_comp,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__data" kindref="compound">bme280_data</ref><sp/>*comp_data,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev);</highlight></codeline>
+</programlisting></para>
+<para>This API reads the pressure, temperature and humidity data from the sensor, compensates the data and store it in the <ref refid="structbme280__data" kindref="compound">bme280_data</ref> structure instance passed by the user.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="in">sensor_comp</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Variable which selects which data to be read from the sensor.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<verbatim>* sensor_comp |   Macros
+* ------------|-------------------
+*     1       | BME280_PRESS
+*     2       | BME280_TEMP
+*     4       | BME280_HUM
+*     7       | BME280_ALL
+*</verbatim></para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername direction="out">comp_data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Structure instance of <ref refid="structbme280__data" kindref="compound">bme280_data</ref>. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername direction="in">dev</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>: Structure instance of <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref>.</para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Result of API execution status</para>
+</simplesect>
+<parameterlist kind="retval"><parameteritem>
+<parameternamelist>
+<parametername>0</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>-&gt; Success. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&gt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Warning. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>&lt;</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>0 -&gt; Fail. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+    </detaileddescription>
+    <location file="lib/bme280/bme280.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,457 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="bme_8c" kind="file" language="C++">
+    <compoundname>bme.c</compoundname>
+    <includes local="no">avr/io.h</includes>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">math.h</includes>
+    <includes local="no">util/delay.h</includes>
+    <includes refid="twi_8h" local="yes">twi.h</includes>
+    <includes refid="bme280_8h" local="yes">bme280.h</includes>
+    <incdepgraph>
+      <node id="7">
+        <label>bme280.h</label>
+        <link refid="bme280_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>bme280_defs.h</label>
+        <link refid="bme280__defs_8h"/>
+        <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>twi.h</label>
+        <link refid="twi_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>src/bme.c</label>
+        <link refid="bme_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>avr/io.h</label>
+      </node>
+      <node id="4">
+        <label>math.h</label>
+      </node>
+      <node id="10">
+        <label>stddef.h</label>
+      </node>
+      <node id="9">
+        <label>stdint.h</label>
+      </node>
+      <node id="3">
+        <label>stdio.h</label>
+      </node>
+      <node id="5">
+        <label>util/delay.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="bme_8c_1ad8a22fdb77c2fe52401873a9e9af1839" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int32_t</type>
+        <definition>static int32_t BME280_compensate_T_int32</definition>
+        <argsstring>(int32_t adc_T, struct bme280_calib_data *calib)</argsstring>
+        <name>BME280_compensate_T_int32</name>
+        <param>
+          <type>int32_t</type>
+          <declname>adc_T</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref> *</type>
+          <declname>calib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="24" column="16" bodyfile="src/bme.c" bodystart="24" bodyend="33"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1a37ff06fa3f16380ef76e988caa3b1143" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t BME280_compensate_P_int64</definition>
+        <argsstring>(int32_t adc_P, struct bme280_calib_data *calib)</argsstring>
+        <name>BME280_compensate_P_int64</name>
+        <param>
+          <type>int32_t</type>
+          <declname>adc_P</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref> *</type>
+          <declname>calib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="35" column="17" bodyfile="src/bme.c" bodystart="35" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1a3d57442c8ddced11cc8dc11235c1fbc3" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>uint32_t</type>
+        <definition>static uint32_t bme280_compensate_H_int32</definition>
+        <argsstring>(int32_t adc_H, struct bme280_calib_data *calib)</argsstring>
+        <name>bme280_compensate_H_int32</name>
+        <param>
+          <type>int32_t</type>
+          <declname>adc_H</declname>
+        </param>
+        <param>
+          <type>struct <ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref> *</type>
+          <declname>calib</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="56" column="17" bodyfile="src/bme.c" bodystart="56" bodyend="66"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1aacc401614a61c38576b09869c8df70d8" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref></type>
+        <definition>static BME280_INTF_RET_TYPE user_i2c_read</definition>
+        <argsstring>(uint8_t reg_addr, uint8_t *reg_data, uint32_t len, void *intf_ptr)</argsstring>
+        <name>user_i2c_read</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg_addr</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>reg_data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>intf_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="71" column="29" bodyfile="src/bme.c" bodystart="71" bodyend="79"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1a229376e6cd108d97d844d766f92e1e49" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref></type>
+        <definition>static BME280_INTF_RET_TYPE user_i2c_write</definition>
+        <argsstring>(uint8_t reg_addr, const uint8_t *reg_data, uint32_t len, void *intf_ptr)</argsstring>
+        <name>user_i2c_write</name>
+        <param>
+          <type>uint8_t</type>
+          <declname>reg_addr</declname>
+        </param>
+        <param>
+          <type>const uint8_t *</type>
+          <declname>reg_data</declname>
+        </param>
+        <param>
+          <type>uint32_t</type>
+          <declname>len</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>intf_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="81" column="29" bodyfile="src/bme.c" bodystart="81" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1a598d539603e47bbcc87c48f81adee430" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>static void user_delay_us</definition>
+        <argsstring>(uint32_t period, void *intf_ptr)</argsstring>
+        <name>user_delay_us</name>
+        <param>
+          <type>uint32_t</type>
+          <declname>period</declname>
+        </param>
+        <param>
+          <type>void *</type>
+          <declname>intf_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="95" column="13" bodyfile="src/bme.c" bodystart="95" bodyend="105"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1ae711b62c391a71e52024c272611d64ee" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int bme_init_simple</definition>
+        <argsstring>(struct bme280_dev *dev, uint8_t *dev_addr_ptr)</argsstring>
+        <name>bme_init_simple</name>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>uint8_t *</type>
+          <declname>dev_addr_ptr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="111" column="5" bodyfile="src/bme.c" bodystart="111" bodyend="139"/>
+      </memberdef>
+      <memberdef kind="function" id="bme_8c_1ae379d395f2a1351de8c7c1ddb28fea47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int bme_read_once</definition>
+        <argsstring>(struct bme280_dev *dev, int32_t *t100, uint32_t *press_pa, uint32_t *hum_x1024)</argsstring>
+        <name>bme_read_once</name>
+        <param>
+          <type>struct <ref refid="structbme280__dev" kindref="compound">bme280_dev</ref> *</type>
+          <declname>dev</declname>
+        </param>
+        <param>
+          <type>int32_t *</type>
+          <declname>t100</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>press_pa</declname>
+        </param>
+        <param>
+          <type>uint32_t *</type>
+          <declname>hum_x1024</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="src/bme.c" line="147" column="5" bodyfile="src/bme.c" bodystart="147" bodyend="188"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;avr/io.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;math.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;util/delay.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="twi_8h" kindref="compound">twi.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="bme280_8h" kindref="compound">bme280.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Expose<sp/>simple<sp/>init<sp/>+<sp/>single-measure<sp/>API<sp/>for<sp/>integration<sp/>into<sp/>a<sp/>combined<sp/>main</highlight></codeline>
+<codeline lineno="9"><highlight class="comment"><sp/>*<sp/>The<sp/>file<sp/>provides:</highlight></codeline>
+<codeline lineno="10"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>int<sp/>bme_init_simple(struct<sp/>bme280_dev<sp/>*dev,<sp/>uint8_t<sp/>dev_addr)</highlight></codeline>
+<codeline lineno="11"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>int<sp/>bme_read_once(struct<sp/>bme280_dev<sp/>*dev,<sp/>int32_t<sp/>*t100,<sp/>uint32_t<sp/>*press_pa,<sp/>uint32_t<sp/>*hum_x1024)</highlight></codeline>
+<codeline lineno="12"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="13"><highlight class="comment"><sp/>*<sp/>Note:<sp/>this<sp/>module<sp/>uses<sp/>the<sp/>project&apos;s<sp/>TWI<sp/>helper<sp/>functions<sp/>(twi.h)<sp/>for<sp/>I2C</highlight></codeline>
+<codeline lineno="14"><highlight class="comment"><sp/>*<sp/>callbacks.<sp/>The<sp/>caller<sp/>must<sp/>call<sp/>`twi_init()`<sp/>before<sp/>`bme_init_simple()`<sp/>and</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>is<sp/>responsible<sp/>for<sp/>UART<sp/>output.</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Manufacturer<sp/>integer<sp/>compensation<sp/>functions<sp/>(from<sp/>Bosch<sp/>Sensortec).<sp/>Returns:</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Temperature:<sp/>int32<sp/>in<sp/>0.01<sp/>degC</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Pressure:<sp/>uint32<sp/>in<sp/>Q24.8<sp/>(Pa<sp/>*<sp/>256)</highlight></codeline>
+<codeline lineno="21"><highlight class="comment"><sp/>*<sp/><sp/>-<sp/>Humidity:<sp/>uint32<sp/>in<sp/>Q22.10<sp/>(percent<sp/>*<sp/>1024)</highlight></codeline>
+<codeline lineno="22"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>int32_t<sp/>BME280_compensate_T_int32(int32_t<sp/>adc_T,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/>*calib)</highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>var1,<sp/>var2,<sp/>T;</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>var1<sp/>=<sp/>((((adc_T<sp/>&gt;&gt;<sp/>3)<sp/>-<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" kindref="member">dig_t1</ref><sp/>&lt;&lt;<sp/>1)))<sp/>*<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1a26b994b7fd88b03183638f2f497c845f" kindref="member">dig_t2</ref>))<sp/>&gt;&gt;<sp/>11;</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>var2<sp/>=<sp/>(((((adc_T<sp/>&gt;&gt;<sp/>4)<sp/>-<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" kindref="member">dig_t1</ref>))<sp/>*<sp/>((adc_T<sp/>&gt;&gt;<sp/>4)<sp/>-<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ac694603b7022deb3a4cb986df791eb2d" kindref="member">dig_t1</ref>)))<sp/>&gt;&gt;<sp/>12)<sp/>*</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1a77666fb471ec4b45bc42aba33363f2b4" kindref="member">dig_t3</ref>))<sp/>&gt;&gt;<sp/>14;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>calib-&gt;<ref refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" kindref="member">t_fine</ref><sp/>=<sp/>var1<sp/>+<sp/>var2;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>T<sp/>=<sp/>(calib-&gt;<ref refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" kindref="member">t_fine</ref><sp/>*<sp/>5<sp/>+<sp/>128)<sp/>&gt;&gt;<sp/>8;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>T;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint32_t<sp/>BME280_compensate_P_int64(int32_t<sp/>adc_P,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/>*calib)</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>int64_t<sp/>var1,<sp/>var2,<sp/>p;</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>var1<sp/>=<sp/>((int64_t)calib-&gt;<ref refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" kindref="member">t_fine</ref>)<sp/>-<sp/>128000;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/>var2<sp/>=<sp/>var1<sp/>*<sp/>var1<sp/>*<sp/>(int64_t)calib-&gt;<ref refid="structbme280__calib__data_1a9fab3467ccfa07c049e7ecdd14f8a78e" kindref="member">dig_p6</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/>var2<sp/>=<sp/>var2<sp/>+<sp/>((var1<sp/>*<sp/>(int64_t)calib-&gt;dig_p5)<sp/>&lt;&lt;<sp/>17);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>var2<sp/>=<sp/>var2<sp/>+<sp/>(((int64_t)calib-&gt;dig_p4)<sp/>&lt;&lt;<sp/>35);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>var1<sp/>=<sp/>((var1<sp/>*<sp/>var1<sp/>*<sp/>(int64_t)calib-&gt;dig_p3)<sp/>&gt;&gt;<sp/>8)<sp/>+<sp/>((var1<sp/>*<sp/>(int64_t)calib-&gt;dig_p2)<sp/>&lt;&lt;<sp/>12);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>var1<sp/>=<sp/>(((((int64_t)1)<sp/>&lt;&lt;<sp/>47)<sp/>+<sp/>var1)<sp/>*<sp/>((int64_t)calib-&gt;dig_p1))<sp/>&gt;&gt;<sp/>33;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(var1<sp/>==<sp/>0)</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;<sp/></highlight><highlight class="comment">/*<sp/>avoid<sp/>exception<sp/>caused<sp/>by<sp/>division<sp/>by<sp/>zero<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>p<sp/>=<sp/>1048576<sp/>-<sp/>adc_P;</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>p<sp/>=<sp/>(((p<sp/>&lt;&lt;<sp/>31)<sp/>-<sp/>var2)<sp/>*<sp/>3125)<sp/>/<sp/>var1;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/>var1<sp/>=<sp/>(((int64_t)calib-&gt;dig_p9)<sp/>*<sp/>(p<sp/>&gt;&gt;<sp/>13)<sp/>*<sp/>(p<sp/>&gt;&gt;<sp/>13))<sp/>&gt;&gt;<sp/>25;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>var2<sp/>=<sp/>(((int64_t)calib-&gt;dig_p8)<sp/>*<sp/>p)<sp/>&gt;&gt;<sp/>19;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>p<sp/>=<sp/>((p<sp/>+<sp/>var1<sp/>+<sp/>var2)<sp/>&gt;&gt;<sp/>8)<sp/>+<sp/>(((int64_t)calib-&gt;dig_p7)<sp/>&lt;&lt;<sp/>4);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(uint32_t)p;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>uint32_t<sp/>bme280_compensate_H_int32(int32_t<sp/>adc_H,<sp/></highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__calib__data" kindref="compound">bme280_calib_data</ref><sp/>*calib)</highlight></codeline>
+<codeline lineno="57"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>int32_t<sp/>v_x1_u32r;</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/>v_x1_u32r<sp/>=<sp/>(calib-&gt;<ref refid="structbme280__calib__data_1a035b8d8756456820ec82f26a2cf62ffa" kindref="member">t_fine</ref><sp/>-<sp/>((int32_t)76800));</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/>v_x1_u32r<sp/>=<sp/>(((((adc_H<sp/>&lt;&lt;<sp/>14)<sp/>-<sp/>(((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ac47663ef80cd3cd9aa7e9a8898d92057" kindref="member">dig_h4</ref>)<sp/>&lt;&lt;<sp/>20)<sp/>-<sp/>(((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1a4f448177a87fc986445dd39746fdb228" kindref="member">dig_h5</ref>)<sp/>*<sp/>v_x1_u32r))<sp/>+<sp/>((int32_t)16384))<sp/>&gt;&gt;<sp/>15)<sp/>*</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(((((((v_x1_u32r<sp/>*<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ab798dedfdd85e18eff5439391490b94c" kindref="member">dig_h6</ref>))<sp/>&gt;&gt;<sp/>10)<sp/>*<sp/>(((v_x1_u32r<sp/>*<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1af9353f8b4be0932fecf12c2f45a0692d" kindref="member">dig_h3</ref>))<sp/>&gt;&gt;<sp/>11)<sp/>+<sp/>((int32_t)32768)))<sp/>&gt;&gt;<sp/>10)<sp/>+<sp/>((int32_t)2097152))<sp/>*<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1a71efa5c3d67be55820ee0816d053ed61" kindref="member">dig_h2</ref>)<sp/>+<sp/>8192)<sp/>&gt;&gt;<sp/>14));</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/>v_x1_u32r<sp/>=<sp/>(v_x1_u32r<sp/>-<sp/>(((((v_x1_u32r<sp/>&gt;&gt;<sp/>15)<sp/>*<sp/>(v_x1_u32r<sp/>&gt;&gt;<sp/>15))<sp/>&gt;&gt;<sp/>7)<sp/>*<sp/>((int32_t)calib-&gt;<ref refid="structbme280__calib__data_1ad70641088815445b41d99d588f86227c" kindref="member">dig_h1</ref>))<sp/>&gt;&gt;<sp/>4));</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/>v_x1_u32r<sp/>=<sp/>(v_x1_u32r<sp/>&lt;<sp/>0<sp/>?<sp/>0<sp/>:<sp/>v_x1_u32r);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>v_x1_u32r<sp/>=<sp/>(v_x1_u32r<sp/>&gt;<sp/>419430400<sp/>?<sp/>419430400<sp/>:<sp/>v_x1_u32r);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(uint32_t)(v_x1_u32r<sp/>&gt;&gt;<sp/>12);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Adapter<sp/>callbacks<sp/>for<sp/>Bosch<sp/>driver<sp/>(use<sp/>dev-&gt;intf_ptr<sp/>as<sp/>pointer<sp/>to<sp/>7-bit<sp/>I2C<sp/>address)</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>These<sp/>are<sp/>file-local<sp/>and<sp/>used<sp/>by<sp/>bme_init_simple/bme_read_once.</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref><sp/>user_i2c_read(uint8_t<sp/>reg_addr,<sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr)</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>dev_addr<sp/>=<sp/>*((uint8_t<sp/>*)intf_ptr);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(len<sp/>==<sp/>0<sp/>||<sp/>reg_data<sp/>==<sp/><ref refid="bme280__defs_8h_1a070d2ce7b6bb7e5c05602aa8c308d0c4" kindref="member">NULL</ref>)</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1afeb74eb5e3f125d1f03be173e40c89b0" kindref="member">BME280_E_INVALID_LEN</ref>;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf2027b11accf8c8a40502c60dd1b76f" kindref="member">twi_readfrom_mem_into</ref>(dev_addr,<sp/>reg_addr,<sp/>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*)reg_data,<sp/>(uint8_t)len);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a029e7889430cabdd3fafc3831afe0962" kindref="member">BME280_INTF_RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="79"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a88121b05b43598dba724e70a43533a36" kindref="member">BME280_INTF_RET_TYPE</ref><sp/>user_i2c_write(uint8_t<sp/>reg_addr,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg_data,<sp/>uint32_t<sp/>len,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr)</highlight></codeline>
+<codeline lineno="82"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>dev_addr<sp/>=<sp/>*((uint8_t<sp/>*)intf_ptr);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gaf37269da7f6b1b22438b78d2f965f274" kindref="member">twi_start</ref>();</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>((dev_addr<sp/>&lt;&lt;<sp/>1)<sp/>|<sp/><ref refid="group__fryza__twi_1ga3b68e8e777b71520f9dbfac733774d5f" kindref="member">TWI_WRITE</ref>)<sp/>!=<sp/>0)<sp/>{<sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a2b47776b53e3167b0068bc6ef21f1523" kindref="member">BME280_E_COMM_FAIL</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(reg_addr)<sp/>!=<sp/>0)<sp/>{<sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a2b47776b53e3167b0068bc6ef21f1523" kindref="member">BME280_E_COMM_FAIL</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(uint32_t<sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>len;<sp/>i++)</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="group__fryza__twi_1ga129b8a79f75189c3801cb7082e6b8340" kindref="member">twi_write</ref>(reg_data[i])<sp/>!=<sp/>0)<sp/>{<sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a2b47776b53e3167b0068bc6ef21f1523" kindref="member">BME280_E_COMM_FAIL</ref>;<sp/>}</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="group__fryza__twi_1gacf52d6c93df110dee6d402b389e5042e" kindref="member">twi_stop</ref>();</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1a029e7889430cabdd3fafc3831afe0962" kindref="member">BME280_INTF_RET_SUCCESS</ref>;</highlight></codeline>
+<codeline lineno="93"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"></highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>user_delay_us(uint32_t<sp/>period,<sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*intf_ptr)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/>(void)intf_ptr;</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(period<sp/>&gt;=<sp/>1000)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_delay_ms(1);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>period<sp/>-=<sp/>1000;</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(period--)</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>_delay_us(1);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Initialize<sp/>BME280<sp/>device<sp/>and<sp/>basic<sp/>settings.<sp/>Caller<sp/>must<sp/>call<sp/>`twi_init()`<sp/>first.</highlight></codeline>
+<codeline lineno="108"><highlight class="comment"><sp/>*<sp/>dev_addr:<sp/>7-bit<sp/>I2C<sp/>address<sp/>(e.g.<sp/>BME280_I2C_ADDR_PRIM)</highlight></codeline>
+<codeline lineno="109"><highlight class="comment"><sp/>*<sp/>Returns<sp/>BME280_OK<sp/>(0)<sp/>on<sp/>success<sp/>or<sp/>negative<sp/>error<sp/>code.</highlight></codeline>
+<codeline lineno="110"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="111" refid="bme_8c_1ae711b62c391a71e52024c272611d64ee" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bme_8c_1ae711b62c391a71e52024c272611d64ee" kindref="member">bme_init_simple</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev,<sp/>uint8_t<sp/>*dev_addr_ptr)</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/>dev-&gt;<ref refid="structbme280__dev_1a937b25397d1455117b64b1380368d30c" kindref="member">intf</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1a142fcd9cb1e99b793488e9b3b1e6766eaae41ddfd32babefbce48e7b7671f46a2" kindref="member">BME280_I2C_INTF</ref>;</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/>dev-&gt;<ref refid="structbme280__dev_1ac8640e40f4f3fd9c3495df4fc97e8f66" kindref="member">intf_ptr</ref><sp/>=<sp/>dev_addr_ptr;<sp/></highlight><highlight class="comment">/*<sp/>use<sp/>caller-owned<sp/>address<sp/>storage<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/>dev-&gt;<ref refid="structbme280__dev_1aadbc5248e2bc46660e10af07fe6504ef" kindref="member">read</ref><sp/>=<sp/>user_i2c_read;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/>dev-&gt;<ref refid="structbme280__dev_1a3360596144afdd8476469cdef11beb3b" kindref="member">write</ref><sp/>=<sp/>user_i2c_write;</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/>dev-&gt;<ref refid="structbme280__dev_1a04c4f6d52685b73f3bb09eccf44374ab" kindref="member">delay_us</ref><sp/>=<sp/>user_delay_us;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"></highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/>rslt<sp/>=<sp/><ref refid="bme280_8c_1af0b7d7a19bb48ec9eb3651b79f0c3e85" kindref="member">bme280_init</ref>(dev);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rslt<sp/>!=<sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>)</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rslt;</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Configure<sp/>sensor:<sp/>oversampling<sp/>x1<sp/>for<sp/>T/P/H<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>settings;</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/>settings.<ref refid="structbme280__settings_1ab09e8c0b2ff1ee7e7eb35540ad95acf5" kindref="member">osr_h</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1a701285fd2495e391411b694c9b50c08a" kindref="member">BME280_OVERSAMPLING_1X</ref>;</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/>settings.<ref refid="structbme280__settings_1a6359b35d9547f53dea01d893313c7dc3" kindref="member">osr_p</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1a701285fd2495e391411b694c9b50c08a" kindref="member">BME280_OVERSAMPLING_1X</ref>;</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>settings.<ref refid="structbme280__settings_1a49bf8f73813386b4dc37a9676230c263" kindref="member">osr_t</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1a701285fd2495e391411b694c9b50c08a" kindref="member">BME280_OVERSAMPLING_1X</ref>;</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/>settings.<ref refid="structbme280__settings_1a46eae004d968b4fd9a89e5cb5748f1c1" kindref="member">filter</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1ae61c58ec304b87f6f9726992af323dc3" kindref="member">BME280_FILTER_COEFF_OFF</ref>;</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/>settings.<ref refid="structbme280__settings_1a9c881ed1a45bfd9092260383f13c9fbc" kindref="member">standby_time</ref><sp/>=<sp/><ref refid="bme280__defs_8h_1abda2854c877d0ab552b0d3a5e92ce06a" kindref="member">BME280_STANDBY_TIME_125_MS</ref>;</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>rslt<sp/>=<sp/><ref refid="bme280_8c_1a00d3e4ef8f4ecf850307790f61eddf76" kindref="member">bme280_set_sensor_settings</ref>(<ref refid="bme280__defs_8h_1ac9562a7db399000c5162c84e578380cf" kindref="member">BME280_SEL_ALL_SETTINGS</ref>,<sp/>&amp;settings,<sp/>dev);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rslt<sp/>!=<sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>)</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>rslt;</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"></highlight><highlight class="comment">/*<sp/>Perform<sp/>one<sp/>forced<sp/>measurement<sp/>and<sp/>return<sp/>compensated<sp/>values.</highlight></codeline>
+<codeline lineno="142"><highlight class="comment"><sp/>*<sp/>t100:<sp/>temperature<sp/>in<sp/>0.01<sp/>degC</highlight></codeline>
+<codeline lineno="143"><highlight class="comment"><sp/>*<sp/>press_pa:<sp/>pressure<sp/>in<sp/>Pa</highlight></codeline>
+<codeline lineno="144"><highlight class="comment"><sp/>*<sp/>hum_x1024:<sp/>humidity<sp/>in<sp/>percent<sp/>*<sp/>1024</highlight></codeline>
+<codeline lineno="145"><highlight class="comment"><sp/>*<sp/>Returns<sp/>0<sp/>on<sp/>success,<sp/>non-zero<sp/>on<sp/>failure.</highlight></codeline>
+<codeline lineno="146"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147" refid="bme_8c_1ae379d395f2a1351de8c7c1ddb28fea47" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="bme_8c_1ae379d395f2a1351de8c7c1ddb28fea47" kindref="member">bme_read_once</ref>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/><ref refid="structbme280__dev" kindref="compound">bme280_dev</ref><sp/>*dev,<sp/>int32_t<sp/>*t100,<sp/>uint32_t<sp/>*press_pa,<sp/>uint32_t<sp/>*hum_x1024)</highlight></codeline>
+<codeline lineno="148"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Trigger<sp/>one-shot<sp/>measurement<sp/>(forced)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/>int8_t<sp/>rslt<sp/>=<sp/><ref refid="bme280_8c_1a6373385e51038a9b982c42e0dce4ba9f" kindref="member">bme280_set_sensor_mode</ref>(<ref refid="bme280__defs_8h_1a549b26035e38c1dd91eadcfa0d287c3a" kindref="member">BME280_POWERMODE_FORCED</ref>,<sp/>dev);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rslt<sp/>!=<sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>)<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Wait<sp/>required<sp/>measurement<sp/>time<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structbme280__settings" kindref="compound">bme280_settings</ref><sp/>settings;</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>read<sp/>back<sp/>current<sp/>settings<sp/>to<sp/>compute<sp/>delay</highlight></codeline>
+<codeline lineno="156"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*<sp/>If<sp/>reading<sp/>settings<sp/>fails,<sp/>fall<sp/>back<sp/>to<sp/>a<sp/>conservative<sp/>delay</highlight></codeline>
+<codeline lineno="157"><highlight class="comment"><sp/><sp/><sp/><sp/><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>rslt<sp/>=<sp/><ref refid="bme280_8c_1ae394ec42dc3a39d972fcb2123d7af4ed" kindref="member">bme280_get_sensor_settings</ref>(&amp;settings,<sp/>dev);</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>meas_delay_us<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rslt<sp/>==<sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="bme280_8c_1a8cd94409bc278b9a0cdd11206d0652ca" kindref="member">bme280_cal_meas_delay</ref>(&amp;meas_delay_us,<sp/>&amp;settings);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>meas_delay_us<sp/>=<sp/>10000;<sp/></highlight><highlight class="comment">/*<sp/>10<sp/>ms<sp/>conservative<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>user_delay_us(meas_delay_us,<sp/>dev-&gt;<ref refid="structbme280__dev_1ac8640e40f4f3fd9c3495df4fc97e8f66" kindref="member">intf_ptr</ref>);</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Read<sp/>raw<sp/>measurement<sp/>registers<sp/>(8<sp/>bytes:<sp/>press(3),<sp/>temp(3),<sp/>hum(2))<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[8];</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>rslt<sp/>=<sp/><ref refid="bme280_8c_1a5bed904938a03b902e48132ff2e33ec7" kindref="member">bme280_get_regs</ref>(<ref refid="bme280__defs_8h_1a1a7fcae451785c51d7b5fb76c3676a94" kindref="member">BME280_REG_DATA</ref>,<sp/><ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>,<sp/><ref refid="bme280__defs_8h_1afabbf69cd09a104a81c32d5000dfaacd" kindref="member">BME280_LEN_P_T_H_DATA</ref>,<sp/>dev);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(rslt<sp/>!=<sp/><ref refid="bme280__defs_8h_1abfe3dd12ee6f5f5d51fbb340a22ff678" kindref="member">BME280_OK</ref>)</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-2;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>adc_P<sp/>=<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[0]<sp/>&lt;&lt;<sp/>12)<sp/>|<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[1]<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[2]<sp/>&gt;&gt;<sp/>4);</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>adc_T<sp/>=<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[3]<sp/>&lt;&lt;<sp/>12)<sp/>|<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[4]<sp/>&lt;&lt;<sp/>4)<sp/>|<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[5]<sp/>&gt;&gt;<sp/>4);</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>adc_H<sp/>=<sp/>((uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[6]<sp/>&lt;&lt;<sp/>8)<sp/>|<sp/>(uint32_t)<ref refid="uart_8c_1a511ae0b1c13f95e5f08f1a0dd3da3d93" kindref="member">data</ref>[7];</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Compensate<sp/>using<sp/>manufacturer&apos;s<sp/>integer<sp/>routines<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/>*t100<sp/>=<sp/>BME280_compensate_T_int32((int32_t)adc_T,<sp/>&amp;dev-&gt;<ref refid="structbme280__dev_1a8a57e57db020663dc3a8f3438cd6b399" kindref="member">calib_data</ref>);<sp/></highlight><highlight class="comment">/*<sp/>0.01<sp/>degC<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>uint32_t<sp/>p_q24_8<sp/>=<sp/>BME280_compensate_P_int64((int32_t)adc_P,<sp/>&amp;dev-&gt;<ref refid="structbme280__dev_1a8a57e57db020663dc3a8f3438cd6b399" kindref="member">calib_data</ref>);<sp/></highlight><highlight class="comment">/*<sp/>Q24.8<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>*hum_x1024<sp/>=<sp/>bme280_compensate_H_int32((int32_t)adc_H,<sp/>&amp;dev-&gt;<ref refid="structbme280__dev_1a8a57e57db020663dc3a8f3438cd6b399" kindref="member">calib_data</ref>);<sp/></highlight><highlight class="comment">/*<sp/>Q22.10<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>Convert<sp/>pressure<sp/>Q24.8<sp/>-&gt;<sp/>Pa<sp/>(divide<sp/>by<sp/>256)<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>*press_pa<sp/>=<sp/>(uint32_t)((uint64_t)p_q24_8<sp/>/<sp/>256ULL);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="src/bme.c"/>
+  </compounddef>
+</doxygen>

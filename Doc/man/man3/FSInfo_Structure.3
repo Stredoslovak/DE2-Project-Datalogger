@@ -1,0 +1,72 @@
+.TH "FSInfo_Structure" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+FSInfo_Structure
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fR#include <FAT32\&.h>\fP
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "unsigned long \fBleadSignature\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBreserved1\fP [480]"
+.br
+.ti -1c
+.RI "unsigned long \fBstructureSignature\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBfreeClusterCount\fP"
+.br
+.ti -1c
+.RI "unsigned long \fBnextFreeCluster\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBreserved2\fP [12]"
+.br
+.ti -1c
+.RI "unsigned long \fBtrailSignature\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line \fB69\fP of file \fBFAT32\&.h\fP\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "unsigned long FSInfo_Structure::freeClusterCount"
+
+.PP
+Definition at line \fB74\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long FSInfo_Structure::leadSignature"
+
+.PP
+Definition at line \fB71\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long FSInfo_Structure::nextFreeCluster"
+
+.PP
+Definition at line \fB75\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char FSInfo_Structure::reserved1[480]"
+
+.PP
+Definition at line \fB72\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned char FSInfo_Structure::reserved2[12]"
+
+.PP
+Definition at line \fB76\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long FSInfo_Structure::structureSignature"
+
+.PP
+Definition at line \fB73\fP of file \fBFAT32\&.h\fP\&.
+.SS "unsigned long FSInfo_Structure::trailSignature"
+
+.PP
+Definition at line \fB77\fP of file \fBFAT32\&.h\fP\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

@@ -6,17 +6,19 @@
  * Tested on Arduino Uno board and ATmega328P, 16 MHz.
  */
 
+
 // -- Includes -------------------------------------------------------
 #include <gpio.h>
 
 
+
 // -- Function definitions -------------------------------------------
-/*
- * Function: gpio_mode_output()
- * Purpose:  Configure one output pin.
- * Input(s): reg - Address of Data Direction Register, such as &DDRB
- *           pin - Pin designation in the interval 0 to 7
- * Returns:  none
+
+/**
+ * @brief  Configure one output pin.
+ * @param  reg Address of Data Direction Register (e.g., &DDRB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
  */
 void gpio_mode_output(volatile uint8_t *reg, uint8_t pin)
 {
@@ -24,12 +26,12 @@ void gpio_mode_output(volatile uint8_t *reg, uint8_t pin)
 }
 
 
-/*
- * Function: gpio_mode_input_pullup()
- * Purpose:  Configure one input pin and enable pull-up.
- * Input(s): reg - Address of Data Direction Register, such as &DDRB
- *           pin - Pin designation in the interval 0 to 7
- * Returns:  none
+
+/**
+ * @brief  Configure one input pin and enable pull-up resistor.
+ * @param  reg Address of Data Direction Register (e.g., &DDRB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
  */
 void gpio_mode_input_pullup(volatile uint8_t *reg, uint8_t pin)
 {
@@ -39,12 +41,12 @@ void gpio_mode_input_pullup(volatile uint8_t *reg, uint8_t pin)
 }
 
 
-/*
- * Function: gpio_write_low()
- * Purpose:  Write one pin to low value.
- * Input(s): reg - Address of Port Register, such as &PORTB
- *           pin - Pin designation in the interval 0 to 7
- * Returns:  none
+
+/**
+ * @brief  Write one pin to low value.
+ * @param  reg Address of Port Register (e.g., &PORTB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
  */
 void gpio_write_low(volatile uint8_t *reg, uint8_t pin)
 {
@@ -52,12 +54,12 @@ void gpio_write_low(volatile uint8_t *reg, uint8_t pin)
 }
 
 
-/*
- * Function: gpio_write_high()
- * Purpose:  Write one pin to high value.
- * Input(s): reg - Address of Port Register, such as &PORTB
- *           pin - Pin designation in the interval 0 to 7
- * Returns:  none
+
+/**
+ * @brief  Write one pin to high value.
+ * @param  reg Address of Port Register (e.g., &PORTB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
  */
 void gpio_write_high(volatile uint8_t *reg, uint8_t pin)
 {
@@ -65,18 +67,20 @@ void gpio_write_high(volatile uint8_t *reg, uint8_t pin)
 }
 
 
-/*
- * Function: gpio_read()
- * Purpose:  Read a value from input pin.
- * Input(s): reg - Address of Pin Register, such as &PINB
- *           pin - Pin designation in the interval 0 to 7
- * Returns:  Pin value
+
+/**
+ * @brief  Read a value from input pin.
+ * @param  reg Address of Pin Register (e.g., &PINB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return Pin value (0 or 1).
  */
 uint8_t gpio_read(volatile uint8_t *reg, uint8_t pin)
 {
     uint8_t temp;
 
+
     temp = *reg & (1<<pin);
+
 
     if (temp != 0) {
         return 1;
@@ -88,6 +92,13 @@ uint8_t gpio_read(volatile uint8_t *reg, uint8_t pin)
 
 
 
+
+/**
+ * @brief  Configure one input pin without pull-up resistor.
+ * @param  reg Address of Data Direction Register (e.g., &DDRB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
+ */
 void gpio_mode_input_nopull(volatile uint8_t *reg, uint8_t pin)
 {
     *reg = *reg & ~(1<<pin);
@@ -95,6 +106,13 @@ void gpio_mode_input_nopull(volatile uint8_t *reg, uint8_t pin)
 
 
 
+
+/**
+ * @brief  Toggle one output pin value.
+ * @param  reg Address of Port Register (e.g., &PORTB).
+ * @param  pin Pin designation in the interval 0 to 7.
+ * @return none
+ */
 void gpio_toggle(volatile uint8_t *reg, uint8_t pin)
  {
     *reg = *reg ^ (1 << pin);

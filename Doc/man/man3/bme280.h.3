@@ -1,0 +1,169 @@
+.TH "lib/bme280/bme280.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/bme280/bme280.h \- Sensor driver for BME280 sensor\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fR#include 'bme280_defs\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int8_t \fBbme280_init\fP (struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API is the entry point\&. It reads the chip-id and calibration data from the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_set_regs\fP (uint8_t *reg_addr, const uint8_t *reg_data, uint32_t len, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API writes the given data to the register address of the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_get_regs\fP (uint8_t reg_addr, uint8_t *reg_data, uint32_t len, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API reads the data from the given register address of the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_set_sensor_settings\fP (uint8_t desired_settings, const struct \fBbme280_settings\fP *settings, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API sets the oversampling, filter and standby duration (normal mode) settings in the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_get_sensor_settings\fP (struct \fBbme280_settings\fP *settings, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API gets the oversampling, filter and standby duration (normal mode) settings from the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_set_sensor_mode\fP (uint8_t sensor_mode, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API sets the power mode of the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_get_sensor_mode\fP (uint8_t *sensor_mode, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API gets the power mode of the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_soft_reset\fP (struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API performs the soft reset of the sensor\&. "
+.ti -1c
+.RI "int8_t \fBbme280_get_sensor_data\fP (uint8_t sensor_comp, struct \fBbme280_data\fP *comp_data, struct \fBbme280_dev\fP *dev)"
+.br
+.RI "This API reads the pressure, temperature and humidity data from the sensor, compensates the data and store it in the \fBbme280_data\fP structure instance passed by the user\&. "
+.ti -1c
+.RI "int8_t \fBbme280_compensate_data\fP (uint8_t sensor_comp, const struct \fBbme280_uncomp_data\fP *uncomp_data, struct \fBbme280_data\fP *comp_data, struct \fBbme280_calib_data\fP *calib_data)"
+.br
+.RI "This API is used to compensate the pressure and/or temperature and/or humidity data according to the component selected by the user\&. "
+.ti -1c
+.RI "int8_t \fBbme280_cal_meas_delay\fP (uint32_t *max_delay, const struct \fBbme280_settings\fP *settings)"
+.br
+.RI "This API is used to calculate the maximum delay in milliseconds required for the temperature/pressure/humidity(whichever are enabled) measurement to complete\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Sensor driver for BME280 sensor\&. 
+
+Copyright (c) 2020 Bosch Sensortec GmbH\&. All rights reserved\&.
+
+.PP
+BSD-3-Clause
+
+.PP
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+.PP
+.IP "1." 4
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer\&.
+.IP "2." 4
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution\&.
+.IP "3." 4
+Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission\&.
+.PP
+
+.PP
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED\&. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE\&.
+
+.PP
+\fBDate\fP
+.RS 4
+2020-12-17 
+.RE
+.PP
+\fBVersion\fP
+.RS 4
+v3\&.5\&.1
+.RE
+.PP
+
+.PP
+Definition in file \fBbme280\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "int8_t bme280_cal_meas_delay (uint32_t * max_delay, const struct \fBbme280_settings\fP * settings)"
+
+.PP
+This API is used to calculate the maximum delay in milliseconds required for the temperature/pressure/humidity(whichever are enabled) measurement to complete\&. 
+.PP
+Definition at line \fB799\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_compensate_data (uint8_t sensor_comp, const struct \fBbme280_uncomp_data\fP * uncomp_data, struct \fBbme280_data\fP * comp_data, struct \fBbme280_calib_data\fP * calib_data)"
+
+.PP
+This API is used to compensate the pressure and/or temperature and/or humidity data according to the component selected by the user\&. 
+.PP
+Definition at line \fB754\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_get_regs (uint8_t reg_addr, uint8_t * reg_data, uint32_t len, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API reads the data from the given register address of the sensor\&. 
+.PP
+Definition at line \fB449\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_get_sensor_data (uint8_t sensor_comp, struct \fBbme280_data\fP * comp_data, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API reads the pressure, temperature and humidity data from the sensor, compensates the data and store it in the \fBbme280_data\fP structure instance passed by the user\&. 
+.PP
+Definition at line \fB715\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_get_sensor_mode (uint8_t * sensor_mode, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API gets the power mode of the sensor\&. 
+.PP
+Definition at line \fB654\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_get_sensor_settings (struct \fBbme280_settings\fP * settings, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API gets the oversampling, filter and standby duration (normal mode) settings from the sensor\&. 
+.PP
+Definition at line \fB602\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_init (struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API is the entry point\&. It reads the chip-id and calibration data from the sensor\&. 
+.PP
+Definition at line \fB413\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_set_regs (uint8_t * reg_addr, const uint8_t * reg_data, uint32_t len, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API writes the given data to the register address of the sensor\&. 
+.PP
+Definition at line \fB485\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_set_sensor_mode (uint8_t sensor_mode, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API sets the power mode of the sensor\&. 
+.PP
+Definition at line \fB627\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_set_sensor_settings (uint8_t desired_settings, const struct \fBbme280_settings\fP * settings, struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API sets the oversampling, filter and standby duration (normal mode) settings in the sensor\&. 
+.PP
+Definition at line \fB555\fP of file \fBbme280\&.c\fP\&.
+.SS "int8_t bme280_soft_reset (struct \fBbme280_dev\fP * dev)"
+
+.PP
+This API performs the soft reset of the sensor\&. 
+.PP
+Definition at line \fB677\fP of file \fBbme280\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

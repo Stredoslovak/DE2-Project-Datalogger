@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="gpio_8c" kind="file" language="C++">
+    <compoundname>gpio.c</compoundname>
+    <includes refid="gpio_8h" local="no">gpio.h</includes>
+    <incdepgraph>
+      <node id="1">
+        <label>lib/gpio/gpio.c</label>
+        <link refid="gpio_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>gpio.h</label>
+        <link refid="gpio_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>avr/io.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="func">
+      <member refid="group__fryza__gpio_1ga67245684611d6a62494cd100c9731f8e" kind="function"><name>gpio_mode_output</name></member>
+      <member refid="group__fryza__gpio_1ga92d8842507a7a60233e172c7665cd448" kind="function"><name>gpio_mode_input_pullup</name></member>
+      <member refid="group__fryza__gpio_1ga8f9f18909c674d02f76e514221b505b2" kind="function"><name>gpio_write_low</name></member>
+      <member refid="group__fryza__gpio_1ga7bb32a27f42d2d93b8cd3e48597674ad" kind="function"><name>gpio_write_high</name></member>
+      <member refid="group__fryza__gpio_1gab48bdf6775e5ebb50f349c5182238231" kind="function"><name>gpio_read</name></member>
+      <member refid="group__fryza__gpio_1ga2c33ba6b22fba1079e6665bc134919b9" kind="function"><name>gpio_mode_input_nopull</name></member>
+      <member refid="group__fryza__gpio_1ga898c950bb2b5b6b1c158cf7ad18ea84e" kind="function"><name>gpio_toggle</name></member>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/></highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>GPIO<sp/>library<sp/>for<sp/>AVR-GCC.</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>(c)<sp/>2019-2024<sp/>Tomas<sp/>Fryza,<sp/>MIT<sp/>license</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Developed<sp/>using<sp/>PlatformIO<sp/>and<sp/>AVR<sp/>8-bit<sp/>Toolchain<sp/>3.6.2.</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>Tested<sp/>on<sp/>Arduino<sp/>Uno<sp/>board<sp/>and<sp/>ATmega328P,<sp/>16<sp/>MHz.</highlight></codeline>
+<codeline lineno="7"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Includes<sp/>-------------------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;<ref refid="gpio_8h" kindref="compound">gpio.h</ref>&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//<sp/>--<sp/>Function<sp/>definitions<sp/>-------------------------------------------</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="15"><highlight class="comment"><sp/>*<sp/>Function:<sp/>gpio_mode_output()</highlight></codeline>
+<codeline lineno="16"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Configure<sp/>one<sp/>output<sp/>pin.</highlight></codeline>
+<codeline lineno="17"><highlight class="comment"><sp/>*<sp/>Input(s):<sp/>reg<sp/>-<sp/>Address<sp/>of<sp/>Data<sp/>Direction<sp/>Register,<sp/>such<sp/>as<sp/>&amp;DDRB</highlight></codeline>
+<codeline lineno="18"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pin<sp/>-<sp/>Pin<sp/>designation<sp/>in<sp/>the<sp/>interval<sp/>0<sp/>to<sp/>7</highlight></codeline>
+<codeline lineno="19"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="20"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21" refid="group__fryza__gpio_1ga67245684611d6a62494cd100c9731f8e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga67245684611d6a62494cd100c9731f8e" kindref="member">gpio_mode_output</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>|<sp/>(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="28"><highlight class="comment"><sp/>*<sp/>Function:<sp/>gpio_mode_input_pullup()</highlight></codeline>
+<codeline lineno="29"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Configure<sp/>one<sp/>input<sp/>pin<sp/>and<sp/>enable<sp/>pull-up.</highlight></codeline>
+<codeline lineno="30"><highlight class="comment"><sp/>*<sp/>Input(s):<sp/>reg<sp/>-<sp/>Address<sp/>of<sp/>Data<sp/>Direction<sp/>Register,<sp/>such<sp/>as<sp/>&amp;DDRB</highlight></codeline>
+<codeline lineno="31"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pin<sp/>-<sp/>Pin<sp/>designation<sp/>in<sp/>the<sp/>interval<sp/>0<sp/>to<sp/>7</highlight></codeline>
+<codeline lineno="32"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="33"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="group__fryza__gpio_1ga92d8842507a7a60233e172c7665cd448" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga92d8842507a7a60233e172c7665cd448" kindref="member">gpio_mode_input_pullup</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>&amp;<sp/>~(1&lt;&lt;pin);<sp/><sp/></highlight><highlight class="comment">//<sp/>Data<sp/>Direction<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/>reg++;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Change<sp/>pointer<sp/>to<sp/>Data<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>|<sp/>(1&lt;&lt;pin);<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Data<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="43"><highlight class="comment"><sp/>*<sp/>Function:<sp/>gpio_write_low()</highlight></codeline>
+<codeline lineno="44"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Write<sp/>one<sp/>pin<sp/>to<sp/>low<sp/>value.</highlight></codeline>
+<codeline lineno="45"><highlight class="comment"><sp/>*<sp/>Input(s):<sp/>reg<sp/>-<sp/>Address<sp/>of<sp/>Port<sp/>Register,<sp/>such<sp/>as<sp/>&amp;PORTB</highlight></codeline>
+<codeline lineno="46"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pin<sp/>-<sp/>Pin<sp/>designation<sp/>in<sp/>the<sp/>interval<sp/>0<sp/>to<sp/>7</highlight></codeline>
+<codeline lineno="47"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="48"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49" refid="group__fryza__gpio_1ga8f9f18909c674d02f76e514221b505b2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga8f9f18909c674d02f76e514221b505b2" kindref="member">gpio_write_low</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="50"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>&amp;<sp/>~(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="56"><highlight class="comment"><sp/>*<sp/>Function:<sp/>gpio_write_high()</highlight></codeline>
+<codeline lineno="57"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Write<sp/>one<sp/>pin<sp/>to<sp/>high<sp/>value.</highlight></codeline>
+<codeline lineno="58"><highlight class="comment"><sp/>*<sp/>Input(s):<sp/>reg<sp/>-<sp/>Address<sp/>of<sp/>Port<sp/>Register,<sp/>such<sp/>as<sp/>&amp;PORTB</highlight></codeline>
+<codeline lineno="59"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pin<sp/>-<sp/>Pin<sp/>designation<sp/>in<sp/>the<sp/>interval<sp/>0<sp/>to<sp/>7</highlight></codeline>
+<codeline lineno="60"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>none</highlight></codeline>
+<codeline lineno="61"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62" refid="group__fryza__gpio_1ga7bb32a27f42d2d93b8cd3e48597674ad" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga7bb32a27f42d2d93b8cd3e48597674ad" kindref="member">gpio_write_high</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>|<sp/>(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">/*</highlight></codeline>
+<codeline lineno="69"><highlight class="comment"><sp/>*<sp/>Function:<sp/>gpio_read()</highlight></codeline>
+<codeline lineno="70"><highlight class="comment"><sp/>*<sp/>Purpose:<sp/><sp/>Read<sp/>a<sp/>value<sp/>from<sp/>input<sp/>pin.</highlight></codeline>
+<codeline lineno="71"><highlight class="comment"><sp/>*<sp/>Input(s):<sp/>reg<sp/>-<sp/>Address<sp/>of<sp/>Pin<sp/>Register,<sp/>such<sp/>as<sp/>&amp;PINB</highlight></codeline>
+<codeline lineno="72"><highlight class="comment"><sp/>*<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pin<sp/>-<sp/>Pin<sp/>designation<sp/>in<sp/>the<sp/>interval<sp/>0<sp/>to<sp/>7</highlight></codeline>
+<codeline lineno="73"><highlight class="comment"><sp/>*<sp/>Returns:<sp/><sp/>Pin<sp/>value</highlight></codeline>
+<codeline lineno="74"><highlight class="comment"><sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="75" refid="group__fryza__gpio_1gab48bdf6775e5ebb50f349c5182238231" refkind="member"><highlight class="normal">uint8_t<sp/><ref refid="group__fryza__gpio_1gab48bdf6775e5ebb50f349c5182238231" kindref="member">gpio_read</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="76"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/>uint8_t<sp/>temp;</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/>temp<sp/>=<sp/>*reg<sp/>&amp;<sp/>(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(temp<sp/>!=<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"></highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91" refid="group__fryza__gpio_1ga2c33ba6b22fba1079e6665bc134919b9" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga2c33ba6b22fba1079e6665bc134919b9" kindref="member">gpio_mode_input_nopull</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="92"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>&amp;<sp/>~(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="94"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight></codeline>
+<codeline lineno="98" refid="group__fryza__gpio_1ga898c950bb2b5b6b1c158cf7ad18ea84e" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="group__fryza__gpio_1ga898c950bb2b5b6b1c158cf7ad18ea84e" kindref="member">gpio_toggle</ref>(</highlight><highlight class="keyword">volatile</highlight><highlight class="normal"><sp/>uint8_t<sp/>*reg,<sp/>uint8_t<sp/>pin)</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>^<sp/>(1<sp/>&lt;&lt;<sp/>pin);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/>reg++;<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Change<sp/>pointer<sp/>to<sp/>Data<sp/>Register</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/>*reg<sp/>=<sp/>*reg<sp/>&amp;<sp/>~(1&lt;&lt;pin);</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/>}</highlight></codeline>
+    </programlisting>
+    <location file="lib/gpio/gpio.c"/>
+  </compounddef>
+</doxygen>

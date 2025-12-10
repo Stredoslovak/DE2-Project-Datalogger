@@ -1,0 +1,50 @@
+.TH "src/sgp41.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+src/sgp41.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdint\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <util/delay\&.h>\fP
+.br
+\fR#include 'twi\&.h'\fP
+.br
+\fR#include 'uart\&.h'\fP
+.br
+\fR#include 'SensirionI2CSgp41\&.h'\fP
+.br
+\fR#include <avr/interrupt\&.h>\fP
+.br
+\fR#include 'timer\&.h'\fP
+.br
+\fR#include 'sensirion_gas_index_algorithm\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBsgp41_init_simple\fP (void)"
+.br
+.ti -1c
+.RI "int \fBsgp41_measure_once\fP (int32_t *voc_index, int32_t *nox_index)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int sgp41_init_simple (void )"
+
+.PP
+Definition at line \fB64\fP of file \fBsgp41\&.c\fP\&.
+.SS "int sgp41_measure_once (int32_t * voc_index, int32_t * nox_index)"
+
+.PP
+Definition at line \fB87\fP of file \fBsgp41\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

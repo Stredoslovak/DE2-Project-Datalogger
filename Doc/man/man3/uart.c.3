@@ -1,0 +1,134 @@
+.TH "lib/uart/uart.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/uart/uart.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+\fR#include <avr/interrupt\&.h>\fP
+.br
+\fR#include <avr/pgmspace\&.h>\fP
+.br
+\fR#include 'uart\&.h'\fP
+.br
+
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUART_RX_BUFFER_MASK\fP   ( \fBUART_RX_BUFFER_SIZE\fP \- 1)"
+.br
+.ti -1c
+.RI "#define \fBUART_TX_BUFFER_MASK\fP   ( \fBUART_TX_BUFFER_SIZE\fP \- 1)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBif\fP (\fBtmphead\fP==UART_RxTail)"
+.br
+.ti -1c
+.RI "\fBif\fP (UART_TxHead !=UART_TxTail)"
+.br
+.ti -1c
+.RI "void \fBuart_init\fP (unsigned int baudrate)"
+.br
+.RI "Initialize UART and set baudrate\&. "
+.ti -1c
+.RI "unsigned int \fBuart_getc\fP (void)"
+.br
+.RI "Get received byte from ringbuffer\&. "
+.ti -1c
+.RI "void \fBuart_putc\fP (unsigned char \fBdata\fP)"
+.br
+.RI "Put byte to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts\fP (const char *s)"
+.br
+.RI "Put string to ringbuffer for transmitting via UART\&. "
+.ti -1c
+.RI "void \fBuart_puts_p\fP (const char *progmem_s)"
+.br
+.RI "Put string from program memory to ringbuffer for transmitting via UART\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBdata\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBusr\fP = UART0_STATUS"
+.br
+.ti -1c
+.RI "unsigned char \fBlastRxError\fP = 0"
+.br
+.ti -1c
+.RI "\fBtmphead\fP = ( UART_RxHead + 1) & \fBUART_RX_BUFFER_MASK\fP"
+.br
+.ti -1c
+.RI "\fBelse\fP"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define UART_RX_BUFFER_MASK   ( \fBUART_RX_BUFFER_SIZE\fP \- 1)"
+
+.PP
+Definition at line \fB50\fP of file \fBuart\&.c\fP\&.
+.SS "#define UART_TX_BUFFER_MASK   ( \fBUART_TX_BUFFER_SIZE\fP \- 1)"
+
+.PP
+Definition at line \fB51\fP of file \fBuart\&.c\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "if (\fBtmphead\fP  = \fR= UART_RxTail\fP)"
+
+.PP
+Definition at line \fB391\fP of file \fBuart\&.c\fP\&.
+.SS "if (UART_TxHead !  = \fRUART_TxTail\fP)"
+
+.PP
+Definition at line \fB417\fP of file \fBuart\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "data"
+\fBInitial value:\fP
+.nf
+{
+    unsigned char tmphead
+.PP
+.fi
+
+.PP
+Definition at line \fB368\fP of file \fBuart\&.c\fP\&.
+.SS "else"
+\fBInitial value:\fP
+.nf
+{
+        
+        UART_RxHead = tmphead
+.PP
+.fi
+
+.PP
+Definition at line \fB396\fP of file \fBuart\&.c\fP\&.
+.SS "unsigned char lastRxError = 0"
+
+.PP
+Definition at line \fB370\fP of file \fBuart\&.c\fP\&.
+.SS "tmphead = ( UART_RxHead + 1) & \fBUART_RX_BUFFER_MASK\fP"
+
+.PP
+Definition at line \fB389\fP of file \fBuart\&.c\fP\&.
+.SS "usr = UART0_STATUS"
+
+.PP
+Definition at line \fB369\fP of file \fBuart\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

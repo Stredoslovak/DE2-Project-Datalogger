@@ -1,0 +1,270 @@
+.TH "lib/sd/sd_routines.h" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/sd/sd_routines.h
+.SH SYNOPSIS
+.br
+.PP
+.SS "Macros"
+
+.in +1c
+.ti -1c
+.RI "#define \fBFAT_TESTING_ONLY\fP"
+.br
+.ti -1c
+.RI "#define \fBSD_CS_ASSERT\fP   PORTD &= ~0x10"
+.br
+.ti -1c
+.RI "#define \fBSD_CS_DEASSERT\fP   PORTD |= 0x10"
+.br
+.ti -1c
+.RI "#define \fBGO_IDLE_STATE\fP   0"
+.br
+.ti -1c
+.RI "#define \fBSEND_OP_COND\fP   1"
+.br
+.ti -1c
+.RI "#define \fBSEND_IF_COND\fP   8"
+.br
+.ti -1c
+.RI "#define \fBSEND_CSD\fP   9"
+.br
+.ti -1c
+.RI "#define \fBSTOP_TRANSMISSION\fP   12"
+.br
+.ti -1c
+.RI "#define \fBSEND_STATUS\fP   13"
+.br
+.ti -1c
+.RI "#define \fBSET_BLOCK_LEN\fP   16"
+.br
+.ti -1c
+.RI "#define \fBREAD_SINGLE_BLOCK\fP   17"
+.br
+.ti -1c
+.RI "#define \fBREAD_MULTIPLE_BLOCKS\fP   18"
+.br
+.ti -1c
+.RI "#define \fBWRITE_SINGLE_BLOCK\fP   24"
+.br
+.ti -1c
+.RI "#define \fBWRITE_MULTIPLE_BLOCKS\fP   25"
+.br
+.ti -1c
+.RI "#define \fBERASE_BLOCK_START_ADDR\fP   32"
+.br
+.ti -1c
+.RI "#define \fBERASE_BLOCK_END_ADDR\fP   33"
+.br
+.ti -1c
+.RI "#define \fBERASE_SELECTED_BLOCKS\fP   38"
+.br
+.ti -1c
+.RI "#define \fBSD_SEND_OP_COND\fP   41"
+.br
+.ti -1c
+.RI "#define \fBAPP_CMD\fP   55"
+.br
+.ti -1c
+.RI "#define \fBREAD_OCR\fP   58"
+.br
+.ti -1c
+.RI "#define \fBCRC_ON_OFF\fP   59"
+.br
+.ti -1c
+.RI "#define \fBON\fP   1"
+.br
+.ti -1c
+.RI "#define \fBOFF\fP   0"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBSD_init\fP (void)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_sendCommand\fP (unsigned char cmd, unsigned long arg)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_readSingleBlock\fP (unsigned long \fBstartBlock\fP)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_writeSingleBlock\fP (unsigned long \fBstartBlock\fP)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_readMultipleBlock\fP (unsigned long \fBstartBlock\fP, unsigned long \fBtotalBlocks\fP)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_writeMultipleBlock\fP (unsigned long \fBstartBlock\fP, unsigned long \fBtotalBlocks\fP)"
+.br
+.ti -1c
+.RI "unsigned char \fBSD_erase\fP (unsigned long \fBstartBlock\fP, unsigned long \fBtotalBlocks\fP)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "volatile unsigned long \fBstartBlock\fP"
+.br
+.ti -1c
+.RI "volatile unsigned long \fBtotalBlocks\fP"
+.br
+.ti -1c
+.RI "volatile unsigned char \fBSDHC_flag\fP"
+.br
+.ti -1c
+.RI "volatile unsigned char \fBcardType\fP"
+.br
+.ti -1c
+.RI "volatile unsigned char \fBbuffer\fP [512]"
+.br
+.in -1c
+.SH "Macro Definition Documentation"
+.PP 
+.SS "#define APP_CMD   55"
+
+.PP
+Definition at line \fB48\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define CRC_ON_OFF   59"
+
+.PP
+Definition at line \fB50\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define ERASE_BLOCK_END_ADDR   33"
+
+.PP
+Definition at line \fB45\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define ERASE_BLOCK_START_ADDR   32"
+
+.PP
+Definition at line \fB44\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define ERASE_SELECTED_BLOCKS   38"
+
+.PP
+Definition at line \fB46\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define FAT_TESTING_ONLY"
+
+.PP
+Definition at line \fB20\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define GO_IDLE_STATE   0"
+
+.PP
+Definition at line \fB33\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define OFF   0"
+
+.PP
+Definition at line \fB54\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define ON   1"
+
+.PP
+Definition at line \fB53\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define READ_MULTIPLE_BLOCKS   18"
+
+.PP
+Definition at line \fB41\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define READ_OCR   58"
+
+.PP
+Definition at line \fB49\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define READ_SINGLE_BLOCK   17"
+
+.PP
+Definition at line \fB40\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SD_CS_ASSERT   PORTD &= ~0x10"
+
+.PP
+Definition at line \fB30\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SD_CS_DEASSERT   PORTD |= 0x10"
+
+.PP
+Definition at line \fB31\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SD_SEND_OP_COND   41"
+
+.PP
+Definition at line \fB47\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SEND_CSD   9"
+
+.PP
+Definition at line \fB36\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SEND_IF_COND   8"
+
+.PP
+Definition at line \fB35\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SEND_OP_COND   1"
+
+.PP
+Definition at line \fB34\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SEND_STATUS   13"
+
+.PP
+Definition at line \fB38\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define SET_BLOCK_LEN   16"
+
+.PP
+Definition at line \fB39\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define STOP_TRANSMISSION   12"
+
+.PP
+Definition at line \fB37\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define WRITE_MULTIPLE_BLOCKS   25"
+
+.PP
+Definition at line \fB43\fP of file \fBsd_routines\&.h\fP\&.
+.SS "#define WRITE_SINGLE_BLOCK   24"
+
+.PP
+Definition at line \fB42\fP of file \fBsd_routines\&.h\fP\&.
+.SH "Function Documentation"
+.PP 
+.SS "unsigned char SD_erase (unsigned long startBlock, unsigned long totalBlocks)"
+
+.PP
+Definition at line \fB191\fP of file \fBSD_routines\&.c\fP\&.
+.SS "unsigned char SD_init (void )"
+
+.PP
+Definition at line \fB32\fP of file \fBSD_routines\&.c\fP\&.
+.SS "unsigned char SD_readMultipleBlock (unsigned long startBlock, unsigned long totalBlocks)"
+
+.SS "unsigned char SD_readSingleBlock (unsigned long startBlock)"
+
+.PP
+Definition at line \fB216\fP of file \fBSD_routines\&.c\fP\&.
+.SS "unsigned char SD_sendCommand (unsigned char cmd, unsigned long arg)"
+
+.PP
+Definition at line \fB128\fP of file \fBSD_routines\&.c\fP\&.
+.SS "unsigned char SD_writeMultipleBlock (unsigned long startBlock, unsigned long totalBlocks)"
+
+.SS "unsigned char SD_writeSingleBlock (unsigned long startBlock)"
+
+.PP
+Definition at line \fB251\fP of file \fBSD_routines\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "volatile unsigned char buffer[512]"
+
+.PP
+Definition at line \fB57\fP of file \fBsd_routines\&.h\fP\&.
+.SS "volatile unsigned char cardType"
+
+.PP
+Definition at line \fB57\fP of file \fBsd_routines\&.h\fP\&.
+.SS "volatile unsigned char SDHC_flag"
+
+.PP
+Definition at line \fB57\fP of file \fBsd_routines\&.h\fP\&.
+.SS "volatile unsigned long startBlock"
+
+.PP
+Definition at line \fB56\fP of file \fBsd_routines\&.h\fP\&.
+.SS "volatile unsigned long totalBlocks"
+
+.PP
+Definition at line \fB56\fP of file \fBsd_routines\&.h\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

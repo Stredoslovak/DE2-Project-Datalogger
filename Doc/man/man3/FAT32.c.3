@@ -1,0 +1,116 @@
+.TH "lib/FAT32/FAT32.c" 3 "Version 01" "SD_CardTesting" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+lib/FAT32/FAT32.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <avr/io\&.h>\fP
+.br
+\fR#include <avr/pgmspace\&.h>\fP
+.br
+\fR#include 'FAT32\&.h'\fP
+.br
+\fR#include 'uart\&.h'\fP
+.br
+\fR#include 'sd_routines\&.h'\fP
+.br
+\fR#include 'rtc\&.h'\fP
+.br
+\fR#include 'uart_compat\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "unsigned char \fBgetBootSectorData\fP (void)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetFirstSector\fP (unsigned long clusterNumber)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetSetNextCluster\fP (unsigned long clusterNumber, unsigned char get_set, unsigned long clusterEntry)"
+.br
+.ti -1c
+.RI "unsigned long \fBgetSetFreeCluster\fP (unsigned char totOrNext, unsigned char get_set, unsigned long FSEntry)"
+.br
+.ti -1c
+.RI "struct \fBdir_Structure\fP * \fBfindFiles\fP (unsigned char flag, unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned char \fBreadFile\fP (unsigned char flag, unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned char \fBconvertFileName\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned char \fBwriteFile\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "unsigned long \fBsearchNextFreeCluster\fP (unsigned long startCluster)"
+.br
+.ti -1c
+.RI "void \fBdisplayMemory\fP (unsigned char flag, unsigned long memory)"
+.br
+.ti -1c
+.RI "void \fBdeleteFile\fP (unsigned char *fileName)"
+.br
+.ti -1c
+.RI "void \fBfreeMemoryUpdate\fP (unsigned char flag, unsigned long size)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "unsigned char convertFileName (unsigned char * fileName)"
+
+.PP
+Definition at line \fB383\fP of file \fBFAT32\&.c\fP\&.
+.SS "void deleteFile (unsigned char * fileName)"
+
+.PP
+Definition at line \fB726\fP of file \fBFAT32\&.c\fP\&.
+.SS "void displayMemory (unsigned char flag, unsigned long memory)"
+
+.PP
+Definition at line \fB702\fP of file \fBFAT32\&.c\fP\&.
+.SS "struct \fBdir_Structure\fP * findFiles (unsigned char flag, unsigned char * fileName)"
+
+.PP
+Definition at line \fB169\fP of file \fBFAT32\&.c\fP\&.
+.SS "void freeMemoryUpdate (unsigned char flag, unsigned long size)"
+
+.PP
+Definition at line \fB743\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char getBootSectorData (void )"
+
+.PP
+Definition at line \fB28\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getFirstSector (unsigned long clusterNumber)"
+
+.PP
+Definition at line \fB80\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getSetFreeCluster (unsigned char totOrNext, unsigned char get_set, unsigned long FSEntry)"
+
+.PP
+Definition at line \fB134\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long getSetNextCluster (unsigned long clusterNumber, unsigned char get_set, unsigned long clusterEntry)"
+
+.PP
+Definition at line \fB92\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char readFile (unsigned char flag, unsigned char * fileName)"
+
+.PP
+Definition at line \fB319\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned long searchNextFreeCluster (unsigned long startCluster)"
+
+.PP
+Definition at line \fB674\fP of file \fBFAT32\&.c\fP\&.
+.SS "unsigned char writeFile (unsigned char * fileName)"
+
+.PP
+Definition at line \fB442\fP of file \fBFAT32\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for SD_CardTesting from the source code\&.

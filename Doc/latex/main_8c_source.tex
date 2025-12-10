@@ -1,0 +1,530 @@
+\doxysection{main.\+c}
+\label{main_8c_source}\index{src/main.c@{src/main.c}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ *\ Use\ USART\ unit\ and\ transmit\ data\ between\ ATmega328P\ and\ computer.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ *\ (c)\ 2018-\/2025\ Tomas\ Fryza,\ MIT\ license}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ *\ Developed\ using\ PlatformIO\ and\ Atmel\ AVR\ platform.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ *\ Tested\ on\ Arduino\ Uno\ board\ and\ ATmega328P,\ 16\ MHz.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{comment}{//\ -\/-\/\ Includes\ -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <avr/io.h>}\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ AVR\ device-\/specific\ IO\ definitions}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <avr/interrupt.h>}\ \ \textcolor{comment}{//\ Interrupts\ standard\ C\ library\ for\ AVR-\/GCC}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}timer.h"{}}\ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Timer\ library\ for\ AVR-\/GCC}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <uart.h>}\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Peter\ Fleury's\ UART\ library}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <stdlib.h>}\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ C\ library.\ Needed\ for\ number\ conversions}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}SPI\_routines.h"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}sd\_routines.h"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}FAT32.h"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}gpio.h"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}rtc.h"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <twi.h>}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}bme280.h"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}SensirionI2CSgp41.h"{}}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ <math.h>}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#include\ <util/delay.h>}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ UART\_ON}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ SD\_write}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ ACTIVITY\_LED\_PORT\ \ \ PORTC}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ L\_ACT\ \ \ \ 2}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#define\ STATUS\_LED\_PORT\ \ \ \ \ PORTC}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ L\_STATUS\ \ \ \ \ \ 1}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ ERROR\_LED\_PORT\ \ \ \ \ \ PORTC}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ L\_ERROR\ \ \ \ \ \ \ 0}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{volatile}\ uint8\_t\ printRTC\ =\ 0;}
+\DoxyCodeLine{00037\ \textcolor{keyword}{volatile}\ uint8\_t\ counterTim1\ =\ 0;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ uint8\_t\ SD\_OK,\ FS\_OK,\ BM\_OK,\ SGP\_OK,\ RTC\_OK\ =\ 0;}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{int}\ bme\_init\_simple(\textcolor{keyword}{struct}\ bme280\_dev\ *dev,\ uint8\_t\ *dev\_addr\_ptr);}
+\DoxyCodeLine{00042\ \textcolor{keywordtype}{int}\ bme\_read\_once(\textcolor{keyword}{struct}\ bme280\_dev\ *dev,\ int32\_t\ *t100,\ uint32\_t\ *press\_pa,\ uint32\_t\ *hum\_x1024);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{int}\ sgp41\_init\_simple(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{00044\ \textcolor{keywordtype}{int}\ sgp41\_measure\_once(int32\_t\ *voc\_index,\ int32\_t\ *nox\_index);}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{keyword}{volatile}\ uint8\_t\ measurement\_flag\ =\ 0;}
+\DoxyCodeLine{00047\ uint8\_t\ get\_month\_from\_ascii\_sum(uint16\_t\ sum)\ \{}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{switch}(sum)\ \{}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 268:\ \textcolor{keywordflow}{return}\ 12;\ \textcolor{comment}{//\ Dec}}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 269:\ \textcolor{keywordflow}{return}\ 2;\ \ \textcolor{comment}{//\ Feb}}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 281:\ \textcolor{keywordflow}{return}\ 1;\ \ \textcolor{comment}{//\ Jan}}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 285:\ \textcolor{keywordflow}{return}\ 8;\ \ \textcolor{comment}{//\ Aug}}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 288:\ \textcolor{keywordflow}{return}\ 3;\ \ \textcolor{comment}{//\ Mar}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 291:\ \textcolor{keywordflow}{return}\ 4;\ \ \textcolor{comment}{//\ Apr}}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 294:\ \textcolor{keywordflow}{return}\ 10;\ \textcolor{comment}{//\ Oct}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 295:\ \textcolor{keywordflow}{return}\ 5;\ \ \textcolor{comment}{//\ May}}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 296:\ \textcolor{keywordflow}{return}\ 9;\ \ \textcolor{comment}{//\ Sep}}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 299:\ \textcolor{keywordflow}{return}\ 7;\ \ \textcolor{comment}{//\ Jul}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 301:\ \textcolor{keywordflow}{return}\ 6;\ \ \textcolor{comment}{//\ Jun}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ 307:\ \textcolor{keywordflow}{return}\ 11;\ \textcolor{comment}{//\ Nov}}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{default}:\ \textcolor{keywordflow}{return}\ 0;\ \ \ \textcolor{comment}{//\ Error}}
+\DoxyCodeLine{00062\ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ setup\_ext\_int(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00066\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{comment}{//\ PD2\ =\ INT0}}
+\DoxyCodeLine{00068\ \ \ \ \ gpio\_mode\_input\_nopull(\&DDRD,\ 2);\ \textcolor{comment}{//\ nastav\ PD2\ ako\ vstup\ s\ pull-\/up\ (pouzi\ gpio.h)}}
+\DoxyCodeLine{00069\ \ \ \ \ EICRA\ \&=\ \string~((1\ <<\ ISC00));\ \textcolor{comment}{//\ vycistit\ bity\ pre\ INT0/INT1\ v\ EICRA}}
+\DoxyCodeLine{00070\ \ \ \ \ EICRA\ |=\ (1\ <<\ ISC01);}
+\DoxyCodeLine{00071\ \ \ \ \ \textcolor{comment}{//\ EICRA\ |=\ (1\ <<\ ISC01);\ //\ ISC01\ =\ 1,\ ISC00\ =\ 0\ -\/>\ falling\ edge}}
+\DoxyCodeLine{00072\ \ \ \ \ EIMSK\ |=\ (1\ <<\ INT0);\ \textcolor{comment}{//\ povolit\ externy\ interrupt\ INT0}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{comment}{//\ PCICR\ |=\ (1\ <<\ PCIE0);\ //\ povolit\ pin\ change\ interrupt\ pre\ PCINT[7:0]\ (PORTB)}}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{comment}{//\ PCMSK0\ |=\ (1\ <<\ PCINT2);\ //\ povolit\ pin\ change\ interrupt}}
+\DoxyCodeLine{00076\ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keywordtype}{void}\ set\_interrupt\_source(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00079\ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{if}\ (RTC\_OK\ ==\ 0)}
+\DoxyCodeLine{00081\ \ \ \ \ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RTC\ is\ OK,\ use\ external\ interrupt\ on\ PD2}}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ tim1\_ovf\_disable();}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ rtc\_write\_reg(0x0e,\ 0x00);\ \textcolor{comment}{//\ Enable\ square-\/wave\ output}}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ setup\_ext\_int();}
+\DoxyCodeLine{00086\ \ \ \ \ \}}
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00088\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RTC\ not\ OK,\ use\ Timer1\ interrupt}}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ EIMSK\ \&=\ \string~(1\ <<\ INT0);\ \ \textcolor{comment}{//\ Disable\ INT0}}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ tim1\_ovf\_enable();}
+\DoxyCodeLine{00092\ \ \ \ \ \}}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ \textcolor{keywordtype}{void}\ set\_time\_uart(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00095\ \{}
+\DoxyCodeLine{00096\ \ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}Waiting\ for\ time\ data\ (YYYY,MM,DD,HH,MM,SS,DOW)...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00097\ \ \ \ \ }
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{char}\ time\_buffer[30];}
+\DoxyCodeLine{00099\ \ \ \ \ uint8\_t\ idx\ =\ 0;}
+\DoxyCodeLine{00100\ \ \ \ \ }
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{while}(1)\ \{}
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \ \ uint16\_t\ data\ =\ uart\_getc();}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(data\ \&\ UART\_NO\_DATA)\ \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ ch\ =\ (char)(data\ \&\ 0xFF);}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(ch\ ==\ \textcolor{charliteral}{'\(\backslash\)r'}\ ||\ ch\ ==\ \textcolor{charliteral}{'\(\backslash\)n'})\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ time\_buffer[idx++]\ =\ ch;}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(idx\ >=\ 29)\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00111\ \ \ \ \ \}}
+\DoxyCodeLine{00112\ \ \ \ \ time\_buffer[idx]\ =\ \textcolor{charliteral}{'\(\backslash\)0'};}
+\DoxyCodeLine{00113\ \ \ \ \ }
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{comment}{//\ Parse:\ YYYY,MM,DD,HH,MM,SS,DOW}}
+\DoxyCodeLine{00115\ \ \ \ \ \textcolor{keywordtype}{int}\ year,\ month,\ day,\ hour,\ minute,\ second,\ dow;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{if}(sscanf(time\_buffer,\ \textcolor{stringliteral}{"{}\%d,\%d,\%d,\%d,\%d,\%d,\%d"{}},\ }
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&year,\ \&month,\ \&day,\ \&hour,\ \&minute,\ \&second,\ \&dow)\ ==\ 7)\ \{}
+\DoxyCodeLine{00118\ \ \ \ \ \ \ \ \ rtc\_set\_time(hour,\ minute,\ second);}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ rtc\_set\_date(dow,\ day,\ month,\ (year\ \%\ 100));}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ rtc\_set\_day(dow);\ \ //\ 1=Sunday\ ...\ 7=Saturday}}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ days[]\ =\ \{\textcolor{stringliteral}{"{}"{}},\ \textcolor{stringliteral}{"{}Sun"{}},\ \textcolor{stringliteral}{"{}Mon"{}},\ \textcolor{stringliteral}{"{}Tue"{}},\ \textcolor{stringliteral}{"{}Wed"{}},\ \textcolor{stringliteral}{"{}Thu"{}},\ \textcolor{stringliteral}{"{}Fri"{}},\ \textcolor{stringliteral}{"{}Sat"{}}\};}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ msg[60];}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ sprintf(msg,\ \textcolor{stringliteral}{"{}Time\ set:\ \%04d-\/\%02d-\/\%02d\ (\%s)\ \%02d:\%02d:\%02d\(\backslash\)r\(\backslash\)n"{}},\ }
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ year,\ month,\ day,\ days[dow],\ hour,\ minute,\ second);}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ uart\_puts(msg);}
+\DoxyCodeLine{00127\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ uart\_puts(\textcolor{stringliteral}{"{}Error\ parsing\ time!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \}}
+\DoxyCodeLine{00131\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{void})}
+\DoxyCodeLine{00132\ \{}
+\DoxyCodeLine{00133\ \ \ \ \ tim1\_ovf\_1sec();}
+\DoxyCodeLine{00134\ \ \ \ \ uint8\_t\ hour,\ minute,\ second;\ }
+\DoxyCodeLine{00135\ \ \ \ \ uint8\_t\ day,\ date,\ month,\ year;}
+\DoxyCodeLine{00136\ \ \ \ \ }
+\DoxyCodeLine{00137\ \ \ \ \ \textcolor{comment}{//\ unsigned\ char\ error;}}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{comment}{//\ unsigned\ char\ fileName[]\ =\ "{}DATA.TXT"{};}}
+\DoxyCodeLine{00139\ \ \ \ \ }
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{comment}{//\ Initialize\ UART}}
+\DoxyCodeLine{00141\ \ \ \ \ uart\_init(UART\_BAUD\_SELECT(115200,\ F\_CPU));}
+\DoxyCodeLine{00142\ \ \ \ \ twi\_init();}
+\DoxyCodeLine{00143\ \ \ \ \ \textcolor{comment}{//\ Configure\ SPI\ pins\ for\ ATmega328P}}
+\DoxyCodeLine{00144\ \ \ \ \ gpio\_mode\_output(\&DDRB,\ PB3);\ \ \textcolor{comment}{//\ MOSI}}
+\DoxyCodeLine{00145\ \ \ \ \ gpio\_mode\_output(\&DDRB,\ PB5);\ \ \textcolor{comment}{//\ SCK}}
+\DoxyCodeLine{00146\ \ \ \ \ gpio\_mode\_output(\&DDRD,\ PD4);\ \ \textcolor{comment}{//\ SS\ (Chip\ Select)}}
+\DoxyCodeLine{00147\ \ \ \ \ gpio\_mode\_input\_nopull(\&DDRB,\ PB4);\ \ \textcolor{comment}{//\ MISO\ as\ input}}
+\DoxyCodeLine{00148\ \ \ \ \ }
+\DoxyCodeLine{00149\ \ \ \ \ \textcolor{comment}{//\ Set\ SS\ high\ initially\ (SD\ card\ deselected)}}
+\DoxyCodeLine{00150\ \ \ \ \ gpio\_write\_high(\&PORTD,\ PIND4);}
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ \ \ \ \ gpio\_mode\_output(\&DDRC,\ 0);\ \textcolor{comment}{//led\ red\ \ \ ERROR}}
+\DoxyCodeLine{00153\ \ \ \ \ gpio\_mode\_output(\&DDRC,\ 1);\ \textcolor{comment}{//led\ green\ STATUS}}
+\DoxyCodeLine{00154\ \ \ \ \ gpio\_mode\_output(\&DDRC,\ 2);\ \textcolor{comment}{//led\ yellow\ ACT}}
+\DoxyCodeLine{00155\ \ \ \ \ gpio\_write\_high(\&PORTC,\ 0);}
+\DoxyCodeLine{00156\ \ \ \ \ gpio\_write\_high(\&PORTC,\ 1);}
+\DoxyCodeLine{00157\ \ \ \ \ gpio\_write\_high(\&PORTC,\ 2);}
+\DoxyCodeLine{00158\ \ \ \ \ }
+\DoxyCodeLine{00159\ \ \ \ \ sei();}
+\DoxyCodeLine{00160\ \ \ \ \ }
+\DoxyCodeLine{00161\ \ \ \ \ gpio\_write\_low(\&ACTIVITY\_LED\_PORT,\ L\_ACT);\ \textcolor{comment}{//\ ACT\ ON}}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ gpio\_write\_low(\&STATUS\_LED\_PORT,\ L\_STATUS);\ //\ STATUS\ ON}}
+\DoxyCodeLine{00163\ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);\ \textcolor{comment}{//\ ERROR\ ON}}
+\DoxyCodeLine{00164\ }
+\DoxyCodeLine{00165\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}\(\backslash\)r\(\backslash\)n===\ SD\ Card\ FAT32\ Test\ ===\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{comment}{//\ Initialize\ SPI}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ SD\_write}}
+\DoxyCodeLine{00170\ \ \ \ \ spi\_init();}
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00172\ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SPI\ initialized\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00173\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00174\ \ \ \ \ }
+\DoxyCodeLine{00175\ \ \ \ \ \textcolor{comment}{//\ Step\ 1:\ Initialize\ SD\ card}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00177\ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}Initializing\ SD\ card...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00179\ \ \ \ \ \textcolor{comment}{//\ error\ =\ SD\_init();}}
+\DoxyCodeLine{00180\ \ \ \ \ }
+\DoxyCodeLine{00181\ \ \ \ \ \textcolor{keywordflow}{if}(SD\_init())}
+\DoxyCodeLine{00182\ \ \ \ \ \{}
+\DoxyCodeLine{00183\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SD\ Card\ Initialization\ Error!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00185\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}System\ continuing\ without\ SD\ card...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00186\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \ \ SD\_OK\ =\ 1;}
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while(1);\ \ //\ Stop\ execution}}
+\DoxyCodeLine{00189\ \ \ \ \ \}}
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00191\ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SD\ card\ initialized\ successfully!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00192\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Step\ 2:\ Initialize\ FAT32}}
+\DoxyCodeLine{00193\ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}Reading\ boot\ sector...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00194\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00195\ \ \ \ \ }
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keywordflow}{if}(getBootSectorData())}
+\DoxyCodeLine{00197\ \ \ \ \ \{}
+\DoxyCodeLine{00198\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}FAT32\ initialization\ failed!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00200\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}System\ continuing\ without\ SD\ card...\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00201\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ FS\_OK\ =\ 1;}
+\DoxyCodeLine{00203\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while(1);\ \ //\ Stop\ execution}}
+\DoxyCodeLine{00204\ \ \ \ \ \}}
+\DoxyCodeLine{00205\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00206\ \ \ \ \ \{}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00208\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}FAT32\ initialized\ successfully!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ FS\_OK\ =\ 0;}
+\DoxyCodeLine{00212\ \ \ \ \ \}}
+\DoxyCodeLine{00213\ \textcolor{preprocessor}{\ \ \ \ \#endif}}
+\DoxyCodeLine{00214\ \ \ \ \ \ \textcolor{comment}{/*\ Initialize\ BME280\ */}}
+\DoxyCodeLine{00215\ \ \ \ \ \textcolor{keyword}{struct\ }bme280\_dev\ bme\_dev;}
+\DoxyCodeLine{00216\ \ \ \ \ uint8\_t\ bme\_addr\ =\ BME280\_I2C\_ADDR\_PRIM;}
+\DoxyCodeLine{00217\ \ \ \ \ \textcolor{keywordflow}{if}\ (bme\_init\_simple(\&bme\_dev,\ \&bme\_addr)\ !=\ BME280\_OK)\ \{}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00219\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}BME\ init\ failed\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00221\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \ \ BM\_OK\ =\ 1;}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while\ (1);}}
+\DoxyCodeLine{00224\ \ \ \ \ \}}
+\DoxyCodeLine{00225\ \ \ \ \ \_delay\_ms(100);}
+\DoxyCodeLine{00226\ \ \ \ \ \textcolor{comment}{/*\ Initialize\ SGP41\ */}}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keywordflow}{if}\ (sgp41\_init\_simple()\ !=\ 0)\ }
+\DoxyCodeLine{00228\ \ \ \ \ \{}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SGP41\ init\ warning\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00231\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00232\ \ \ \ \ \ \ \ \ SGP\_OK\ =\ 1;}
+\DoxyCodeLine{00233\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ while\ (1);}}
+\DoxyCodeLine{00234\ \ \ \ \ \}}
+\DoxyCodeLine{00235\ \ \ \ \ \textcolor{keywordflow}{if}\ (twi\_test\_address(RTC\_ADDRESS))}
+\DoxyCodeLine{00236\ \ \ \ \ \{}
+\DoxyCodeLine{00237\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}RTC\ not\ found!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}System\ using\ Compile\ time\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ RTC\_OK\ =\ 1;}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Set\ compile\ time\ to\ local\ variables\ (RTC\ not\ available)}}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ hour\_comp,\ minute\_comp,\ second\_comp;}
+\DoxyCodeLine{00244\ \ \ \ \ \ \ \ \ sscanf(\_\_TIME\_\_,\ \textcolor{stringliteral}{"{}\%d:\%d:\%d"{}},\ \&hour\_comp,\ \&minute\_comp,\ \&second\_comp);}
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \ \ hour\ =\ (uint8\_t)hour\_comp;}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \ \ minute\ =\ (uint8\_t)minute\_comp;}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \ \ second\ =\ (uint8\_t)second\_comp;}
+\DoxyCodeLine{00248\ }
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ year\_comp,\ month\_comp,\ day\_comp;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ month\_str[4];}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \ \ sscanf(\_\_DATE\_\_,\ \textcolor{stringliteral}{"{}\%s\ \%d\ \%d"{}},\ month\_str,\ \&day\_comp,\ \&year\_comp);}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ uint16\_t\ month\_sum\ =\ month\_str[0]\ +\ month\_str[1]\ +\ month\_str[2];}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ month\_comp\ =\ get\_month\_from\_ascii\_sum(month\_sum);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \ \ date\ =\ (uint8\_t)day\_comp;}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ month\ =\ (uint8\_t)month\_comp;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ year\ =\ (uint8\_t)(year\_comp\ \%\ 100);}
+\DoxyCodeLine{00258\ \ \ \ \ \}}
+\DoxyCodeLine{00259\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00260\ \ \ \ \ \{}
+\DoxyCodeLine{00261\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}RTC\ found!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00263\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ RTC\_OK\ =\ 0;}}
+\DoxyCodeLine{00265\ \ \ \ \ \ \ \ \ rtc\_write\_reg(0x0e,\ 0x00);\ \textcolor{comment}{//\ Enable\ square-\/wave\ output}}
+\DoxyCodeLine{00266\ \ \ \ \ \}}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keywordflow}{if}\ (RTC\_OK\ \&\ SGP\_OK\ \&\ SD\_OK\ \&\ FS\_OK\ \&\ BM\_OK)}
+\DoxyCodeLine{00268\ \ \ \ \ \{}
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00270\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}No\ sensors\ and\ SD\ card\ available,\ system\ halted!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ACTIVITY\_LED\_PORT,\ L\_ACT);\ \textcolor{comment}{//\ ACT\ ON}}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{while}(1);}
+\DoxyCodeLine{00274\ \ \ \ \ \}}
+\DoxyCodeLine{00275\ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (RTC\_OK\ |\ SGP\_OK\ |\ BM\_OK\ |\ SD\_OK\ |\ FS\_OK)}
+\DoxyCodeLine{00276\ \ \ \ \ \{}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}System\ initialized\ with\ warnings!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);\ \textcolor{comment}{//\ ERROR\ ON}}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ \ \ \ \ }
+\DoxyCodeLine{00283\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00284\ \ \ \ \ \{}
+\DoxyCodeLine{00285\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}System\ initialized\ successfully!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00287\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ gpio\_write\_high(\&ERROR\_LED\_PORT,\ L\_ERROR);\ \textcolor{comment}{//\ ERROR\ OFF}}
+\DoxyCodeLine{00289\ \ \ \ \ \ \ \ \ gpio\_write\_high(\&STATUS\_LED\_PORT,\ L\_ACT);\ \textcolor{comment}{//\ ACT\ OFF}}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \ \ gpio\_write\_low(\&STATUS\_LED\_PORT,\ L\_STATUS);\ \textcolor{comment}{//\ STATUS\ ON}}
+\DoxyCodeLine{00291\ \ \ \ \ \}}
+\DoxyCodeLine{00292\ }
+\DoxyCodeLine{00293\ \ \ \ \ }
+\DoxyCodeLine{00294\ \ \ \ \ \textcolor{comment}{//\ sprintf(buffer,\ "{}Date:\ \%02d/\%02d/\%04d\(\backslash\)r\(\backslash\)n"{},\ day,\ month,\ year);}}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{comment}{//\ uart\_puts(buffer);}}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{comment}{//\ sprintf(buffer,\ "{}Time\ COMPILE:\ \%02d:\%02d:\%02d\(\backslash\)r\(\backslash\)n"{},\ hour,\ minute,\ second);}}
+\DoxyCodeLine{00297\ \ \ \ \ \textcolor{comment}{//\ uart\_puts(buffer);}}
+\DoxyCodeLine{00298\ \ \ \ \ \textcolor{comment}{//\ rtc\_get\_time(\&hour,\ \&minute,\ \&second);}}
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{comment}{//\ sprintf(buffer,\ "{}Time\ RTC:\ \%02d:\%02d:\%02d\(\backslash\)r\(\backslash\)n"{},\ hour,\ minute,\ second);}}
+\DoxyCodeLine{00300\ \ \ \ \ \textcolor{comment}{//\ uart\_puts(buffer);}}
+\DoxyCodeLine{00301\ \ \ \ \ \textcolor{comment}{//\ \_delay\_ms(100);}}
+\DoxyCodeLine{00302\ \ \ \ \ \textcolor{comment}{//\ int\ hour\_comp,\ minute\_comp,\ second\_comp;}}
+\DoxyCodeLine{00303\ \ \ \ \ \textcolor{comment}{//\ sscanf(\_\_TIME\_\_,\ "{}\%d:\%d:\%d"{},\ \&hour\_comp,\ \&minute\_comp,\ \&second\_comp);}}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{comment}{//\ rtc\_set\_time((uint8\_t)hour\_comp,\ (uint8\_t)minute\_comp,\ (uint8\_t)second\_comp);\ //\ Set\ time\ to\ compile\ time}}
+\DoxyCodeLine{00305\ \ \ \ \ \textcolor{comment}{//\ rtc\_set\_date(7,\ 29,\ 11,\ 25);}}
+\DoxyCodeLine{00306\ \ \ \ \ set\_interrupt\_source();}
+\DoxyCodeLine{00307\ \ \ \ \ \textcolor{keywordtype}{char}\ buffer[50];}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keywordflow}{while}\ (1)}
+\DoxyCodeLine{00309\ \ \ \ \ \{\ \ \ }
+\DoxyCodeLine{00310\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(printRTC\ ==\ 1)}
+\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ printRTC\ =\ 0;}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (!(twi\_test\_address(RTC\_ADDRESS)))}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtc\_get\_time(\&hour,\ \&minute,\ \&second);}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buffer,\ \textcolor{stringliteral}{"{}Time\ RTC:\ \%02d:\%02d:\%02d\(\backslash\)r\(\backslash\)n"{}},\ hour,\ minute,\ second);}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts(buffer);}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtc\_get\_date(\&date,\ \&month,\ \&year);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ sprintf(buffer,\ \textcolor{stringliteral}{"{}Date\ RTC:\ \%02d/\%02d/20\%02d\(\backslash\)r\(\backslash\)n"{}},\ date,\ month,\ year);}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts(buffer);}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ gpio\_write\_high(\&ERROR\_LED\_PORT,\ L\_ERROR);\ //\ ERROR\ OFF}}
+\DoxyCodeLine{00323\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RTC\_OK\ =\ 0;}
+\DoxyCodeLine{00324\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00325\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00327\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00328\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}RTC\ not\ found,\ using\ Compile\ time\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00329\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00330\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);\ \textcolor{comment}{//\ ERROR\ ON}}
+\DoxyCodeLine{00331\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00333\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00334\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00336\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00337\ }
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ if(RTC\_OK\ |\ SGP\_OK\ |\ BM\_OK\ |\ SD\_OK\ |\ FS\_OK)}}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \{}}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);\ //\ ERROR\ ON}}
+\DoxyCodeLine{00341\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00342\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ else}}
+\DoxyCodeLine{00343\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \{}}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ gpio\_write\_high(\&ERROR\_LED\_PORT,\ L\_ERROR);\ //\ ERROR\ OFF}}
+\DoxyCodeLine{00345\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00346\ }
+\DoxyCodeLine{00347\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (measurement\_flag)}
+\DoxyCodeLine{00348\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00349\ \ \ \ \ \ \ \ \ \ \ \ \ measurement\_flag\ =\ 0;}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}Starting\ measurement...\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00351\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ sensors\ */}}
+\DoxyCodeLine{00354\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ sdString[100];}
+\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ memset(sdString,\ 0,\ \textcolor{keyword}{sizeof}(sdString));\ \ \textcolor{comment}{//\ Vynulujte\ na\ začiatku}}
+\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00357\ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ t100\ =\ 0;}
+\DoxyCodeLine{00358\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ press\_pa\ =\ 0;}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ hum\_x1024\ =\ 0;}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00361\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}(twi\_test\_address(RTC\_ADDRESS))}
+\DoxyCodeLine{00362\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00363\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RTC\_OK\ =\ 1;}
+\DoxyCodeLine{00364\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set\_interrupt\_source();}
+\DoxyCodeLine{00365\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00366\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00367\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00368\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ RTC\_OK\ =\ 0;}
+\DoxyCodeLine{00369\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtc\_get\_time(\&hour,\ \&minute,\ \&second);}
+\DoxyCodeLine{00370\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ rtc\_get\_date(\&date,\ \&month,\ \&year);}
+\DoxyCodeLine{00371\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ set\_interrupt\_source();}
+\DoxyCodeLine{00372\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00373\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00374\ \ \ \ \ \ \ \ \ \ \ \ \ snprintf(sdString,\ \textcolor{keyword}{sizeof}(sdString),\ \textcolor{stringliteral}{"{}\%02d:\%02d:\%02d,\%02d/\%02d/20\%02d,"{}},}
+\DoxyCodeLine{00375\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ hour,\ minute,\ second,\ date,\ month,\ year);}
+\DoxyCodeLine{00376\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00377\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (bme\_read\_once(\&bme\_dev,\ \&t100,\ \&press\_pa,\ \&hum\_x1024)\ ==\ 0)\ \{}
+\DoxyCodeLine{00378\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ temp\_int\ =\ t100\ /\ 100;}
+\DoxyCodeLine{00379\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ temp\_frac\ =\ (t100\ >=\ 0)\ ?\ (t100\ \%\ 100)\ :\ ((-\/t100)\ \%\ 100);}
+\DoxyCodeLine{00380\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00381\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ press\_hpa\_int\ =\ press\_pa\ /\ 100;}
+\DoxyCodeLine{00382\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ press\_hpa\_frac\ =\ press\_pa\ \%\ 100;}
+\DoxyCodeLine{00383\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00384\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ hum\_percent\_x100\ =\ (hum\_x1024\ *\ 100\ +\ 512)\ /\ 1024;}
+\DoxyCodeLine{00385\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ hum\_int\ =\ hum\_percent\_x100\ /\ 100;}
+\DoxyCodeLine{00386\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ hum\_frac\ =\ hum\_percent\_x100\ \%\ 100;}
+\DoxyCodeLine{00387\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00388\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ P\ =\ (double)press\_pa;}
+\DoxyCodeLine{00389\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ alt\ =\ 44330.0\ *\ (1.0\ -\/\ pow(P\ /\ 101325.0,\ 0.19029495718363465));}
+\DoxyCodeLine{00390\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ alt\_int\ =\ (int32\_t)alt;}
+\DoxyCodeLine{00391\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ alt\_frac\ =\ (int32\_t)(fabs(alt\ -\/\ (\textcolor{keywordtype}{double})alt\_int)\ *\ 100.0\ +\ 0.5);}
+\DoxyCodeLine{00392\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00393\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ temp\_buf[64];}
+\DoxyCodeLine{00394\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snprintf(temp\_buf,\ \textcolor{keyword}{sizeof}(temp\_buf),\ \textcolor{stringliteral}{"{}\%02ld.\%02ld,\%03lu.\%02lu,\%02lu.\%02lu,\%03ld.\%02ld,"{}},}
+\DoxyCodeLine{00395\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{long})temp\_int,\ (\textcolor{keywordtype}{long})temp\_frac,}
+\DoxyCodeLine{00396\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})press\_hpa\_int,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})press\_hpa\_frac,}
+\DoxyCodeLine{00397\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})hum\_int,\ (\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{long})hum\_frac,}
+\DoxyCodeLine{00398\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{long})alt\_int,\ (\textcolor{keywordtype}{long})alt\_frac);}
+\DoxyCodeLine{00399\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncat(sdString,\ temp\_buf,\ \textcolor{keyword}{sizeof}(sdString)\ -\/\ strlen(sdString)\ -\/\ 1);}
+\DoxyCodeLine{00400\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BM\_OK\ =\ 0;}
+\DoxyCodeLine{00401\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00402\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);\ \textcolor{comment}{//\ ERROR\ ON}}
+\DoxyCodeLine{00403\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncat(sdString,\ \textcolor{stringliteral}{"{}ERR,ERR,ERR,ERR,"{}},\ \textcolor{keyword}{sizeof}(sdString)\ -\/\ strlen(sdString)\ -\/\ 1);}
+\DoxyCodeLine{00404\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ BM\_OK\ =\ 1;}
+\DoxyCodeLine{00405\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00406\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00407\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Read\ SGP41\ */}}
+\DoxyCodeLine{00408\ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ voc\_idx\ =\ 0;}
+\DoxyCodeLine{00409\ \ \ \ \ \ \ \ \ \ \ \ \ int32\_t\ nox\_idx\ =\ 0;}
+\DoxyCodeLine{00410\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (sgp41\_measure\_once(\&voc\_idx,\ \&nox\_idx)\ ==\ 0)\ \{}
+\DoxyCodeLine{00411\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ temp\_buf[32];}
+\DoxyCodeLine{00412\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ snprintf(temp\_buf,\ \textcolor{keyword}{sizeof}(temp\_buf),\ \textcolor{stringliteral}{"{}\%ld,\%ld\(\backslash\)n"{}},\ (\textcolor{keywordtype}{long})voc\_idx,\ (\textcolor{keywordtype}{long})nox\_idx);}
+\DoxyCodeLine{00413\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncat(sdString,\ temp\_buf,\ \textcolor{keyword}{sizeof}(sdString)\ -\/\ strlen(sdString)\ -\/\ 1);}
+\DoxyCodeLine{00414\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SGP\_OK\ =\ 0;}
+\DoxyCodeLine{00415\ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00416\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncat(sdString,\ \textcolor{stringliteral}{"{}ERR,ERR\(\backslash\)n"{}},\ \textcolor{keyword}{sizeof}(sdString)\ -\/\ strlen(sdString)\ -\/\ 1);}
+\DoxyCodeLine{00417\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ SGP\_OK\ =\ 1;}
+\DoxyCodeLine{00418\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00419\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00420\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ UART\_ON}}
+\DoxyCodeLine{00421\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts(sdString);}}
+\DoxyCodeLine{00422\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00423\ \ \ \ \ \ \ \ \ \ \ \ \ uint8\_t\ write\_error\ =\ 0;}
+\DoxyCodeLine{00424\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Write\ to\ SD\ card\ */}}
+\DoxyCodeLine{00425\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts("{}Writing\ data\ to\ SD\ card...\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00426\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \_delay\_ms(100);\ //\ Small\ delay\ before\ SD\ write}}
+\DoxyCodeLine{00427\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts("{}FR"{});}}
+\DoxyCodeLine{00428\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (1)}
+\DoxyCodeLine{00429\ \ \ \ \ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00430\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vynulujte\ dataString\ PRED\ kopírovaním}}
+\DoxyCodeLine{00431\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts("{}in\ condition\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00432\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \_delay\_ms(50);}}
+\DoxyCodeLine{00433\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ cli();}}
+\DoxyCodeLine{00434\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ memset(dataString,\ 0,\ MAX\_STRING\_SIZE);}
+\DoxyCodeLine{00435\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00436\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Skopírujte\ sdString\ do\ dataString}}
+\DoxyCodeLine{00437\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strncpy((\textcolor{keywordtype}{char}*)dataString,\ sdString,\ MAX\_STRING\_SIZE\ -\/\ 1);}
+\DoxyCodeLine{00438\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ dataString[MAX\_STRING\_SIZE\ -\/\ 1]\ =\ '\(\backslash\)0';}}
+\DoxyCodeLine{00439\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00440\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Vytvorte\ novú\ kópiu\ názvu\ súboru}}
+\DoxyCodeLine{00441\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ fileName[12];}
+\DoxyCodeLine{00442\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ strcpy((\textcolor{keywordtype}{char}*)fileName,\ \textcolor{stringliteral}{"{}data1.csv"{}});}
+\DoxyCodeLine{00443\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00444\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ACTIVITY\_LED\_PORT,\ L\_ACT);}
+\DoxyCodeLine{00445\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#ifdef\ SD\_write}}
+\DoxyCodeLine{00446\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ write\_error\ =\ writeFile(fileName);}
+\DoxyCodeLine{00447\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \#endif}}
+\DoxyCodeLine{00448\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#ifndef\ SD\_write}}
+\DoxyCodeLine{00449\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ write\_error\ =\ 0;}}
+\DoxyCodeLine{00450\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ \#endif}}
+\DoxyCodeLine{00451\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (write\_error)\ \{}
+\DoxyCodeLine{00452\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}SD\ write\ error!\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00453\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpio\_write\_low(\&ERROR\_LED\_PORT,\ L\_ERROR);}
+\DoxyCodeLine{00454\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uart\_puts\_P(\textcolor{stringliteral}{"{}Data\ saved.\(\backslash\)r\(\backslash\)n"{}});}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ gpio\_write\_high(\&ACTIVITY\_LED\_PORT,\ L\_ACT);}
+\DoxyCodeLine{00458\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00459\ \ \ \ \ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00460\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00461\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Re-\/enable\ INT0}}
+\DoxyCodeLine{00462\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00463\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00464\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00465\ \ \ \ \ \}}
+\DoxyCodeLine{00466\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{00467\ \}}
+\DoxyCodeLine{00468\ }
+\DoxyCodeLine{00469\ ISR(TIMER1\_OVF\_vect)}
+\DoxyCodeLine{00470\ \{\ \ \ \ }
+\DoxyCodeLine{00471\ \ \ \ \ \textcolor{comment}{//\ counterTim1++;}}
+\DoxyCodeLine{00472\ \ \ \ \ \textcolor{comment}{//\ if\ (counterTim1>=5)}}
+\DoxyCodeLine{00473\ \ \ \ \ \textcolor{comment}{//\ \{}}
+\DoxyCodeLine{00474\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ measurement\_flag\ =\ 1;}}
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00476\ \ \ \ \ }
+\DoxyCodeLine{00477\ \textcolor{comment}{//\ \ \ \ \ if(counterTim1\ >=\ 10)\ \ //\ Every\ 10\ seconds}}
+\DoxyCodeLine{00478\ \textcolor{comment}{//\ \ \ \ \ \{}}
+\DoxyCodeLine{00479\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ counterTim1\ =\ 0;}}
+\DoxyCodeLine{00480\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ //\ printRTC\ =\ 1;}}
+\DoxyCodeLine{00481\ \textcolor{comment}{//\ \ \ \ \ \}}}
+\DoxyCodeLine{00482\ \ \ \ \ \textcolor{comment}{//\ cli();}}
+\DoxyCodeLine{00483\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ PC2\ (PCINT10)\ caused\ the\ interrupt}}
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{comment}{//\ if\ (PINC\ \&\ (1\ <<\ PC2))\ \{}}
+\DoxyCodeLine{00485\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ //\ Rising\ edge\ detected}}
+\DoxyCodeLine{00486\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ measurement\_flag\ =\ 1;}}
+\DoxyCodeLine{00487\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00488\ \ \ \ \ counterTim1++;}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keywordflow}{if}\ (counterTim1\ >=\ 10)\ \textcolor{comment}{//\ Every\ 5\ SQW\ pulses\ (5\ seconds)}}
+\DoxyCodeLine{00490\ \ \ \ \ \{}
+\DoxyCodeLine{00491\ \ \ \ \ \ \ \ \ counterTim1\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00492\ \ \ \ \ \ \ \ \ measurement\_flag\ =\ 1;}
+\DoxyCodeLine{00493\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}SQW\ Interrupt\ Triggered\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00494\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ gpio\_toggle(\&ACTIVITY\_LED\_PORT,\ L\_ERROR);}}
+\DoxyCodeLine{00495\ \ \ \ \ \}}
+\DoxyCodeLine{00496\ \ \ \ \ \textcolor{comment}{//\ sei();}}
+\DoxyCodeLine{00497\ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}Timer1\ Interrupt\ Triggered\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00498\ \}}
+\DoxyCodeLine{00499\ ISR(INT0\_vect)}
+\DoxyCodeLine{00500\ \{}
+\DoxyCodeLine{00501\ \ \ \ \ \textcolor{comment}{//\ cli();}}
+\DoxyCodeLine{00502\ \ \ \ \ \textcolor{comment}{//\ Check\ if\ PC2\ (PCINT10)\ caused\ the\ interrupt}}
+\DoxyCodeLine{00503\ \ \ \ \ \textcolor{comment}{//\ if\ (PINC\ \&\ (1\ <<\ PC2))\ \{}}
+\DoxyCodeLine{00504\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ //\ Rising\ edge\ detected}}
+\DoxyCodeLine{00505\ \ \ \ \ \textcolor{comment}{//\ \ \ \ \ measurement\_flag\ =\ 1;}}
+\DoxyCodeLine{00506\ \ \ \ \ \textcolor{comment}{//\ \}}}
+\DoxyCodeLine{00507\ \ \ \ \ gpio\_toggle(\&ACTIVITY\_LED\_PORT,\ L\_ERROR);}
+\DoxyCodeLine{00508\ \ \ \ \ counterTim1++;}
+\DoxyCodeLine{00509\ \ \ \ \ \textcolor{keywordflow}{if}\ (counterTim1\ >=\ 10)\ \textcolor{comment}{//\ Every\ 5\ SQW\ pulses\ (5\ seconds)}}
+\DoxyCodeLine{00510\ \ \ \ \ \{}
+\DoxyCodeLine{00511\ \ \ \ \ \ \ \ \ counterTim1\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00512\ \ \ \ \ \ \ \ \ measurement\_flag\ =\ 1;}
+\DoxyCodeLine{00513\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ printRTC\ =\ 1;}}
+\DoxyCodeLine{00514\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}SQW\ Interrupt\ Triggered\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00515\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ gpio\_toggle(\&ACTIVITY\_LED\_PORT,\ L\_ERROR);}}
+\DoxyCodeLine{00516\ \ \ \ \ \}}
+\DoxyCodeLine{00517\ \ \ \ }
+\DoxyCodeLine{00518\ \ \ \ \ \textcolor{comment}{//\ sei();}}
+\DoxyCodeLine{00519\ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}SQW\ Interrupt\ Triggered\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00520\ \}}
+\DoxyCodeLine{00521\ ISR(INT1\_vect)}
+\DoxyCodeLine{00522\ \{}
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{comment}{//\ uart\_puts\_P("{}INT1\ (PD3)\ Triggered\(\backslash\)r\(\backslash\)n"{});}}
+\DoxyCodeLine{00524\ \}}
+
+\end{DoxyCode}

@@ -1,0 +1,466 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="group__pfleury__uart" kind="group">
+    <compoundname>pfleury_uart</compoundname>
+    <title>UART Library &lt;uart.h&gt;</title>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="group__pfleury__uart_1gac19a76bb7d446125734a67f9f4b68991" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart_init</definition>
+        <argsstring>(unsigned int baudrate)</argsstring>
+        <name>uart_init</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>baudrate</declname>
+        </param>
+        <briefdescription>
+<para>Initialize UART and set baudrate. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>baudrate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Specify baudrate using macro <ref refid="group__pfleury__uart_1ga367ff7b5de225ed936a63239ad4adb0b" kindref="member">UART_BAUD_SELECT()</ref> </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="120" column="13" bodyfile="lib/uart/uart.c" bodystart="439" bodyend="486" declfile="lib/uart/uart.h" declline="120" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1gaefaab30a8338ec46a6be35b99b1b4f09" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int uart_getc</definition>
+        <argsstring>(void)</argsstring>
+        <name>uart_getc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get received byte from ringbuffer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>Returns in the lower byte the received character and in the higher byte the last receive error. UART_NO_DATA is returned when no data is available.</para>
+<para><simplesect kind="return"><para>lower byte: received byte from ringbuffer </para>
+</simplesect>
+<simplesect kind="return"><para>higher byte: last receive status<itemizedlist>
+<listitem><para><bold>0</bold> successfully received data from UART</para>
+</listitem><listitem><para><bold>UART_NO_DATA</bold> <linebreak/>
+no receive data available</para>
+</listitem><listitem><para><bold>UART_BUFFER_OVERFLOW</bold> <linebreak/>
+Receive ringbuffer overflow. We are not reading the receive buffer fast enough, one or more received character have been dropped</para>
+</listitem><listitem><para><bold>UART_OVERRUN_ERROR</bold> <linebreak/>
+Overrun condition by UART. A character already present in the UART UDR register was not read by the interrupt handler before the next character arrived, one or more received characters have been dropped.</para>
+</listitem><listitem><para><bold>UART_FRAME_ERROR</bold> <linebreak/>
+Framing Error by UART </para>
+</listitem></itemizedlist>
+</para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="147" column="21" bodyfile="lib/uart/uart.c" bodystart="494" bodyend="518" declfile="lib/uart/uart.h" declline="147" declcolumn="21"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart_putc</definition>
+        <argsstring>(unsigned char data)</argsstring>
+        <name>uart_putc</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Put byte to ringbuffer for transmitting via UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>byte to be transmitted </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="155" column="13" bodyfile="lib/uart/uart.c" bodystart="526" bodyend="543" declfile="lib/uart/uart.h" declline="155" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart_puts</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>uart_puts</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Put string to ringbuffer for transmitting via UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts. Blocks if it can not write the whole string into the circular buffer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>string to be transmitted </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="168" column="13" bodyfile="lib/uart/uart.c" bodystart="551" bodyend="555" declfile="lib/uart/uart.h" declline="168" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1ga6d78b6744db6232f52b4616402036c2f" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart_puts_p</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>uart_puts_p</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Put string from program memory to ringbuffer for transmitting via UART. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The string is buffered by the uart library in a circular buffer and one character at a time is transmitted to the UART using interrupts. Blocks if it can not write the whole string into the circular buffer.</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>s</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>program memory string to be transmitted </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>none </para>
+</simplesect>
+<simplesect kind="see"><para><ref refid="group__pfleury__uart_1gae9e143569df2285379bc55f9f5595bf9" kindref="member">uart_puts_P</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="182" column="13" bodyfile="lib/uart/uart.c" bodystart="563" bodyend="569" declfile="lib/uart/uart.h" declline="182" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1ga4db697cb5469fd70e794fa7df73a6d6a" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart1_init</definition>
+        <argsstring>(unsigned int baudrate)</argsstring>
+        <name>uart1_init</name>
+        <param>
+          <type>unsigned int</type>
+          <declname>baudrate</declname>
+        </param>
+        <briefdescription>
+<para>Initialize USART1 (only available on selected ATmegas). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__pfleury__uart_1gac19a76bb7d446125734a67f9f4b68991" kindref="member">uart_init</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="191" column="13" declfile="lib/uart/uart.h" declline="191" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1gaeb1405c641e5bc9b7224018f5e8d90de" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>unsigned int</type>
+        <definition>unsigned int uart1_getc</definition>
+        <argsstring>(void)</argsstring>
+        <name>uart1_getc</name>
+        <param>
+          <type>void</type>
+        </param>
+        <briefdescription>
+<para>Get received byte of USART1 from ringbuffer. (only available on selected ATmega). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__pfleury__uart_1gaefaab30a8338ec46a6be35b99b1b4f09" kindref="member">uart_getc</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="193" column="21" declfile="lib/uart/uart.h" declline="193" declcolumn="21"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1gab465f689d197fadfbacc374fc9411154" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart1_putc</definition>
+        <argsstring>(unsigned char data)</argsstring>
+        <name>uart1_putc</name>
+        <param>
+          <type>unsigned char</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+<para>Put byte to ringbuffer for transmitting via USART1 (only available on selected ATmega). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__pfleury__uart_1gad975221bc08b901e4c7ad69f9c9a97e2" kindref="member">uart_putc</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="195" column="13" declfile="lib/uart/uart.h" declline="195" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1ga5568f8f3913b218fd4d0346af78831b2" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart1_puts</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>uart1_puts</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Put string to ringbuffer for transmitting via USART1 (only available on selected ATmega). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__pfleury__uart_1gae52facc0a56086a365bb0018160d8d71" kindref="member">uart_puts</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="197" column="13" declfile="lib/uart/uart.h" declline="197" declcolumn="13"/>
+      </memberdef>
+      <memberdef kind="function" id="group__pfleury__uart_1ga1e8074d0a2d5922601c5db2f9777ba79" prot="public" static="no" extern="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void uart1_puts_p</definition>
+        <argsstring>(const char *s)</argsstring>
+        <name>uart1_puts_p</name>
+        <param>
+          <type>const char *</type>
+          <declname>s</declname>
+        </param>
+        <briefdescription>
+<para>Put string from program memory to ringbuffer for transmitting via USART1 (only available on selected ATmega). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="see"><para><ref refid="group__pfleury__uart_1ga6d78b6744db6232f52b4616402036c2f" kindref="member">uart_puts_p</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="199" column="13" declfile="lib/uart/uart.h" declline="199" declcolumn="13"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="group__pfleury__uart_1ga367ff7b5de225ed936a63239ad4adb0b" prot="public" static="no">
+        <name>UART_BAUD_SELECT</name>
+        <param><defname>baudRate</defname></param>
+        <param><defname>xtalCpu</defname></param>
+        <initializer>(((xtalCpu) + 8UL * (baudRate)) / (16UL * (baudRate)) - 1UL)</initializer>
+        <briefdescription>
+<para>UART Baudrate Expression. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xtalCpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>system clock in Mhz, e.g. 4000000UL for 4Mhz </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>baudRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>baudrate in bps, e.g. 1200, 2400, 9600 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="70" column="9" bodyfile="lib/uart/uart.h" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga1a02d45130520cb651ab313e69039382" prot="public" static="no">
+        <name>UART_BAUD_SELECT_DOUBLE_SPEED</name>
+        <param><defname>baudRate</defname></param>
+        <param><defname>xtalCpu</defname></param>
+        <initializer>( ((((xtalCpu) + 4UL * (baudRate)) / (8UL * (baudRate)) - 1UL)) | 0x8000)</initializer>
+        <briefdescription>
+<para>UART Baudrate Expression for ATmega double speed mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>xtalCpu</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>system clock in Mhz, e.g. 4000000UL for 4Mhz </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>baudRate</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>baudrate in bps, e.g. 1200, 2400, 9600 </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="76" column="9" bodyfile="lib/uart/uart.h" bodystart="76" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga5bdd6772c246436bb14377095de79b31" prot="public" static="no">
+        <name>UART_RX_BUFFER_SIZE</name>
+        <initializer>128</initializer>
+        <briefdescription>
+<para>Size of the circular receive buffer, must be power of 2. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You may need to adapt this constant to your target and your application by adding CDEFS += -DUART_RX_BUFFER_SIZE=nn to your Makefile. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="84" column="10" bodyfile="lib/uart/uart.h" bodystart="84" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga05f5d709605c6317c97e4974bec3402a" prot="public" static="no">
+        <name>UART_TX_BUFFER_SIZE</name>
+        <initializer>128</initializer>
+        <briefdescription>
+<para>Size of the circular transmit buffer, must be power of 2. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>You may need to adapt this constant to your target and your application by adding CDEFS += -DUART_TX_BUFFER_SIZE=nn to your Makefile. </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="93" column="10" bodyfile="lib/uart/uart.h" bodystart="93" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1gabcdb1041d763560cd8f8e722370dfd37" prot="public" static="no">
+        <name>UART_FRAME_ERROR</name>
+        <initializer>0x1000</initializer>
+        <briefdescription>
+<para>Framing Error by UART. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="104" column="9" bodyfile="lib/uart/uart.h" bodystart="104" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga3183177e3613d8785d8cc8516931beb6" prot="public" static="no">
+        <name>UART_OVERRUN_ERROR</name>
+        <initializer>0x0800</initializer>
+        <briefdescription>
+<para>Overrun condition by UART. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="105" column="9" bodyfile="lib/uart/uart.h" bodystart="105" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga946e3d317937e003d2057bf19e96dd1d" prot="public" static="no">
+        <name>UART_PARITY_ERROR</name>
+        <initializer>0x0400</initializer>
+        <briefdescription>
+<para>Parity Error by UART. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="106" column="9" bodyfile="lib/uart/uart.h" bodystart="106" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga94758f3dad6864703b7417d3e40f11df" prot="public" static="no">
+        <name>UART_BUFFER_OVERFLOW</name>
+        <initializer>0x0200</initializer>
+        <briefdescription>
+<para>receive ringbuffer overflow </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="107" column="9" bodyfile="lib/uart/uart.h" bodystart="107" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1ga77ba544d423ff42d400220a05303f268" prot="public" static="no">
+        <name>UART_NO_DATA</name>
+        <initializer>0x0100</initializer>
+        <briefdescription>
+<para>no receive data available </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="108" column="9" bodyfile="lib/uart/uart.h" bodystart="108" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1gae9e143569df2285379bc55f9f5595bf9" prot="public" static="no">
+        <name>uart_puts_P</name>
+        <param><defname>__s</defname></param>
+        <initializer><ref refid="group__pfleury__uart_1ga6d78b6744db6232f52b4616402036c2f" kindref="member">uart_puts_p</ref>(PSTR(__s))</initializer>
+        <briefdescription>
+<para>Macro to automatically put a string constant into program memory. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="187" column="9" bodyfile="lib/uart/uart.h" bodystart="187" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="define" id="group__pfleury__uart_1gaabd7a5b0c15611ee9ecb2873cc9ee87a" prot="public" static="no">
+        <name>uart1_puts_P</name>
+        <param><defname>__s</defname></param>
+        <initializer><ref refid="group__pfleury__uart_1ga1e8074d0a2d5922601c5db2f9777ba79" kindref="member">uart1_puts_p</ref>(PSTR(__s))</initializer>
+        <briefdescription>
+<para>Macro to automatically put a string constant into program memory. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="lib/uart/uart.h" line="201" column="9" bodyfile="lib/uart/uart.h" bodystart="201" bodyend="-1"/>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+<para>Interrupt UART library using the built-in UART with transmit and receive circular buffers. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><programlisting><codeline><highlight class="preprocessor">#include<sp/>&lt;<ref refid="uart_8h" kindref="compound">uart.h</ref>&gt;</highlight><highlight class="normal"><sp/></highlight></codeline>
+</programlisting></para>
+<para>This library can be used to transmit and receive data through the built in UART.</para>
+<para>An interrupt is generated when the UART has finished transmitting or receiving a byte. The interrupt handling routines use circular buffers for buffering received and transmitted data.</para>
+<para>The UART_RX_BUFFER_SIZE and UART_TX_BUFFER_SIZE constants define the size of the circular buffers in bytes. Note that these constants must be a power of 2. You may need to adapt these constants to your target and your application by adding CDEFS += -DUART_RX_BUFFER_SIZE=nn -DUART_TX_BUFFER_SIZE=nn to your Makefile.</para>
+<para><simplesect kind="note"><para>Based on Atmel Application Note AVR306 </para>
+</simplesect>
+<simplesect kind="author"><para>Peter Fleury <ulink url="mailto:pfleury@gmx.ch">pfleury@gmx.ch</ulink> <ulink url="http://tinyurl.com/peterfleury">http://tinyurl.com/peterfleury</ulink> </para>
+</simplesect>
+<simplesect kind="copyright"><para>(C) 2015 Peter Fleury, GNU General Public License Version 3 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+  </compounddef>
+</doxygen>
